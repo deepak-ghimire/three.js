@@ -4975,31 +4975,57 @@
 			this.drawRange.start = start;
 			this.drawRange.count = count;
 		}
-		applyMatrix4(matrix) {
-			const position = this.attributes.position;
-			if (position !== undefined) {
-				position.applyMatrix4(matrix);
-				position.needsUpdate = true;
-			}
-			const normal = this.attributes.normal;
-			if (normal !== undefined) {
-				const normalMatrix = new Matrix3().getNormalMatrix(matrix);
-				normal.applyNormalMatrix(normalMatrix);
-				normal.needsUpdate = true;
-			}
-			const tangent = this.attributes.tangent;
-			if (tangent !== undefined) {
-				tangent.transformDirection(matrix);
-				tangent.needsUpdate = true;
-			}
-			if (this.boundingBox !== null) {
-				this.computeBoundingBox();
-			}
-			if (this.boundingSphere !== null) {
-				this.computeBoundingSphere();
-			}
-			return this;
-		}
+
+		// applyMatrix4( matrix ) {
+
+		// 	const position = this.attributes.position;
+
+		// 	if ( position !== undefined ) {
+
+		// 		position.applyMatrix4( matrix );
+
+		// 		position.needsUpdate = true;
+
+		// 	}
+
+		// 	const normal = this.attributes.normal;
+
+		// 	if ( normal !== undefined ) {
+
+		// 		const normalMatrix = new Matrix3().getNormalMatrix( matrix );
+
+		// 		normal.applyNormalMatrix( normalMatrix );
+
+		// 		normal.needsUpdate = true;
+
+		// 	}
+
+		// 	const tangent = this.attributes.tangent;
+
+		// 	if ( tangent !== undefined ) {
+
+		// 		tangent.transformDirection( matrix );
+
+		// 		tangent.needsUpdate = true;
+
+		// 	}
+
+		// 	if ( this.boundingBox !== null ) {
+
+		// 		this.computeBoundingBox();
+
+		// 	}
+
+		// 	if ( this.boundingSphere !== null ) {
+
+		// 		this.computeBoundingSphere();
+
+		// 	}
+
+		// 	return this;
+
+		// }
+
 		applyQuaternion(q) {
 			_m1.makeRotationFromQuaternion(q);
 			this.applyMatrix4(_m1);
@@ -15019,16 +15045,23 @@
 				console.warn('THREE.WebGLRenderer: Attempt to use non-existing WebGL internal format \'' + internalFormatName + '\'');
 			}
 			let internalFormat = glFormat;
-			if (glFormat === _gl.RED) {
-				if (glType === _gl.FLOAT) internalFormat = _gl.R32F;
-				if (glType === _gl.HALF_FLOAT) internalFormat = _gl.R16F;
-				if (glType === _gl.UNSIGNED_BYTE) internalFormat = _gl.R8;
-			}
-			if (glFormat === _gl.RG) {
-				if (glType === _gl.FLOAT) internalFormat = _gl.RG32F;
-				if (glType === _gl.HALF_FLOAT) internalFormat = _gl.RG16F;
-				if (glType === _gl.UNSIGNED_BYTE) internalFormat = _gl.RG8;
-			}
+
+			// if ( glFormat === _gl.RED ) {
+
+			// 	if ( glType === _gl.FLOAT ) internalFormat = _gl.R32F;
+			// 	if ( glType === _gl.HALF_FLOAT ) internalFormat = _gl.R16F;
+			// 	if ( glType === _gl.UNSIGNED_BYTE ) internalFormat = _gl.R8;
+
+			// }
+
+			// if ( glFormat === _gl.RG ) {
+
+			// 	if ( glType === _gl.FLOAT ) internalFormat = _gl.RG32F;
+			// 	if ( glType === _gl.HALF_FLOAT ) internalFormat = _gl.RG16F;
+			// 	if ( glType === _gl.UNSIGNED_BYTE ) internalFormat = _gl.RG8;
+
+			// }
+
 			if (glFormat === _gl.RGBA) {
 				if (glType === _gl.FLOAT) internalFormat = _gl.RGBA32F;
 				if (glType === _gl.HALF_FLOAT) internalFormat = _gl.RGBA16F;
@@ -15036,9 +15069,15 @@
 				if (glType === _gl.UNSIGNED_SHORT_4_4_4_4) internalFormat = _gl.RGBA4;
 				if (glType === _gl.UNSIGNED_SHORT_5_5_5_1) internalFormat = _gl.RGB5_A1;
 			}
-			if (internalFormat === _gl.R16F || internalFormat === _gl.R32F || internalFormat === _gl.RG16F || internalFormat === _gl.RG32F || internalFormat === _gl.RGBA16F || internalFormat === _gl.RGBA32F) {
-				extensions.get('EXT_color_buffer_float');
-			}
+
+			// if ( internalFormat === _gl.R16F || internalFormat === _gl.R32F ||
+			// 	internalFormat === _gl.RG16F || internalFormat === _gl.RG32F ||
+			// 	internalFormat === _gl.RGBA16F || internalFormat === _gl.RGBA32F ) {
+
+			// 	extensions.get( 'EXT_color_buffer_float' );
+
+			// }
+
 			return internalFormat;
 		}
 		function getMipLevels(texture, image, supportsMips) {
@@ -15196,7 +15235,9 @@
 
 		function setTexture2D(texture, slot) {
 			const textureProperties = properties.get(texture);
-			if (texture.isVideoTexture) updateVideoTexture(texture);
+
+			// if ( texture.isVideoTexture ) updateVideoTexture( texture );
+
 			if (texture.isRenderTargetTexture === false && texture.version > 0 && textureProperties.__version !== texture.version) {
 				const image = texture.image;
 				if (image === null) {
@@ -15971,16 +16012,22 @@
 			const renderTargetProperties = properties.get(renderTarget);
 			return isWebGL2 && renderTarget.samples > 0 && extensions.has('WEBGL_multisampled_render_to_texture') === true && renderTargetProperties.__useRenderToTexture !== false;
 		}
-		function updateVideoTexture(texture) {
-			const frame = info.render.frame;
 
-			// Check the last frame we updated the VideoTexture
+		// function updateVideoTexture( texture ) {
 
-			if (_videoTextures.get(texture) !== frame) {
-				_videoTextures.set(texture, frame);
-				texture.update();
-			}
-		}
+		// 	const frame = info.render.frame;
+
+		// 	// Check the last frame we updated the VideoTexture
+
+		// 	if ( _videoTextures.get( texture ) !== frame ) {
+
+		// 		_videoTextures.set( texture, frame );
+		// 		texture.update();
+
+		// 	}
+
+		// }
+
 		function verifyColorSpace(texture, image) {
 			// const encoding = texture.encoding;
 			// const format = texture.format;

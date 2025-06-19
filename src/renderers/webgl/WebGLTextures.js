@@ -149,21 +149,21 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		let internalFormat = glFormat;
 
-		if ( glFormat === _gl.RED ) {
+		// if ( glFormat === _gl.RED ) {
 
-			if ( glType === _gl.FLOAT ) internalFormat = _gl.R32F;
-			if ( glType === _gl.HALF_FLOAT ) internalFormat = _gl.R16F;
-			if ( glType === _gl.UNSIGNED_BYTE ) internalFormat = _gl.R8;
+		// 	if ( glType === _gl.FLOAT ) internalFormat = _gl.R32F;
+		// 	if ( glType === _gl.HALF_FLOAT ) internalFormat = _gl.R16F;
+		// 	if ( glType === _gl.UNSIGNED_BYTE ) internalFormat = _gl.R8;
 
-		}
+		// }
 
-		if ( glFormat === _gl.RG ) {
+		// if ( glFormat === _gl.RG ) {
 
-			if ( glType === _gl.FLOAT ) internalFormat = _gl.RG32F;
-			if ( glType === _gl.HALF_FLOAT ) internalFormat = _gl.RG16F;
-			if ( glType === _gl.UNSIGNED_BYTE ) internalFormat = _gl.RG8;
+		// 	if ( glType === _gl.FLOAT ) internalFormat = _gl.RG32F;
+		// 	if ( glType === _gl.HALF_FLOAT ) internalFormat = _gl.RG16F;
+		// 	if ( glType === _gl.UNSIGNED_BYTE ) internalFormat = _gl.RG8;
 
-		}
+		// }
 
 		if ( glFormat === _gl.RGBA ) {
 
@@ -175,13 +175,13 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		}
 
-		if ( internalFormat === _gl.R16F || internalFormat === _gl.R32F ||
-			internalFormat === _gl.RG16F || internalFormat === _gl.RG32F ||
-			internalFormat === _gl.RGBA16F || internalFormat === _gl.RGBA32F ) {
+		// if ( internalFormat === _gl.R16F || internalFormat === _gl.R32F ||
+		// 	internalFormat === _gl.RG16F || internalFormat === _gl.RG32F ||
+		// 	internalFormat === _gl.RGBA16F || internalFormat === _gl.RGBA32F ) {
 
-			extensions.get( 'EXT_color_buffer_float' );
+		// 	extensions.get( 'EXT_color_buffer_float' );
 
-		}
+		// }
 
 		return internalFormat;
 
@@ -438,7 +438,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 		const textureProperties = properties.get( texture );
 
-		if ( texture.isVideoTexture ) updateVideoTexture( texture );
+		// if ( texture.isVideoTexture ) updateVideoTexture( texture );
 
 		if ( texture.isRenderTargetTexture === false && texture.version > 0 && textureProperties.__version !== texture.version ) {
 
@@ -1903,20 +1903,20 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 
 	}
 
-	function updateVideoTexture( texture ) {
+	// function updateVideoTexture( texture ) {
 
-		const frame = info.render.frame;
+	// 	const frame = info.render.frame;
 
-		// Check the last frame we updated the VideoTexture
+	// 	// Check the last frame we updated the VideoTexture
 
-		if ( _videoTextures.get( texture ) !== frame ) {
+	// 	if ( _videoTextures.get( texture ) !== frame ) {
 
-			_videoTextures.set( texture, frame );
-			texture.update();
+	// 		_videoTextures.set( texture, frame );
+	// 		texture.update();
 
-		}
+	// 	}
 
-	}
+	// }
 
 	function verifyColorSpace( texture, image ) {
 

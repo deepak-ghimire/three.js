@@ -126,55 +126,55 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	applyMatrix4( matrix ) {
+	// applyMatrix4( matrix ) {
 
-		const position = this.attributes.position;
+	// 	const position = this.attributes.position;
 
-		if ( position !== undefined ) {
+	// 	if ( position !== undefined ) {
 
-			position.applyMatrix4( matrix );
+	// 		position.applyMatrix4( matrix );
 
-			position.needsUpdate = true;
+	// 		position.needsUpdate = true;
 
-		}
+	// 	}
 
-		const normal = this.attributes.normal;
+	// 	const normal = this.attributes.normal;
 
-		if ( normal !== undefined ) {
+	// 	if ( normal !== undefined ) {
 
-			const normalMatrix = new Matrix3().getNormalMatrix( matrix );
+	// 		const normalMatrix = new Matrix3().getNormalMatrix( matrix );
 
-			normal.applyNormalMatrix( normalMatrix );
+	// 		normal.applyNormalMatrix( normalMatrix );
 
-			normal.needsUpdate = true;
+	// 		normal.needsUpdate = true;
 
-		}
+	// 	}
 
-		const tangent = this.attributes.tangent;
+	// 	const tangent = this.attributes.tangent;
 
-		if ( tangent !== undefined ) {
+	// 	if ( tangent !== undefined ) {
 
-			tangent.transformDirection( matrix );
+	// 		tangent.transformDirection( matrix );
 
-			tangent.needsUpdate = true;
+	// 		tangent.needsUpdate = true;
 
-		}
+	// 	}
 
-		if ( this.boundingBox !== null ) {
+	// 	if ( this.boundingBox !== null ) {
 
-			this.computeBoundingBox();
+	// 		this.computeBoundingBox();
 
-		}
+	// 	}
 
-		if ( this.boundingSphere !== null ) {
+	// 	if ( this.boundingSphere !== null ) {
 
-			this.computeBoundingSphere();
+	// 		this.computeBoundingSphere();
 
-		}
+	// 	}
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 	applyQuaternion( q ) {
 
