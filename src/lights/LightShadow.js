@@ -107,40 +107,40 @@ class LightShadow {
 
 	}
 
-	copy( source ) {
+	// copy( source ) {
 
-		this.camera = source.camera.clone();
+	// 	this.camera = source.camera.clone();
 
-		this.bias = source.bias;
-		this.radius = source.radius;
+	// 	this.bias = source.bias;
+	// 	this.radius = source.radius;
 
-		this.mapSize.copy( source.mapSize );
+	// 	this.mapSize.copy( source.mapSize );
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
-	clone() {
+	// clone() {
 
-		return new this.constructor().copy( this );
+	// 	return new this.constructor().copy( this );
 
-	}
+	// }
 
-	toJSON() {
+	// toJSON() {
 
-		const object = {};
+	// 	const object = {};
 
-		if ( this.bias !== 0 ) object.bias = this.bias;
-		if ( this.normalBias !== 0 ) object.normalBias = this.normalBias;
-		if ( this.radius !== 1 ) object.radius = this.radius;
-		if ( this.mapSize.x !== 512 || this.mapSize.y !== 512 ) object.mapSize = this.mapSize.toArray();
+	// 	if ( this.bias !== 0 ) object.bias = this.bias;
+	// 	if ( this.normalBias !== 0 ) object.normalBias = this.normalBias;
+	// 	if ( this.radius !== 1 ) object.radius = this.radius;
+	// 	if ( this.mapSize.x !== 512 || this.mapSize.y !== 512 ) object.mapSize = this.mapSize.toArray();
 
-		object.camera = this.camera.toJSON( false ).object;
-		delete object.camera.matrix;
+	// 	object.camera = this.camera.toJSON( false ).object;
+	// 	delete object.camera.matrix;
 
-		return object;
+	// 	return object;
 
-	}
+	// }
 
 }
 

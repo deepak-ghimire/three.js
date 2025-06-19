@@ -95,114 +95,114 @@ class Texture extends EventDispatcher {
 
 	}
 
-	clone() {
+	// clone() {
 
-		return new this.constructor().copy( this );
+	// 	return new this.constructor().copy( this );
 
-	}
+	// }
 
-	copy( source ) {
+	// copy( source ) {
 
-		this.name = source.name;
+	// 	this.name = source.name;
 
-		this.source = source.source;
-		this.mipmaps = source.mipmaps.slice( 0 );
+	// 	this.source = source.source;
+	// 	this.mipmaps = source.mipmaps.slice( 0 );
 
-		this.mapping = source.mapping;
+	// 	this.mapping = source.mapping;
 
-		this.wrapS = source.wrapS;
-		this.wrapT = source.wrapT;
+	// 	this.wrapS = source.wrapS;
+	// 	this.wrapT = source.wrapT;
 
-		this.magFilter = source.magFilter;
-		this.minFilter = source.minFilter;
+	// 	this.magFilter = source.magFilter;
+	// 	this.minFilter = source.minFilter;
 
-		this.anisotropy = source.anisotropy;
+	// 	this.anisotropy = source.anisotropy;
 
-		this.format = source.format;
-		this.internalFormat = source.internalFormat;
-		this.type = source.type;
+	// 	this.format = source.format;
+	// 	this.internalFormat = source.internalFormat;
+	// 	this.type = source.type;
 
-		this.offset.copy( source.offset );
-		this.repeat.copy( source.repeat );
-		this.center.copy( source.center );
-		this.rotation = source.rotation;
+	// 	this.offset.copy( source.offset );
+	// 	this.repeat.copy( source.repeat );
+	// 	this.center.copy( source.center );
+	// 	this.rotation = source.rotation;
 
-		this.matrixAutoUpdate = source.matrixAutoUpdate;
-		this.matrix.copy( source.matrix );
+	// 	this.matrixAutoUpdate = source.matrixAutoUpdate;
+	// 	this.matrix.copy( source.matrix );
 
-		this.generateMipmaps = source.generateMipmaps;
-		this.premultiplyAlpha = source.premultiplyAlpha;
-		this.flipY = source.flipY;
-		this.unpackAlignment = source.unpackAlignment;
-		this.encoding = source.encoding;
+	// 	this.generateMipmaps = source.generateMipmaps;
+	// 	this.premultiplyAlpha = source.premultiplyAlpha;
+	// 	this.flipY = source.flipY;
+	// 	this.unpackAlignment = source.unpackAlignment;
+	// 	this.encoding = source.encoding;
 
-		this.userData = JSON.parse( JSON.stringify( source.userData ) );
+	// 	this.userData = JSON.parse( JSON.stringify( source.userData ) );
 
-		this.needsUpdate = true;
+	// 	this.needsUpdate = true;
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
-	toJSON( meta ) {
+	// toJSON( meta ) {
 
-		const isRootObject = ( meta === undefined || typeof meta === 'string' );
+	// 	const isRootObject = ( meta === undefined || typeof meta === 'string' );
 
-		if ( ! isRootObject && meta.textures[ this.uuid ] !== undefined ) {
+	// 	if ( ! isRootObject && meta.textures[ this.uuid ] !== undefined ) {
 
-			return meta.textures[ this.uuid ];
+	// 		return meta.textures[ this.uuid ];
 
-		}
+	// 	}
 
-		const output = {
+	// 	const output = {
 
-			metadata: {
-				version: 4.5,
-				type: 'Texture',
-				generator: 'Texture.toJSON'
-			},
+	// 		metadata: {
+	// 			version: 4.5,
+	// 			type: 'Texture',
+	// 			generator: 'Texture.toJSON'
+	// 		},
 
-			uuid: this.uuid,
-			name: this.name,
+	// 		uuid: this.uuid,
+	// 		name: this.name,
 
-			image: this.source.toJSON( meta ).uuid,
+	// 		image: this.source.toJSON( meta ).uuid,
 
-			mapping: this.mapping,
+	// 		mapping: this.mapping,
 
-			repeat: [ this.repeat.x, this.repeat.y ],
-			offset: [ this.offset.x, this.offset.y ],
-			center: [ this.center.x, this.center.y ],
-			rotation: this.rotation,
+	// 		repeat: [ this.repeat.x, this.repeat.y ],
+	// 		offset: [ this.offset.x, this.offset.y ],
+	// 		center: [ this.center.x, this.center.y ],
+	// 		rotation: this.rotation,
 
-			wrap: [ this.wrapS, this.wrapT ],
+	// 		wrap: [ this.wrapS, this.wrapT ],
 
-			format: this.format,
-			type: this.type,
-			encoding: this.encoding,
+	// 		format: this.format,
+	// 		type: this.type,
+	// 		encoding: this.encoding,
 
-			minFilter: this.minFilter,
-			magFilter: this.magFilter,
-			anisotropy: this.anisotropy,
+	// 		minFilter: this.minFilter,
+	// 		magFilter: this.magFilter,
+	// 		anisotropy: this.anisotropy,
 
-			flipY: this.flipY,
+	// 		flipY: this.flipY,
 
-			generateMipmaps: this.generateMipmaps,
-			premultiplyAlpha: this.premultiplyAlpha,
-			unpackAlignment: this.unpackAlignment
+	// 		generateMipmaps: this.generateMipmaps,
+	// 		premultiplyAlpha: this.premultiplyAlpha,
+	// 		unpackAlignment: this.unpackAlignment
 
-		};
+	// 	};
 
-		if ( Object.keys( this.userData ).length > 0 ) output.userData = this.userData;
+	// 	if ( Object.keys( this.userData ).length > 0 ) output.userData = this.userData;
 
-		if ( ! isRootObject ) {
+	// 	if ( ! isRootObject ) {
 
-			meta.textures[ this.uuid ] = output;
+	// 		meta.textures[ this.uuid ] = output;
 
-		}
+	// 	}
 
-		return output;
+	// 	return output;
 
-	}
+	// }
 
 	dispose() {
 

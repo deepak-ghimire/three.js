@@ -853,118 +853,118 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	toJSON() {
+	// toJSON() {
 
-		const data = {
-			metadata: {
-				version: 4.5,
-				type: 'BufferGeometry',
-				generator: 'BufferGeometry.toJSON'
-			}
-		};
+	// 	const data = {
+	// 		metadata: {
+	// 			version: 4.5,
+	// 			type: 'BufferGeometry',
+	// 			generator: 'BufferGeometry.toJSON'
+	// 		}
+	// 	};
 
-		// standard BufferGeometry serialization
+	// 	// standard BufferGeometry serialization
 
-		data.uuid = this.uuid;
-		data.type = this.type;
-		if ( this.name !== '' ) data.name = this.name;
-		if ( Object.keys( this.userData ).length > 0 ) data.userData = this.userData;
+	// 	data.uuid = this.uuid;
+	// 	data.type = this.type;
+	// 	if ( this.name !== '' ) data.name = this.name;
+	// 	if ( Object.keys( this.userData ).length > 0 ) data.userData = this.userData;
 
-		if ( this.parameters !== undefined ) {
+	// 	if ( this.parameters !== undefined ) {
 
-			const parameters = this.parameters;
+	// 		const parameters = this.parameters;
 
-			for ( const key in parameters ) {
+	// 		for ( const key in parameters ) {
 
-				if ( parameters[ key ] !== undefined ) data[ key ] = parameters[ key ];
+	// 			if ( parameters[ key ] !== undefined ) data[ key ] = parameters[ key ];
 
-			}
+	// 		}
 
-			return data;
+	// 		return data;
 
-		}
+	// 	}
 
-		// for simplicity the code assumes attributes are not shared across geometries, see #15811
+	// 	// for simplicity the code assumes attributes are not shared across geometries, see #15811
 
-		data.data = { attributes: {} };
+	// 	data.data = { attributes: {} };
 
-		const index = this.index;
+	// 	const index = this.index;
 
-		if ( index !== null ) {
+	// 	if ( index !== null ) {
 
-			data.data.index = {
-				type: index.array.constructor.name,
-				array: Array.prototype.slice.call( index.array )
-			};
+	// 		data.data.index = {
+	// 			type: index.array.constructor.name,
+	// 			array: Array.prototype.slice.call( index.array )
+	// 		};
 
-		}
+	// 	}
 
-		const attributes = this.attributes;
+	// 	const attributes = this.attributes;
 
-		for ( const key in attributes ) {
+	// 	for ( const key in attributes ) {
 
-			const attribute = attributes[ key ];
+	// 		const attribute = attributes[ key ];
 
-			data.data.attributes[ key ] = attribute.toJSON( data.data );
+	// 		data.data.attributes[ key ] = attribute.toJSON( data.data );
 
-		}
+	// 	}
 
-		const morphAttributes = {};
-		let hasMorphAttributes = false;
+	// 	const morphAttributes = {};
+	// 	let hasMorphAttributes = false;
 
-		for ( const key in this.morphAttributes ) {
+	// 	for ( const key in this.morphAttributes ) {
 
-			const attributeArray = this.morphAttributes[ key ];
+	// 		const attributeArray = this.morphAttributes[ key ];
 
-			const array = [];
+	// 		const array = [];
 
-			for ( let i = 0, il = attributeArray.length; i < il; i ++ ) {
+	// 		for ( let i = 0, il = attributeArray.length; i < il; i ++ ) {
 
-				const attribute = attributeArray[ i ];
+	// 			const attribute = attributeArray[ i ];
 
-				array.push( attribute.toJSON( data.data ) );
+	// 			array.push( attribute.toJSON( data.data ) );
 
-			}
+	// 		}
 
-			if ( array.length > 0 ) {
+	// 		if ( array.length > 0 ) {
 
-				morphAttributes[ key ] = array;
+	// 			morphAttributes[ key ] = array;
 
-				hasMorphAttributes = true;
+	// 			hasMorphAttributes = true;
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		if ( hasMorphAttributes ) {
+	// 	if ( hasMorphAttributes ) {
 
-			data.data.morphAttributes = morphAttributes;
-			data.data.morphTargetsRelative = this.morphTargetsRelative;
+	// 		data.data.morphAttributes = morphAttributes;
+	// 		data.data.morphTargetsRelative = this.morphTargetsRelative;
 
-		}
+	// 	}
 
-		const groups = this.groups;
+	// 	const groups = this.groups;
 
-		if ( groups.length > 0 ) {
+	// 	if ( groups.length > 0 ) {
 
-			data.data.groups = JSON.parse( JSON.stringify( groups ) );
+	// 		data.data.groups = JSON.parse( JSON.stringify( groups ) );
 
-		}
+	// 	}
 
-		const boundingSphere = this.boundingSphere;
+	// 	const boundingSphere = this.boundingSphere;
 
-		if ( boundingSphere !== null ) {
+	// 	if ( boundingSphere !== null ) {
 
-			data.data.boundingSphere = {
-				center: boundingSphere.center.toArray(),
-				radius: boundingSphere.radius
-			};
+	// 		data.data.boundingSphere = {
+	// 			center: boundingSphere.center.toArray(),
+	// 			radius: boundingSphere.radius
+	// 		};
 
-		}
+	// 	}
 
-		return data;
+	// 	return data;
 
-	}
+	// }
 
 	clone() {
 

@@ -1,6 +1,7 @@
 import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import babelrc from './.babelrc.json';
+import { execSync } from 'child_process';
 
 export function glconstants() {
 
@@ -286,22 +287,31 @@ ${ code }`;
 
 }
 
+function npmRunner(code) {
+	return {
+		buildEnd( code ) {
+			execSync('madge --image graph.svg src/Three.js');
+			console.log( 'Code executed' );
+		}
+	}
+}
+
 const builds = [
-	{
-		input: 'src/Three.js',
-		plugins: [
-			addons(),
-			glconstants(),
-			glsl(),
-			header()
-		],
-		output: [
-			{
-				format: 'esm',
-				file: 'build/three.module.js'
-			}
-		]
-	},
+	// {
+	// 	input: 'src/Three.js',
+	// 	plugins: [
+	// 		addons(),
+	// 		glconstants(),
+	// 		glsl(),
+	// 		header()
+	// 	],
+	// 	output: [
+	// 		{
+	// 			format: 'esm',
+	// 			file: 'build/three.module.js'
+	// 		}
+	// 	]
+	// },
 	{
 		input: 'src/Three.js',
 		plugins: [
@@ -314,7 +324,8 @@ const builds = [
 				...babelrc
 			} ),
 			babelCleanup(),
-			header()
+			header(),
+			npmRunner()
 		],
 		output: [
 			{
@@ -323,12 +334,12 @@ const builds = [
 				file: 'build/three.js',
 				indent: '\t'
 			},
-			{
-				format: 'cjs',
-				name: 'THREE',
-				file: 'build/three.cjs',
-				indent: '\t'
-			}
+			// {
+			// 	format: 'cjs',
+			// 	name: 'THREE',
+			// 	file: 'build/three.cjs',
+			// 	indent: '\t'
+			// }
 		]
 	},
 	{
@@ -344,7 +355,8 @@ const builds = [
 			} ),
 			babelCleanup(),
 			terser(),
-			header()
+			header(),
+			npmRunner()
 		],
 		output: [
 			{

@@ -2,7 +2,7 @@ export const vertex = /* glsl */`
 #include <common>
 #include <uv_pars_vertex>
 #include <uv2_pars_vertex>
-#include <envmap_pars_vertex>
+// #include <envmap_pars_vertex>
 #include <color_pars_vertex>
 #include <fog_pars_vertex>
 #include <morphtarget_pars_vertex>
@@ -35,7 +35,7 @@ void main() {
 	#include <clipping_planes_vertex>
 
 	#include <worldpos_vertex>
-	#include <envmap_vertex>
+	// #include <envmap_vertex>
 	#include <fog_vertex>
 
 }
@@ -61,8 +61,8 @@ uniform float opacity;
 #include <alphatest_pars_fragment>
 #include <aomap_pars_fragment>
 #include <lightmap_pars_fragment>
-#include <envmap_common_pars_fragment>
-#include <envmap_pars_fragment>
+// #include <envmap_common_pars_fragment>
+// #include <envmap_pars_fragment>
 #include <fog_pars_fragment>
 #include <specularmap_pars_fragment>
 #include <logdepthbuf_pars_fragment>
@@ -102,7 +102,7 @@ void main() {
 
 	vec3 outgoingLight = reflectedLight.indirectDiffuse;
 
-	#include <envmap_fragment>
+	// #include <envmap_fragment>
 
 	#include <output_fragment>
 	#include <tonemapping_fragment>

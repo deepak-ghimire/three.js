@@ -217,35 +217,35 @@ class Ray {
 
 	}
 
-	intersectSphere( sphere, target ) {
+	// intersectSphere( sphere, target ) {
 
-		_vector.subVectors( sphere.center, this.origin );
-		const tca = _vector.dot( this.direction );
-		const d2 = _vector.dot( _vector ) - tca * tca;
-		const radius2 = sphere.radius * sphere.radius;
+	// 	_vector.subVectors( sphere.center, this.origin );
+	// 	const tca = _vector.dot( this.direction );
+	// 	const d2 = _vector.dot( _vector ) - tca * tca;
+	// 	const radius2 = sphere.radius * sphere.radius;
 
-		if ( d2 > radius2 ) return null;
+	// 	if ( d2 > radius2 ) return null;
 
-		const thc = Math.sqrt( radius2 - d2 );
+	// 	const thc = Math.sqrt( radius2 - d2 );
 
-		// t0 = first intersect point - entrance on front of sphere
-		const t0 = tca - thc;
+	// 	// t0 = first intersect point - entrance on front of sphere
+	// 	const t0 = tca - thc;
 
-		// t1 = second intersect point - exit point on back of sphere
-		const t1 = tca + thc;
+	// 	// t1 = second intersect point - exit point on back of sphere
+	// 	const t1 = tca + thc;
 
-		// test to see if both t0 and t1 are behind the ray - if so, return null
-		if ( t0 < 0 && t1 < 0 ) return null;
+	// 	// test to see if both t0 and t1 are behind the ray - if so, return null
+	// 	if ( t0 < 0 && t1 < 0 ) return null;
 
-		// test to see if t0 is behind the ray:
-		// if it is, the ray is inside the sphere, so return the second exit point scaled by t1,
-		// in order to always return an intersect point that is in front of the ray.
-		if ( t0 < 0 ) return this.at( t1, target );
+	// 	// test to see if t0 is behind the ray:
+	// 	// if it is, the ray is inside the sphere, so return the second exit point scaled by t1,
+	// 	// in order to always return an intersect point that is in front of the ray.
+	// 	if ( t0 < 0 ) return this.at( t1, target );
 
-		// else t0 is in front of the ray, so return the first collision point scaled by t0
-		return this.at( t0, target );
+	// 	// else t0 is in front of the ray, so return the first collision point scaled by t0
+	// 	return this.at( t0, target );
 
-	}
+	// }
 
 	intersectsSphere( sphere ) {
 
@@ -253,46 +253,46 @@ class Ray {
 
 	}
 
-	distanceToPlane( plane ) {
+	// distanceToPlane( plane ) {
 
-		const denominator = plane.normal.dot( this.direction );
+	// 	const denominator = plane.normal.dot( this.direction );
 
-		if ( denominator === 0 ) {
+	// 	if ( denominator === 0 ) {
 
-			// line is coplanar, return origin
-			if ( plane.distanceToPoint( this.origin ) === 0 ) {
+	// 		// line is coplanar, return origin
+	// 		if ( plane.distanceToPoint( this.origin ) === 0 ) {
 
-				return 0;
+	// 			return 0;
 
-			}
+	// 		}
 
-			// Null is preferable to undefined since undefined means.... it is undefined
+	// 		// Null is preferable to undefined since undefined means.... it is undefined
 
-			return null;
+	// 		return null;
 
-		}
+	// 	}
 
-		const t = - ( this.origin.dot( plane.normal ) + plane.constant ) / denominator;
+	// 	const t = - ( this.origin.dot( plane.normal ) + plane.constant ) / denominator;
 
-		// Return if the ray never intersects the plane
+	// 	// Return if the ray never intersects the plane
 
-		return t >= 0 ? t : null;
+	// 	return t >= 0 ? t : null;
 
-	}
+	// }
 
-	intersectPlane( plane, target ) {
+	// intersectPlane( plane, target ) {
 
-		const t = this.distanceToPlane( plane );
+	// 	const t = this.distanceToPlane( plane );
 
-		if ( t === null ) {
+	// 	if ( t === null ) {
 
-			return null;
+	// 		return null;
 
-		}
+	// 	}
 
-		return this.at( t, target );
+	// 	return this.at( t, target );
 
-	}
+	// }
 
 	intersectsPlane( plane ) {
 

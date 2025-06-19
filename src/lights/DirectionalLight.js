@@ -27,16 +27,16 @@ class DirectionalLight extends Light {
 
 	}
 
-	copy( source ) {
+	// copy( source ) {
 
-		super.copy( source );
+	// 	super.copy( source );
 
-		this.target = source.target.clone();
-		this.shadow = source.shadow.clone();
+	// 	this.target = source.target.clone();
+	// 	this.shadow = source.shadow.clone();
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 }
 

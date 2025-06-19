@@ -32,16 +32,16 @@ class InstancedInterleavedBuffer extends InterleavedBuffer {
 
 	}
 
-	toJSON( data ) {
+	// toJSON( data ) {
 
-		const json = super.toJSON( data );
+	// 	const json = super.toJSON( data );
 
-		json.isInstancedInterleavedBuffer = true;
-		json.meshPerAttribute = this.meshPerAttribute;
+	// 	json.isInstancedInterleavedBuffer = true;
+	// 	json.meshPerAttribute = this.meshPerAttribute;
 
-		return json;
+	// 	return json;
 
-	}
+	// }
 
 }
 

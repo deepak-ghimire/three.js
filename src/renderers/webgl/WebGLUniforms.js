@@ -583,21 +583,21 @@ function setValueT3D1( gl, v, textures ) {
 
 }
 
-function setValueT6( gl, v, textures ) {
+// function setValueT6( gl, v, textures ) {
 
-	const cache = this.cache;
-	const unit = textures.allocateTextureUnit();
+// 	const cache = this.cache;
+// 	const unit = textures.allocateTextureUnit();
 
-	if ( cache[ 0 ] !== unit ) {
+// 	if ( cache[ 0 ] !== unit ) {
 
-		gl.uniform1i( this.addr, unit );
-		cache[ 0 ] = unit;
+// 		gl.uniform1i( this.addr, unit );
+// 		cache[ 0 ] = unit;
 
-	}
+// 	}
 
-	textures.setTextureCube( v || emptyCubeTexture, unit );
+// 	textures.setTextureCube( v || emptyCubeTexture, unit );
 
-}
+// }
 
 function setValueT2DArray1( gl, v, textures ) {
 
@@ -652,17 +652,17 @@ function getSingularSetter( type ) {
 		case 0x8dd3: // UNSIGNED_INT_SAMPLER_3D
 			return setValueT3D1;
 
-		case 0x8b60: // SAMPLER_CUBE
-		case 0x8dcc: // INT_SAMPLER_CUBE
-		case 0x8dd4: // UNSIGNED_INT_SAMPLER_CUBE
-		case 0x8dc5: // SAMPLER_CUBE_SHADOW
-			return setValueT6;
+		// case 0x8b60: // SAMPLER_CUBE
+		// case 0x8dcc: // INT_SAMPLER_CUBE
+		// case 0x8dd4: // UNSIGNED_INT_SAMPLER_CUBE
+		// case 0x8dc5: // SAMPLER_CUBE_SHADOW
+		// 	return setValueT6;
 
-		case 0x8dc1: // SAMPLER_2D_ARRAY
-		case 0x8dcf: // INT_SAMPLER_2D_ARRAY
-		case 0x8dd7: // UNSIGNED_INT_SAMPLER_2D_ARRAY
-		case 0x8dc4: // SAMPLER_2D_ARRAY_SHADOW
-			return setValueT2DArray1;
+		// case 0x8dc1: // SAMPLER_2D_ARRAY
+		// case 0x8dcf: // INT_SAMPLER_2D_ARRAY
+		// case 0x8dd7: // UNSIGNED_INT_SAMPLER_2D_ARRAY
+		// case 0x8dc4: // SAMPLER_2D_ARRAY_SHADOW
+		// 	return setValueT2DArray1;
 
 	}
 
@@ -836,29 +836,29 @@ function setValueT3DArray( gl, v, textures ) {
 
 }
 
-function setValueT6Array( gl, v, textures ) {
+// function setValueT6Array( gl, v, textures ) {
 
-	const cache = this.cache;
+// 	const cache = this.cache;
 
-	const n = v.length;
+// 	const n = v.length;
 
-	const units = allocTexUnits( textures, n );
+// 	const units = allocTexUnits( textures, n );
 
-	if ( ! arraysEqual( cache, units ) ) {
+// 	if ( ! arraysEqual( cache, units ) ) {
 
-		gl.uniform1iv( this.addr, units );
+// 		gl.uniform1iv( this.addr, units );
 
-		copyArray( cache, units );
+// 		copyArray( cache, units );
 
-	}
+// 	}
 
-	for ( let i = 0; i !== n; ++ i ) {
+// 	for ( let i = 0; i !== n; ++ i ) {
 
-		textures.setTextureCube( v[ i ] || emptyCubeTexture, units[ i ] );
+// 		textures.setTextureCube( v[ i ] || emptyCubeTexture, units[ i ] );
 
-	}
+// 	}
 
-}
+// }
 
 function setValueT2DArrayArray( gl, v, textures ) {
 
@@ -922,11 +922,11 @@ function getPureArraySetter( type ) {
 		case 0x8dd3: // UNSIGNED_INT_SAMPLER_3D
 			return setValueT3DArray;
 
-		case 0x8b60: // SAMPLER_CUBE
-		case 0x8dcc: // INT_SAMPLER_CUBE
-		case 0x8dd4: // UNSIGNED_INT_SAMPLER_CUBE
-		case 0x8dc5: // SAMPLER_CUBE_SHADOW
-			return setValueT6Array;
+		// case 0x8b60: // SAMPLER_CUBE
+		// case 0x8dcc: // INT_SAMPLER_CUBE
+		// case 0x8dd4: // UNSIGNED_INT_SAMPLER_CUBE
+		// case 0x8dc5: // SAMPLER_CUBE_SHADOW
+		// 	return setValueT6Array;
 
 		case 0x8dc1: // SAMPLER_2D_ARRAY
 		case 0x8dcf: // INT_SAMPLER_2D_ARRAY

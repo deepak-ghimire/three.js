@@ -26,11 +26,11 @@ import emissivemap_fragment from './ShaderChunk/emissivemap_fragment.glsl.js';
 import emissivemap_pars_fragment from './ShaderChunk/emissivemap_pars_fragment.glsl.js';
 import encodings_fragment from './ShaderChunk/encodings_fragment.glsl.js';
 import encodings_pars_fragment from './ShaderChunk/encodings_pars_fragment.glsl.js';
-import envmap_fragment from './ShaderChunk/envmap_fragment.glsl.js';
-import envmap_common_pars_fragment from './ShaderChunk/envmap_common_pars_fragment.glsl.js';
-import envmap_pars_fragment from './ShaderChunk/envmap_pars_fragment.glsl.js';
-import envmap_pars_vertex from './ShaderChunk/envmap_pars_vertex.glsl.js';
-import envmap_vertex from './ShaderChunk/envmap_vertex.glsl.js';
+// import envmap_fragment from './ShaderChunk/envmap_fragment.glsl.js';
+// import envmap_common_pars_fragment from './ShaderChunk/envmap_common_pars_fragment.glsl.js';
+// // import envmap_pars_fragment from './ShaderChunk/envmap_pars_fragment.glsl.js';
+// import envmap_pars_vertex from './ShaderChunk/envmap_pars_vertex.glsl.js';
+// import envmap_vertex from './ShaderChunk/envmap_vertex.glsl.js';
 import fog_vertex from './ShaderChunk/fog_vertex.glsl.js';
 import fog_pars_vertex from './ShaderChunk/fog_pars_vertex.glsl.js';
 import fog_fragment from './ShaderChunk/fog_fragment.glsl.js';
@@ -41,7 +41,7 @@ import lightmap_pars_fragment from './ShaderChunk/lightmap_pars_fragment.glsl.js
 import lights_lambert_fragment from './ShaderChunk/lights_lambert_fragment.glsl.js';
 import lights_lambert_pars_fragment from './ShaderChunk/lights_lambert_pars_fragment.glsl.js';
 import lights_pars_begin from './ShaderChunk/lights_pars_begin.glsl.js';
-import envmap_physical_pars_fragment from './ShaderChunk/envmap_physical_pars_fragment.glsl.js';
+// import envmap_physical_pars_fragment from './ShaderChunk/envmap_physical_pars_fragment.glsl.js';
 import lights_toon_fragment from './ShaderChunk/lights_toon_fragment.glsl.js';
 import lights_toon_pars_fragment from './ShaderChunk/lights_toon_pars_fragment.glsl.js';
 import lights_phong_fragment from './ShaderChunk/lights_phong_fragment.glsl.js';
@@ -105,23 +105,23 @@ import uv2_pars_vertex from './ShaderChunk/uv2_pars_vertex.glsl.js';
 import uv2_vertex from './ShaderChunk/uv2_vertex.glsl.js';
 import worldpos_vertex from './ShaderChunk/worldpos_vertex.glsl.js';
 
-import * as background from './ShaderLib/background.glsl.js';
-import * as backgroundCube from './ShaderLib/backgroundCube.glsl.js';
-import * as cube from './ShaderLib/cube.glsl.js';
-import * as depth from './ShaderLib/depth.glsl.js';
-import * as distanceRGBA from './ShaderLib/distanceRGBA.glsl.js';
-import * as equirect from './ShaderLib/equirect.glsl.js';
-import * as linedashed from './ShaderLib/linedashed.glsl.js';
-import * as meshbasic from './ShaderLib/meshbasic.glsl.js';
-import * as meshlambert from './ShaderLib/meshlambert.glsl.js';
-import * as meshmatcap from './ShaderLib/meshmatcap.glsl.js';
-import * as meshnormal from './ShaderLib/meshnormal.glsl.js';
+// import * as background from './ShaderLib/background.glsl.js';
+// import * as backgroundCube from './ShaderLib/backgroundCube.glsl.js';
+// import * as cube from './ShaderLib/cube.glsl.js';
+import * as depth from './ShaderLib/depth.glsl.js'; //used by shadow
+// import * as distanceRGBA from './ShaderLib/distanceRGBA.glsl.js';
+// import * as equirect from './ShaderLib/equirect.glsl.js';
+// import * as linedashed from './ShaderLib/linedashed.glsl.js';
+import * as meshbasic from './ShaderLib/meshbasic.glsl.js'; //used by phong
+// import * as meshlambert from './ShaderLib/meshlambert.glsl.js';
+// import * as meshmatcap from './ShaderLib/meshmatcap.glsl.js';
+// import * as meshnormal from './ShaderLib/meshnormal.glsl.js';
 import * as meshphong from './ShaderLib/meshphong.glsl.js';
-import * as meshphysical from './ShaderLib/meshphysical.glsl.js';
-import * as meshtoon from './ShaderLib/meshtoon.glsl.js';
-import * as points from './ShaderLib/points.glsl.js';
+// import * as meshphysical from './ShaderLib/meshphysical.glsl.js';
+// import * as meshtoon from './ShaderLib/meshtoon.glsl.js';
+// import * as points from './ShaderLib/points.glsl.js';
 import * as shadow from './ShaderLib/shadow.glsl.js';
-import * as sprite from './ShaderLib/sprite.glsl.js';
+// import * as sprite from './ShaderLib/sprite.glsl.js';
 
 export const ShaderChunk = {
 	alphamap_fragment: alphamap_fragment,
@@ -152,12 +152,12 @@ export const ShaderChunk = {
 	emissivemap_pars_fragment: emissivemap_pars_fragment,
 	encodings_fragment: encodings_fragment,
 	encodings_pars_fragment: encodings_pars_fragment,
-	envmap_fragment: envmap_fragment,
-	envmap_common_pars_fragment: envmap_common_pars_fragment,
-	envmap_pars_fragment: envmap_pars_fragment,
-	envmap_pars_vertex: envmap_pars_vertex,
-	envmap_physical_pars_fragment: envmap_physical_pars_fragment,
-	envmap_vertex: envmap_vertex,
+	// envmap_fragment: envmap_fragment,
+	// envmap_common_pars_fragment: envmap_common_pars_fragment,
+	// // envmap_pars_fragment: envmap_pars_fragment,
+	// envmap_pars_vertex: envmap_pars_vertex,
+	// envmap_physical_pars_fragment: envmap_physical_pars_fragment,
+	// envmap_vertex: envmap_vertex,
 	fog_vertex: fog_vertex,
 	fog_pars_vertex: fog_pars_vertex,
 	fog_fragment: fog_fragment,
@@ -231,38 +231,38 @@ export const ShaderChunk = {
 	uv2_vertex: uv2_vertex,
 	worldpos_vertex: worldpos_vertex,
 
-	background_vert: background.vertex,
-	background_frag: background.fragment,
-	backgroundCube_vert: backgroundCube.vertex,
-	backgroundCube_frag: backgroundCube.fragment,
-	cube_vert: cube.vertex,
-	cube_frag: cube.fragment,
+	// background_vert: background.vertex,
+	// background_frag: background.fragment,
+	// backgroundCube_vert: backgroundCube.vertex,
+	// backgroundCube_frag: backgroundCube.fragment,
+	// cube_vert: cube.vertex,
+	// cube_frag: cube.fragment,
 	depth_vert: depth.vertex,
 	depth_frag: depth.fragment,
-	distanceRGBA_vert: distanceRGBA.vertex,
-	distanceRGBA_frag: distanceRGBA.fragment,
-	equirect_vert: equirect.vertex,
-	equirect_frag: equirect.fragment,
-	linedashed_vert: linedashed.vertex,
-	linedashed_frag: linedashed.fragment,
+	// distanceRGBA_vert: distanceRGBA.vertex,
+	// distanceRGBA_frag: distanceRGBA.fragment,
+	// equirect_vert: equirect.vertex,
+	// equirect_frag: equirect.fragment,
+	// linedashed_vert: linedashed.vertex,
+	// linedashed_frag: linedashed.fragment,
 	meshbasic_vert: meshbasic.vertex,
 	meshbasic_frag: meshbasic.fragment,
-	meshlambert_vert: meshlambert.vertex,
-	meshlambert_frag: meshlambert.fragment,
-	meshmatcap_vert: meshmatcap.vertex,
-	meshmatcap_frag: meshmatcap.fragment,
-	meshnormal_vert: meshnormal.vertex,
-	meshnormal_frag: meshnormal.fragment,
+	// meshlambert_vert: meshlambert.vertex,
+	// meshlambert_frag: meshlambert.fragment,
+	// meshmatcap_vert: meshmatcap.vertex,
+	// meshmatcap_frag: meshmatcap.fragment,
+	// meshnormal_vert: meshnormal.vertex,
+	// meshnormal_frag: meshnormal.fragment,
 	meshphong_vert: meshphong.vertex,
 	meshphong_frag: meshphong.fragment,
-	meshphysical_vert: meshphysical.vertex,
-	meshphysical_frag: meshphysical.fragment,
-	meshtoon_vert: meshtoon.vertex,
-	meshtoon_frag: meshtoon.fragment,
-	points_vert: points.vertex,
-	points_frag: points.fragment,
+	// meshphysical_vert: meshphysical.vertex,
+	// meshphysical_frag: meshphysical.fragment,
+	// meshtoon_vert: meshtoon.vertex,
+	// meshtoon_frag: meshtoon.fragment,
+	// points_vert: points.vertex,
+	// points_frag: points.fragment,
 	shadow_vert: shadow.vertex,
 	shadow_frag: shadow.fragment,
-	sprite_vert: sprite.vertex,
-	sprite_frag: sprite.fragment
+	// sprite_vert: sprite.vertex,
+	// sprite_frag: sprite.fragment
 };

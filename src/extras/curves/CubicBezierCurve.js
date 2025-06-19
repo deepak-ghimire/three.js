@@ -34,44 +34,44 @@ class CubicBezierCurve extends Curve {
 
 	}
 
-	copy( source ) {
+	// copy( source ) {
 
-		super.copy( source );
+	// 	super.copy( source );
 
-		this.v0.copy( source.v0 );
-		this.v1.copy( source.v1 );
-		this.v2.copy( source.v2 );
-		this.v3.copy( source.v3 );
+	// 	this.v0.copy( source.v0 );
+	// 	this.v1.copy( source.v1 );
+	// 	this.v2.copy( source.v2 );
+	// 	this.v3.copy( source.v3 );
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
-	toJSON() {
+	// toJSON() {
 
-		const data = super.toJSON();
+	// 	const data = super.toJSON();
 
-		data.v0 = this.v0.toArray();
-		data.v1 = this.v1.toArray();
-		data.v2 = this.v2.toArray();
-		data.v3 = this.v3.toArray();
+	// 	data.v0 = this.v0.toArray();
+	// 	data.v1 = this.v1.toArray();
+	// 	data.v2 = this.v2.toArray();
+	// 	data.v3 = this.v3.toArray();
 
-		return data;
+	// 	return data;
 
-	}
+	// }
 
-	fromJSON( json ) {
+	// fromJSON( json ) {
 
-		super.fromJSON( json );
+	// 	super.fromJSON( json );
 
-		this.v0.fromArray( json.v0 );
-		this.v1.fromArray( json.v1 );
-		this.v2.fromArray( json.v2 );
-		this.v3.fromArray( json.v3 );
+	// 	this.v0.fromArray( json.v0 );
+	// 	this.v1.fromArray( json.v1 );
+	// 	this.v2.fromArray( json.v2 );
+	// 	this.v3.fromArray( json.v3 );
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 }
 

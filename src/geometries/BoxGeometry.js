@@ -159,11 +159,11 @@ class BoxGeometry extends BufferGeometry {
 
 	}
 
-	static fromJSON( data ) {
+	// static fromJSON( data ) {
 
-		return new BoxGeometry( data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments );
+	// 	return new BoxGeometry( data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments );
 
-	}
+	// }
 
 }
 

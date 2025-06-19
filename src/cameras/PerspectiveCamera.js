@@ -206,27 +206,27 @@ class PerspectiveCamera extends Camera {
 
 	}
 
-	toJSON( meta ) {
+	// toJSON( meta ) {
 
-		const data = super.toJSON( meta );
+	// 	const data = super.toJSON( meta );
 
-		data.object.fov = this.fov;
-		data.object.zoom = this.zoom;
+	// 	data.object.fov = this.fov;
+	// 	data.object.zoom = this.zoom;
 
-		data.object.near = this.near;
-		data.object.far = this.far;
-		data.object.focus = this.focus;
+	// 	data.object.near = this.near;
+	// 	data.object.far = this.far;
+	// 	data.object.focus = this.focus;
 
-		data.object.aspect = this.aspect;
+	// 	data.object.aspect = this.aspect;
 
-		if ( this.view !== null ) data.object.view = Object.assign( {}, this.view );
+	// 	if ( this.view !== null ) data.object.view = Object.assign( {}, this.view );
 
-		data.object.filmGauge = this.filmGauge;
-		data.object.filmOffset = this.filmOffset;
+	// 	data.object.filmGauge = this.filmGauge;
+	// 	data.object.filmOffset = this.filmOffset;
 
-		return data;
+	// 	return data;
 
-	}
+	// }
 
 }
 

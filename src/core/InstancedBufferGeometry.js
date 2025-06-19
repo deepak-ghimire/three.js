@@ -23,17 +23,17 @@ class InstancedBufferGeometry extends BufferGeometry {
 
 	}
 
-	toJSON() {
+	// toJSON() {
 
-		const data = super.toJSON();
+	// 	const data = super.toJSON();
 
-		data.instanceCount = this.instanceCount;
+	// 	data.instanceCount = this.instanceCount;
 
-		data.isInstancedBufferGeometry = true;
+	// 	data.isInstancedBufferGeometry = true;
 
-		return data;
+	// 	return data;
 
-	}
+	// }
 
 }
 

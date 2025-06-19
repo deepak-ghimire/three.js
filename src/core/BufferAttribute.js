@@ -326,48 +326,48 @@ class BufferAttribute {
 
 	}
 
-	toJSON() {
+	// toJSON() {
 
-		const data = {
-			itemSize: this.itemSize,
-			type: this.array.constructor.name,
-			array: Array.from( this.array ),
-			normalized: this.normalized
-		};
+	// 	const data = {
+	// 		itemSize: this.itemSize,
+	// 		type: this.array.constructor.name,
+	// 		array: Array.from( this.array ),
+	// 		normalized: this.normalized
+	// 	};
 
-		if ( this.name !== '' ) data.name = this.name;
-		if ( this.usage !== StaticDrawUsage ) data.usage = this.usage;
-		if ( this.updateRange.offset !== 0 || this.updateRange.count !== - 1 ) data.updateRange = this.updateRange;
+	// 	if ( this.name !== '' ) data.name = this.name;
+	// 	if ( this.usage !== StaticDrawUsage ) data.usage = this.usage;
+	// 	if ( this.updateRange.offset !== 0 || this.updateRange.count !== - 1 ) data.updateRange = this.updateRange;
 
-		return data;
+	// 	return data;
 
-	}
+	// }
 
 	// @deprecated
 
-	copyColorsArray() {
+	// copyColorsArray() {
 
-		console.error( 'THREE.BufferAttribute: copyColorsArray() was removed in r144.' );
+	// 	console.error( 'THREE.BufferAttribute: copyColorsArray() was removed in r144.' );
 
-	}
+	// }
 
-	copyVector2sArray() {
+	// copyVector2sArray() {
 
-		console.error( 'THREE.BufferAttribute: copyVector2sArray() was removed in r144.' );
+	// 	console.error( 'THREE.BufferAttribute: copyVector2sArray() was removed in r144.' );
 
-	}
+	// }
 
-	copyVector3sArray() {
+	// copyVector3sArray() {
 
-		console.error( 'THREE.BufferAttribute: copyVector3sArray() was removed in r144.' );
+	// 	console.error( 'THREE.BufferAttribute: copyVector3sArray() was removed in r144.' );
 
-	}
+	// }
 
-	copyVector4sArray() {
+	// copyVector4sArray() {
 
-		console.error( 'THREE.BufferAttribute: copyVector4sArray() was removed in r144.' );
+	// 	console.error( 'THREE.BufferAttribute: copyVector4sArray() was removed in r144.' );
 
-	}
+	// }
 
 }
 

@@ -668,255 +668,255 @@ class Object3D extends EventDispatcher {
 
 	}
 
-	toJSON( meta ) {
+	// toJSON( meta ) {
 
-		// meta is a string when called from JSON.stringify
-		const isRootObject = ( meta === undefined || typeof meta === 'string' );
+	// 	// meta is a string when called from JSON.stringify
+	// 	const isRootObject = ( meta === undefined || typeof meta === 'string' );
 
-		const output = {};
+	// 	const output = {};
 
-		// meta is a hash used to collect geometries, materials.
-		// not providing it implies that this is the root object
-		// being serialized.
-		if ( isRootObject ) {
+	// 	// meta is a hash used to collect geometries, materials.
+	// 	// not providing it implies that this is the root object
+	// 	// being serialized.
+	// 	if ( isRootObject ) {
 
-			// initialize meta obj
-			meta = {
-				geometries: {},
-				materials: {},
-				textures: {},
-				images: {},
-				shapes: {},
-				skeletons: {},
-				animations: {},
-				nodes: {}
-			};
+	// 		// initialize meta obj
+	// 		meta = {
+	// 			geometries: {},
+	// 			materials: {},
+	// 			textures: {},
+	// 			images: {},
+	// 			shapes: {},
+	// 			skeletons: {},
+	// 			animations: {},
+	// 			nodes: {}
+	// 		};
 
-			output.metadata = {
-				version: 4.5,
-				type: 'Object',
-				generator: 'Object3D.toJSON'
-			};
+	// 		output.metadata = {
+	// 			version: 4.5,
+	// 			type: 'Object',
+	// 			generator: 'Object3D.toJSON'
+	// 		};
 
-		}
+	// 	}
 
-		// standard Object3D serialization
+	// 	// standard Object3D serialization
 
-		const object = {};
+	// 	const object = {};
 
-		object.uuid = this.uuid;
-		object.type = this.type;
+	// 	object.uuid = this.uuid;
+	// 	object.type = this.type;
 
-		if ( this.name !== '' ) object.name = this.name;
-		if ( this.castShadow === true ) object.castShadow = true;
-		if ( this.receiveShadow === true ) object.receiveShadow = true;
-		if ( this.visible === false ) object.visible = false;
-		if ( this.frustumCulled === false ) object.frustumCulled = false;
-		if ( this.renderOrder !== 0 ) object.renderOrder = this.renderOrder;
-		if ( Object.keys( this.userData ).length > 0 ) object.userData = this.userData;
+	// 	if ( this.name !== '' ) object.name = this.name;
+	// 	if ( this.castShadow === true ) object.castShadow = true;
+	// 	if ( this.receiveShadow === true ) object.receiveShadow = true;
+	// 	if ( this.visible === false ) object.visible = false;
+	// 	if ( this.frustumCulled === false ) object.frustumCulled = false;
+	// 	if ( this.renderOrder !== 0 ) object.renderOrder = this.renderOrder;
+	// 	if ( Object.keys( this.userData ).length > 0 ) object.userData = this.userData;
 
-		object.layers = this.layers.mask;
-		object.matrix = this.matrix.toArray();
+	// 	object.layers = this.layers.mask;
+	// 	object.matrix = this.matrix.toArray();
 
-		if ( this.matrixAutoUpdate === false ) object.matrixAutoUpdate = false;
+	// 	if ( this.matrixAutoUpdate === false ) object.matrixAutoUpdate = false;
 
-		// object specific properties
+	// 	// object specific properties
 
-		if ( this.isInstancedMesh ) {
+	// 	if ( this.isInstancedMesh ) {
 
-			object.type = 'InstancedMesh';
-			object.count = this.count;
-			object.instanceMatrix = this.instanceMatrix.toJSON();
-			if ( this.instanceColor !== null ) object.instanceColor = this.instanceColor.toJSON();
+	// 		object.type = 'InstancedMesh';
+	// 		object.count = this.count;
+	// 		object.instanceMatrix = this.instanceMatrix.toJSON();
+	// 		if ( this.instanceColor !== null ) object.instanceColor = this.instanceColor.toJSON();
 
-		}
+	// 	}
 
-		//
+	// 	//
 
-		function serialize( library, element ) {
+	// 	function serialize( library, element ) {
 
-			if ( library[ element.uuid ] === undefined ) {
+	// 		if ( library[ element.uuid ] === undefined ) {
 
-				library[ element.uuid ] = element.toJSON( meta );
+	// 			library[ element.uuid ] = element.toJSON( meta );
 
-			}
+	// 		}
 
-			return element.uuid;
+	// 		return element.uuid;
 
-		}
+	// 	}
 
-		if ( this.isScene ) {
+	// 	if ( this.isScene ) {
 
-			if ( this.background ) {
+	// 		if ( this.background ) {
 
-				if ( this.background.isColor ) {
+	// 			if ( this.background.isColor ) {
 
-					object.background = this.background.toJSON();
+	// 				object.background = this.background.toJSON();
 
-				} else if ( this.background.isTexture ) {
+	// 			} else if ( this.background.isTexture ) {
 
-					object.background = this.background.toJSON( meta ).uuid;
+	// 				object.background = this.background.toJSON( meta ).uuid;
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-			if ( this.environment && this.environment.isTexture && this.environment.isRenderTargetTexture !== true ) {
+	// 		if ( this.environment && this.environment.isTexture && this.environment.isRenderTargetTexture !== true ) {
 
-				object.environment = this.environment.toJSON( meta ).uuid;
+	// 			object.environment = this.environment.toJSON( meta ).uuid;
 
-			}
+	// 		}
 
-		} else if ( this.isMesh || this.isLine || this.isPoints ) {
+	// 	} else if ( this.isMesh || this.isLine || this.isPoints ) {
 
-			object.geometry = serialize( meta.geometries, this.geometry );
+	// 		object.geometry = serialize( meta.geometries, this.geometry );
 
-			const parameters = this.geometry.parameters;
+	// 		const parameters = this.geometry.parameters;
 
-			if ( parameters !== undefined && parameters.shapes !== undefined ) {
+	// 		if ( parameters !== undefined && parameters.shapes !== undefined ) {
 
-				const shapes = parameters.shapes;
+	// 			const shapes = parameters.shapes;
 
-				if ( Array.isArray( shapes ) ) {
+	// 			if ( Array.isArray( shapes ) ) {
 
-					for ( let i = 0, l = shapes.length; i < l; i ++ ) {
+	// 				for ( let i = 0, l = shapes.length; i < l; i ++ ) {
 
-						const shape = shapes[ i ];
+	// 					const shape = shapes[ i ];
 
-						serialize( meta.shapes, shape );
+	// 					serialize( meta.shapes, shape );
 
-					}
+	// 				}
 
-				} else {
+	// 			} else {
 
-					serialize( meta.shapes, shapes );
+	// 				serialize( meta.shapes, shapes );
 
-				}
+	// 			}
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		if ( this.isSkinnedMesh ) {
+	// 	if ( this.isSkinnedMesh ) {
 
-			object.bindMode = this.bindMode;
-			object.bindMatrix = this.bindMatrix.toArray();
+	// 		object.bindMode = this.bindMode;
+	// 		object.bindMatrix = this.bindMatrix.toArray();
 
-			if ( this.skeleton !== undefined ) {
+	// 		if ( this.skeleton !== undefined ) {
 
-				serialize( meta.skeletons, this.skeleton );
+	// 			serialize( meta.skeletons, this.skeleton );
 
-				object.skeleton = this.skeleton.uuid;
+	// 			object.skeleton = this.skeleton.uuid;
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		if ( this.material !== undefined ) {
+	// 	if ( this.material !== undefined ) {
 
-			if ( Array.isArray( this.material ) ) {
+	// 		if ( Array.isArray( this.material ) ) {
 
-				const uuids = [];
+	// 			const uuids = [];
 
-				for ( let i = 0, l = this.material.length; i < l; i ++ ) {
+	// 			for ( let i = 0, l = this.material.length; i < l; i ++ ) {
 
-					uuids.push( serialize( meta.materials, this.material[ i ] ) );
+	// 				uuids.push( serialize( meta.materials, this.material[ i ] ) );
 
-				}
+	// 			}
 
-				object.material = uuids;
+	// 			object.material = uuids;
 
-			} else {
+	// 		} else {
 
-				object.material = serialize( meta.materials, this.material );
+	// 			object.material = serialize( meta.materials, this.material );
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		//
+	// 	//
 
-		if ( this.children.length > 0 ) {
+	// 	if ( this.children.length > 0 ) {
 
-			object.children = [];
+	// 		object.children = [];
 
-			for ( let i = 0; i < this.children.length; i ++ ) {
+	// 		for ( let i = 0; i < this.children.length; i ++ ) {
 
-				object.children.push( this.children[ i ].toJSON( meta ).object );
+	// 			object.children.push( this.children[ i ].toJSON( meta ).object );
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		//
+	// 	//
 
-		if ( this.animations.length > 0 ) {
+	// 	if ( this.animations.length > 0 ) {
 
-			object.animations = [];
+	// 		object.animations = [];
 
-			for ( let i = 0; i < this.animations.length; i ++ ) {
+	// 		for ( let i = 0; i < this.animations.length; i ++ ) {
 
-				const animation = this.animations[ i ];
+	// 			const animation = this.animations[ i ];
 
-				object.animations.push( serialize( meta.animations, animation ) );
+	// 			object.animations.push( serialize( meta.animations, animation ) );
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		if ( isRootObject ) {
+	// 	if ( isRootObject ) {
 
-			const geometries = extractFromCache( meta.geometries );
-			const materials = extractFromCache( meta.materials );
-			const textures = extractFromCache( meta.textures );
-			const images = extractFromCache( meta.images );
-			const shapes = extractFromCache( meta.shapes );
-			const skeletons = extractFromCache( meta.skeletons );
-			const animations = extractFromCache( meta.animations );
-			const nodes = extractFromCache( meta.nodes );
+	// 		const geometries = extractFromCache( meta.geometries );
+	// 		const materials = extractFromCache( meta.materials );
+	// 		const textures = extractFromCache( meta.textures );
+	// 		const images = extractFromCache( meta.images );
+	// 		const shapes = extractFromCache( meta.shapes );
+	// 		const skeletons = extractFromCache( meta.skeletons );
+	// 		const animations = extractFromCache( meta.animations );
+	// 		const nodes = extractFromCache( meta.nodes );
 
-			if ( geometries.length > 0 ) output.geometries = geometries;
-			if ( materials.length > 0 ) output.materials = materials;
-			if ( textures.length > 0 ) output.textures = textures;
-			if ( images.length > 0 ) output.images = images;
-			if ( shapes.length > 0 ) output.shapes = shapes;
-			if ( skeletons.length > 0 ) output.skeletons = skeletons;
-			if ( animations.length > 0 ) output.animations = animations;
-			if ( nodes.length > 0 ) output.nodes = nodes;
+	// 		if ( geometries.length > 0 ) output.geometries = geometries;
+	// 		if ( materials.length > 0 ) output.materials = materials;
+	// 		if ( textures.length > 0 ) output.textures = textures;
+	// 		if ( images.length > 0 ) output.images = images;
+	// 		if ( shapes.length > 0 ) output.shapes = shapes;
+	// 		if ( skeletons.length > 0 ) output.skeletons = skeletons;
+	// 		if ( animations.length > 0 ) output.animations = animations;
+	// 		if ( nodes.length > 0 ) output.nodes = nodes;
 
-		}
+	// 	}
 
-		output.object = object;
+	// 	output.object = object;
 
-		return output;
+	// 	return output;
 
-		// extract data from the cache hash
-		// remove metadata on each item
-		// and return as array
-		function extractFromCache( cache ) {
+	// 	// extract data from the cache hash
+	// 	// remove metadata on each item
+	// 	// and return as array
+	// 	function extractFromCache( cache ) {
 
-			const values = [];
-			for ( const key in cache ) {
+	// 		const values = [];
+	// 		for ( const key in cache ) {
 
-				const data = cache[ key ];
-				delete data.metadata;
-				values.push( data );
+	// 			const data = cache[ key ];
+	// 			delete data.metadata;
+	// 			values.push( data );
 
-			}
+	// 		}
 
-			return values;
+	// 		return values;
 
-		}
+	// 	}
 
-	}
+	// }
 
-	clone( recursive ) {
+	clone( recursive ) { //called by Object3D.clone
 
 		return new this.constructor().copy( this, recursive );
 
 	}
 
-	copy( source, recursive = true ) {
+	copy( source, recursive = true ) { //called by Object3D.clone
 
 		this.name = source.name;
 

@@ -24,21 +24,21 @@ class LineBasicMaterial extends Material {
 	}
 
 
-	copy( source ) {
+	// copy( source ) {
 
-		super.copy( source );
+	// 	super.copy( source );
 
-		this.color.copy( source.color );
+	// 	this.color.copy( source.color );
 
-		this.linewidth = source.linewidth;
-		this.linecap = source.linecap;
-		this.linejoin = source.linejoin;
+	// 	this.linewidth = source.linewidth;
+	// 	this.linecap = source.linecap;
+	// 	this.linejoin = source.linejoin;
 
-		this.fog = source.fog;
+	// 	this.fog = source.fog;
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 }
 

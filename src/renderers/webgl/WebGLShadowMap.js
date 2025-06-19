@@ -2,15 +2,15 @@ import { FrontSide, BackSide, DoubleSide, NearestFilter, PCFShadowMap, VSMShadow
 import { WebGLRenderTarget } from '../WebGLRenderTarget.js';
 import { MeshDepthMaterial } from '../../materials/MeshDepthMaterial.js';
 import { MeshDistanceMaterial } from '../../materials/MeshDistanceMaterial.js';
-import { ShaderMaterial } from '../../materials/ShaderMaterial.js';
+// import { ShaderMaterial } from '../../materials/ShaderMaterial.js';
 import { BufferAttribute } from '../../core/BufferAttribute.js';
 import { BufferGeometry } from '../../core/BufferGeometry.js';
-import { Mesh } from '../../objects/Mesh.js';
+// import { Mesh } from '../../objects/Mesh.js';
 import { Vector4 } from '../../math/Vector4.js';
 import { Vector2 } from '../../math/Vector2.js';
 import { Frustum } from '../../math/Frustum.js';
 
-import * as vsm from '../shaders/ShaderLib/vsm.glsl.js';
+// import * as vsm from '../shaders/ShaderLib/vsm.glsl.js';
 
 function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
@@ -30,23 +30,23 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 	const shadowSide = { 0: BackSide, 1: FrontSide, 2: DoubleSide };
 
-	const shadowMaterialVertical = new ShaderMaterial( {
-		defines: {
-			VSM_SAMPLES: 8
-		},
-		uniforms: {
-			shadow_pass: { value: null },
-			resolution: { value: new Vector2() },
-			radius: { value: 4.0 }
-		},
+	// const shadowMaterialVertical = new ShaderMaterial( {
+	// 	defines: {
+	// 		VSM_SAMPLES: 8
+	// 	},
+	// 	uniforms: {
+	// 		shadow_pass: { value: null },
+	// 		resolution: { value: new Vector2() },
+	// 		radius: { value: 4.0 }
+	// 	},
 
-		vertexShader: vsm.vertex,
-		fragmentShader: vsm.fragment
+	// 	vertexShader: vsm.vertex,
+	// 	fragmentShader: vsm.fragment
 
-	} );
+	// } );
 
-	const shadowMaterialHorizontal = shadowMaterialVertical.clone();
-	shadowMaterialHorizontal.defines.HORIZONTAL_PASS = 1;
+	// const shadowMaterialHorizontal = shadowMaterialVertical.clone();
+	// shadowMaterialHorizontal.defines.HORIZONTAL_PASS = 1;
 
 	const fullScreenTri = new BufferGeometry();
 	fullScreenTri.setAttribute(
@@ -57,7 +57,7 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 		)
 	);
 
-	const fullScreenMesh = new Mesh( fullScreenTri, shadowMaterialVertical );
+	// const fullScreenMesh = new Mesh( fullScreenTri, shadowMaterialVertical );
 
 	const scope = this;
 
@@ -170,11 +170,11 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 			// do blur pass for VSM
 
-			if ( shadow.isPointLightShadow !== true && this.type === VSMShadowMap ) {
+			// if ( shadow.isPointLightShadow !== true && this.type === VSMShadowMap ) {
 
-				VSMPass( shadow, camera );
+			// 	VSMPass( shadow, camera );
 
-			}
+			// }
 
 			shadow.needsUpdate = false;
 
@@ -186,45 +186,45 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 	};
 
-	function VSMPass( shadow, camera ) {
+	// function VSMPass( shadow, camera ) {
 
-		const geometry = _objects.update( fullScreenMesh );
+	// 	const geometry = _objects.update( fullScreenMesh );
 
-		if ( shadowMaterialVertical.defines.VSM_SAMPLES !== shadow.blurSamples ) {
+	// 	if ( shadowMaterialVertical.defines.VSM_SAMPLES !== shadow.blurSamples ) {
 
-			shadowMaterialVertical.defines.VSM_SAMPLES = shadow.blurSamples;
-			shadowMaterialHorizontal.defines.VSM_SAMPLES = shadow.blurSamples;
+	// 		shadowMaterialVertical.defines.VSM_SAMPLES = shadow.blurSamples;
+	// 		shadowMaterialHorizontal.defines.VSM_SAMPLES = shadow.blurSamples;
 
-			shadowMaterialVertical.needsUpdate = true;
-			shadowMaterialHorizontal.needsUpdate = true;
+	// 		shadowMaterialVertical.needsUpdate = true;
+	// 		shadowMaterialHorizontal.needsUpdate = true;
 
-		}
+	// 	}
 
-		if ( shadow.mapPass === null ) {
+	// 	if ( shadow.mapPass === null ) {
 
-			shadow.mapPass = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y );
+	// 		shadow.mapPass = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y );
 
-		}
+	// 	}
 
-		// vertical pass
+	// 	// vertical pass
 
-		shadowMaterialVertical.uniforms.shadow_pass.value = shadow.map.texture;
-		shadowMaterialVertical.uniforms.resolution.value = shadow.mapSize;
-		shadowMaterialVertical.uniforms.radius.value = shadow.radius;
-		_renderer.setRenderTarget( shadow.mapPass );
-		_renderer.clear();
-		_renderer.renderBufferDirect( camera, null, geometry, shadowMaterialVertical, fullScreenMesh, null );
+	// 	shadowMaterialVertical.uniforms.shadow_pass.value = shadow.map.texture;
+	// 	shadowMaterialVertical.uniforms.resolution.value = shadow.mapSize;
+	// 	shadowMaterialVertical.uniforms.radius.value = shadow.radius;
+	// 	_renderer.setRenderTarget( shadow.mapPass );
+	// 	_renderer.clear();
+	// 	_renderer.renderBufferDirect( camera, null, geometry, shadowMaterialVertical, fullScreenMesh, null );
 
-		// horizontal pass
+	// 	// horizontal pass
 
-		shadowMaterialHorizontal.uniforms.shadow_pass.value = shadow.mapPass.texture;
-		shadowMaterialHorizontal.uniforms.resolution.value = shadow.mapSize;
-		shadowMaterialHorizontal.uniforms.radius.value = shadow.radius;
-		_renderer.setRenderTarget( shadow.map );
-		_renderer.clear();
-		_renderer.renderBufferDirect( camera, null, geometry, shadowMaterialHorizontal, fullScreenMesh, null );
+	// 	shadowMaterialHorizontal.uniforms.shadow_pass.value = shadow.mapPass.texture;
+	// 	shadowMaterialHorizontal.uniforms.resolution.value = shadow.mapSize;
+	// 	shadowMaterialHorizontal.uniforms.radius.value = shadow.radius;
+	// 	_renderer.setRenderTarget( shadow.map );
+	// 	_renderer.clear();
+	// 	_renderer.renderBufferDirect( camera, null, geometry, shadowMaterialHorizontal, fullScreenMesh, null );
 
-	}
+	// }
 
 	function getDepthMaterial( object, material, light, shadowCameraNear, shadowCameraFar, type ) {
 

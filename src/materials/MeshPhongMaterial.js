@@ -62,58 +62,58 @@ class MeshPhongMaterial extends Material {
 
 	}
 
-	copy( source ) {
+	// copy( source ) {
 
-		super.copy( source );
+	// 	super.copy( source );
 
-		this.color.copy( source.color );
-		this.specular.copy( source.specular );
-		this.shininess = source.shininess;
+	// 	this.color.copy( source.color );
+	// 	this.specular.copy( source.specular );
+	// 	this.shininess = source.shininess;
 
-		this.map = source.map;
+	// 	this.map = source.map;
 
-		this.lightMap = source.lightMap;
-		this.lightMapIntensity = source.lightMapIntensity;
+	// 	this.lightMap = source.lightMap;
+	// 	this.lightMapIntensity = source.lightMapIntensity;
 
-		this.aoMap = source.aoMap;
-		this.aoMapIntensity = source.aoMapIntensity;
+	// 	this.aoMap = source.aoMap;
+	// 	this.aoMapIntensity = source.aoMapIntensity;
 
-		this.emissive.copy( source.emissive );
-		this.emissiveMap = source.emissiveMap;
-		this.emissiveIntensity = source.emissiveIntensity;
+	// 	this.emissive.copy( source.emissive );
+	// 	this.emissiveMap = source.emissiveMap;
+	// 	this.emissiveIntensity = source.emissiveIntensity;
 
-		this.bumpMap = source.bumpMap;
-		this.bumpScale = source.bumpScale;
+	// 	this.bumpMap = source.bumpMap;
+	// 	this.bumpScale = source.bumpScale;
 
-		this.normalMap = source.normalMap;
-		this.normalMapType = source.normalMapType;
-		this.normalScale.copy( source.normalScale );
+	// 	this.normalMap = source.normalMap;
+	// 	this.normalMapType = source.normalMapType;
+	// 	this.normalScale.copy( source.normalScale );
 
-		this.displacementMap = source.displacementMap;
-		this.displacementScale = source.displacementScale;
-		this.displacementBias = source.displacementBias;
+	// 	this.displacementMap = source.displacementMap;
+	// 	this.displacementScale = source.displacementScale;
+	// 	this.displacementBias = source.displacementBias;
 
-		this.specularMap = source.specularMap;
+	// 	this.specularMap = source.specularMap;
 
-		this.alphaMap = source.alphaMap;
+	// 	this.alphaMap = source.alphaMap;
 
-		this.envMap = source.envMap;
-		this.combine = source.combine;
-		this.reflectivity = source.reflectivity;
-		this.refractionRatio = source.refractionRatio;
+	// 	this.envMap = source.envMap;
+	// 	this.combine = source.combine;
+	// 	this.reflectivity = source.reflectivity;
+	// 	this.refractionRatio = source.refractionRatio;
 
-		this.wireframe = source.wireframe;
-		this.wireframeLinewidth = source.wireframeLinewidth;
-		this.wireframeLinecap = source.wireframeLinecap;
-		this.wireframeLinejoin = source.wireframeLinejoin;
+	// 	this.wireframe = source.wireframe;
+	// 	this.wireframeLinewidth = source.wireframeLinewidth;
+	// 	this.wireframeLinecap = source.wireframeLinecap;
+	// 	this.wireframeLinejoin = source.wireframeLinejoin;
 
-		this.flatShading = source.flatShading;
+	// 	this.flatShading = source.flatShading;
 
-		this.fog = source.fog;
+	// 	this.fog = source.fog;
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 }
 

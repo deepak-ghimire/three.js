@@ -20,17 +20,17 @@ class ShadowMaterial extends Material {
 
 	}
 
-	copy( source ) {
+	// copy( source ) {
 
-		super.copy( source );
+	// 	super.copy( source );
 
-		this.color.copy( source.color );
+	// 	this.color.copy( source.color );
 
-		this.fog = source.fog;
+	// 	this.fog = source.fog;
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 }
 

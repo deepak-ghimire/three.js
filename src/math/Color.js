@@ -1,4 +1,5 @@
-import { clamp, euclideanModulo, lerp } from './MathUtils.js';
+// import { clamp, euclideanModulo, lerp } from './MathUtils.js';
+import { clamp,  lerp } from './MathUtils.js';
 import { ColorManagement, SRGBToLinear, LinearToSRGB } from './ColorManagement.js';
 import { SRGBColorSpace } from '../constants.js';
 
@@ -28,19 +29,19 @@ const _colorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua'
 	'violet': 0xEE82EE, 'wheat': 0xF5DEB3, 'white': 0xFFFFFF, 'whitesmoke': 0xF5F5F5, 'yellow': 0xFFFF00, 'yellowgreen': 0x9ACD32 };
 
 const _rgb = { r: 0, g: 0, b: 0 };
-const _hslA = { h: 0, s: 0, l: 0 };
-const _hslB = { h: 0, s: 0, l: 0 };
+// const _hslA = { h: 0, s: 0, l: 0 };
+// const _hslB = { h: 0, s: 0, l: 0 };
 
-function hue2rgb( p, q, t ) {
+// function hue2rgb( p, q, t ) {
 
-	if ( t < 0 ) t += 1;
-	if ( t > 1 ) t -= 1;
-	if ( t < 1 / 6 ) return p + ( q - p ) * 6 * t;
-	if ( t < 1 / 2 ) return q;
-	if ( t < 2 / 3 ) return p + ( q - p ) * 6 * ( 2 / 3 - t );
-	return p;
+// 	if ( t < 0 ) t += 1;
+// 	if ( t > 1 ) t -= 1;
+// 	if ( t < 1 / 6 ) return p + ( q - p ) * 6 * t;
+// 	if ( t < 1 / 2 ) return q;
+// 	if ( t < 2 / 3 ) return p + ( q - p ) * 6 * ( 2 / 3 - t );
+// 	return p;
 
-}
+// }
 
 function toComponents( source, target ) {
 
@@ -129,33 +130,33 @@ class Color {
 
 	}
 
-	setHSL( h, s, l, colorSpace = ColorManagement.workingColorSpace ) {
+	// setHSL( h, s, l, colorSpace = ColorManagement.workingColorSpace ) {
 
-		// h,s,l ranges are in 0.0 - 1.0
-		h = euclideanModulo( h, 1 );
-		s = clamp( s, 0, 1 );
-		l = clamp( l, 0, 1 );
+	// 	// h,s,l ranges are in 0.0 - 1.0
+	// 	h = euclideanModulo( h, 1 );
+	// 	s = clamp( s, 0, 1 );
+	// 	l = clamp( l, 0, 1 );
 
-		if ( s === 0 ) {
+	// 	if ( s === 0 ) {
 
-			this.r = this.g = this.b = l;
+	// 		this.r = this.g = this.b = l;
 
-		} else {
+	// 	} else {
 
-			const p = l <= 0.5 ? l * ( 1 + s ) : l + s - ( l * s );
-			const q = ( 2 * l ) - p;
+	// 		const p = l <= 0.5 ? l * ( 1 + s ) : l + s - ( l * s );
+	// 		const q = ( 2 * l ) - p;
 
-			this.r = hue2rgb( q, p, h + 1 / 3 );
-			this.g = hue2rgb( q, p, h );
-			this.b = hue2rgb( q, p, h - 1 / 3 );
+	// 		this.r = hue2rgb( q, p, h + 1 / 3 );
+	// 		this.g = hue2rgb( q, p, h );
+	// 		this.b = hue2rgb( q, p, h - 1 / 3 );
 
-		}
+	// 	}
 
-		ColorManagement.toWorkingColorSpace( this, colorSpace );
+	// 	ColorManagement.toWorkingColorSpace( this, colorSpace );
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 	setStyle( style, colorSpace = SRGBColorSpace ) {
 
@@ -222,18 +223,18 @@ class Color {
 				case 'hsl':
 				case 'hsla':
 
-					if ( color = /^\s*(\d*\.?\d+)\s*,\s*(\d*\.?\d+)\%\s*,\s*(\d*\.?\d+)\%\s*(?:,\s*(\d*\.?\d+)\s*)?$/.exec( components ) ) {
+					// if ( color = /^\s*(\d*\.?\d+)\s*,\s*(\d*\.?\d+)\%\s*,\s*(\d*\.?\d+)\%\s*(?:,\s*(\d*\.?\d+)\s*)?$/.exec( components ) ) {
 
-						// hsl(120,50%,50%) hsla(120,50%,50%,0.5)
-						const h = parseFloat( color[ 1 ] ) / 360;
-						const s = parseFloat( color[ 2 ] ) / 100;
-						const l = parseFloat( color[ 3 ] ) / 100;
+					// 	// hsl(120,50%,50%) hsla(120,50%,50%,0.5)
+					// 	const h = parseFloat( color[ 1 ] ) / 360;
+					// 	const s = parseFloat( color[ 2 ] ) / 100;
+					// 	const l = parseFloat( color[ 3 ] ) / 100;
 
-						handleAlpha( color[ 4 ] );
+					// 	handleAlpha( color[ 4 ] );
 
-						return this.setHSL( h, s, l, colorSpace );
+					// 	return this.setHSL( h, s, l, colorSpace );
 
-					}
+					// }
 
 					break;
 
@@ -369,50 +370,50 @@ class Color {
 
 	}
 
-	getHSL( target, colorSpace = ColorManagement.workingColorSpace ) {
+	// getHSL( target, colorSpace = ColorManagement.workingColorSpace ) {
 
-		// h,s,l ranges are in 0.0 - 1.0
+	// 	// h,s,l ranges are in 0.0 - 1.0
 
-		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+	// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
 
-		const r = _rgb.r, g = _rgb.g, b = _rgb.b;
+	// 	const r = _rgb.r, g = _rgb.g, b = _rgb.b;
 
-		const max = Math.max( r, g, b );
-		const min = Math.min( r, g, b );
+	// 	const max = Math.max( r, g, b );
+	// 	const min = Math.min( r, g, b );
 
-		let hue, saturation;
-		const lightness = ( min + max ) / 2.0;
+	// 	let hue, saturation;
+	// 	const lightness = ( min + max ) / 2.0;
 
-		if ( min === max ) {
+	// 	if ( min === max ) {
 
-			hue = 0;
-			saturation = 0;
+	// 		hue = 0;
+	// 		saturation = 0;
 
-		} else {
+	// 	} else {
 
-			const delta = max - min;
+	// 		const delta = max - min;
 
-			saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
+	// 		saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
 
-			switch ( max ) {
+	// 		switch ( max ) {
 
-				case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
-				case g: hue = ( b - r ) / delta + 2; break;
-				case b: hue = ( r - g ) / delta + 4; break;
+	// 			case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
+	// 			case g: hue = ( b - r ) / delta + 2; break;
+	// 			case b: hue = ( r - g ) / delta + 4; break;
 
-			}
+	// 		}
 
-			hue /= 6;
+	// 		hue /= 6;
 
-		}
+	// 	}
 
-		target.h = hue;
-		target.s = saturation;
-		target.l = lightness;
+	// 	target.h = hue;
+	// 	target.s = saturation;
+	// 	target.l = lightness;
 
-		return target;
+	// 	return target;
 
-	}
+	// }
 
 	getRGB( target, colorSpace = ColorManagement.workingColorSpace ) {
 
@@ -441,17 +442,17 @@ class Color {
 
 	}
 
-	offsetHSL( h, s, l ) {
+	// offsetHSL( h, s, l ) {
 
-		this.getHSL( _hslA );
+	// 	this.getHSL( _hslA );
 
-		_hslA.h += h; _hslA.s += s; _hslA.l += l;
+	// 	_hslA.h += h; _hslA.s += s; _hslA.l += l;
 
-		this.setHSL( _hslA.h, _hslA.s, _hslA.l );
+	// 	this.setHSL( _hslA.h, _hslA.s, _hslA.l );
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 	add( color ) {
 
@@ -533,20 +534,20 @@ class Color {
 
 	}
 
-	lerpHSL( color, alpha ) {
+	// lerpHSL( color, alpha ) {
 
-		this.getHSL( _hslA );
-		color.getHSL( _hslB );
+	// 	this.getHSL( _hslA );
+	// 	color.getHSL( _hslB );
 
-		const h = lerp( _hslA.h, _hslB.h, alpha );
-		const s = lerp( _hslA.s, _hslB.s, alpha );
-		const l = lerp( _hslA.l, _hslB.l, alpha );
+	// 	const h = lerp( _hslA.h, _hslB.h, alpha );
+	// 	const s = lerp( _hslA.s, _hslB.s, alpha );
+	// 	const l = lerp( _hslA.l, _hslB.l, alpha );
 
-		this.setHSL( h, s, l );
+	// 	this.setHSL( h, s, l );
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 	equals( c ) {
 
@@ -554,25 +555,25 @@ class Color {
 
 	}
 
-	fromArray( array, offset = 0 ) {
+	// fromArray( array, offset = 0 ) {
 
-		this.r = array[ offset ];
-		this.g = array[ offset + 1 ];
-		this.b = array[ offset + 2 ];
+	// 	this.r = array[ offset ];
+	// 	this.g = array[ offset + 1 ];
+	// 	this.b = array[ offset + 2 ];
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
-	toArray( array = [], offset = 0 ) {
+	// toArray( array = [], offset = 0 ) {
 
-		array[ offset ] = this.r;
-		array[ offset + 1 ] = this.g;
-		array[ offset + 2 ] = this.b;
+	// 	array[ offset ] = this.r;
+	// 	array[ offset + 1 ] = this.g;
+	// 	array[ offset + 2 ] = this.b;
 
-		return array;
+	// 	return array;
 
-	}
+	// }
 
 	fromBufferAttribute( attribute, index ) {
 
@@ -584,11 +585,11 @@ class Color {
 
 	}
 
-	toJSON() {
+	// toJSON() {
 
-		return this.getHex();
+	// 	return this.getHex();
 
-	}
+	// }
 
 	*[ Symbol.iterator ]() {
 

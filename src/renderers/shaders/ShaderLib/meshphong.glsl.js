@@ -7,7 +7,7 @@ varying vec3 vViewPosition;
 #include <uv_pars_vertex>
 #include <uv2_pars_vertex>
 #include <displacementmap_pars_vertex>
-#include <envmap_pars_vertex>
+// #include <envmap_pars_vertex>
 #include <color_pars_vertex>
 #include <fog_pars_vertex>
 #include <normal_pars_vertex>
@@ -42,7 +42,7 @@ void main() {
 	vViewPosition = - mvPosition.xyz;
 
 	#include <worldpos_vertex>
-	#include <envmap_vertex>
+	// #include <envmap_vertex>
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
 
@@ -70,9 +70,9 @@ uniform float opacity;
 #include <aomap_pars_fragment>
 #include <lightmap_pars_fragment>
 #include <emissivemap_pars_fragment>
-#include <envmap_common_pars_fragment>
-#include <envmap_pars_fragment>
-#include <fog_pars_fragment>
+// #include <envmap_common_pars_fragment>
+// #include <envmap_pars_fragment>
+// #include <fog_pars_fragment>
 #include <bsdfs>
 #include <lights_pars_begin>
 #include <normal_pars_fragment>
@@ -113,7 +113,7 @@ void main() {
 
 	vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;
 
-	#include <envmap_fragment>
+	// #include <envmap_fragment>
 	#include <output_fragment>
 	#include <tonemapping_fragment>
 	#include <encodings_fragment>

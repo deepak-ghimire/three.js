@@ -30,11 +30,11 @@ class BoxHelper extends LineSegments {
 
 	update( object ) {
 
-		if ( object !== undefined ) {
+		// if ( object !== undefined ) {
 
-			console.warn( 'THREE.BoxHelper: .update() has no longer arguments.' );
+		// 	console.warn( 'THREE.BoxHelper: .update() has no longer arguments.' );
 
-		}
+		// }
 
 		if ( this.object !== undefined ) {
 
@@ -90,15 +90,15 @@ class BoxHelper extends LineSegments {
 
 	}
 
-	copy( source, recursive ) {
+	// copy( source, recursive ) {
 
-		super.copy( source, recursive );
+	// 	super.copy( source, recursive );
 
-		this.object = source.object;
+	// 	this.object = source.object;
 
-		return this;
+	// 	return this;
 
-	}
+	// }
 
 	dispose() {
 
