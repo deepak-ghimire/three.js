@@ -16,7 +16,7 @@ class BufferAttribute {
 
 		}
 
-		this.isBufferAttribute = true;
+		// this.isBufferAttribute = true;
 
 		this.name = '';
 
@@ -62,28 +62,28 @@ class BufferAttribute {
 
 	}
 
-	copyAt( index1, attribute, index2 ) {
-
-		index1 *= this.itemSize;
-		index2 *= attribute.itemSize;
-
-		for ( let i = 0, l = this.itemSize; i < l; i ++ ) {
-
-			this.array[ index1 + i ] = attribute.array[ index2 + i ];
-
-		}
-
-		return this;
-
-	}
-
-	copyArray( array ) {
-
-		this.array.set( array );
-
-		return this;
-
-	}
+	// copyAt( index1, attribute, index2 ) {
+	//
+	// 	index1 *= this.itemSize;
+	// 	index2 *= attribute.itemSize;
+	//
+	// 	for ( let i = 0, l = this.itemSize; i < l; i ++ ) {
+	//
+	// 		this.array[ index1 + i ] = attribute.array[ index2 + i ];
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// copyArray( array ) {
+	//
+	// 	this.array.set( array );
+	//
+	// 	return this;
+	//
+	// }
 
 	applyMatrix3( m ) {
 
@@ -131,21 +131,21 @@ class BufferAttribute {
 
 	}
 
-	applyNormalMatrix( m ) {
-
-		for ( let i = 0, l = this.count; i < l; i ++ ) {
-
-			_vector.fromBufferAttribute( this, i );
-
-			_vector.applyNormalMatrix( m );
-
-			this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-
-		}
-
-		return this;
-
-	}
+	// applyNormalMatrix( m ) {
+	//
+	// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+	//
+	// 		_vector.fromBufferAttribute( this, i );
+	//
+	// 		_vector.applyNormalMatrix( m );
+	//
+	// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	transformDirection( m ) {
 
@@ -242,15 +242,15 @@ class BufferAttribute {
 
 	}
 
-	setW( index, w ) {
-
-		if ( this.normalized ) w = normalize( w, this.array );
-
-		this.array[ index * this.itemSize + 3 ] = w;
-
-		return this;
-
-	}
+	// setW( index, w ) {
+	//
+	// 	if ( this.normalized ) w = normalize( w, this.array );
+	//
+	// 	this.array[ index * this.itemSize + 3 ] = w;
+	//
+	// 	return this;
+	//
+	// }
 
 	setXY( index, x, y ) {
 
@@ -312,13 +312,13 @@ class BufferAttribute {
 
 	}
 
-	onUpload( callback ) {
-
-		this.onUploadCallback = callback;
-
-		return this;
-
-	}
+	// onUpload( callback ) {
+	//
+	// 	this.onUploadCallback = callback;
+	//
+	// 	return this;
+	//
+	// }
 
 	clone() {
 
@@ -373,45 +373,45 @@ class BufferAttribute {
 
 //
 
-class Int8BufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Int8Array( array ), itemSize, normalized );
-
-	}
-
-}
-
-class Uint8BufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Uint8Array( array ), itemSize, normalized );
-
-	}
-
-}
-
-class Uint8ClampedBufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Uint8ClampedArray( array ), itemSize, normalized );
-
-	}
-
-}
-
-class Int16BufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Int16Array( array ), itemSize, normalized );
-
-	}
-
-}
+// class Int8BufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Int8Array( array ), itemSize, normalized );
+//
+// 	}
+//
+// }
+//
+// class Uint8BufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Uint8Array( array ), itemSize, normalized );
+//
+// 	}
+//
+// }
+//
+// class Uint8ClampedBufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Uint8ClampedArray( array ), itemSize, normalized );
+//
+// 	}
+//
+// }
+//
+// class Int16BufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Int16Array( array ), itemSize, normalized );
+//
+// 	}
+//
+// }
 
 class Uint16BufferAttribute extends BufferAttribute {
 
@@ -423,15 +423,15 @@ class Uint16BufferAttribute extends BufferAttribute {
 
 }
 
-class Int32BufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Int32Array( array ), itemSize, normalized );
-
-	}
-
-}
+// class Int32BufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Int32Array( array ), itemSize, normalized );
+//
+// 	}
+//
+// }
 
 class Uint32BufferAttribute extends BufferAttribute {
 
@@ -443,17 +443,17 @@ class Uint32BufferAttribute extends BufferAttribute {
 
 }
 
-class Float16BufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Uint16Array( array ), itemSize, normalized );
-
-		this.isFloat16BufferAttribute = true;
-
-	}
-
-}
+// class Float16BufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Uint16Array( array ), itemSize, normalized );
+//
+// 		this.isFloat16BufferAttribute = true;
+//
+// 	}
+//
+// }
 
 
 class Float32BufferAttribute extends BufferAttribute {
@@ -466,28 +466,28 @@ class Float32BufferAttribute extends BufferAttribute {
 
 }
 
-class Float64BufferAttribute extends BufferAttribute {
-
-	constructor( array, itemSize, normalized ) {
-
-		super( new Float64Array( array ), itemSize, normalized );
-
-	}
-
-}
+// class Float64BufferAttribute extends BufferAttribute {
+//
+// 	constructor( array, itemSize, normalized ) {
+//
+// 		super( new Float64Array( array ), itemSize, normalized );
+//
+// 	}
+//
+// }
 
 //
 
 export {
-	Float64BufferAttribute,
+	// Float64BufferAttribute,
 	Float32BufferAttribute,
-	Float16BufferAttribute,
+	// Float16BufferAttribute,
 	Uint32BufferAttribute,
-	Int32BufferAttribute,
+	// Int32BufferAttribute,
 	Uint16BufferAttribute,
-	Int16BufferAttribute,
-	Uint8ClampedBufferAttribute,
-	Uint8BufferAttribute,
-	Int8BufferAttribute,
+	// Int16BufferAttribute,
+	// Uint8ClampedBufferAttribute,
+	// Uint8BufferAttribute,
+	// Int8BufferAttribute,
 	BufferAttribute
 };

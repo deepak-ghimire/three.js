@@ -81,14 +81,14 @@ class BoxHelper extends LineSegments {
 
 	}
 
-	setFromObject( object ) {
-
-		this.object = object;
-		this.update();
-
-		return this;
-
-	}
+	// setFromObject( object ) {
+	//
+	// 	this.object = object;
+	// 	this.update();
+	//
+	// 	return this;
+	//
+	// }
 
 	// copy( source, recursive ) {
 

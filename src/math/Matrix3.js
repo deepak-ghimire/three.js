@@ -26,19 +26,19 @@ class Matrix3 {
 
 	}
 
-	identity() {
-
-		this.set(
-
-			1, 0, 0,
-			0, 1, 0,
-			0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// identity() {
+	//
+	// 	this.set(
+	//
+	// 		1, 0, 0,
+	// 		0, 1, 0,
+	// 		0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	copy( m ) {
 
@@ -53,15 +53,15 @@ class Matrix3 {
 
 	}
 
-	extractBasis( xAxis, yAxis, zAxis ) {
-
-		xAxis.setFromMatrix3Column( this, 0 );
-		yAxis.setFromMatrix3Column( this, 1 );
-		zAxis.setFromMatrix3Column( this, 2 );
-
-		return this;
-
-	}
+	// extractBasis( xAxis, yAxis, zAxis ) {
+	//
+	// 	xAxis.setFromMatrix3Column( this, 0 );
+	// 	yAxis.setFromMatrix3Column( this, 1 );
+	// 	zAxis.setFromMatrix3Column( this, 2 );
+	//
+	// 	return this;
+	//
+	// }
 
 	setFromMatrix4( m ) {
 
@@ -133,17 +133,17 @@ class Matrix3 {
 
 	}
 
-	determinant() {
-
-		const te = this.elements;
-
-		const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
-			d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
-			g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
-
-		return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
-
-	}
+	// determinant() {
+	//
+	// 	const te = this.elements;
+	//
+	// 	const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
+	// 		d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
+	// 		g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
+	//
+	// 	return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
+	//
+	// }
 
 	invert() {
 
@@ -198,23 +198,23 @@ class Matrix3 {
 
 	}
 
-	transposeIntoArray( r ) {
-
-		const m = this.elements;
-
-		r[ 0 ] = m[ 0 ];
-		r[ 1 ] = m[ 3 ];
-		r[ 2 ] = m[ 6 ];
-		r[ 3 ] = m[ 1 ];
-		r[ 4 ] = m[ 4 ];
-		r[ 5 ] = m[ 7 ];
-		r[ 6 ] = m[ 2 ];
-		r[ 7 ] = m[ 5 ];
-		r[ 8 ] = m[ 8 ];
-
-		return this;
-
-	}
+	// transposeIntoArray( r ) {
+	//
+	// 	const m = this.elements;
+	//
+	// 	r[ 0 ] = m[ 0 ];
+	// 	r[ 1 ] = m[ 3 ];
+	// 	r[ 2 ] = m[ 6 ];
+	// 	r[ 3 ] = m[ 1 ];
+	// 	r[ 4 ] = m[ 4 ];
+	// 	r[ 5 ] = m[ 7 ];
+	// 	r[ 6 ] = m[ 2 ];
+	// 	r[ 7 ] = m[ 5 ];
+	// 	r[ 8 ] = m[ 8 ];
+	//
+	// 	return this;
+	//
+	// }
 
 	setUvTransform( tx, ty, sx, sy, rotation, cx, cy ) {
 
@@ -241,56 +241,56 @@ class Matrix3 {
 
 	}
 
-	rotate( theta ) {
-
-		this.premultiply( _m3.makeRotation( - theta ) );
-
-		return this;
-
-	}
-
-	translate( tx, ty ) {
-
-		this.premultiply( _m3.makeTranslation( tx, ty ) );
-
-		return this;
-
-	}
+	// rotate( theta ) {
+	//
+	// 	this.premultiply( _m3.makeRotation( - theta ) );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// translate( tx, ty ) {
+	//
+	// 	this.premultiply( _m3.makeTranslation( tx, ty ) );
+	//
+	// 	return this;
+	//
+	// }
 
 	// for 2D Transforms
 
-	makeTranslation( x, y ) {
-
-		this.set(
-
-			1, 0, x,
-			0, 1, y,
-			0, 0, 1
-
-		);
-
-		return this;
-
-	}
-
-	makeRotation( theta ) {
-
-		// counterclockwise
-
-		const c = Math.cos( theta );
-		const s = Math.sin( theta );
-
-		this.set(
-
-			c, - s, 0,
-			s, c, 0,
-			0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// makeTranslation( x, y ) {
+	//
+	// 	this.set(
+	//
+	// 		1, 0, x,
+	// 		0, 1, y,
+	// 		0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// makeRotation( theta ) {
+	//
+	// 	// counterclockwise
+	//
+	// 	const c = Math.cos( theta );
+	// 	const s = Math.sin( theta );
+	//
+	// 	this.set(
+	//
+	// 		c, - s, 0,
+	// 		s, c, 0,
+	// 		0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	makeScale( x, y ) {
 

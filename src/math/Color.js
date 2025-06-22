@@ -94,15 +94,15 @@ class Color {
 
 	}
 
-	setScalar( scalar ) {
-
-		this.r = scalar;
-		this.g = scalar;
-		this.b = scalar;
-
-		return this;
-
-	}
+	// setScalar( scalar ) {
+	//
+	// 	this.r = scalar;
+	// 	this.g = scalar;
+	// 	this.b = scalar;
+	//
+	// 	return this;
+	//
+	// }
 
 	setHex( hex, colorSpace = SRGBColorSpace ) {
 
@@ -340,21 +340,21 @@ class Color {
 
 	}
 
-	convertSRGBToLinear() {
-
-		this.copySRGBToLinear( this );
-
-		return this;
-
-	}
-
-	convertLinearToSRGB() {
-
-		this.copyLinearToSRGB( this );
-
-		return this;
-
-	}
+	// convertSRGBToLinear() {
+	//
+	// 	this.copySRGBToLinear( this );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// convertLinearToSRGB() {
+	//
+	// 	this.copyLinearToSRGB( this );
+	//
+	// 	return this;
+	//
+	// }
 
 	getHex( colorSpace = SRGBColorSpace ) {
 
@@ -364,11 +364,11 @@ class Color {
 
 	}
 
-	getHexString( colorSpace = SRGBColorSpace ) {
-
-		return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );
-
-	}
+	// getHexString( colorSpace = SRGBColorSpace ) {
+	//
+	// 	return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );
+	//
+	// }
 
 	// getHSL( target, colorSpace = ColorManagement.workingColorSpace ) {
 
@@ -426,21 +426,21 @@ class Color {
 		return target;
 
 	}
-
-	getStyle( colorSpace = SRGBColorSpace ) {
-
-		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
-
-		if ( colorSpace !== SRGBColorSpace ) {
-
-			// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
-			return `color(${ colorSpace } ${ _rgb.r } ${ _rgb.g } ${ _rgb.b })`;
-
-		}
-
-		return `rgb(${( _rgb.r * 255 ) | 0},${( _rgb.g * 255 ) | 0},${( _rgb.b * 255 ) | 0})`;
-
-	}
+	//
+	// getStyle( colorSpace = SRGBColorSpace ) {
+	//
+	// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+	//
+	// 	if ( colorSpace !== SRGBColorSpace ) {
+	//
+	// 		// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
+	// 		return `color(${ colorSpace } ${ _rgb.r } ${ _rgb.g } ${ _rgb.b })`;
+	//
+	// 	}
+	//
+	// 	return `rgb(${( _rgb.r * 255 ) | 0},${( _rgb.g * 255 ) | 0},${( _rgb.b * 255 ) | 0})`;
+	//
+	// }
 
 	// offsetHSL( h, s, l ) {
 
@@ -464,25 +464,25 @@ class Color {
 
 	}
 
-	addColors( color1, color2 ) {
-
-		this.r = color1.r + color2.r;
-		this.g = color1.g + color2.g;
-		this.b = color1.b + color2.b;
-
-		return this;
-
-	}
-
-	addScalar( s ) {
-
-		this.r += s;
-		this.g += s;
-		this.b += s;
-
-		return this;
-
-	}
+	// addColors( color1, color2 ) {
+	//
+	// 	this.r = color1.r + color2.r;
+	// 	this.g = color1.g + color2.g;
+	// 	this.b = color1.b + color2.b;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// addScalar( s ) {
+	//
+	// 	this.r += s;
+	// 	this.g += s;
+	// 	this.b += s;
+	//
+	// 	return this;
+	//
+	// }
 
 	sub( color ) {
 
@@ -524,15 +524,15 @@ class Color {
 
 	}
 
-	lerpColors( color1, color2, alpha ) {
-
-		this.r = color1.r + ( color2.r - color1.r ) * alpha;
-		this.g = color1.g + ( color2.g - color1.g ) * alpha;
-		this.b = color1.b + ( color2.b - color1.b ) * alpha;
-
-		return this;
-
-	}
+	// lerpColors( color1, color2, alpha ) {
+	//
+	// 	this.r = color1.r + ( color2.r - color1.r ) * alpha;
+	// 	this.g = color1.g + ( color2.g - color1.g ) * alpha;
+	// 	this.b = color1.b + ( color2.b - color1.b ) * alpha;
+	//
+	// 	return this;
+	//
+	// }
 
 	// lerpHSL( color, alpha ) {
 

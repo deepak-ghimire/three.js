@@ -41,7 +41,7 @@
  *
  */
 
-import { CubeTexture } from '../../textures/CubeTexture.js';
+// import { CubeTexture } from '../../textures/CubeTexture.js';
 import { Texture } from '../../textures/Texture.js';
 import { DataArrayTexture } from '../../textures/DataArrayTexture.js';
 import { Data3DTexture } from '../../textures/Data3DTexture.js';
@@ -49,7 +49,7 @@ import { Data3DTexture } from '../../textures/Data3DTexture.js';
 const emptyTexture = /*@__PURE__*/ new Texture();
 const emptyArrayTexture = /*@__PURE__*/ new DataArrayTexture();
 const empty3dTexture = /*@__PURE__*/ new Data3DTexture();
-const emptyCubeTexture = /*@__PURE__*/ new CubeTexture();
+// const emptyCubeTexture = /*@__PURE__*/ new CubeTexture();
 
 // --- Utilities ---
 
@@ -599,21 +599,21 @@ function setValueT3D1( gl, v, textures ) {
 
 // }
 
-function setValueT2DArray1( gl, v, textures ) {
-
-	const cache = this.cache;
-	const unit = textures.allocateTextureUnit();
-
-	if ( cache[ 0 ] !== unit ) {
-
-		gl.uniform1i( this.addr, unit );
-		cache[ 0 ] = unit;
-
-	}
-
-	textures.setTexture2DArray( v || emptyArrayTexture, unit );
-
-}
+// function setValueT2DArray1( gl, v, textures ) {
+//
+// 	const cache = this.cache;
+// 	const unit = textures.allocateTextureUnit();
+//
+// 	if ( cache[ 0 ] !== unit ) {
+//
+// 		gl.uniform1i( this.addr, unit );
+// 		cache[ 0 ] = unit;
+//
+// 	}
+//
+// 	textures.setTexture2DArray( v || emptyArrayTexture, unit );
+//
+// }
 
 // Helper to pick the right setter for the singular case
 

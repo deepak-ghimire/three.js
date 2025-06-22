@@ -74,11 +74,11 @@ class LOD extends Object3D {
 
 	}
 
-	getCurrentLevel() {
-
-		return this._currentLevel;
-
-	}
+	// getCurrentLevel() {
+	//
+	// 	return this._currentLevel;
+	//
+	// }
 
 
 

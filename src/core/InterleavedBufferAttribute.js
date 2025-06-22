@@ -54,21 +54,21 @@ class InterleavedBufferAttribute {
 
 	}
 
-	applyNormalMatrix( m ) {
-
-		for ( let i = 0, l = this.count; i < l; i ++ ) {
-
-			_vector.fromBufferAttribute( this, i );
-
-			_vector.applyNormalMatrix( m );
-
-			this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-
-		}
-
-		return this;
-
-	}
+	// applyNormalMatrix( m ) {
+	//
+	// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+	//
+	// 		_vector.fromBufferAttribute( this, i );
+	//
+	// 		_vector.applyNormalMatrix( m );
+	//
+	// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	transformDirection( m ) {
 
@@ -86,45 +86,45 @@ class InterleavedBufferAttribute {
 
 	}
 
-	setX( index, x ) {
-
-		if ( this.normalized ) x = normalize( x, this.array );
-
-		this.data.array[ index * this.data.stride + this.offset ] = x;
-
-		return this;
-
-	}
-
-	setY( index, y ) {
-
-		if ( this.normalized ) y = normalize( y, this.array );
-
-		this.data.array[ index * this.data.stride + this.offset + 1 ] = y;
-
-		return this;
-
-	}
-
-	setZ( index, z ) {
-
-		if ( this.normalized ) z = normalize( z, this.array );
-
-		this.data.array[ index * this.data.stride + this.offset + 2 ] = z;
-
-		return this;
-
-	}
-
-	setW( index, w ) {
-
-		if ( this.normalized ) w = normalize( w, this.array );
-
-		this.data.array[ index * this.data.stride + this.offset + 3 ] = w;
-
-		return this;
-
-	}
+	// setX( index, x ) {
+	//
+	// 	if ( this.normalized ) x = normalize( x, this.array );
+	//
+	// 	this.data.array[ index * this.data.stride + this.offset ] = x;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setY( index, y ) {
+	//
+	// 	if ( this.normalized ) y = normalize( y, this.array );
+	//
+	// 	this.data.array[ index * this.data.stride + this.offset + 1 ] = y;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setZ( index, z ) {
+	//
+	// 	if ( this.normalized ) z = normalize( z, this.array );
+	//
+	// 	this.data.array[ index * this.data.stride + this.offset + 2 ] = z;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setW( index, w ) {
+	//
+	// 	if ( this.normalized ) w = normalize( w, this.array );
+	//
+	// 	this.data.array[ index * this.data.stride + this.offset + 3 ] = w;
+	//
+	// 	return this;
+	//
+	// }
 
 	getX( index ) {
 
@@ -166,23 +166,23 @@ class InterleavedBufferAttribute {
 
 	}
 
-	setXY( index, x, y ) {
-
-		index = index * this.data.stride + this.offset;
-
-		if ( this.normalized ) {
-
-			x = normalize( x, this.array );
-			y = normalize( y, this.array );
-
-		}
-
-		this.data.array[ index + 0 ] = x;
-		this.data.array[ index + 1 ] = y;
-
-		return this;
-
-	}
+	// setXY( index, x, y ) {
+	//
+	// 	index = index * this.data.stride + this.offset;
+	//
+	// 	if ( this.normalized ) {
+	//
+	// 		x = normalize( x, this.array );
+	// 		y = normalize( y, this.array );
+	//
+	// 	}
+	//
+	// 	this.data.array[ index + 0 ] = x;
+	// 	this.data.array[ index + 1 ] = y;
+	//
+	// 	return this;
+	//
+	// }
 
 	setXYZ( index, x, y, z ) {
 

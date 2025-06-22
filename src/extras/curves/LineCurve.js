@@ -41,16 +41,16 @@ class LineCurve extends Curve {
 		return this.getPoint( u, optionalTarget );
 
 	}
-
-	getTangent( t, optionalTarget ) {
-
-		const tangent = optionalTarget || new Vector2();
-
-		tangent.copy( this.v2 ).sub( this.v1 ).normalize();
-
-		return tangent;
-
-	}
+	//
+	// getTangent( t, optionalTarget ) {
+	//
+	// 	const tangent = optionalTarget || new Vector2();
+	//
+	// 	tangent.copy( this.v2 ).sub( this.v1 ).normalize();
+	//
+	// 	return tangent;
+	//
+	// }
 
 	copy( source ) {
 

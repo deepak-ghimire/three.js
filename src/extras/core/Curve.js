@@ -39,7 +39,7 @@ class Curve {
 
 		this.type = 'Curve';
 
-		this.arcLengthDivisions = 200;
+		// this.arcLengthDivisions = 200;
 
 	}
 

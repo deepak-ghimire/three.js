@@ -15,7 +15,7 @@ export default /* glsl */`
 #if ! defined ( USE_TANGENT ) && ( defined ( TANGENTSPACE_NORMALMAP ) || defined ( USE_CLEARCOAT_NORMALMAP ) )
 
 	// Normal Mapping Without Precomputed Tangents
-	// http://www.thetenthplanet.de/archives/1180
+	// https://www.thetenthplanet.de/archives/1180
 
 	vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm, vec3 mapN, float faceDirection ) {
 

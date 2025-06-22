@@ -46,21 +46,21 @@ class InterleavedBuffer {
 		return this;
 
 	}
-
-	copyAt( index1, attribute, index2 ) {
-
-		index1 *= this.stride;
-		index2 *= attribute.stride;
-
-		for ( let i = 0, l = this.stride; i < l; i ++ ) {
-
-			this.array[ index1 + i ] = attribute.array[ index2 + i ];
-
-		}
-
-		return this;
-
-	}
+	//
+	// copyAt( index1, attribute, index2 ) {
+	//
+	// 	index1 *= this.stride;
+	// 	index2 *= attribute.stride;
+	//
+	// 	for ( let i = 0, l = this.stride; i < l; i ++ ) {
+	//
+	// 		this.array[ index1 + i ] = attribute.array[ index2 + i ];
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	set( value, offset = 0 ) {
 
@@ -99,13 +99,13 @@ class InterleavedBuffer {
 
 	}
 
-	onUpload( callback ) {
-
-		this.onUploadCallback = callback;
-
-		return this;
-
-	}
+	// onUpload( callback ) {
+	//
+	// 	this.onUploadCallback = callback;
+	//
+	// 	return this;
+	//
+	// }
 
 	toJSON( data ) {
 

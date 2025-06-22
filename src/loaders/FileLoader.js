@@ -264,19 +264,19 @@ class FileLoader extends Loader {
 
 	}
 
-	setResponseType( value ) {
-
-		this.responseType = value;
-		return this;
-
-	}
-
-	setMimeType( value ) {
-
-		this.mimeType = value;
-		return this;
-
-	}
+	// setResponseType( value ) {
+	//
+	// 	this.responseType = value;
+	// 	return this;
+	//
+	// }
+	//
+	// setMimeType( value ) {
+	//
+	// 	this.mimeType = value;
+	// 	return this;
+	//
+	// }
 
 }
 

@@ -8,7 +8,7 @@ class CubicBezierCurve extends Curve {
 
 		super();
 
-		this.isCubicBezierCurve = true;
+		// this.isCubicBezierCurve = true;
 
 		this.type = 'CubicBezierCurve';
 

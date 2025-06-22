@@ -10,7 +10,7 @@ class Material extends EventDispatcher {
 
 		super();
 
-		this.isMaterial = true;
+		// this.isMaterial = true;
 
 		Object.defineProperty( this, 'id', { value: materialId ++ } );
 

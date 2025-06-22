@@ -31,7 +31,7 @@ export const ColorManagement = {
 
 	set workingColorSpace( colorSpace ) {
 
-		console.warn( 'THREE.ColorManagement: .workingColorSpace is readonly.' );
+		// console.warn( 'THREE.ColorManagement: .workingColorSpace is readonly.' );
 
 	},
 

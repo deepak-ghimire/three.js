@@ -9,7 +9,7 @@ class Euler {
 
 	constructor( x = 0, y = 0, z = 0, order = Euler.DefaultOrder ) {
 
-		this.isEuler = true;
+		// this.isEuler = true;
 
 		this._x = x;
 		this._y = y;
@@ -242,22 +242,22 @@ class Euler {
 		return this.setFromRotationMatrix( _matrix, order, update );
 
 	}
-
-	setFromVector3( v, order = this._order ) {
-
-		return this.set( v.x, v.y, v.z, order );
-
-	}
-
-	reorder( newOrder ) {
-
-		// WARNING: this discards revolution information -bhouston
-
-		_quaternion.setFromEuler( this );
-
-		return this.setFromQuaternion( _quaternion, newOrder );
-
-	}
+	//
+	// setFromVector3( v, order = this._order ) {
+	//
+	// 	return this.set( v.x, v.y, v.z, order );
+	//
+	// }
+	//
+	// reorder( newOrder ) {
+	//
+	// 	// WARNING: this discards revolution information -bhouston
+	//
+	// 	_quaternion.setFromEuler( this );
+	//
+	// 	return this.setFromQuaternion( _quaternion, newOrder );
+	//
+	// }
 
 	equals( euler ) {
 
@@ -310,11 +310,11 @@ class Euler {
 
 	// @deprecated since r138, 02cf0df1cb4575d5842fef9c85bb5a89fe020d53
 
-	toVector3() {
-
-		console.error( 'THREE.Euler: .toVector3() has been removed. Use Vector3.setFromEuler() instead' );
-
-	}
+	// toVector3() {
+	//
+	// 	console.error( 'THREE.Euler: .toVector3() has been removed. Use Vector3.setFromEuler() instead' );
+	//
+	// }
 
 }
 

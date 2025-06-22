@@ -77,45 +77,45 @@ class Matrix4 {
 
 	}
 
-	setFromMatrix3( m ) {
-
-		const me = m.elements;
-
-		this.set(
-
-			me[ 0 ], me[ 3 ], me[ 6 ], 0,
-			me[ 1 ], me[ 4 ], me[ 7 ], 0,
-			me[ 2 ], me[ 5 ], me[ 8 ], 0,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
-
-	extractBasis( xAxis, yAxis, zAxis ) {
-
-		xAxis.setFromMatrixColumn( this, 0 );
-		yAxis.setFromMatrixColumn( this, 1 );
-		zAxis.setFromMatrixColumn( this, 2 );
-
-		return this;
-
-	}
-
-	makeBasis( xAxis, yAxis, zAxis ) {
-
-		this.set(
-			xAxis.x, yAxis.x, zAxis.x, 0,
-			xAxis.y, yAxis.y, zAxis.y, 0,
-			xAxis.z, yAxis.z, zAxis.z, 0,
-			0, 0, 0, 1
-		);
-
-		return this;
-
-	}
+	// setFromMatrix3( m ) {
+	//
+	// 	const me = m.elements;
+	//
+	// 	this.set(
+	//
+	// 		me[ 0 ], me[ 3 ], me[ 6 ], 0,
+	// 		me[ 1 ], me[ 4 ], me[ 7 ], 0,
+	// 		me[ 2 ], me[ 5 ], me[ 8 ], 0,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// extractBasis( xAxis, yAxis, zAxis ) {
+	//
+	// 	xAxis.setFromMatrixColumn( this, 0 );
+	// 	yAxis.setFromMatrixColumn( this, 1 );
+	// 	zAxis.setFromMatrixColumn( this, 2 );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// makeBasis( xAxis, yAxis, zAxis ) {
+	//
+	// 	this.set(
+	// 		xAxis.x, yAxis.x, zAxis.x, 0,
+	// 		xAxis.y, yAxis.y, zAxis.y, 0,
+	// 		xAxis.z, yAxis.z, zAxis.z, 0,
+	// 		0, 0, 0, 1
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	extractRotation( m ) {
 
@@ -152,127 +152,127 @@ class Matrix4 {
 
 	}
 
-	makeRotationFromEuler( euler ) {
-
-		const te = this.elements;
-
-		const x = euler.x, y = euler.y, z = euler.z;
-		const a = Math.cos( x ), b = Math.sin( x );
-		const c = Math.cos( y ), d = Math.sin( y );
-		const e = Math.cos( z ), f = Math.sin( z );
-
-		if ( euler.order === 'XYZ' ) {
-
-			const ae = a * e, af = a * f, be = b * e, bf = b * f;
-
-			te[ 0 ] = c * e;
-			te[ 4 ] = - c * f;
-			te[ 8 ] = d;
-
-			te[ 1 ] = af + be * d;
-			te[ 5 ] = ae - bf * d;
-			te[ 9 ] = - b * c;
-
-			te[ 2 ] = bf - ae * d;
-			te[ 6 ] = be + af * d;
-			te[ 10 ] = a * c;
-
-		} else if ( euler.order === 'YXZ' ) {
-
-			const ce = c * e, cf = c * f, de = d * e, df = d * f;
-
-			te[ 0 ] = ce + df * b;
-			te[ 4 ] = de * b - cf;
-			te[ 8 ] = a * d;
-
-			te[ 1 ] = a * f;
-			te[ 5 ] = a * e;
-			te[ 9 ] = - b;
-
-			te[ 2 ] = cf * b - de;
-			te[ 6 ] = df + ce * b;
-			te[ 10 ] = a * c;
-
-		} else if ( euler.order === 'ZXY' ) {
-
-			const ce = c * e, cf = c * f, de = d * e, df = d * f;
-
-			te[ 0 ] = ce - df * b;
-			te[ 4 ] = - a * f;
-			te[ 8 ] = de + cf * b;
-
-			te[ 1 ] = cf + de * b;
-			te[ 5 ] = a * e;
-			te[ 9 ] = df - ce * b;
-
-			te[ 2 ] = - a * d;
-			te[ 6 ] = b;
-			te[ 10 ] = a * c;
-
-		} else if ( euler.order === 'ZYX' ) {
-
-			const ae = a * e, af = a * f, be = b * e, bf = b * f;
-
-			te[ 0 ] = c * e;
-			te[ 4 ] = be * d - af;
-			te[ 8 ] = ae * d + bf;
-
-			te[ 1 ] = c * f;
-			te[ 5 ] = bf * d + ae;
-			te[ 9 ] = af * d - be;
-
-			te[ 2 ] = - d;
-			te[ 6 ] = b * c;
-			te[ 10 ] = a * c;
-
-		} else if ( euler.order === 'YZX' ) {
-
-			const ac = a * c, ad = a * d, bc = b * c, bd = b * d;
-
-			te[ 0 ] = c * e;
-			te[ 4 ] = bd - ac * f;
-			te[ 8 ] = bc * f + ad;
-
-			te[ 1 ] = f;
-			te[ 5 ] = a * e;
-			te[ 9 ] = - b * e;
-
-			te[ 2 ] = - d * e;
-			te[ 6 ] = ad * f + bc;
-			te[ 10 ] = ac - bd * f;
-
-		} else if ( euler.order === 'XZY' ) {
-
-			const ac = a * c, ad = a * d, bc = b * c, bd = b * d;
-
-			te[ 0 ] = c * e;
-			te[ 4 ] = - f;
-			te[ 8 ] = d * e;
-
-			te[ 1 ] = ac * f + bd;
-			te[ 5 ] = a * e;
-			te[ 9 ] = ad * f - bc;
-
-			te[ 2 ] = bc * f - ad;
-			te[ 6 ] = b * e;
-			te[ 10 ] = bd * f + ac;
-
-		}
-
-		// bottom row
-		te[ 3 ] = 0;
-		te[ 7 ] = 0;
-		te[ 11 ] = 0;
-
-		// last column
-		te[ 12 ] = 0;
-		te[ 13 ] = 0;
-		te[ 14 ] = 0;
-		te[ 15 ] = 1;
-
-		return this;
-
-	}
+	// makeRotationFromEuler( euler ) {
+	//
+	// 	const te = this.elements;
+	//
+	// 	const x = euler.x, y = euler.y, z = euler.z;
+	// 	const a = Math.cos( x ), b = Math.sin( x );
+	// 	const c = Math.cos( y ), d = Math.sin( y );
+	// 	const e = Math.cos( z ), f = Math.sin( z );
+	//
+	// 	if ( euler.order === 'XYZ' ) {
+	//
+	// 		const ae = a * e, af = a * f, be = b * e, bf = b * f;
+	//
+	// 		te[ 0 ] = c * e;
+	// 		te[ 4 ] = - c * f;
+	// 		te[ 8 ] = d;
+	//
+	// 		te[ 1 ] = af + be * d;
+	// 		te[ 5 ] = ae - bf * d;
+	// 		te[ 9 ] = - b * c;
+	//
+	// 		te[ 2 ] = bf - ae * d;
+	// 		te[ 6 ] = be + af * d;
+	// 		te[ 10 ] = a * c;
+	//
+	// 	} else if ( euler.order === 'YXZ' ) {
+	//
+	// 		const ce = c * e, cf = c * f, de = d * e, df = d * f;
+	//
+	// 		te[ 0 ] = ce + df * b;
+	// 		te[ 4 ] = de * b - cf;
+	// 		te[ 8 ] = a * d;
+	//
+	// 		te[ 1 ] = a * f;
+	// 		te[ 5 ] = a * e;
+	// 		te[ 9 ] = - b;
+	//
+	// 		te[ 2 ] = cf * b - de;
+	// 		te[ 6 ] = df + ce * b;
+	// 		te[ 10 ] = a * c;
+	//
+	// 	} else if ( euler.order === 'ZXY' ) {
+	//
+	// 		const ce = c * e, cf = c * f, de = d * e, df = d * f;
+	//
+	// 		te[ 0 ] = ce - df * b;
+	// 		te[ 4 ] = - a * f;
+	// 		te[ 8 ] = de + cf * b;
+	//
+	// 		te[ 1 ] = cf + de * b;
+	// 		te[ 5 ] = a * e;
+	// 		te[ 9 ] = df - ce * b;
+	//
+	// 		te[ 2 ] = - a * d;
+	// 		te[ 6 ] = b;
+	// 		te[ 10 ] = a * c;
+	//
+	// 	} else if ( euler.order === 'ZYX' ) {
+	//
+	// 		const ae = a * e, af = a * f, be = b * e, bf = b * f;
+	//
+	// 		te[ 0 ] = c * e;
+	// 		te[ 4 ] = be * d - af;
+	// 		te[ 8 ] = ae * d + bf;
+	//
+	// 		te[ 1 ] = c * f;
+	// 		te[ 5 ] = bf * d + ae;
+	// 		te[ 9 ] = af * d - be;
+	//
+	// 		te[ 2 ] = - d;
+	// 		te[ 6 ] = b * c;
+	// 		te[ 10 ] = a * c;
+	//
+	// 	} else if ( euler.order === 'YZX' ) {
+	//
+	// 		const ac = a * c, ad = a * d, bc = b * c, bd = b * d;
+	//
+	// 		te[ 0 ] = c * e;
+	// 		te[ 4 ] = bd - ac * f;
+	// 		te[ 8 ] = bc * f + ad;
+	//
+	// 		te[ 1 ] = f;
+	// 		te[ 5 ] = a * e;
+	// 		te[ 9 ] = - b * e;
+	//
+	// 		te[ 2 ] = - d * e;
+	// 		te[ 6 ] = ad * f + bc;
+	// 		te[ 10 ] = ac - bd * f;
+	//
+	// 	} else if ( euler.order === 'XZY' ) {
+	//
+	// 		const ac = a * c, ad = a * d, bc = b * c, bd = b * d;
+	//
+	// 		te[ 0 ] = c * e;
+	// 		te[ 4 ] = - f;
+	// 		te[ 8 ] = d * e;
+	//
+	// 		te[ 1 ] = ac * f + bd;
+	// 		te[ 5 ] = a * e;
+	// 		te[ 9 ] = ad * f - bc;
+	//
+	// 		te[ 2 ] = bc * f - ad;
+	// 		te[ 6 ] = b * e;
+	// 		te[ 10 ] = bd * f + ac;
+	//
+	// 	}
+	//
+	// 	// bottom row
+	// 	te[ 3 ] = 0;
+	// 	te[ 7 ] = 0;
+	// 	te[ 11 ] = 0;
+	//
+	// 	// last column
+	// 	te[ 12 ] = 0;
+	// 	te[ 13 ] = 0;
+	// 	te[ 14 ] = 0;
+	// 	te[ 15 ] = 1;
+	//
+	// 	return this;
+	//
+	// }
 
 	makeRotationFromQuaternion( q ) {
 
@@ -442,44 +442,44 @@ class Matrix4 {
 
 	}
 
-	transpose() {
-
-		const te = this.elements;
-		let tmp;
-
-		tmp = te[ 1 ]; te[ 1 ] = te[ 4 ]; te[ 4 ] = tmp;
-		tmp = te[ 2 ]; te[ 2 ] = te[ 8 ]; te[ 8 ] = tmp;
-		tmp = te[ 6 ]; te[ 6 ] = te[ 9 ]; te[ 9 ] = tmp;
-
-		tmp = te[ 3 ]; te[ 3 ] = te[ 12 ]; te[ 12 ] = tmp;
-		tmp = te[ 7 ]; te[ 7 ] = te[ 13 ]; te[ 13 ] = tmp;
-		tmp = te[ 11 ]; te[ 11 ] = te[ 14 ]; te[ 14 ] = tmp;
-
-		return this;
-
-	}
-
-	setPosition( x, y, z ) {
-
-		const te = this.elements;
-
-		if ( x.isVector3 ) {
-
-			te[ 12 ] = x.x;
-			te[ 13 ] = x.y;
-			te[ 14 ] = x.z;
-
-		} else {
-
-			te[ 12 ] = x;
-			te[ 13 ] = y;
-			te[ 14 ] = z;
-
-		}
-
-		return this;
-
-	}
+	// transpose() {
+	//
+	// 	const te = this.elements;
+	// 	let tmp;
+	//
+	// 	tmp = te[ 1 ]; te[ 1 ] = te[ 4 ]; te[ 4 ] = tmp;
+	// 	tmp = te[ 2 ]; te[ 2 ] = te[ 8 ]; te[ 8 ] = tmp;
+	// 	tmp = te[ 6 ]; te[ 6 ] = te[ 9 ]; te[ 9 ] = tmp;
+	//
+	// 	tmp = te[ 3 ]; te[ 3 ] = te[ 12 ]; te[ 12 ] = tmp;
+	// 	tmp = te[ 7 ]; te[ 7 ] = te[ 13 ]; te[ 13 ] = tmp;
+	// 	tmp = te[ 11 ]; te[ 11 ] = te[ 14 ]; te[ 14 ] = tmp;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setPosition( x, y, z ) {
+	//
+	// 	const te = this.elements;
+	//
+	// 	if ( x.isVector3 ) {
+	//
+	// 		te[ 12 ] = x.x;
+	// 		te[ 13 ] = x.y;
+	// 		te[ 14 ] = x.z;
+	//
+	// 	} else {
+	//
+	// 		te[ 12 ] = x;
+	// 		te[ 13 ] = y;
+	// 		te[ 14 ] = z;
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	invert() {
 
@@ -618,28 +618,28 @@ class Matrix4 {
 
 	}
 
-	makeRotationAxis( axis, angle ) {
-
-		// Based on http://www.gamedev.net/reference/articles/article1199.asp
-
-		const c = Math.cos( angle );
-		const s = Math.sin( angle );
-		const t = 1 - c;
-		const x = axis.x, y = axis.y, z = axis.z;
-		const tx = t * x, ty = t * y;
-
-		this.set(
-
-			tx * x + c, tx * y - s * z, tx * z + s * y, 0,
-			tx * y + s * z, ty * y + c, ty * z - s * x, 0,
-			tx * z - s * y, ty * z + s * x, t * z * z + c, 0,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// makeRotationAxis( axis, angle ) {
+	//
+	// 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
+	//
+	// 	const c = Math.cos( angle );
+	// 	const s = Math.sin( angle );
+	// 	const t = 1 - c;
+	// 	const x = axis.x, y = axis.y, z = axis.z;
+	// 	const tx = t * x, ty = t * y;
+	//
+	// 	this.set(
+	//
+	// 		tx * x + c, tx * y - s * z, tx * z + s * y, 0,
+	// 		tx * y + s * z, ty * y + c, ty * z - s * x, 0,
+	// 		tx * z - s * y, ty * z + s * x, t * z * z + c, 0,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	makeScale( x, y, z ) {
 
@@ -656,20 +656,20 @@ class Matrix4 {
 
 	}
 
-	makeShear( xy, xz, yx, yz, zx, zy ) {
-
-		this.set(
-
-			1, yx, zx, 0,
-			xy, 1, zy, 0,
-			xz, yz, 1, 0,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// makeShear( xy, xz, yx, yz, zx, zy ) {
+	//
+	// 	this.set(
+	//
+	// 		1, yx, zx, 0,
+	// 		xy, 1, zy, 0,
+	// 		xz, yz, 1, 0,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	compose( position, quaternion, scale ) {
 

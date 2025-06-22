@@ -51,12 +51,12 @@ class Loader {
 
 	}
 
-	setResourcePath( resourcePath ) {
-
-		this.resourcePath = resourcePath;
-		return this;
-
-	}
+	// setResourcePath( resourcePath ) {
+	//
+	// 	this.resourcePath = resourcePath;
+	// 	return this;
+	//
+	// }
 
 	setRequestHeader( requestHeader ) {
 

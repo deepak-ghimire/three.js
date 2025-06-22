@@ -47,11 +47,11 @@ class InstancedMesh extends Mesh {
 
 	}
 
-	getColorAt( index, color ) {
-
-		color.fromArray( this.instanceColor.array, index * 3 );
-
-	}
+	// getColorAt( index, color ) {
+	//
+	// 	color.fromArray( this.instanceColor.array, index * 3 );
+	//
+	// }
 
 	getMatrixAt( index, matrix ) {
 
@@ -100,17 +100,17 @@ class InstancedMesh extends Mesh {
 
 	}
 
-	setColorAt( index, color ) {
-
-		if ( this.instanceColor === null ) {
-
-			this.instanceColor = new InstancedBufferAttribute( new Float32Array( this.instanceMatrix.count * 3 ), 3 );
-
-		}
-
-		color.toArray( this.instanceColor.array, index * 3 );
-
-	}
+	// setColorAt( index, color ) {
+	//
+	// 	if ( this.instanceColor === null ) {
+	//
+	// 		this.instanceColor = new InstancedBufferAttribute( new Float32Array( this.instanceMatrix.count * 3 ), 3 );
+	//
+	// 	}
+	//
+	// 	color.toArray( this.instanceColor.array, index * 3 );
+	//
+	// }
 
 	setMatrixAt( index, matrix ) {
 

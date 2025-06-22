@@ -106,49 +106,49 @@ class Frustum {
 
 	}
 
-	intersectsBox( box ) {
-
-		const planes = this.planes;
-
-		for ( let i = 0; i < 6; i ++ ) {
-
-			const plane = planes[ i ];
-
-			// corner at max distance
-
-			_vector.x = plane.normal.x > 0 ? box.max.x : box.min.x;
-			_vector.y = plane.normal.y > 0 ? box.max.y : box.min.y;
-			_vector.z = plane.normal.z > 0 ? box.max.z : box.min.z;
-
-			if ( plane.distanceToPoint( _vector ) < 0 ) {
-
-				return false;
-
-			}
-
-		}
-
-		return true;
-
-	}
-
-	containsPoint( point ) {
-
-		const planes = this.planes;
-
-		for ( let i = 0; i < 6; i ++ ) {
-
-			if ( planes[ i ].distanceToPoint( point ) < 0 ) {
-
-				return false;
-
-			}
-
-		}
-
-		return true;
-
-	}
+	// intersectsBox( box ) {
+	//
+	// 	const planes = this.planes;
+	//
+	// 	for ( let i = 0; i < 6; i ++ ) {
+	//
+	// 		const plane = planes[ i ];
+	//
+	// 		// corner at max distance
+	//
+	// 		_vector.x = plane.normal.x > 0 ? box.max.x : box.min.x;
+	// 		_vector.y = plane.normal.y > 0 ? box.max.y : box.min.y;
+	// 		_vector.z = plane.normal.z > 0 ? box.max.z : box.min.z;
+	//
+	// 		if ( plane.distanceToPoint( _vector ) < 0 ) {
+	//
+	// 			return false;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return true;
+	//
+	// }
+	//
+	// containsPoint( point ) {
+	//
+	// 	const planes = this.planes;
+	//
+	// 	for ( let i = 0; i < 6; i ++ ) {
+	//
+	// 		if ( planes[ i ].distanceToPoint( point ) < 0 ) {
+	//
+	// 			return false;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return true;
+	//
+	// }
 
 	clone() {
 

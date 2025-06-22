@@ -14,8 +14,8 @@ class LineBasicMaterial extends Material {
 		this.color = new Color( 0xffffff );
 
 		this.linewidth = 1;
-		this.linecap = 'round';
-		this.linejoin = 'round';
+		// this.linecap = 'round';
+		// this.linejoin = 'round';
 
 		this.fog = true;
 

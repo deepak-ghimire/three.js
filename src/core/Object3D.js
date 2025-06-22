@@ -131,43 +131,43 @@ class Object3D extends EventDispatcher {
 
 	}
 
-	applyQuaternion( q ) {
-
-		this.quaternion.premultiply( q );
-
-		return this;
-
-	}
-
-	setRotationFromAxisAngle( axis, angle ) {
-
-		// assumes axis is normalized
-
-		this.quaternion.setFromAxisAngle( axis, angle );
-
-	}
-
-	setRotationFromEuler( euler ) {
-
-		this.quaternion.setFromEuler( euler, true );
-
-	}
-
-	setRotationFromMatrix( m ) {
-
-		// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-
-		this.quaternion.setFromRotationMatrix( m );
-
-	}
-
-	setRotationFromQuaternion( q ) {
-
-		// assumes q is normalized
-
-		this.quaternion.copy( q );
-
-	}
+	// applyQuaternion( q ) {
+	//
+	// 	this.quaternion.premultiply( q );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setRotationFromAxisAngle( axis, angle ) {
+	//
+	// 	// assumes axis is normalized
+	//
+	// 	this.quaternion.setFromAxisAngle( axis, angle );
+	//
+	// }
+	//
+	// setRotationFromEuler( euler ) {
+	//
+	// 	this.quaternion.setFromEuler( euler, true );
+	//
+	// }
+	//
+	// setRotationFromMatrix( m ) {
+	//
+	// 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+	//
+	// 	this.quaternion.setFromRotationMatrix( m );
+	//
+	// }
+	//
+	// setRotationFromQuaternion( q ) {
+	//
+	// 	// assumes q is normalized
+	//
+	// 	this.quaternion.copy( q );
+	//
+	// }
 
 	rotateOnAxis( axis, angle ) {
 
@@ -182,37 +182,37 @@ class Object3D extends EventDispatcher {
 
 	}
 
-	rotateOnWorldAxis( axis, angle ) {
-
-		// rotate object on axis in world space
-		// axis is assumed to be normalized
-		// method assumes no rotated parent
-
-		_q1.setFromAxisAngle( axis, angle );
-
-		this.quaternion.premultiply( _q1 );
-
-		return this;
-
-	}
-
+	// rotateOnWorldAxis( axis, angle ) {
+	//
+	// 	// rotate object on axis in world space
+	// 	// axis is assumed to be normalized
+	// 	// method assumes no rotated parent
+	//
+	// 	_q1.setFromAxisAngle( axis, angle );
+	//
+	// 	this.quaternion.premultiply( _q1 );
+	//
+	// 	return this;
+	//
+	// }
+	//
 	rotateX( angle ) {
 
 		return this.rotateOnAxis( _xAxis, angle );
 
 	}
-
-	rotateY( angle ) {
-
-		return this.rotateOnAxis( _yAxis, angle );
-
-	}
-
-	rotateZ( angle ) {
-
-		return this.rotateOnAxis( _zAxis, angle );
-
-	}
+	//
+	// rotateY( angle ) {
+	//
+	// 	return this.rotateOnAxis( _yAxis, angle );
+	//
+	// }
+	//
+	// rotateZ( angle ) {
+	//
+	// 	return this.rotateOnAxis( _zAxis, angle );
+	//
+	// }
 
 	translateOnAxis( axis, distance ) {
 
@@ -233,33 +233,33 @@ class Object3D extends EventDispatcher {
 
 	}
 
-	translateY( distance ) {
-
-		return this.translateOnAxis( _yAxis, distance );
-
-	}
+	// translateY( distance ) {
+	//
+	// 	return this.translateOnAxis( _yAxis, distance );
+	//
+	// }
 
 	translateZ( distance ) {
 
 		return this.translateOnAxis( _zAxis, distance );
 
 	}
-
-	localToWorld( vector ) {
-
-		this.updateWorldMatrix( true, false );
-
-		return vector.applyMatrix4( this.matrixWorld );
-
-	}
-
-	worldToLocal( vector ) {
-
-		this.updateWorldMatrix( true, false );
-
-		return vector.applyMatrix4( _m1.copy( this.matrixWorld ).invert() );
-
-	}
+	//
+	// localToWorld( vector ) {
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	return vector.applyMatrix4( this.matrixWorld );
+	//
+	// }
+	//
+	// worldToLocal( vector ) {
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	return vector.applyMatrix4( _m1.copy( this.matrixWorld ).invert() );
+	//
+	// }
 
 	lookAt( x, y, z ) {
 
@@ -376,19 +376,19 @@ class Object3D extends EventDispatcher {
 
 	}
 
-	removeFromParent() {
-
-		const parent = this.parent;
-
-		if ( parent !== null ) {
-
-			parent.remove( this );
-
-		}
-
-		return this;
-
-	}
+	// removeFromParent() {
+	//
+	// 	const parent = this.parent;
+	//
+	// 	if ( parent !== null ) {
+	//
+	// 		parent.remove( this );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	clear() {
 
@@ -409,45 +409,45 @@ class Object3D extends EventDispatcher {
 
 	}
 
-	attach( object ) {
-
-		// adds object as a child of this, while maintaining the object's world transform
-
-		// Note: This method does not support scene graphs having non-uniformly-scaled nodes(s)
-
-		this.updateWorldMatrix( true, false );
-
-		_m1.copy( this.matrixWorld ).invert();
-
-		if ( object.parent !== null ) {
-
-			object.parent.updateWorldMatrix( true, false );
-
-			_m1.multiply( object.parent.matrixWorld );
-
-		}
-
-		object.applyMatrix4( _m1 );
-
-		this.add( object );
-
-		object.updateWorldMatrix( false, true );
-
-		return this;
-
-	}
-
-	getObjectById( id ) {
-
-		return this.getObjectByProperty( 'id', id );
-
-	}
-
-	getObjectByName( name ) {
-
-		return this.getObjectByProperty( 'name', name );
-
-	}
+	// attach( object ) {
+	//
+	// 	// adds object as a child of this, while maintaining the object's world transform
+	//
+	// 	// Note: This method does not support scene graphs having non-uniformly-scaled nodes(s)
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	_m1.copy( this.matrixWorld ).invert();
+	//
+	// 	if ( object.parent !== null ) {
+	//
+	// 		object.parent.updateWorldMatrix( true, false );
+	//
+	// 		_m1.multiply( object.parent.matrixWorld );
+	//
+	// 	}
+	//
+	// 	object.applyMatrix4( _m1 );
+	//
+	// 	this.add( object );
+	//
+	// 	object.updateWorldMatrix( false, true );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// getObjectById( id ) {
+	//
+	// 	return this.getObjectByProperty( 'id', id );
+	//
+	// }
+	//
+	// getObjectByName( name ) {
+	//
+	// 	return this.getObjectByProperty( 'name', name );
+	//
+	// }
 
 	getObjectByProperty( name, value ) {
 
@@ -469,66 +469,66 @@ class Object3D extends EventDispatcher {
 		return undefined;
 
 	}
-
-	getObjectsByProperty( name, value ) {
-
-		let result = [];
-
-		if ( this[ name ] === value ) result.push( this );
-
-		for ( let i = 0, l = this.children.length; i < l; i ++ ) {
-
-			const childResult = this.children[ i ].getObjectsByProperty( name, value );
-
-			if ( childResult.length > 0 ) {
-
-				result = result.concat( childResult );
-
-			}
-
-		}
-
-		return result;
-
-	}
-
-	getWorldPosition( target ) {
-
-		this.updateWorldMatrix( true, false );
-
-		return target.setFromMatrixPosition( this.matrixWorld );
-
-	}
-
-	getWorldQuaternion( target ) {
-
-		this.updateWorldMatrix( true, false );
-
-		this.matrixWorld.decompose( _position, target, _scale );
-
-		return target;
-
-	}
-
-	getWorldScale( target ) {
-
-		this.updateWorldMatrix( true, false );
-
-		this.matrixWorld.decompose( _position, _quaternion, target );
-
-		return target;
-
-	}
-
-	getWorldDirection( target ) {
-
-		this.updateWorldMatrix( true, false );
-
-		const e = this.matrixWorld.elements;
-
-		return target.set( e[ 8 ], e[ 9 ], e[ 10 ] ).normalize();
-
-	}
+	//
+	// getObjectsByProperty( name, value ) {
+	//
+	// 	let result = [];
+	//
+	// 	if ( this[ name ] === value ) result.push( this );
+	//
+	// 	for ( let i = 0, l = this.children.length; i < l; i ++ ) {
+	//
+	// 		const childResult = this.children[ i ].getObjectsByProperty( name, value );
+	//
+	// 		if ( childResult.length > 0 ) {
+	//
+	// 			result = result.concat( childResult );
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return result;
+	//
+	// }
+	//
+	// getWorldPosition( target ) {
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	return target.setFromMatrixPosition( this.matrixWorld );
+	//
+	// }
+	//
+	// getWorldQuaternion( target ) {
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	this.matrixWorld.decompose( _position, target, _scale );
+	//
+	// 	return target;
+	//
+	// }
+	//
+	// getWorldScale( target ) {
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	this.matrixWorld.decompose( _position, _quaternion, target );
+	//
+	// 	return target;
+	//
+	// }
+	//
+	// getWorldDirection( target ) {
+	//
+	// 	this.updateWorldMatrix( true, false );
+	//
+	// 	const e = this.matrixWorld.elements;
+	//
+	// 	return target.set( e[ 8 ], e[ 9 ], e[ 10 ] ).normalize();
+	//
+	// }
 
 	raycast( /* raycaster, intersects */ ) {}
 
@@ -545,36 +545,36 @@ class Object3D extends EventDispatcher {
 		}
 
 	}
-
-	traverseVisible( callback ) {
-
-		if ( this.visible === false ) return;
-
-		callback( this );
-
-		const children = this.children;
-
-		for ( let i = 0, l = children.length; i < l; i ++ ) {
-
-			children[ i ].traverseVisible( callback );
-
-		}
-
-	}
-
-	traverseAncestors( callback ) {
-
-		const parent = this.parent;
-
-		if ( parent !== null ) {
-
-			callback( parent );
-
-			parent.traverseAncestors( callback );
-
-		}
-
-	}
+	//
+	// traverseVisible( callback ) {
+	//
+	// 	if ( this.visible === false ) return;
+	//
+	// 	callback( this );
+	//
+	// 	const children = this.children;
+	//
+	// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
+	//
+	// 		children[ i ].traverseVisible( callback );
+	//
+	// 	}
+	//
+	// }
+	//
+	// traverseAncestors( callback ) {
+	//
+	// 	const parent = this.parent;
+	//
+	// 	if ( parent !== null ) {
+	//
+	// 		callback( parent );
+	//
+	// 		parent.traverseAncestors( callback );
+	//
+	// 	}
+	//
+	// }
 
 	updateMatrix() {
 

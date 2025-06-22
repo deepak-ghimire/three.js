@@ -24,11 +24,11 @@ class Layers {
 
 	}
 
-	toggle( channel ) {
-
-		this.mask ^= 1 << channel | 0;
-
-	}
+	// toggle( channel ) {
+	//
+	// 	this.mask ^= 1 << channel | 0;
+	//
+	// }
 
 	disable( channel ) {
 
@@ -48,11 +48,11 @@ class Layers {
 
 	}
 
-	isEnabled( channel ) {
-
-		return ( this.mask & ( 1 << channel | 0 ) ) !== 0;
-
-	}
+	// isEnabled( channel ) {
+	//
+	// 	return ( this.mask & ( 1 << channel | 0 ) ) !== 0;
+	//
+	// }
 
 }
 

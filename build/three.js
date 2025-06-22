@@ -27,8 +27,8 @@
 	const CullFaceNone = 0;
 	const CullFaceBack = 1;
 	const CullFaceFront = 2;
-	const CullFaceFrontBack = 3;
-	const BasicShadowMap = 0;
+	// export const CullFaceFrontBack = 3;
+	// export const BasicShadowMap = 0;
 	const PCFShadowMap = 1;
 	const PCFSoftShadowMap = 2;
 	const VSMShadowMap = 3;
@@ -86,14 +86,14 @@
 	const MirroredRepeatWrapping = 1002;
 	const NearestFilter = 1003;
 	const NearestMipmapNearestFilter = 1004;
-	const NearestMipMapNearestFilter = 1004;
+	// export const NearestMipMapNearestFilter = 1004;
 	const NearestMipmapLinearFilter = 1005;
-	const NearestMipMapLinearFilter = 1005;
+	// export const NearestMipMapLinearFilter = 1005;
 	const LinearFilter = 1006;
 	const LinearMipmapNearestFilter = 1007;
-	const LinearMipMapNearestFilter = 1007;
+	// export const LinearMipMapNearestFilter = 1007;
 	const LinearMipmapLinearFilter = 1008;
-	const LinearMipMapLinearFilter = 1008;
+	// export const LinearMipMapLinearFilter = 1008;
 	const UnsignedByteType = 1009;
 	const ByteType = 1010;
 	const ShortType = 1011;
@@ -154,9 +154,9 @@
 	const WrapAroundEnding = 2402;
 	const NormalAnimationBlendMode = 2500;
 	const AdditiveAnimationBlendMode = 2501;
-	const TrianglesDrawMode = 0;
-	const TriangleStripDrawMode = 1;
-	const TriangleFanDrawMode = 2;
+	// export const TrianglesDrawMode = 0;
+	// export const TriangleStripDrawMode = 1;
+	// export const TriangleFanDrawMode = 2;
 	const LinearEncoding = 3000;
 	const sRGBEncoding = 3001;
 	const BasicDepthPacking = 3200;
@@ -165,39 +165,45 @@
 	const ObjectSpaceNormalMap = 1;
 
 	// Color space string identifiers, matching CSS Color Module Level 4 and WebGPU names where available.
-	const NoColorSpace = '';
+	// export const NoColorSpace = '';
 	const SRGBColorSpace = 'srgb';
 	const LinearSRGBColorSpace = 'srgb-linear';
-	const ZeroStencilOp = 0;
+
+	// export const ZeroStencilOp = 0;
 	const KeepStencilOp = 7680;
-	const ReplaceStencilOp = 7681;
-	const IncrementStencilOp = 7682;
-	const DecrementStencilOp = 7683;
-	const IncrementWrapStencilOp = 34055;
-	const DecrementWrapStencilOp = 34056;
-	const InvertStencilOp = 5386;
-	const NeverStencilFunc = 512;
-	const LessStencilFunc = 513;
-	const EqualStencilFunc = 514;
-	const LessEqualStencilFunc = 515;
-	const GreaterStencilFunc = 516;
-	const NotEqualStencilFunc = 517;
-	const GreaterEqualStencilFunc = 518;
+	// export const ReplaceStencilOp = 7681;
+	// export const IncrementStencilOp = 7682;
+	// export const DecrementStencilOp = 7683;
+	// export const IncrementWrapStencilOp = 34055;
+	// export const DecrementWrapStencilOp = 34056;
+	// export const InvertStencilOp = 5386;
+	//
+	// export const NeverStencilFunc = 512;
+	// export const LessStencilFunc = 513;
+	// export const EqualStencilFunc = 514;
+	// export const LessEqualStencilFunc = 515;
+	// export const GreaterStencilFunc = 516;
+	// export const NotEqualStencilFunc = 517;
+	// export const GreaterEqualStencilFunc = 518;
 	const AlwaysStencilFunc = 519;
 	const StaticDrawUsage = 35044;
-	const DynamicDrawUsage = 35048;
-	const StreamDrawUsage = 35040;
-	const StaticReadUsage = 35045;
-	const DynamicReadUsage = 35049;
-	const StreamReadUsage = 35041;
-	const StaticCopyUsage = 35046;
-	const DynamicCopyUsage = 35050;
-	const StreamCopyUsage = 35042;
+	// export const DynamicDrawUsage = 35048;
+	// export const StreamDrawUsage = 35040;
+	// export const StaticReadUsage = 35045;
+	// export const DynamicReadUsage = 35049;
+	// export const StreamReadUsage = 35041;
+	// export const StaticCopyUsage = 35046;
+	// export const DynamicCopyUsage = 35050;
+	// export const StreamCopyUsage = 35042;
+
 	const GLSL1 = '100';
 	const GLSL3 = '300 es';
 	const _SRGBAFormat = 1035; // fallback for WebGL 1
 
 	const _lut = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0a', '0b', '0c', '0d', '0e', '0f', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '1a', '1b', '1c', '1d', '1e', '1f', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '2a', '2b', '2c', '2d', '2e', '2f', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '3a', '3b', '3c', '3d', '3e', '3f', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '4a', '4b', '4c', '4d', '4e', '4f', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '5a', '5b', '5c', '5d', '5e', '5f', '60', '61', '62', '63', '64', '65', '66', '67', '68', '69', '6a', '6b', '6c', '6d', '6e', '6f', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '7a', '7b', '7c', '7d', '7e', '7f', '80', '81', '82', '83', '84', '85', '86', '87', '88', '89', '8a', '8b', '8c', '8d', '8e', '8f', '90', '91', '92', '93', '94', '95', '96', '97', '98', '99', '9a', '9b', '9c', '9d', '9e', '9f', 'a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'a8', 'a9', 'aa', 'ab', 'ac', 'ad', 'ae', 'af', 'b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'ba', 'bb', 'bc', 'bd', 'be', 'bf', 'c0', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'ca', 'cb', 'cc', 'cd', 'ce', 'cf', 'd0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'da', 'db', 'dc', 'dd', 'de', 'df', 'e0', 'e1', 'e2', 'e3', 'e4', 'e5', 'e6', 'e7', 'e8', 'e9', 'ea', 'eb', 'ec', 'ed', 'ee', 'ef', 'f0', 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'fa', 'fb', 'fc', 'fd', 'fe', 'ff'];
+
+	// let _seed = 1234567;
+
 	const DEG2RAD = Math.PI / 180;
 	const RAD2DEG = 180 / Math.PI;
 
@@ -249,11 +255,6 @@
 	// https://en.wikipedia.org/wiki/Linear_interpolation
 	function lerp(x, y, t) {
 		return (1 - t) * x + t * y;
-	}
-
-	// http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
-	function damp(x, y, lambda, dt) {
-		return lerp(x, y, 1 - Math.exp(-lambda * dt));
 	}
 
 	// // https://www.desmos.com/calculator/vcsjnyz7x4
@@ -436,7 +437,6 @@
 		generateUUID: generateUUID,
 		clamp: clamp,
 		lerp: lerp,
-		damp: damp,
 		degToRad: degToRad,
 		radToDeg: radToDeg,
 		isPowerOfTwo: isPowerOfTwo,
@@ -1030,10 +1030,10 @@
 			return this;
 		}
 		applyEuler(euler) {
-			return this.applyQuaternion(_quaternion$2.setFromEuler(euler));
+			return this.applyQuaternion(_quaternion.setFromEuler(euler));
 		}
 		applyAxisAngle(axis, angle) {
-			return this.applyQuaternion(_quaternion$2.setFromAxisAngle(axis, angle));
+			return this.applyQuaternion(_quaternion.setFromAxisAngle(axis, angle));
 		}
 		applyMatrix3(m) {
 			const x = this.x,
@@ -1225,14 +1225,14 @@
 			return this.copy(v).multiplyScalar(scalar);
 		}
 		projectOnPlane(planeNormal) {
-			_vector$5.copy(this).projectOnVector(planeNormal);
-			return this.sub(_vector$5);
+			_vector$4.copy(this).projectOnVector(planeNormal);
+			return this.sub(_vector$4);
 		}
 		reflect(normal) {
 			// reflect incident vector off plane orthogonal to normal
 			// normal is assumed to have unit length
 
-			return this.sub(_vector$5.copy(normal).multiplyScalar(2 * this.dot(normal)));
+			return this.sub(_vector$4.copy(normal).multiplyScalar(2 * this.dot(normal)));
 		}
 		angleTo(v) {
 			const denominator = Math.sqrt(this.lengthSq() * v.lengthSq());
@@ -1346,12 +1346,13 @@
 			yield this.z;
 		}
 	}
-	const _vector$5 = /*@__PURE__*/new Vector3();
-	const _quaternion$2 = /*@__PURE__*/new Quaternion();
+	const _vector$4 = /*@__PURE__*/new Vector3();
+	const _quaternion = /*@__PURE__*/new Quaternion();
 
 	class Box3 {
 		constructor(min = new Vector3(+Infinity, +Infinity, +Infinity), max = new Vector3(-Infinity, -Infinity, -Infinity)) {
-			this.isBox3 = true;
+			// this.isBox3 = true;
+
 			this.min = min;
 			this.max = max;
 		}
@@ -1360,28 +1361,40 @@
 			this.max.copy(max);
 			return this;
 		}
-		setFromArray(array) {
-			let minX = +Infinity;
-			let minY = +Infinity;
-			let minZ = +Infinity;
-			let maxX = -Infinity;
-			let maxY = -Infinity;
-			let maxZ = -Infinity;
-			for (let i = 0, l = array.length; i < l; i += 3) {
-				const x = array[i];
-				const y = array[i + 1];
-				const z = array[i + 2];
-				if (x < minX) minX = x;
-				if (y < minY) minY = y;
-				if (z < minZ) minZ = z;
-				if (x > maxX) maxX = x;
-				if (y > maxY) maxY = y;
-				if (z > maxZ) maxZ = z;
-			}
-			this.min.set(minX, minY, minZ);
-			this.max.set(maxX, maxY, maxZ);
-			return this;
-		}
+
+		// setFromArray( array ) {
+		//
+		// 	let minX = + Infinity;
+		// 	let minY = + Infinity;
+		// 	let minZ = + Infinity;
+		//
+		// 	let maxX = - Infinity;
+		// 	let maxY = - Infinity;
+		// 	let maxZ = - Infinity;
+		//
+		// 	for ( let i = 0, l = array.length; i < l; i += 3 ) {
+		//
+		// 		const x = array[ i ];
+		// 		const y = array[ i + 1 ];
+		// 		const z = array[ i + 2 ];
+		//
+		// 		if ( x < minX ) minX = x;
+		// 		if ( y < minY ) minY = y;
+		// 		if ( z < minZ ) minZ = z;
+		//
+		// 		if ( x > maxX ) maxX = x;
+		// 		if ( y > maxY ) maxY = y;
+		// 		if ( z > maxZ ) maxZ = z;
+		//
+		// 	}
+		//
+		// 	this.min.set( minX, minY, minZ );
+		// 	this.max.set( maxX, maxY, maxZ );
+		//
+		// 	return this;
+		//
+		// }
+
 		setFromBufferAttribute(attribute) {
 			let minX = +Infinity;
 			let minY = +Infinity;
@@ -1411,12 +1424,18 @@
 			}
 			return this;
 		}
-		setFromCenterAndSize(center, size) {
-			const halfSize = _vector$4.copy(size).multiplyScalar(0.5);
-			this.min.copy(center).sub(halfSize);
-			this.max.copy(center).add(halfSize);
-			return this;
-		}
+
+		// setFromCenterAndSize( center, size ) {
+		//
+		// 	const halfSize = _vector.copy( size ).multiplyScalar( 0.5 );
+		//
+		// 	this.min.copy( center ).sub( halfSize );
+		// 	this.max.copy( center ).add( halfSize );
+		//
+		// 	return this;
+		//
+		// }
+
 		setFromObject(object, precise = false) {
 			this.makeEmpty();
 			return this.expandByObject(object, precise);
@@ -1450,11 +1469,16 @@
 			this.max.max(point);
 			return this;
 		}
-		expandByVector(vector) {
-			this.min.sub(vector);
-			this.max.add(vector);
-			return this;
-		}
+
+		// expandByVector( vector ) {
+		//
+		// 	this.min.sub( vector );
+		// 	this.max.add( vector );
+		//
+		// 	return this;
+		//
+		// }
+
 		expandByScalar(scalar) {
 			this.min.addScalar(-scalar);
 			this.max.addScalar(scalar);
@@ -1470,8 +1494,8 @@
 				if (precise && geometry.attributes != undefined && geometry.attributes.position !== undefined) {
 					const position = geometry.attributes.position;
 					for (let i = 0, l = position.count; i < l; i++) {
-						_vector$4.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
-						this.expandByPoint(_vector$4);
+						_vector$3.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
+						this.expandByPoint(_vector$3);
 					}
 				} else {
 					if (geometry.boundingBox === null) {
@@ -1488,28 +1512,45 @@
 			}
 			return this;
 		}
-		containsPoint(point) {
-			return point.x < this.min.x || point.x > this.max.x || point.y < this.min.y || point.y > this.max.y || point.z < this.min.z || point.z > this.max.z ? false : true;
-		}
-		containsBox(box) {
-			return this.min.x <= box.min.x && box.max.x <= this.max.x && this.min.y <= box.min.y && box.max.y <= this.max.y && this.min.z <= box.min.z && box.max.z <= this.max.z;
-		}
+
+		// containsPoint( point ) {
+		//
+		// 	return point.x < this.min.x || point.x > this.max.x ||
+		// 		point.y < this.min.y || point.y > this.max.y ||
+		// 		point.z < this.min.z || point.z > this.max.z ? false : true;
+		//
+		// }
+		//
+		// containsBox( box ) {
+		//
+		// 	return this.min.x <= box.min.x && box.max.x <= this.max.x &&
+		// 		this.min.y <= box.min.y && box.max.y <= this.max.y &&
+		// 		this.min.z <= box.min.z && box.max.z <= this.max.z;
+		//
+		// }
+
 		getParameter(point, target) {
 			// This can potentially have a divide by zero if the box
 			// has a size dimension of 0.
 
 			return target.set((point.x - this.min.x) / (this.max.x - this.min.x), (point.y - this.min.y) / (this.max.y - this.min.y), (point.z - this.min.z) / (this.max.z - this.min.z));
 		}
-		intersectsBox(box) {
-			// using 6 splitting planes to rule out intersections.
-			return box.max.x < this.min.x || box.min.x > this.max.x || box.max.y < this.min.y || box.min.y > this.max.y || box.max.z < this.min.z || box.min.z > this.max.z ? false : true;
-		}
+
+		// intersectsBox( box ) {
+		//
+		// 	// using 6 splitting planes to rule out intersections.
+		// 	return box.max.x < this.min.x || box.min.x > this.max.x ||
+		// 		box.max.y < this.min.y || box.min.y > this.max.y ||
+		// 		box.max.z < this.min.z || box.min.z > this.max.z ? false : true;
+		//
+		// }
+
 		intersectsSphere(sphere) {
 			// Find the point on the AABB closest to the sphere center.
-			this.clampPoint(sphere.center, _vector$4);
+			this.clampPoint(sphere.center, _vector$3);
 
 			// If that point is inside the sphere, the AABB and sphere intersect.
-			return _vector$4.distanceToSquared(sphere.center) <= sphere.radius * sphere.radius;
+			return _vector$3.distanceToSquared(sphere.center) <= sphere.radius * sphere.radius;
 		}
 		intersectsPlane(plane) {
 			// We compute the minimum and maximum dot product values. If those values
@@ -1582,22 +1623,32 @@
 			return target.copy(point).clamp(this.min, this.max);
 		}
 		distanceToPoint(point) {
-			const clampedPoint = _vector$4.copy(point).clamp(this.min, this.max);
+			const clampedPoint = _vector$3.copy(point).clamp(this.min, this.max);
 			return clampedPoint.sub(point).length();
 		}
-		getBoundingSphere(target) {
-			this.getCenter(target.center);
-			target.radius = this.getSize(_vector$4).length() * 0.5;
-			return target;
-		}
-		intersect(box) {
-			this.min.max(box.min);
-			this.max.min(box.max);
 
-			// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
-			if (this.isEmpty()) this.makeEmpty();
-			return this;
-		}
+		// getBoundingSphere( target ) {
+		//
+		// 	this.getCenter( target.center );
+		//
+		// 	target.radius = this.getSize( _vector ).length() * 0.5;
+		//
+		// 	return target;
+		//
+		// }
+		//
+		// intersect( box ) {
+		//
+		// 	this.min.max( box.min );
+		// 	this.max.min( box.max );
+		//
+		// 	// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
+		// 	if ( this.isEmpty() ) this.makeEmpty();
+		//
+		// 	return this;
+		//
+		// }
+
 		union(box) {
 			this.min.min(box.min);
 			this.max.max(box.max);
@@ -1620,17 +1671,22 @@
 			this.setFromPoints(_points);
 			return this;
 		}
-		translate(offset) {
-			this.min.add(offset);
-			this.max.add(offset);
-			return this;
-		}
+
+		// translate( offset ) {
+		//
+		// 	this.min.add( offset );
+		// 	this.max.add( offset );
+		//
+		// 	return this;
+		//
+		// }
+
 		equals(box) {
 			return box.min.equals(this.min) && box.max.equals(this.max);
 		}
 	}
 	const _points = [/*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3()];
-	const _vector$4 = /*@__PURE__*/new Vector3();
+	const _vector$3 = /*@__PURE__*/new Vector3();
 	const _box$3 = /*@__PURE__*/new Box3();
 
 	// triangle centered vertices
@@ -1812,10 +1868,21 @@
 			te[8] = n33;
 			return this;
 		}
-		identity() {
-			this.set(1, 0, 0, 0, 1, 0, 0, 0, 1);
-			return this;
-		}
+
+		// identity() {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, 0,
+		// 		0, 1, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
 		copy(m) {
 			const te = this.elements;
 			const me = m.elements;
@@ -1830,12 +1897,17 @@
 			te[8] = me[8];
 			return this;
 		}
-		extractBasis(xAxis, yAxis, zAxis) {
-			xAxis.setFromMatrix3Column(this, 0);
-			yAxis.setFromMatrix3Column(this, 1);
-			zAxis.setFromMatrix3Column(this, 2);
-			return this;
-		}
+
+		// extractBasis( xAxis, yAxis, zAxis ) {
+		//
+		// 	xAxis.setFromMatrix3Column( this, 0 );
+		// 	yAxis.setFromMatrix3Column( this, 1 );
+		// 	zAxis.setFromMatrix3Column( this, 2 );
+		//
+		// 	return this;
+		//
+		// }
+
 		setFromMatrix4(m) {
 			const me = m.elements;
 			this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10]);
@@ -1893,19 +1965,19 @@
 			te[8] *= s;
 			return this;
 		}
-		determinant() {
-			const te = this.elements;
-			const a = te[0],
-				b = te[1],
-				c = te[2],
-				d = te[3],
-				e = te[4],
-				f = te[5],
-				g = te[6],
-				h = te[7],
-				i = te[8];
-			return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
-		}
+
+		// determinant() {
+		//
+		// 	const te = this.elements;
+		//
+		// 	const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
+		// 		d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
+		// 		g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
+		//
+		// 	return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
+		//
+		// }
+
 		invert() {
 			const te = this.elements,
 				n11 = te[0],
@@ -1951,19 +2023,25 @@
 		getNormalMatrix(matrix4) {
 			return this.setFromMatrix4(matrix4).invert().transpose();
 		}
-		transposeIntoArray(r) {
-			const m = this.elements;
-			r[0] = m[0];
-			r[1] = m[3];
-			r[2] = m[6];
-			r[3] = m[1];
-			r[4] = m[4];
-			r[5] = m[7];
-			r[6] = m[2];
-			r[7] = m[5];
-			r[8] = m[8];
-			return this;
-		}
+
+		// transposeIntoArray( r ) {
+		//
+		// 	const m = this.elements;
+		//
+		// 	r[ 0 ] = m[ 0 ];
+		// 	r[ 1 ] = m[ 3 ];
+		// 	r[ 2 ] = m[ 6 ];
+		// 	r[ 3 ] = m[ 1 ];
+		// 	r[ 4 ] = m[ 4 ];
+		// 	r[ 5 ] = m[ 7 ];
+		// 	r[ 6 ] = m[ 2 ];
+		// 	r[ 7 ] = m[ 5 ];
+		// 	r[ 8 ] = m[ 8 ];
+		//
+		// 	return this;
+		//
+		// }
+
 		setUvTransform(tx, ty, sx, sy, rotation, cx, cy) {
 			const c = Math.cos(rotation);
 			const s = Math.sin(rotation);
@@ -1977,29 +2055,58 @@
 			this.premultiply(_m3.makeScale(sx, sy));
 			return this;
 		}
-		rotate(theta) {
-			this.premultiply(_m3.makeRotation(-theta));
-			return this;
-		}
-		translate(tx, ty) {
-			this.premultiply(_m3.makeTranslation(tx, ty));
-			return this;
-		}
+
+		// rotate( theta ) {
+		//
+		// 	this.premultiply( _m3.makeRotation( - theta ) );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// translate( tx, ty ) {
+		//
+		// 	this.premultiply( _m3.makeTranslation( tx, ty ) );
+		//
+		// 	return this;
+		//
+		// }
 
 		// for 2D Transforms
 
-		makeTranslation(x, y) {
-			this.set(1, 0, x, 0, 1, y, 0, 0, 1);
-			return this;
-		}
-		makeRotation(theta) {
-			// counterclockwise
+		// makeTranslation( x, y ) {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, x,
+		// 		0, 1, y,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// makeRotation( theta ) {
+		//
+		// 	// counterclockwise
+		//
+		// 	const c = Math.cos( theta );
+		// 	const s = Math.sin( theta );
+		//
+		// 	this.set(
+		//
+		// 		c, - s, 0,
+		// 		s, c, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
 
-			const c = Math.cos(theta);
-			const s = Math.sin(theta);
-			this.set(c, -s, 0, s, c, 0, 0, 0, 1);
-			return this;
-		}
 		makeScale(x, y) {
 			this.set(x, 0, 0, 0, y, 0, 0, 0, 1);
 			return this;
@@ -2156,7 +2263,6 @@
 	}
 
 	const _sphere$1 = /*@__PURE__*/new Sphere();
-	const _vector$3 = /*@__PURE__*/new Vector3();
 	class Frustum {
 		constructor(p0 = new Plane(), p1 = new Plane(), p2 = new Plane(), p3 = new Plane(), p4 = new Plane(), p5 = new Plane()) {
 			this.planes = [p0, p1, p2, p3, p4, p5];
@@ -2229,31 +2335,51 @@
 			}
 			return true;
 		}
-		intersectsBox(box) {
-			const planes = this.planes;
-			for (let i = 0; i < 6; i++) {
-				const plane = planes[i];
 
-				// corner at max distance
+		// intersectsBox( box ) {
+		//
+		// 	const planes = this.planes;
+		//
+		// 	for ( let i = 0; i < 6; i ++ ) {
+		//
+		// 		const plane = planes[ i ];
+		//
+		// 		// corner at max distance
+		//
+		// 		_vector.x = plane.normal.x > 0 ? box.max.x : box.min.x;
+		// 		_vector.y = plane.normal.y > 0 ? box.max.y : box.min.y;
+		// 		_vector.z = plane.normal.z > 0 ? box.max.z : box.min.z;
+		//
+		// 		if ( plane.distanceToPoint( _vector ) < 0 ) {
+		//
+		// 			return false;
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	return true;
+		//
+		// }
+		//
+		// containsPoint( point ) {
+		//
+		// 	const planes = this.planes;
+		//
+		// 	for ( let i = 0; i < 6; i ++ ) {
+		//
+		// 		if ( planes[ i ].distanceToPoint( point ) < 0 ) {
+		//
+		// 			return false;
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	return true;
+		//
+		// }
 
-				_vector$3.x = plane.normal.x > 0 ? box.max.x : box.min.x;
-				_vector$3.y = plane.normal.y > 0 ? box.max.y : box.min.y;
-				_vector$3.z = plane.normal.z > 0 ? box.max.z : box.min.z;
-				if (plane.distanceToPoint(_vector$3) < 0) {
-					return false;
-				}
-			}
-			return true;
-		}
-		containsPoint(point) {
-			const planes = this.planes;
-			for (let i = 0; i < 6; i++) {
-				if (planes[i].distanceToPoint(point) < 0) {
-					return false;
-				}
-			}
-			return true;
-		}
 		clone() {
 			return new this.constructor().copy(this);
 		}
@@ -2320,21 +2446,47 @@
 			te[14] = me[14];
 			return this;
 		}
-		setFromMatrix3(m) {
-			const me = m.elements;
-			this.set(me[0], me[3], me[6], 0, me[1], me[4], me[7], 0, me[2], me[5], me[8], 0, 0, 0, 0, 1);
-			return this;
-		}
-		extractBasis(xAxis, yAxis, zAxis) {
-			xAxis.setFromMatrixColumn(this, 0);
-			yAxis.setFromMatrixColumn(this, 1);
-			zAxis.setFromMatrixColumn(this, 2);
-			return this;
-		}
-		makeBasis(xAxis, yAxis, zAxis) {
-			this.set(xAxis.x, yAxis.x, zAxis.x, 0, xAxis.y, yAxis.y, zAxis.y, 0, xAxis.z, yAxis.z, zAxis.z, 0, 0, 0, 0, 1);
-			return this;
-		}
+
+		// setFromMatrix3( m ) {
+		//
+		// 	const me = m.elements;
+		//
+		// 	this.set(
+		//
+		// 		me[ 0 ], me[ 3 ], me[ 6 ], 0,
+		// 		me[ 1 ], me[ 4 ], me[ 7 ], 0,
+		// 		me[ 2 ], me[ 5 ], me[ 8 ], 0,
+		// 		0, 0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// extractBasis( xAxis, yAxis, zAxis ) {
+		//
+		// 	xAxis.setFromMatrixColumn( this, 0 );
+		// 	yAxis.setFromMatrixColumn( this, 1 );
+		// 	zAxis.setFromMatrixColumn( this, 2 );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// makeBasis( xAxis, yAxis, zAxis ) {
+		//
+		// 	this.set(
+		// 		xAxis.x, yAxis.x, zAxis.x, 0,
+		// 		xAxis.y, yAxis.y, zAxis.y, 0,
+		// 		xAxis.z, yAxis.z, zAxis.z, 0,
+		// 		0, 0, 0, 1
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
 		extractRotation(m) {
 			// this method does not support reflection matrices
 
@@ -2361,115 +2513,129 @@
 			te[15] = 1;
 			return this;
 		}
-		makeRotationFromEuler(euler) {
-			const te = this.elements;
-			const x = euler.x,
-				y = euler.y,
-				z = euler.z;
-			const a = Math.cos(x),
-				b = Math.sin(x);
-			const c = Math.cos(y),
-				d = Math.sin(y);
-			const e = Math.cos(z),
-				f = Math.sin(z);
-			if (euler.order === 'XYZ') {
-				const ae = a * e,
-					af = a * f,
-					be = b * e,
-					bf = b * f;
-				te[0] = c * e;
-				te[4] = -c * f;
-				te[8] = d;
-				te[1] = af + be * d;
-				te[5] = ae - bf * d;
-				te[9] = -b * c;
-				te[2] = bf - ae * d;
-				te[6] = be + af * d;
-				te[10] = a * c;
-			} else if (euler.order === 'YXZ') {
-				const ce = c * e,
-					cf = c * f,
-					de = d * e,
-					df = d * f;
-				te[0] = ce + df * b;
-				te[4] = de * b - cf;
-				te[8] = a * d;
-				te[1] = a * f;
-				te[5] = a * e;
-				te[9] = -b;
-				te[2] = cf * b - de;
-				te[6] = df + ce * b;
-				te[10] = a * c;
-			} else if (euler.order === 'ZXY') {
-				const ce = c * e,
-					cf = c * f,
-					de = d * e,
-					df = d * f;
-				te[0] = ce - df * b;
-				te[4] = -a * f;
-				te[8] = de + cf * b;
-				te[1] = cf + de * b;
-				te[5] = a * e;
-				te[9] = df - ce * b;
-				te[2] = -a * d;
-				te[6] = b;
-				te[10] = a * c;
-			} else if (euler.order === 'ZYX') {
-				const ae = a * e,
-					af = a * f,
-					be = b * e,
-					bf = b * f;
-				te[0] = c * e;
-				te[4] = be * d - af;
-				te[8] = ae * d + bf;
-				te[1] = c * f;
-				te[5] = bf * d + ae;
-				te[9] = af * d - be;
-				te[2] = -d;
-				te[6] = b * c;
-				te[10] = a * c;
-			} else if (euler.order === 'YZX') {
-				const ac = a * c,
-					ad = a * d,
-					bc = b * c,
-					bd = b * d;
-				te[0] = c * e;
-				te[4] = bd - ac * f;
-				te[8] = bc * f + ad;
-				te[1] = f;
-				te[5] = a * e;
-				te[9] = -b * e;
-				te[2] = -d * e;
-				te[6] = ad * f + bc;
-				te[10] = ac - bd * f;
-			} else if (euler.order === 'XZY') {
-				const ac = a * c,
-					ad = a * d,
-					bc = b * c,
-					bd = b * d;
-				te[0] = c * e;
-				te[4] = -f;
-				te[8] = d * e;
-				te[1] = ac * f + bd;
-				te[5] = a * e;
-				te[9] = ad * f - bc;
-				te[2] = bc * f - ad;
-				te[6] = b * e;
-				te[10] = bd * f + ac;
-			}
 
-			// bottom row
-			te[3] = 0;
-			te[7] = 0;
-			te[11] = 0;
+		// makeRotationFromEuler( euler ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	const x = euler.x, y = euler.y, z = euler.z;
+		// 	const a = Math.cos( x ), b = Math.sin( x );
+		// 	const c = Math.cos( y ), d = Math.sin( y );
+		// 	const e = Math.cos( z ), f = Math.sin( z );
+		//
+		// 	if ( euler.order === 'XYZ' ) {
+		//
+		// 		const ae = a * e, af = a * f, be = b * e, bf = b * f;
+		//
+		// 		te[ 0 ] = c * e;
+		// 		te[ 4 ] = - c * f;
+		// 		te[ 8 ] = d;
+		//
+		// 		te[ 1 ] = af + be * d;
+		// 		te[ 5 ] = ae - bf * d;
+		// 		te[ 9 ] = - b * c;
+		//
+		// 		te[ 2 ] = bf - ae * d;
+		// 		te[ 6 ] = be + af * d;
+		// 		te[ 10 ] = a * c;
+		//
+		// 	} else if ( euler.order === 'YXZ' ) {
+		//
+		// 		const ce = c * e, cf = c * f, de = d * e, df = d * f;
+		//
+		// 		te[ 0 ] = ce + df * b;
+		// 		te[ 4 ] = de * b - cf;
+		// 		te[ 8 ] = a * d;
+		//
+		// 		te[ 1 ] = a * f;
+		// 		te[ 5 ] = a * e;
+		// 		te[ 9 ] = - b;
+		//
+		// 		te[ 2 ] = cf * b - de;
+		// 		te[ 6 ] = df + ce * b;
+		// 		te[ 10 ] = a * c;
+		//
+		// 	} else if ( euler.order === 'ZXY' ) {
+		//
+		// 		const ce = c * e, cf = c * f, de = d * e, df = d * f;
+		//
+		// 		te[ 0 ] = ce - df * b;
+		// 		te[ 4 ] = - a * f;
+		// 		te[ 8 ] = de + cf * b;
+		//
+		// 		te[ 1 ] = cf + de * b;
+		// 		te[ 5 ] = a * e;
+		// 		te[ 9 ] = df - ce * b;
+		//
+		// 		te[ 2 ] = - a * d;
+		// 		te[ 6 ] = b;
+		// 		te[ 10 ] = a * c;
+		//
+		// 	} else if ( euler.order === 'ZYX' ) {
+		//
+		// 		const ae = a * e, af = a * f, be = b * e, bf = b * f;
+		//
+		// 		te[ 0 ] = c * e;
+		// 		te[ 4 ] = be * d - af;
+		// 		te[ 8 ] = ae * d + bf;
+		//
+		// 		te[ 1 ] = c * f;
+		// 		te[ 5 ] = bf * d + ae;
+		// 		te[ 9 ] = af * d - be;
+		//
+		// 		te[ 2 ] = - d;
+		// 		te[ 6 ] = b * c;
+		// 		te[ 10 ] = a * c;
+		//
+		// 	} else if ( euler.order === 'YZX' ) {
+		//
+		// 		const ac = a * c, ad = a * d, bc = b * c, bd = b * d;
+		//
+		// 		te[ 0 ] = c * e;
+		// 		te[ 4 ] = bd - ac * f;
+		// 		te[ 8 ] = bc * f + ad;
+		//
+		// 		te[ 1 ] = f;
+		// 		te[ 5 ] = a * e;
+		// 		te[ 9 ] = - b * e;
+		//
+		// 		te[ 2 ] = - d * e;
+		// 		te[ 6 ] = ad * f + bc;
+		// 		te[ 10 ] = ac - bd * f;
+		//
+		// 	} else if ( euler.order === 'XZY' ) {
+		//
+		// 		const ac = a * c, ad = a * d, bc = b * c, bd = b * d;
+		//
+		// 		te[ 0 ] = c * e;
+		// 		te[ 4 ] = - f;
+		// 		te[ 8 ] = d * e;
+		//
+		// 		te[ 1 ] = ac * f + bd;
+		// 		te[ 5 ] = a * e;
+		// 		te[ 9 ] = ad * f - bc;
+		//
+		// 		te[ 2 ] = bc * f - ad;
+		// 		te[ 6 ] = b * e;
+		// 		te[ 10 ] = bd * f + ac;
+		//
+		// 	}
+		//
+		// 	// bottom row
+		// 	te[ 3 ] = 0;
+		// 	te[ 7 ] = 0;
+		// 	te[ 11 ] = 0;
+		//
+		// 	// last column
+		// 	te[ 12 ] = 0;
+		// 	te[ 13 ] = 0;
+		// 	te[ 14 ] = 0;
+		// 	te[ 15 ] = 1;
+		//
+		// 	return this;
+		//
+		// }
 
-			// last column
-			te[12] = 0;
-			te[13] = 0;
-			te[14] = 0;
-			te[15] = 1;
-			return this;
-		}
 		makeRotationFromQuaternion(q) {
 			return this.compose(_zero, q, _one);
 		}
@@ -2611,42 +2777,46 @@
 
 			return n41 * (+n14 * n23 * n32 - n13 * n24 * n32 - n14 * n22 * n33 + n12 * n24 * n33 + n13 * n22 * n34 - n12 * n23 * n34) + n42 * (+n11 * n23 * n34 - n11 * n24 * n33 + n14 * n21 * n33 - n13 * n21 * n34 + n13 * n24 * n31 - n14 * n23 * n31) + n43 * (+n11 * n24 * n32 - n11 * n22 * n34 - n14 * n21 * n32 + n12 * n21 * n34 + n14 * n22 * n31 - n12 * n24 * n31) + n44 * (-n13 * n22 * n31 - n11 * n23 * n32 + n11 * n22 * n33 + n13 * n21 * n32 - n12 * n21 * n33 + n12 * n23 * n31);
 		}
-		transpose() {
-			const te = this.elements;
-			let tmp;
-			tmp = te[1];
-			te[1] = te[4];
-			te[4] = tmp;
-			tmp = te[2];
-			te[2] = te[8];
-			te[8] = tmp;
-			tmp = te[6];
-			te[6] = te[9];
-			te[9] = tmp;
-			tmp = te[3];
-			te[3] = te[12];
-			te[12] = tmp;
-			tmp = te[7];
-			te[7] = te[13];
-			te[13] = tmp;
-			tmp = te[11];
-			te[11] = te[14];
-			te[14] = tmp;
-			return this;
-		}
-		setPosition(x, y, z) {
-			const te = this.elements;
-			if (x.isVector3) {
-				te[12] = x.x;
-				te[13] = x.y;
-				te[14] = x.z;
-			} else {
-				te[12] = x;
-				te[13] = y;
-				te[14] = z;
-			}
-			return this;
-		}
+
+		// transpose() {
+		//
+		// 	const te = this.elements;
+		// 	let tmp;
+		//
+		// 	tmp = te[ 1 ]; te[ 1 ] = te[ 4 ]; te[ 4 ] = tmp;
+		// 	tmp = te[ 2 ]; te[ 2 ] = te[ 8 ]; te[ 8 ] = tmp;
+		// 	tmp = te[ 6 ]; te[ 6 ] = te[ 9 ]; te[ 9 ] = tmp;
+		//
+		// 	tmp = te[ 3 ]; te[ 3 ] = te[ 12 ]; te[ 12 ] = tmp;
+		// 	tmp = te[ 7 ]; te[ 7 ] = te[ 13 ]; te[ 13 ] = tmp;
+		// 	tmp = te[ 11 ]; te[ 11 ] = te[ 14 ]; te[ 14 ] = tmp;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// setPosition( x, y, z ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	if ( x.isVector3 ) {
+		//
+		// 		te[ 12 ] = x.x;
+		// 		te[ 13 ] = x.y;
+		// 		te[ 14 ] = x.z;
+		//
+		// 	} else {
+		//
+		// 		te[ 12 ] = x;
+		// 		te[ 13 ] = y;
+		// 		te[ 14 ] = z;
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+
 		invert() {
 			// based on http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 			const te = this.elements,
@@ -2739,28 +2909,50 @@
 			this.set(c, -s, 0, 0, s, c, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
 			return this;
 		}
-		makeRotationAxis(axis, angle) {
-			// Based on http://www.gamedev.net/reference/articles/article1199.asp
 
-			const c = Math.cos(angle);
-			const s = Math.sin(angle);
-			const t = 1 - c;
-			const x = axis.x,
-				y = axis.y,
-				z = axis.z;
-			const tx = t * x,
-				ty = t * y;
-			this.set(tx * x + c, tx * y - s * z, tx * z + s * y, 0, tx * y + s * z, ty * y + c, ty * z - s * x, 0, tx * z - s * y, ty * z + s * x, t * z * z + c, 0, 0, 0, 0, 1);
-			return this;
-		}
+		// makeRotationAxis( axis, angle ) {
+		//
+		// 	// Based on http://www.gamedev.net/reference/articles/article1199.asp
+		//
+		// 	const c = Math.cos( angle );
+		// 	const s = Math.sin( angle );
+		// 	const t = 1 - c;
+		// 	const x = axis.x, y = axis.y, z = axis.z;
+		// 	const tx = t * x, ty = t * y;
+		//
+		// 	this.set(
+		//
+		// 		tx * x + c, tx * y - s * z, tx * z + s * y, 0,
+		// 		tx * y + s * z, ty * y + c, ty * z - s * x, 0,
+		// 		tx * z - s * y, ty * z + s * x, t * z * z + c, 0,
+		// 		0, 0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
 		makeScale(x, y, z) {
 			this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
 			return this;
 		}
-		makeShear(xy, xz, yx, yz, zx, zy) {
-			this.set(1, yx, zx, 0, xy, 1, zy, 0, xz, yz, 1, 0, 0, 0, 0, 1);
-			return this;
-		}
+
+		// makeShear( xy, xz, yx, yz, zx, zy ) {
+		//
+		// 	this.set(
+		//
+		// 		1, yx, zx, 0,
+		// 		xy, 1, zy, 0,
+		// 		xz, yz, 1, 0,
+		// 		0, 0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
 		compose(position, quaternion, scale) {
 			const te = this.elements;
 			const x = quaternion._x,
@@ -3783,7 +3975,9 @@
 			if (Array.isArray(array)) {
 				throw new TypeError('THREE.BufferAttribute: array should be a Typed Array.');
 			}
-			this.isBufferAttribute = true;
+
+			// this.isBufferAttribute = true;
+
 			this.name = '';
 			this.array = array;
 			this.itemSize = itemSize;
@@ -3813,18 +4007,30 @@
 			this.usage = source.usage;
 			return this;
 		}
-		copyAt(index1, attribute, index2) {
-			index1 *= this.itemSize;
-			index2 *= attribute.itemSize;
-			for (let i = 0, l = this.itemSize; i < l; i++) {
-				this.array[index1 + i] = attribute.array[index2 + i];
-			}
-			return this;
-		}
-		copyArray(array) {
-			this.array.set(array);
-			return this;
-		}
+
+		// copyAt( index1, attribute, index2 ) {
+		//
+		// 	index1 *= this.itemSize;
+		// 	index2 *= attribute.itemSize;
+		//
+		// 	for ( let i = 0, l = this.itemSize; i < l; i ++ ) {
+		//
+		// 		this.array[ index1 + i ] = attribute.array[ index2 + i ];
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// copyArray( array ) {
+		//
+		// 	this.array.set( array );
+		//
+		// 	return this;
+		//
+		// }
+
 		applyMatrix3(m) {
 			if (this.itemSize === 2) {
 				for (let i = 0, l = this.count; i < l; i++) {
@@ -3849,14 +4055,23 @@
 			}
 			return this;
 		}
-		applyNormalMatrix(m) {
-			for (let i = 0, l = this.count; i < l; i++) {
-				_vector$2.fromBufferAttribute(this, i);
-				_vector$2.applyNormalMatrix(m);
-				this.setXYZ(i, _vector$2.x, _vector$2.y, _vector$2.z);
-			}
-			return this;
-		}
+
+		// applyNormalMatrix( m ) {
+		//
+		// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+		//
+		// 		_vector.fromBufferAttribute( this, i );
+		//
+		// 		_vector.applyNormalMatrix( m );
+		//
+		// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+
 		transformDirection(m) {
 			for (let i = 0, l = this.count; i < l; i++) {
 				_vector$2.fromBufferAttribute(this, i);
@@ -3905,11 +4120,17 @@
 			if (this.normalized) w = denormalize(w, this.array);
 			return w;
 		}
-		setW(index, w) {
-			if (this.normalized) w = normalize(w, this.array);
-			this.array[index * this.itemSize + 3] = w;
-			return this;
-		}
+
+		// setW( index, w ) {
+		//
+		// 	if ( this.normalized ) w = normalize( w, this.array );
+		//
+		// 	this.array[ index * this.itemSize + 3 ] = w;
+		//
+		// 	return this;
+		//
+		// }
+
 		setXY(index, x, y) {
 			index *= this.itemSize;
 			if (this.normalized) {
@@ -3946,10 +4167,15 @@
 			this.array[index + 3] = w;
 			return this;
 		}
-		onUpload(callback) {
-			this.onUploadCallback = callback;
-			return this;
-		}
+
+		// onUpload( callback ) {
+		//
+		// 	this.onUploadCallback = callback;
+		//
+		// 	return this;
+		//
+		// }
+
 		clone() {
 			return new this.constructor(this.array, this.itemSize).copy(this);
 		}
@@ -3997,16 +4223,83 @@
 
 		// }
 	}
+
+	//
+
+	// class Int8BufferAttribute extends BufferAttribute {
+	//
+	// 	constructor( array, itemSize, normalized ) {
+	//
+	// 		super( new Int8Array( array ), itemSize, normalized );
+	//
+	// 	}
+	//
+	// }
+	//
+	// class Uint8BufferAttribute extends BufferAttribute {
+	//
+	// 	constructor( array, itemSize, normalized ) {
+	//
+	// 		super( new Uint8Array( array ), itemSize, normalized );
+	//
+	// 	}
+	//
+	// }
+	//
+	// class Uint8ClampedBufferAttribute extends BufferAttribute {
+	//
+	// 	constructor( array, itemSize, normalized ) {
+	//
+	// 		super( new Uint8ClampedArray( array ), itemSize, normalized );
+	//
+	// 	}
+	//
+	// }
+	//
+	// class Int16BufferAttribute extends BufferAttribute {
+	//
+	// 	constructor( array, itemSize, normalized ) {
+	//
+	// 		super( new Int16Array( array ), itemSize, normalized );
+	//
+	// 	}
+	//
+	// }
+
 	class Uint16BufferAttribute extends BufferAttribute {
 		constructor(array, itemSize, normalized) {
 			super(new Uint16Array(array), itemSize, normalized);
 		}
 	}
+
+	// class Int32BufferAttribute extends BufferAttribute {
+	//
+	// 	constructor( array, itemSize, normalized ) {
+	//
+	// 		super( new Int32Array( array ), itemSize, normalized );
+	//
+	// 	}
+	//
+	// }
+
 	class Uint32BufferAttribute extends BufferAttribute {
 		constructor(array, itemSize, normalized) {
 			super(new Uint32Array(array), itemSize, normalized);
 		}
 	}
+
+	// class Float16BufferAttribute extends BufferAttribute {
+	//
+	// 	constructor( array, itemSize, normalized ) {
+	//
+	// 		super( new Uint16Array( array ), itemSize, normalized );
+	//
+	// 		this.isFloat16BufferAttribute = true;
+	//
+	// 	}
+	//
+	// }
+
 	class Float32BufferAttribute extends BufferAttribute {
 		constructor(array, itemSize, normalized) {
 			super(new Float32Array(array), itemSize, normalized);
@@ -4014,10 +4307,10 @@
 	}
 
 	const _matrix = /*@__PURE__*/new Matrix4();
-	const _quaternion$1 = /*@__PURE__*/new Quaternion();
 	class Euler {
 		constructor(x = 0, y = 0, z = 0, order = Euler.DefaultOrder) {
-			this.isEuler = true;
+			// this.isEuler = true;
+
 			this._x = x;
 			this._y = y;
 			this._z = z;
@@ -4155,15 +4448,23 @@
 			_matrix.makeRotationFromQuaternion(q);
 			return this.setFromRotationMatrix(_matrix, order, update);
 		}
-		setFromVector3(v, order = this._order) {
-			return this.set(v.x, v.y, v.z, order);
-		}
-		reorder(newOrder) {
-			// WARNING: this discards revolution information -bhouston
+		//
+		// setFromVector3( v, order = this._order ) {
+		//
+		// 	return this.set( v.x, v.y, v.z, order );
+		//
+		// }
+		//
+		// reorder( newOrder ) {
+		//
+		// 	// WARNING: this discards revolution information -bhouston
+		//
+		// 	_quaternion.setFromEuler( this );
+		//
+		// 	return this.setFromQuaternion( _quaternion, newOrder );
+		//
+		// }
 
-			_quaternion$1.setFromEuler(this);
-			return this.setFromQuaternion(_quaternion$1, newOrder);
-		}
 		equals(euler) {
 			return euler._x === this._x && euler._y === this._y && euler._z === this._z && euler._order === this._order;
 		}
@@ -4196,10 +4497,13 @@
 
 		// @deprecated since r138, 02cf0df1cb4575d5842fef9c85bb5a89fe020d53
 
-		toVector3() {
-			console.error('THREE.Euler: .toVector3() has been removed. Use Vector3.setFromEuler() instead');
-		}
+		// toVector3() {
+		//
+		// 	console.error( 'THREE.Euler: .toVector3() has been removed. Use Vector3.setFromEuler() instead' );
+		//
+		// }
 	}
+
 	Euler.DefaultOrder = 'XYZ';
 	Euler.RotationOrders = ['XYZ', 'YZX', 'ZXY', 'XZY', 'YXZ', 'ZYX'];
 
@@ -4216,9 +4520,13 @@
 		enableAll() {
 			this.mask = 0xffffffff | 0;
 		}
-		toggle(channel) {
-			this.mask ^= 1 << channel | 0;
-		}
+
+		// toggle( channel ) {
+		//
+		// 	this.mask ^= 1 << channel | 0;
+		//
+		// }
+
 		disable(channel) {
 			this.mask &= ~(1 << channel | 0);
 		}
@@ -4228,9 +4536,12 @@
 		test(layers) {
 			return (this.mask & layers.mask) !== 0;
 		}
-		isEnabled(channel) {
-			return (this.mask & (1 << channel | 0)) !== 0;
-		}
+
+		// isEnabled( channel ) {
+		//
+		// 	return ( this.mask & ( 1 << channel | 0 ) ) !== 0;
+		//
+		// }
 	}
 
 	let _object3DId = 0;
@@ -4239,10 +4550,7 @@
 	const _m1$1 = /*@__PURE__*/new Matrix4();
 	const _target = /*@__PURE__*/new Vector3();
 	const _position = /*@__PURE__*/new Vector3();
-	const _scale = /*@__PURE__*/new Vector3();
-	const _quaternion = /*@__PURE__*/new Quaternion();
 	const _xAxis = /*@__PURE__*/new Vector3(1, 0, 0);
-	const _yAxis = /*@__PURE__*/new Vector3(0, 1, 0);
 	const _zAxis = /*@__PURE__*/new Vector3(0, 0, 1);
 	const _addedEvent = {
 		type: 'added'
@@ -4325,28 +4633,45 @@
 			this.matrix.premultiply(matrix);
 			this.matrix.decompose(this.position, this.quaternion, this.scale);
 		}
-		applyQuaternion(q) {
-			this.quaternion.premultiply(q);
-			return this;
-		}
-		setRotationFromAxisAngle(axis, angle) {
-			// assumes axis is normalized
 
-			this.quaternion.setFromAxisAngle(axis, angle);
-		}
-		setRotationFromEuler(euler) {
-			this.quaternion.setFromEuler(euler, true);
-		}
-		setRotationFromMatrix(m) {
-			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+		// applyQuaternion( q ) {
+		//
+		// 	this.quaternion.premultiply( q );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// setRotationFromAxisAngle( axis, angle ) {
+		//
+		// 	// assumes axis is normalized
+		//
+		// 	this.quaternion.setFromAxisAngle( axis, angle );
+		//
+		// }
+		//
+		// setRotationFromEuler( euler ) {
+		//
+		// 	this.quaternion.setFromEuler( euler, true );
+		//
+		// }
+		//
+		// setRotationFromMatrix( m ) {
+		//
+		// 	// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+		//
+		// 	this.quaternion.setFromRotationMatrix( m );
+		//
+		// }
+		//
+		// setRotationFromQuaternion( q ) {
+		//
+		// 	// assumes q is normalized
+		//
+		// 	this.quaternion.copy( q );
+		//
+		// }
 
-			this.quaternion.setFromRotationMatrix(m);
-		}
-		setRotationFromQuaternion(q) {
-			// assumes q is normalized
-
-			this.quaternion.copy(q);
-		}
 		rotateOnAxis(axis, angle) {
 			// rotate object on axis in object space
 			// axis is assumed to be normalized
@@ -4355,24 +4680,37 @@
 			this.quaternion.multiply(_q1);
 			return this;
 		}
-		rotateOnWorldAxis(axis, angle) {
-			// rotate object on axis in world space
-			// axis is assumed to be normalized
-			// method assumes no rotated parent
 
-			_q1.setFromAxisAngle(axis, angle);
-			this.quaternion.premultiply(_q1);
-			return this;
-		}
+		// rotateOnWorldAxis( axis, angle ) {
+		//
+		// 	// rotate object on axis in world space
+		// 	// axis is assumed to be normalized
+		// 	// method assumes no rotated parent
+		//
+		// 	_q1.setFromAxisAngle( axis, angle );
+		//
+		// 	this.quaternion.premultiply( _q1 );
+		//
+		// 	return this;
+		//
+		// }
+		//
 		rotateX(angle) {
 			return this.rotateOnAxis(_xAxis, angle);
 		}
-		rotateY(angle) {
-			return this.rotateOnAxis(_yAxis, angle);
-		}
-		rotateZ(angle) {
-			return this.rotateOnAxis(_zAxis, angle);
-		}
+		//
+		// rotateY( angle ) {
+		//
+		// 	return this.rotateOnAxis( _yAxis, angle );
+		//
+		// }
+		//
+		// rotateZ( angle ) {
+		//
+		// 	return this.rotateOnAxis( _zAxis, angle );
+		//
+		// }
+
 		translateOnAxis(axis, distance) {
 			// translate object by distance along axis in object space
 			// axis is assumed to be normalized
@@ -4384,20 +4722,33 @@
 		translateX(distance) {
 			return this.translateOnAxis(_xAxis, distance);
 		}
-		translateY(distance) {
-			return this.translateOnAxis(_yAxis, distance);
-		}
+
+		// translateY( distance ) {
+		//
+		// 	return this.translateOnAxis( _yAxis, distance );
+		//
+		// }
+
 		translateZ(distance) {
 			return this.translateOnAxis(_zAxis, distance);
 		}
-		localToWorld(vector) {
-			this.updateWorldMatrix(true, false);
-			return vector.applyMatrix4(this.matrixWorld);
-		}
-		worldToLocal(vector) {
-			this.updateWorldMatrix(true, false);
-			return vector.applyMatrix4(_m1$1.copy(this.matrixWorld).invert());
-		}
+		//
+		// localToWorld( vector ) {
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	return vector.applyMatrix4( this.matrixWorld );
+		//
+		// }
+		//
+		// worldToLocal( vector ) {
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	return vector.applyMatrix4( _m1.copy( this.matrixWorld ).invert() );
+		//
+		// }
+
 		lookAt(x, y, z) {
 			// This method does not support objects having non-uniformly-scaled parent(s)
 
@@ -4459,13 +4810,21 @@
 			}
 			return this;
 		}
-		removeFromParent() {
-			const parent = this.parent;
-			if (parent !== null) {
-				parent.remove(this);
-			}
-			return this;
-		}
+
+		// removeFromParent() {
+		//
+		// 	const parent = this.parent;
+		//
+		// 	if ( parent !== null ) {
+		//
+		// 		parent.remove( this );
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+
 		clear() {
 			for (let i = 0; i < this.children.length; i++) {
 				const object = this.children[i];
@@ -4475,28 +4834,47 @@
 			this.children.length = 0;
 			return this;
 		}
-		attach(object) {
-			// adds object as a child of this, while maintaining the object's world transform
 
-			// Note: This method does not support scene graphs having non-uniformly-scaled nodes(s)
+		// attach( object ) {
+		//
+		// 	// adds object as a child of this, while maintaining the object's world transform
+		//
+		// 	// Note: This method does not support scene graphs having non-uniformly-scaled nodes(s)
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	_m1.copy( this.matrixWorld ).invert();
+		//
+		// 	if ( object.parent !== null ) {
+		//
+		// 		object.parent.updateWorldMatrix( true, false );
+		//
+		// 		_m1.multiply( object.parent.matrixWorld );
+		//
+		// 	}
+		//
+		// 	object.applyMatrix4( _m1 );
+		//
+		// 	this.add( object );
+		//
+		// 	object.updateWorldMatrix( false, true );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// getObjectById( id ) {
+		//
+		// 	return this.getObjectByProperty( 'id', id );
+		//
+		// }
+		//
+		// getObjectByName( name ) {
+		//
+		// 	return this.getObjectByProperty( 'name', name );
+		//
+		// }
 
-			this.updateWorldMatrix(true, false);
-			_m1$1.copy(this.matrixWorld).invert();
-			if (object.parent !== null) {
-				object.parent.updateWorldMatrix(true, false);
-				_m1$1.multiply(object.parent.matrixWorld);
-			}
-			object.applyMatrix4(_m1$1);
-			this.add(object);
-			object.updateWorldMatrix(false, true);
-			return this;
-		}
-		getObjectById(id) {
-			return this.getObjectByProperty('id', id);
-		}
-		getObjectByName(name) {
-			return this.getObjectByProperty('name', name);
-		}
 		getObjectByProperty(name, value) {
 			if (this[name] === value) return this;
 			for (let i = 0, l = this.children.length; i < l; i++) {
@@ -4508,36 +4886,67 @@
 			}
 			return undefined;
 		}
-		getObjectsByProperty(name, value) {
-			let result = [];
-			if (this[name] === value) result.push(this);
-			for (let i = 0, l = this.children.length; i < l; i++) {
-				const childResult = this.children[i].getObjectsByProperty(name, value);
-				if (childResult.length > 0) {
-					result = result.concat(childResult);
-				}
-			}
-			return result;
-		}
-		getWorldPosition(target) {
-			this.updateWorldMatrix(true, false);
-			return target.setFromMatrixPosition(this.matrixWorld);
-		}
-		getWorldQuaternion(target) {
-			this.updateWorldMatrix(true, false);
-			this.matrixWorld.decompose(_position, target, _scale);
-			return target;
-		}
-		getWorldScale(target) {
-			this.updateWorldMatrix(true, false);
-			this.matrixWorld.decompose(_position, _quaternion, target);
-			return target;
-		}
-		getWorldDirection(target) {
-			this.updateWorldMatrix(true, false);
-			const e = this.matrixWorld.elements;
-			return target.set(e[8], e[9], e[10]).normalize();
-		}
+		//
+		// getObjectsByProperty( name, value ) {
+		//
+		// 	let result = [];
+		//
+		// 	if ( this[ name ] === value ) result.push( this );
+		//
+		// 	for ( let i = 0, l = this.children.length; i < l; i ++ ) {
+		//
+		// 		const childResult = this.children[ i ].getObjectsByProperty( name, value );
+		//
+		// 		if ( childResult.length > 0 ) {
+		//
+		// 			result = result.concat( childResult );
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	return result;
+		//
+		// }
+		//
+		// getWorldPosition( target ) {
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	return target.setFromMatrixPosition( this.matrixWorld );
+		//
+		// }
+		//
+		// getWorldQuaternion( target ) {
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	this.matrixWorld.decompose( _position, target, _scale );
+		//
+		// 	return target;
+		//
+		// }
+		//
+		// getWorldScale( target ) {
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	this.matrixWorld.decompose( _position, _quaternion, target );
+		//
+		// 	return target;
+		//
+		// }
+		//
+		// getWorldDirection( target ) {
+		//
+		// 	this.updateWorldMatrix( true, false );
+		//
+		// 	const e = this.matrixWorld.elements;
+		//
+		// 	return target.set( e[ 8 ], e[ 9 ], e[ 10 ] ).normalize();
+		//
+		// }
+
 		raycast( /* raycaster, intersects */) {}
 		traverse(callback) {
 			callback(this);
@@ -4546,21 +4955,37 @@
 				children[i].traverse(callback);
 			}
 		}
-		traverseVisible(callback) {
-			if (this.visible === false) return;
-			callback(this);
-			const children = this.children;
-			for (let i = 0, l = children.length; i < l; i++) {
-				children[i].traverseVisible(callback);
-			}
-		}
-		traverseAncestors(callback) {
-			const parent = this.parent;
-			if (parent !== null) {
-				callback(parent);
-				parent.traverseAncestors(callback);
-			}
-		}
+		//
+		// traverseVisible( callback ) {
+		//
+		// 	if ( this.visible === false ) return;
+		//
+		// 	callback( this );
+		//
+		// 	const children = this.children;
+		//
+		// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
+		//
+		// 		children[ i ].traverseVisible( callback );
+		//
+		// 	}
+		//
+		// }
+		//
+		// traverseAncestors( callback ) {
+		//
+		// 	const parent = this.parent;
+		//
+		// 	if ( parent !== null ) {
+		//
+		// 		callback( parent );
+		//
+		// 		parent.traverseAncestors( callback );
+		//
+		// 	}
+		//
+		// }
+
 		updateMatrix() {
 			this.matrix.compose(this.position, this.quaternion, this.scale);
 			this.matrixWorldNeedsUpdate = true;
@@ -4893,6 +5318,38 @@
 	Object3D.DefaultMatrixAutoUpdate = true;
 	Object3D.DefaultMatrixWorldAutoUpdate = true;
 
+	// function arrayMin( array ) {
+	//
+	// 	if ( array.length === 0 ) return Infinity;
+	//
+	// 	let min = array[ 0 ];
+	//
+	// 	for ( let i = 1, l = array.length; i < l; ++ i ) {
+	//
+	// 		if ( array[ i ] < min ) min = array[ i ];
+	//
+	// 	}
+	//
+	// 	return min;
+	//
+	// }
+	//
+	// function arrayMax( array ) {
+	//
+	// 	if ( array.length === 0 ) return - Infinity;
+	//
+	// 	let max = array[ 0 ];
+	//
+	// 	for ( let i = 1, l = array.length; i < l; ++ i ) {
+	//
+	// 		if ( array[ i ] > max ) max = array[ i ];
+	//
+	// 	}
+	//
+	// 	return max;
+	//
+	// }
+
 	function arrayNeedsUint32(array) {
 		// assumes larger values usually on last
 
@@ -4968,13 +5425,19 @@
 				materialIndex: materialIndex
 			});
 		}
-		clearGroups() {
-			this.groups = [];
-		}
-		setDrawRange(start, count) {
-			this.drawRange.start = start;
-			this.drawRange.count = count;
-		}
+
+		// clearGroups() {
+		//
+		// 	this.groups = [];
+		//
+		// }
+		//
+		// setDrawRange( start, count ) {
+		//
+		// 	this.drawRange.start = start;
+		// 	this.drawRange.count = count;
+		//
+		// }
 
 		// applyMatrix4( matrix ) {
 
@@ -5026,18 +5489,28 @@
 
 		// }
 
-		applyQuaternion(q) {
-			_m1.makeRotationFromQuaternion(q);
-			this.applyMatrix4(_m1);
-			return this;
-		}
-		rotateX(angle) {
-			// rotate geometry around world x-axis
+		// applyQuaternion( q ) {
+		//
+		// 	_m1.makeRotationFromQuaternion( q );
+		//
+		// 	this.applyMatrix4( _m1 );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// rotateX( angle ) {
+		//
+		// 	// rotate geometry around world x-axis
+		//
+		// 	_m1.makeRotationX( angle );
+		//
+		// 	this.applyMatrix4( _m1 );
+		//
+		// 	return this;
+		//
+		// }
 
-			_m1.makeRotationX(angle);
-			this.applyMatrix4(_m1);
-			return this;
-		}
 		rotateY(angle) {
 			// rotate geometry around world y-axis
 
@@ -5045,13 +5518,19 @@
 			this.applyMatrix4(_m1);
 			return this;
 		}
-		rotateZ(angle) {
-			// rotate geometry around world z-axis
 
-			_m1.makeRotationZ(angle);
-			this.applyMatrix4(_m1);
-			return this;
-		}
+		// rotateZ( angle ) {
+		//
+		// 	// rotate geometry around world z-axis
+		//
+		// 	_m1.makeRotationZ( angle );
+		//
+		// 	this.applyMatrix4( _m1 );
+		//
+		// 	return this;
+		//
+		// }
+
 		translate(x, y, z) {
 			// translate geometry
 
@@ -5078,15 +5557,24 @@
 			this.translate(_offset.x, _offset.y, _offset.z);
 			return this;
 		}
-		setFromPoints(points) {
-			const position = [];
-			for (let i = 0, l = points.length; i < l; i++) {
-				const point = points[i];
-				position.push(point.x, point.y, point.z || 0);
-			}
-			this.setAttribute('position', new Float32BufferAttribute(position, 3));
-			return this;
-		}
+
+		// setFromPoints( points ) {
+		//
+		// 	const position = [];
+		//
+		// 	for ( let i = 0, l = points.length; i < l; i ++ ) {
+		//
+		// 		const point = points[ i ];
+		// 		position.push( point.x, point.y, point.z || 0 );
+		//
+		// 	}
+		//
+		// 	this.setAttribute( 'position', new Float32BufferAttribute( position, 3 ) );
+		//
+		// 	return this;
+		//
+		// }
+
 		computeBoundingBox() {
 			if (this.boundingBox === null) {
 				this.boundingBox = new Box3();
@@ -5192,115 +5680,172 @@
 				}
 			}
 		}
-		computeTangents() {
-			const index = this.index;
-			const attributes = this.attributes;
 
-			// based on http://www.terathon.com/code/tangent.html
-			// (per vertex tangents)
+		// computeTangents() {
+		//
+		// 	const index = this.index;
+		// 	const attributes = this.attributes;
+		//
+		// 	// based on http://www.terathon.com/code/tangent.html
+		// 	// (per vertex tangents)
+		//
+		// 	if ( index === null ||
+		// 		 attributes.position === undefined ||
+		// 		 attributes.normal === undefined ||
+		// 		 attributes.uv === undefined ) {
+		//
+		// 		console.error( 'THREE.BufferGeometry: .computeTangents() failed. Missing required attributes (index, position, normal or uv)' );
+		// 		return;
+		//
+		// 	}
+		//
+		// 	const indices = index.array;
+		// 	const positions = attributes.position.array;
+		// 	const normals = attributes.normal.array;
+		// 	const uvs = attributes.uv.array;
+		//
+		// 	const nVertices = positions.length / 3;
+		//
+		// 	if ( this.hasAttribute( 'tangent' ) === false ) {
+		//
+		// 		this.setAttribute( 'tangent', new BufferAttribute( new Float32Array( 4 * nVertices ), 4 ) );
+		//
+		// 	}
+		//
+		// 	const tangents = this.getAttribute( 'tangent' ).array;
+		//
+		// 	const tan1 = [], tan2 = [];
+		//
+		// 	for ( let i = 0; i < nVertices; i ++ ) {
+		//
+		// 		tan1[ i ] = new Vector3();
+		// 		tan2[ i ] = new Vector3();
+		//
+		// 	}
+		//
+		// 	const vA = new Vector3(),
+		// 		vB = new Vector3(),
+		// 		vC = new Vector3(),
+		//
+		// 		uvA = new Vector2(),
+		// 		uvB = new Vector2(),
+		// 		uvC = new Vector2(),
+		//
+		// 		sdir = new Vector3(),
+		// 		tdir = new Vector3();
+		//
+		// 	function handleTriangle( a, b, c ) {
+		//
+		// 		vA.fromArray( positions, a * 3 );
+		// 		vB.fromArray( positions, b * 3 );
+		// 		vC.fromArray( positions, c * 3 );
+		//
+		// 		uvA.fromArray( uvs, a * 2 );
+		// 		uvB.fromArray( uvs, b * 2 );
+		// 		uvC.fromArray( uvs, c * 2 );
+		//
+		// 		vB.sub( vA );
+		// 		vC.sub( vA );
+		//
+		// 		uvB.sub( uvA );
+		// 		uvC.sub( uvA );
+		//
+		// 		const r = 1.0 / ( uvB.x * uvC.y - uvC.x * uvB.y );
+		//
+		// 		// silently ignore degenerate uv triangles having coincident or colinear vertices
+		//
+		// 		if ( ! isFinite( r ) ) return;
+		//
+		// 		sdir.copy( vB ).multiplyScalar( uvC.y ).addScaledVector( vC, - uvB.y ).multiplyScalar( r );
+		// 		tdir.copy( vC ).multiplyScalar( uvB.x ).addScaledVector( vB, - uvC.x ).multiplyScalar( r );
+		//
+		// 		tan1[ a ].add( sdir );
+		// 		tan1[ b ].add( sdir );
+		// 		tan1[ c ].add( sdir );
+		//
+		// 		tan2[ a ].add( tdir );
+		// 		tan2[ b ].add( tdir );
+		// 		tan2[ c ].add( tdir );
+		//
+		// 	}
+		//
+		// 	let groups = this.groups;
+		//
+		// 	if ( groups.length === 0 ) {
+		//
+		// 		groups = [ {
+		// 			start: 0,
+		// 			count: indices.length
+		// 		} ];
+		//
+		// 	}
+		//
+		// 	for ( let i = 0, il = groups.length; i < il; ++ i ) {
+		//
+		// 		const group = groups[ i ];
+		//
+		// 		const start = group.start;
+		// 		const count = group.count;
+		//
+		// 		for ( let j = start, jl = start + count; j < jl; j += 3 ) {
+		//
+		// 			handleTriangle(
+		// 				indices[ j + 0 ],
+		// 				indices[ j + 1 ],
+		// 				indices[ j + 2 ]
+		// 			);
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	const tmp = new Vector3(), tmp2 = new Vector3();
+		// 	const n = new Vector3(), n2 = new Vector3();
+		//
+		// 	function handleVertex( v ) {
+		//
+		// 		n.fromArray( normals, v * 3 );
+		// 		n2.copy( n );
+		//
+		// 		const t = tan1[ v ];
+		//
+		// 		// Gram-Schmidt orthogonalize
+		//
+		// 		tmp.copy( t );
+		// 		tmp.sub( n.multiplyScalar( n.dot( t ) ) ).normalize();
+		//
+		// 		// Calculate handedness
+		//
+		// 		tmp2.crossVectors( n2, t );
+		// 		const test = tmp2.dot( tan2[ v ] );
+		// 		const w = ( test < 0.0 ) ? - 1.0 : 1.0;
+		//
+		// 		tangents[ v * 4 ] = tmp.x;
+		// 		tangents[ v * 4 + 1 ] = tmp.y;
+		// 		tangents[ v * 4 + 2 ] = tmp.z;
+		// 		tangents[ v * 4 + 3 ] = w;
+		//
+		// 	}
+		//
+		// 	for ( let i = 0, il = groups.length; i < il; ++ i ) {
+		//
+		// 		const group = groups[ i ];
+		//
+		// 		const start = group.start;
+		// 		const count = group.count;
+		//
+		// 		for ( let j = start, jl = start + count; j < jl; j += 3 ) {
+		//
+		// 			handleVertex( indices[ j + 0 ] );
+		// 			handleVertex( indices[ j + 1 ] );
+		// 			handleVertex( indices[ j + 2 ] );
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// }
 
-			if (index === null || attributes.position === undefined || attributes.normal === undefined || attributes.uv === undefined) {
-				console.error('THREE.BufferGeometry: .computeTangents() failed. Missing required attributes (index, position, normal or uv)');
-				return;
-			}
-			const indices = index.array;
-			const positions = attributes.position.array;
-			const normals = attributes.normal.array;
-			const uvs = attributes.uv.array;
-			const nVertices = positions.length / 3;
-			if (this.hasAttribute('tangent') === false) {
-				this.setAttribute('tangent', new BufferAttribute(new Float32Array(4 * nVertices), 4));
-			}
-			const tangents = this.getAttribute('tangent').array;
-			const tan1 = [],
-				tan2 = [];
-			for (let i = 0; i < nVertices; i++) {
-				tan1[i] = new Vector3();
-				tan2[i] = new Vector3();
-			}
-			const vA = new Vector3(),
-				vB = new Vector3(),
-				vC = new Vector3(),
-				uvA = new Vector2(),
-				uvB = new Vector2(),
-				uvC = new Vector2(),
-				sdir = new Vector3(),
-				tdir = new Vector3();
-			function handleTriangle(a, b, c) {
-				vA.fromArray(positions, a * 3);
-				vB.fromArray(positions, b * 3);
-				vC.fromArray(positions, c * 3);
-				uvA.fromArray(uvs, a * 2);
-				uvB.fromArray(uvs, b * 2);
-				uvC.fromArray(uvs, c * 2);
-				vB.sub(vA);
-				vC.sub(vA);
-				uvB.sub(uvA);
-				uvC.sub(uvA);
-				const r = 1.0 / (uvB.x * uvC.y - uvC.x * uvB.y);
-
-				// silently ignore degenerate uv triangles having coincident or colinear vertices
-
-				if (!isFinite(r)) return;
-				sdir.copy(vB).multiplyScalar(uvC.y).addScaledVector(vC, -uvB.y).multiplyScalar(r);
-				tdir.copy(vC).multiplyScalar(uvB.x).addScaledVector(vB, -uvC.x).multiplyScalar(r);
-				tan1[a].add(sdir);
-				tan1[b].add(sdir);
-				tan1[c].add(sdir);
-				tan2[a].add(tdir);
-				tan2[b].add(tdir);
-				tan2[c].add(tdir);
-			}
-			let groups = this.groups;
-			if (groups.length === 0) {
-				groups = [{
-					start: 0,
-					count: indices.length
-				}];
-			}
-			for (let i = 0, il = groups.length; i < il; ++i) {
-				const group = groups[i];
-				const start = group.start;
-				const count = group.count;
-				for (let j = start, jl = start + count; j < jl; j += 3) {
-					handleTriangle(indices[j + 0], indices[j + 1], indices[j + 2]);
-				}
-			}
-			const tmp = new Vector3(),
-				tmp2 = new Vector3();
-			const n = new Vector3(),
-				n2 = new Vector3();
-			function handleVertex(v) {
-				n.fromArray(normals, v * 3);
-				n2.copy(n);
-				const t = tan1[v];
-
-				// Gram-Schmidt orthogonalize
-
-				tmp.copy(t);
-				tmp.sub(n.multiplyScalar(n.dot(t))).normalize();
-
-				// Calculate handedness
-
-				tmp2.crossVectors(n2, t);
-				const test = tmp2.dot(tan2[v]);
-				const w = test < 0.0 ? -1.0 : 1.0;
-				tangents[v * 4] = tmp.x;
-				tangents[v * 4 + 1] = tmp.y;
-				tangents[v * 4 + 2] = tmp.z;
-				tangents[v * 4 + 3] = w;
-			}
-			for (let i = 0, il = groups.length; i < il; ++i) {
-				const group = groups[i];
-				const start = group.start;
-				const count = group.count;
-				for (let j = start, jl = start + count; j < jl; j += 3) {
-					handleVertex(indices[j + 0]);
-					handleVertex(indices[j + 1]);
-					handleVertex(indices[j + 2]);
-				}
-			}
-		}
 		computeVertexNormals() {
 			const index = this.index;
 			const positionAttribute = this.getAttribute('position');
@@ -5382,70 +5927,108 @@
 				normals.setXYZ(i, _vector$1.x, _vector$1.y, _vector$1.z);
 			}
 		}
-		toNonIndexed() {
-			function convertBufferAttribute(attribute, indices) {
-				const array = attribute.array;
-				const itemSize = attribute.itemSize;
-				const normalized = attribute.normalized;
-				const array2 = new array.constructor(indices.length * itemSize);
-				let index = 0,
-					index2 = 0;
-				for (let i = 0, l = indices.length; i < l; i++) {
-					if (attribute.isInterleavedBufferAttribute) {
-						index = indices[i] * attribute.data.stride + attribute.offset;
-					} else {
-						index = indices[i] * itemSize;
-					}
-					for (let j = 0; j < itemSize; j++) {
-						array2[index2++] = array[index++];
-					}
-				}
-				return new BufferAttribute(array2, itemSize, normalized);
-			}
 
-			//
-
-			if (this.index === null) {
-				console.warn('THREE.BufferGeometry.toNonIndexed(): BufferGeometry is already non-indexed.');
-				return this;
-			}
-			const geometry2 = new BufferGeometry();
-			const indices = this.index.array;
-			const attributes = this.attributes;
-
-			// attributes
-
-			for (const name in attributes) {
-				const attribute = attributes[name];
-				const newAttribute = convertBufferAttribute(attribute, indices);
-				geometry2.setAttribute(name, newAttribute);
-			}
-
-			// morph attributes
-
-			const morphAttributes = this.morphAttributes;
-			for (const name in morphAttributes) {
-				const morphArray = [];
-				const morphAttribute = morphAttributes[name]; // morphAttribute: array of Float32BufferAttributes
-
-				for (let i = 0, il = morphAttribute.length; i < il; i++) {
-					const attribute = morphAttribute[i];
-					const newAttribute = convertBufferAttribute(attribute, indices);
-					morphArray.push(newAttribute);
-				}
-				geometry2.morphAttributes[name] = morphArray;
-			}
-			geometry2.morphTargetsRelative = this.morphTargetsRelative;
-
-			// groups
-
-			const groups = this.groups;
-			for (let i = 0, l = groups.length; i < l; i++) {
-				const group = groups[i];
-				geometry2.addGroup(group.start, group.count, group.materialIndex);
-			}
-			return geometry2;
-		}
+		// toNonIndexed() {
+		//
+		// 	function convertBufferAttribute( attribute, indices ) {
+		//
+		// 		const array = attribute.array;
+		// 		const itemSize = attribute.itemSize;
+		// 		const normalized = attribute.normalized;
+		//
+		// 		const array2 = new array.constructor( indices.length * itemSize );
+		//
+		// 		let index = 0, index2 = 0;
+		//
+		// 		for ( let i = 0, l = indices.length; i < l; i ++ ) {
+		//
+		// 			if ( attribute.isInterleavedBufferAttribute ) {
+		//
+		// 				index = indices[ i ] * attribute.data.stride + attribute.offset;
+		//
+		// 			} else {
+		//
+		// 				index = indices[ i ] * itemSize;
+		//
+		// 			}
+		//
+		// 			for ( let j = 0; j < itemSize; j ++ ) {
+		//
+		// 				array2[ index2 ++ ] = array[ index ++ ];
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 		return new BufferAttribute( array2, itemSize, normalized );
+		//
+		// 	}
+		//
+		// 	//
+		//
+		// 	if ( this.index === null ) {
+		//
+		// 		console.warn( 'THREE.BufferGeometry.toNonIndexed(): BufferGeometry is already non-indexed.' );
+		// 		return this;
+		//
+		// 	}
+		//
+		// 	const geometry2 = new BufferGeometry();
+		//
+		// 	const indices = this.index.array;
+		// 	const attributes = this.attributes;
+		//
+		// 	// attributes
+		//
+		// 	for ( const name in attributes ) {
+		//
+		// 		const attribute = attributes[ name ];
+		//
+		// 		const newAttribute = convertBufferAttribute( attribute, indices );
+		//
+		// 		geometry2.setAttribute( name, newAttribute );
+		//
+		// 	}
+		//
+		// 	// morph attributes
+		//
+		// 	const morphAttributes = this.morphAttributes;
+		//
+		// 	for ( const name in morphAttributes ) {
+		//
+		// 		const morphArray = [];
+		// 		const morphAttribute = morphAttributes[ name ]; // morphAttribute: array of Float32BufferAttributes
+		//
+		// 		for ( let i = 0, il = morphAttribute.length; i < il; i ++ ) {
+		//
+		// 			const attribute = morphAttribute[ i ];
+		//
+		// 			const newAttribute = convertBufferAttribute( attribute, indices );
+		//
+		// 			morphArray.push( newAttribute );
+		//
+		// 		}
+		//
+		// 		geometry2.morphAttributes[ name ] = morphArray;
+		//
+		// 	}
+		//
+		// 	geometry2.morphTargetsRelative = this.morphTargetsRelative;
+		//
+		// 	// groups
+		//
+		// 	const groups = this.groups;
+		//
+		// 	for ( let i = 0, l = groups.length; i < l; i ++ ) {
+		//
+		// 		const group = groups[ i ];
+		// 		geometry2.addGroup( group.start, group.count, group.materialIndex );
+		//
+		// 	}
+		//
+		// 	return geometry2;
+		//
+		// }
 
 		// toJSON() {
 
@@ -5857,7 +6440,9 @@
 	class Material extends EventDispatcher {
 		constructor() {
 			super();
-			this.isMaterial = true;
+
+			// this.isMaterial = true;
+
 			Object.defineProperty(this, 'id', {
 				value: materialId++
 			});
@@ -6480,7 +7065,8 @@
 			return LinearSRGBColorSpace;
 		},
 		set workingColorSpace(colorSpace) {
-			console.warn('THREE.ColorManagement: .workingColorSpace is readonly.');
+
+			// console.warn( 'THREE.ColorManagement: .workingColorSpace is readonly.' );
 		},
 		convert: function (color, sourceColorSpace, targetColorSpace) {
 			if (this.legacyMode || sourceColorSpace === targetColorSpace || !sourceColorSpace || !targetColorSpace) {
@@ -6701,12 +7287,17 @@
 			}
 			return this;
 		}
-		setScalar(scalar) {
-			this.r = scalar;
-			this.g = scalar;
-			this.b = scalar;
-			return this;
-		}
+
+		// setScalar( scalar ) {
+		//
+		// 	this.r = scalar;
+		// 	this.g = scalar;
+		// 	this.b = scalar;
+		//
+		// 	return this;
+		//
+		// }
+
 		setHex(hex, colorSpace = SRGBColorSpace) {
 			hex = Math.floor(hex);
 			this.r = (hex >> 16 & 255) / 255;
@@ -6847,21 +7438,33 @@
 			this.b = LinearToSRGB(color.b);
 			return this;
 		}
-		convertSRGBToLinear() {
-			this.copySRGBToLinear(this);
-			return this;
-		}
-		convertLinearToSRGB() {
-			this.copyLinearToSRGB(this);
-			return this;
-		}
+
+		// convertSRGBToLinear() {
+		//
+		// 	this.copySRGBToLinear( this );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// convertLinearToSRGB() {
+		//
+		// 	this.copyLinearToSRGB( this );
+		//
+		// 	return this;
+		//
+		// }
+
 		getHex(colorSpace = SRGBColorSpace) {
 			ColorManagement.fromWorkingColorSpace(toComponents(this, _rgb$1), colorSpace);
 			return clamp(_rgb$1.r * 255, 0, 255) << 16 ^ clamp(_rgb$1.g * 255, 0, 255) << 8 ^ clamp(_rgb$1.b * 255, 0, 255) << 0;
 		}
-		getHexString(colorSpace = SRGBColorSpace) {
-			return ('000000' + this.getHex(colorSpace).toString(16)).slice(-6);
-		}
+
+		// getHexString( colorSpace = SRGBColorSpace ) {
+		//
+		// 	return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );
+		//
+		// }
 
 		// getHSL( target, colorSpace = ColorManagement.workingColorSpace ) {
 
@@ -6915,14 +7518,21 @@
 			target.b = _rgb$1.b;
 			return target;
 		}
-		getStyle(colorSpace = SRGBColorSpace) {
-			ColorManagement.fromWorkingColorSpace(toComponents(this, _rgb$1), colorSpace);
-			if (colorSpace !== SRGBColorSpace) {
-				// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
-				return `color(${colorSpace} ${_rgb$1.r} ${_rgb$1.g} ${_rgb$1.b})`;
-			}
-			return `rgb(${_rgb$1.r * 255 | 0},${_rgb$1.g * 255 | 0},${_rgb$1.b * 255 | 0})`;
-		}
+		//
+		// getStyle( colorSpace = SRGBColorSpace ) {
+		//
+		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+		//
+		// 	if ( colorSpace !== SRGBColorSpace ) {
+		//
+		// 		// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
+		// 		return `color(${ colorSpace } ${ _rgb.r } ${ _rgb.g } ${ _rgb.b })`;
+		//
+		// 	}
+		//
+		// 	return `rgb(${( _rgb.r * 255 ) | 0},${( _rgb.g * 255 ) | 0},${( _rgb.b * 255 ) | 0})`;
+		//
+		// }
 
 		// offsetHSL( h, s, l ) {
 
@@ -6942,18 +7552,27 @@
 			this.b += color.b;
 			return this;
 		}
-		addColors(color1, color2) {
-			this.r = color1.r + color2.r;
-			this.g = color1.g + color2.g;
-			this.b = color1.b + color2.b;
-			return this;
-		}
-		addScalar(s) {
-			this.r += s;
-			this.g += s;
-			this.b += s;
-			return this;
-		}
+
+		// addColors( color1, color2 ) {
+		//
+		// 	this.r = color1.r + color2.r;
+		// 	this.g = color1.g + color2.g;
+		// 	this.b = color1.b + color2.b;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// addScalar( s ) {
+		//
+		// 	this.r += s;
+		// 	this.g += s;
+		// 	this.b += s;
+		//
+		// 	return this;
+		//
+		// }
+
 		sub(color) {
 			this.r = Math.max(0, this.r - color.r);
 			this.g = Math.max(0, this.g - color.g);
@@ -6978,12 +7597,16 @@
 			this.b += (color.b - this.b) * alpha;
 			return this;
 		}
-		lerpColors(color1, color2, alpha) {
-			this.r = color1.r + (color2.r - color1.r) * alpha;
-			this.g = color1.g + (color2.g - color1.g) * alpha;
-			this.b = color1.b + (color2.b - color1.b) * alpha;
-			return this;
-		}
+
+		// lerpColors( color1, color2, alpha ) {
+		//
+		// 	this.r = color1.r + ( color2.r - color1.r ) * alpha;
+		// 	this.g = color1.g + ( color2.g - color1.g ) * alpha;
+		// 	this.b = color1.b + ( color2.b - color1.b ) * alpha;
+		//
+		// 	return this;
+		//
+		// }
 
 		// lerpHSL( color, alpha ) {
 
@@ -9513,41 +10136,68 @@
 				return canvas.toDataURL('image/png');
 			}
 		}
-		static sRGBToLinear(image) {
-			if (typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement || typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement || typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap) {
-				const canvas = createElementNS('canvas');
-				canvas.width = image.width;
-				canvas.height = image.height;
-				const context = canvas.getContext('2d');
-				context.drawImage(image, 0, 0, image.width, image.height);
-				const imageData = context.getImageData(0, 0, image.width, image.height);
-				const data = imageData.data;
-				for (let i = 0; i < data.length; i++) {
-					data[i] = SRGBToLinear(data[i] / 255) * 255;
-				}
-				context.putImageData(imageData, 0, 0);
-				return canvas;
-			} else if (image.data) {
-				const data = image.data.slice(0);
-				for (let i = 0; i < data.length; i++) {
-					if (data instanceof Uint8Array || data instanceof Uint8ClampedArray) {
-						data[i] = Math.floor(SRGBToLinear(data[i] / 255) * 255);
-					} else {
-						// assuming float
 
-						data[i] = SRGBToLinear(data[i]);
-					}
-				}
-				return {
-					data: data,
-					width: image.width,
-					height: image.height
-				};
-			} else {
-				console.warn('THREE.ImageUtils.sRGBToLinear(): Unsupported image type. No color space conversion applied.');
-				return image;
-			}
-		}
+		// static sRGBToLinear( image ) {
+		//
+		// 	if ( ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ) ||
+		// 		( typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ) ||
+		// 		( typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) ) {
+		//
+		// 		const canvas = createElementNS( 'canvas' );
+		//
+		// 		canvas.width = image.width;
+		// 		canvas.height = image.height;
+		//
+		// 		const context = canvas.getContext( '2d' );
+		// 		context.drawImage( image, 0, 0, image.width, image.height );
+		//
+		// 		const imageData = context.getImageData( 0, 0, image.width, image.height );
+		// 		const data = imageData.data;
+		//
+		// 		for ( let i = 0; i < data.length; i ++ ) {
+		//
+		// 			data[ i ] = SRGBToLinear( data[ i ] / 255 ) * 255;
+		//
+		// 		}
+		//
+		// 		context.putImageData( imageData, 0, 0 );
+		//
+		// 		return canvas;
+		//
+		// 	} else if ( image.data ) {
+		//
+		// 		const data = image.data.slice( 0 );
+		//
+		// 		for ( let i = 0; i < data.length; i ++ ) {
+		//
+		// 			if ( data instanceof Uint8Array || data instanceof Uint8ClampedArray ) {
+		//
+		// 				data[ i ] = Math.floor( SRGBToLinear( data[ i ] / 255 ) * 255 );
+		//
+		// 			} else {
+		//
+		// 				// assuming float
+		//
+		// 				data[ i ] = SRGBToLinear( data[ i ] );
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 		return {
+		// 			data: data,
+		// 			width: image.width,
+		// 			height: image.height
+		// 		};
+		//
+		// 	} else {
+		//
+		// 		console.warn( 'THREE.ImageUtils.sRGBToLinear(): Unsupported image type. No color space conversion applied.' );
+		// 		return image;
+		//
+		// 	}
+		//
+		// }
 	}
 
 	class Source {
@@ -10388,33 +11038,47 @@
 			this.view = source.view === null ? null : Object.assign({}, source.view);
 			return this;
 		}
-		setViewOffset(fullWidth, fullHeight, x, y, width, height) {
-			if (this.view === null) {
-				this.view = {
-					enabled: true,
-					fullWidth: 1,
-					fullHeight: 1,
-					offsetX: 0,
-					offsetY: 0,
-					width: 1,
-					height: 1
-				};
-			}
-			this.view.enabled = true;
-			this.view.fullWidth = fullWidth;
-			this.view.fullHeight = fullHeight;
-			this.view.offsetX = x;
-			this.view.offsetY = y;
-			this.view.width = width;
-			this.view.height = height;
-			this.updateProjectionMatrix();
-		}
-		clearViewOffset() {
-			if (this.view !== null) {
-				this.view.enabled = false;
-			}
-			this.updateProjectionMatrix();
-		}
+		//
+		// setViewOffset( fullWidth, fullHeight, x, y, width, height ) {
+		//
+		// 	if ( this.view === null ) {
+		//
+		// 		this.view = {
+		// 			enabled: true,
+		// 			fullWidth: 1,
+		// 			fullHeight: 1,
+		// 			offsetX: 0,
+		// 			offsetY: 0,
+		// 			width: 1,
+		// 			height: 1
+		// 		};
+		//
+		// 	}
+		//
+		// 	this.view.enabled = true;
+		// 	this.view.fullWidth = fullWidth;
+		// 	this.view.fullHeight = fullHeight;
+		// 	this.view.offsetX = x;
+		// 	this.view.offsetY = y;
+		// 	this.view.width = width;
+		// 	this.view.height = height;
+		//
+		// 	this.updateProjectionMatrix();
+		//
+		// }
+		//
+		// clearViewOffset() {
+		//
+		// 	if ( this.view !== null ) {
+		//
+		// 		this.view.enabled = false;
+		//
+		// 	}
+		//
+		// 	this.updateProjectionMatrix();
+		//
+		// }
+
 		updateProjectionMatrix() {
 			const dx = (this.right - this.left) / (2 * this.zoom);
 			const dy = (this.top - this.bottom) / (2 * this.zoom);
@@ -11741,6 +12405,7 @@
 	const emptyArrayTexture = /*@__PURE__*/new DataArrayTexture();
 	const empty3dTexture = /*@__PURE__*/new Data3DTexture();
 
+
 	// --- Utilities ---
 
 	// Array Caches (provide typed arrays for temporary by size)
@@ -12052,6 +12717,38 @@
 		}
 		textures.setTexture3D(v || empty3dTexture, unit);
 	}
+
+	// function setValueT6( gl, v, textures ) {
+
+	// 	const cache = this.cache;
+	// 	const unit = textures.allocateTextureUnit();
+
+	// 	if ( cache[ 0 ] !== unit ) {
+
+	// 		gl.uniform1i( this.addr, unit );
+	// 		cache[ 0 ] = unit;
+
+	// 	}
+
+	// 	textures.setTextureCube( v || emptyCubeTexture, unit );
+
+	// }
+
+	// function setValueT2DArray1( gl, v, textures ) {
+	//
+	// 	const cache = this.cache;
+	// 	const unit = textures.allocateTextureUnit();
+	//
+	// 	if ( cache[ 0 ] !== unit ) {
+	//
+	// 		gl.uniform1i( this.addr, unit );
+	// 		cache[ 0 ] = unit;
+	//
+	// 	}
+	//
+	// 	textures.setTexture2DArray( v || emptyArrayTexture, unit );
+	//
+	// }
 
 	// Helper to pick the right setter for the singular case
 
@@ -16937,7 +17634,8 @@
 		let properties, textures, cubemaps, cubeuvmaps, attributes, geometries, objects;
 		let programCache, materials, renderLists, renderStates, clipping, shadowMap;
 		let background, morphtargets, bufferRenderer, indexedBufferRenderer;
-		let utils, bindingStates;
+		let utils, bindingStates; //, uniformsGroups;
+
 		function initGLContext() {
 			extensions = new WebGLExtensions(_gl);
 			capabilities = new WebGLCapabilities(_gl, extensions, parameters);
@@ -16990,17 +17688,27 @@
 		this.getContextAttributes = function () {
 			return _gl.getContextAttributes();
 		};
-		this.forceContextLoss = function () {
-			const extension = extensions.get('WEBGL_lose_context');
-			if (extension) extension.loseContext();
-		};
-		this.forceContextRestore = function () {
-			const extension = extensions.get('WEBGL_lose_context');
-			if (extension) extension.restoreContext();
-		};
-		this.getPixelRatio = function () {
-			return _pixelRatio;
-		};
+
+		// this.forceContextLoss = function () {
+		//
+		// 	const extension = extensions.get( 'WEBGL_lose_context' );
+		// 	if ( extension ) extension.loseContext();
+		//
+		// };
+		//
+		// this.forceContextRestore = function () {
+		//
+		// 	const extension = extensions.get( 'WEBGL_lose_context' );
+		// 	if ( extension ) extension.restoreContext();
+		//
+		// };
+		//
+		// this.getPixelRatio = function () {
+		//
+		// 	return _pixelRatio;
+		//
+		// };
+		//
 		this.setPixelRatio = function (value) {
 			if (value === undefined) return;
 			_pixelRatio = value;
@@ -17030,17 +17738,27 @@
 		this.getDrawingBufferSize = function (target) {
 			return target.set(_width * _pixelRatio, _height * _pixelRatio).floor();
 		};
-		this.setDrawingBufferSize = function (width, height, pixelRatio) {
-			_width = width;
-			_height = height;
-			_pixelRatio = pixelRatio;
-			_canvas.width = Math.floor(width * pixelRatio);
-			_canvas.height = Math.floor(height * pixelRatio);
-			this.setViewport(0, 0, width, height);
-		};
-		this.getCurrentViewport = function (target) {
-			return target.copy(_currentViewport);
-		};
+
+		// this.setDrawingBufferSize = function ( width, height, pixelRatio ) {
+		//
+		// 	_width = width;
+		// 	_height = height;
+		//
+		// 	_pixelRatio = pixelRatio;
+		//
+		// 	_canvas.width = Math.floor( width * pixelRatio );
+		// 	_canvas.height = Math.floor( height * pixelRatio );
+		//
+		// 	this.setViewport( 0, 0, width, height );
+		//
+		// };
+		//
+		// this.getCurrentViewport = function ( target ) {
+		//
+		// 	return target.copy( _currentViewport );
+		//
+		// };
+
 		this.getViewport = function (target) {
 			return target.copy(_viewport);
 		};
@@ -17052,20 +17770,35 @@
 			}
 			state.viewport(_currentViewport.copy(_viewport).multiplyScalar(_pixelRatio).floor());
 		};
-		this.getScissor = function (target) {
-			return target.copy(_scissor);
-		};
-		this.setScissor = function (x, y, width, height) {
-			if (x.isVector4) {
-				_scissor.set(x.x, x.y, x.z, x.w);
-			} else {
-				_scissor.set(x, y, width, height);
-			}
-			state.scissor(_currentScissor.copy(_scissor).multiplyScalar(_pixelRatio).floor());
-		};
-		this.getScissorTest = function () {
-			return _scissorTest;
-		};
+
+		// this.getScissor = function ( target ) {
+		//
+		// 	return target.copy( _scissor );
+		//
+		// };
+		//
+		// this.setScissor = function ( x, y, width, height ) {
+		//
+		// 	if ( x.isVector4 ) {
+		//
+		// 		_scissor.set( x.x, x.y, x.z, x.w );
+		//
+		// 	} else {
+		//
+		// 		_scissor.set( x, y, width, height );
+		//
+		// 	}
+		//
+		// 	state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
+		//
+		// };
+		//
+		// this.getScissorTest = function () {
+		//
+		// 	return _scissorTest;
+		//
+		// };
+
 		this.setScissorTest = function (boolean) {
 			state.setScissorTest(_scissorTest = boolean);
 		};
@@ -18304,13 +19037,16 @@
 
 		// };
 
-		this.resetState = function () {
-			_currentActiveCubeFace = 0;
-			_currentActiveMipmapLevel = 0;
-			_currentRenderTarget = null;
-			state.reset();
-			bindingStates.reset();
-		};
+		// this.resetState = function () {
+		//
+		// 	_currentActiveCubeFace = 0;
+		// 	_currentActiveMipmapLevel = 0;
+		// 	_currentRenderTarget = null;
+		//
+		// 	state.reset();
+		// 	bindingStates.reset();
+		//
+		// };
 
 		// if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 
@@ -18630,8 +19366,6 @@
 			let isLoading = false;
 			let itemsLoaded = 0;
 			let itemsTotal = 0;
-			let urlModifier = undefined;
-			const handlers = [];
 
 			// Refer to #5689 for the reason why we don't set .onStart
 			// in the constructor
@@ -18667,40 +19401,62 @@
 				}
 			};
 			this.resolveURL = function (url) {
-				if (urlModifier) {
-					return urlModifier(url);
-				}
 				return url;
 			};
-			this.setURLModifier = function (transform) {
-				urlModifier = transform;
-				return this;
-			};
-			this.addHandler = function (regex, loader) {
-				handlers.push(regex, loader);
-				return this;
-			};
-			this.removeHandler = function (regex) {
-				const index = handlers.indexOf(regex);
-				if (index !== -1) {
-					handlers.splice(index, 2);
-				}
-				return this;
-			};
-			this.getHandler = function (file) {
-				for (let i = 0, l = handlers.length; i < l; i += 2) {
-					const regex = handlers[i];
-					const loader = handlers[i + 1];
-					if (regex.global) regex.lastIndex = 0; // see #17920
+			//
+			// this.setURLModifier = function ( transform ) {
+			//
+			// 	urlModifier = transform;
+			//
+			// 	return this;
+			//
+			// };
+			//
+			// this.addHandler = function ( regex, loader ) {
+			//
+			// 	handlers.push( regex, loader );
+			//
+			// 	return this;
+			//
+			// };
+			//
+			// this.removeHandler = function ( regex ) {
+			//
+			// 	const index = handlers.indexOf( regex );
+			//
+			// 	if ( index !== - 1 ) {
+			//
+			// 		handlers.splice( index, 2 );
+			//
+			// 	}
+			//
+			// 	return this;
+			//
+			// };
 
-					if (regex.test(file)) {
-						return loader;
-					}
-				}
-				return null;
-			};
+			// this.getHandler = function ( file ) {
+			//
+			// 	for ( let i = 0, l = handlers.length; i < l; i += 2 ) {
+			//
+			// 		const regex = handlers[ i ];
+			// 		const loader = handlers[ i + 1 ];
+			//
+			// 		if ( regex.global ) regex.lastIndex = 0; // see #17920
+			//
+			// 		if ( regex.test( file ) ) {
+			//
+			// 			return loader;
+			//
+			// 		}
+			//
+			// 	}
+			//
+			// 	return null;
+			//
+			// };
 		}
 	}
+
 	const DefaultLoadingManager = /*@__PURE__*/new LoadingManager();
 
 	class Loader {
@@ -18732,10 +19488,14 @@
 			this.path = path;
 			return this;
 		}
-		setResourcePath(resourcePath) {
-			this.resourcePath = resourcePath;
-			return this;
-		}
+
+		// setResourcePath( resourcePath ) {
+		//
+		// 	this.resourcePath = resourcePath;
+		// 	return this;
+		//
+		// }
+
 		setRequestHeader(requestHeader) {
 			this.requestHeader = requestHeader;
 			return this;
@@ -18861,7 +19621,8 @@
 			this.bias = 0;
 			this.normalBias = 0;
 			this.radius = 1;
-			this.blurSamples = 8;
+			// this.blurSamples = 8;
+
 			this.mapSize = new Vector2(512, 512);
 			this.map = null;
 			this.mapPass = null;
@@ -18946,7 +19707,8 @@
 	class DirectionalLightShadow extends LightShadow {
 		constructor() {
 			super(new OrthographicCamera(-5, 5, 5, -5, 0.5, 500));
-			this.isDirectionalLightShadow = true;
+
+			// this.isDirectionalLightShadow = true;
 		}
 	}
 
@@ -19058,8 +19820,9 @@
 			this.type = 'LineBasicMaterial';
 			this.color = new Color(0xffffff);
 			this.linewidth = 1;
-			this.linecap = 'round';
-			this.linejoin = 'round';
+			// this.linecap = 'round';
+			// this.linejoin = 'round';
+
 			this.fog = true;
 			this.setValues(parameters);
 		}
@@ -19397,11 +20160,15 @@
 			position.needsUpdate = true;
 			this.geometry.computeBoundingSphere();
 		}
-		setFromObject(object) {
-			this.object = object;
-			this.update();
-			return this;
-		}
+
+		// setFromObject( object ) {
+		//
+		// 	this.object = object;
+		// 	this.update();
+		//
+		// 	return this;
+		//
+		// }
 
 		// copy( source, recursive ) {
 
@@ -19457,7 +20224,8 @@
 	class Curve {
 		constructor() {
 			this.type = 'Curve';
-			this.arcLengthDivisions = 200;
+
+			// this.arcLengthDivisions = 200;
 		}
 
 		// Virtual base class method to overwrite and implement in subclasses
@@ -19848,7 +20616,9 @@
 	class CubicBezierCurve3 extends Curve {
 		constructor(v0 = new Vector3(), v1 = new Vector3(), v2 = new Vector3(), v3 = new Vector3()) {
 			super();
-			this.isCubicBezierCurve3 = true;
+
+			// this.isCubicBezierCurve3 = true;
+
 			this.type = 'CubicBezierCurve3';
 			this.v0 = v0;
 			this.v1 = v1;
@@ -19934,7 +20704,6 @@
 	exports.AmbientLight = AmbientLight;
 	exports.BackSide = BackSide;
 	exports.BasicDepthPacking = BasicDepthPacking;
-	exports.BasicShadowMap = BasicShadowMap;
 	exports.Box3 = Box3;
 	exports.BoxGeometry = BoxGeometry;
 	exports.BoxHelper = BoxHelper;
@@ -19948,23 +20717,16 @@
 	exports.CubicBezierCurve3 = CubicBezierCurve3;
 	exports.CullFaceBack = CullFaceBack;
 	exports.CullFaceFront = CullFaceFront;
-	exports.CullFaceFrontBack = CullFaceFrontBack;
 	exports.CullFaceNone = CullFaceNone;
 	exports.CustomBlending = CustomBlending;
 	exports.CustomToneMapping = CustomToneMapping;
-	exports.DecrementStencilOp = DecrementStencilOp;
-	exports.DecrementWrapStencilOp = DecrementWrapStencilOp;
 	exports.DepthFormat = DepthFormat;
 	exports.DepthStencilFormat = DepthStencilFormat;
 	exports.DirectionalLight = DirectionalLight;
 	exports.DoubleSide = DoubleSide;
 	exports.DstAlphaFactor = DstAlphaFactor;
 	exports.DstColorFactor = DstColorFactor;
-	exports.DynamicCopyUsage = DynamicCopyUsage;
-	exports.DynamicDrawUsage = DynamicDrawUsage;
-	exports.DynamicReadUsage = DynamicReadUsage;
 	exports.EqualDepth = EqualDepth;
-	exports.EqualStencilFunc = EqualStencilFunc;
 	exports.EquirectangularReflectionMapping = EquirectangularReflectionMapping;
 	exports.EquirectangularRefractionMapping = EquirectangularRefractionMapping;
 	exports.FloatType = FloatType;
@@ -19973,26 +20735,17 @@
 	exports.GLSL3 = GLSL3;
 	exports.GreaterDepth = GreaterDepth;
 	exports.GreaterEqualDepth = GreaterEqualDepth;
-	exports.GreaterEqualStencilFunc = GreaterEqualStencilFunc;
-	exports.GreaterStencilFunc = GreaterStencilFunc;
 	exports.Group = Group;
 	exports.HalfFloatType = HalfFloatType;
-	exports.IncrementStencilOp = IncrementStencilOp;
-	exports.IncrementWrapStencilOp = IncrementWrapStencilOp;
 	exports.IntType = IntType;
 	exports.InterpolateDiscrete = InterpolateDiscrete;
 	exports.InterpolateLinear = InterpolateLinear;
 	exports.InterpolateSmooth = InterpolateSmooth;
-	exports.InvertStencilOp = InvertStencilOp;
 	exports.KeepStencilOp = KeepStencilOp;
 	exports.LessDepth = LessDepth;
 	exports.LessEqualDepth = LessEqualDepth;
-	exports.LessEqualStencilFunc = LessEqualStencilFunc;
-	exports.LessStencilFunc = LessStencilFunc;
 	exports.LinearEncoding = LinearEncoding;
 	exports.LinearFilter = LinearFilter;
-	exports.LinearMipMapLinearFilter = LinearMipMapLinearFilter;
-	exports.LinearMipMapNearestFilter = LinearMipMapNearestFilter;
 	exports.LinearMipmapLinearFilter = LinearMipmapLinearFilter;
 	exports.LinearMipmapNearestFilter = LinearMipmapNearestFilter;
 	exports.LinearSRGBColorSpace = LinearSRGBColorSpace;
@@ -20016,19 +20769,14 @@
 	exports.MultiplyBlending = MultiplyBlending;
 	exports.MultiplyOperation = MultiplyOperation;
 	exports.NearestFilter = NearestFilter;
-	exports.NearestMipMapLinearFilter = NearestMipMapLinearFilter;
-	exports.NearestMipMapNearestFilter = NearestMipMapNearestFilter;
 	exports.NearestMipmapLinearFilter = NearestMipmapLinearFilter;
 	exports.NearestMipmapNearestFilter = NearestMipmapNearestFilter;
 	exports.NeverDepth = NeverDepth;
-	exports.NeverStencilFunc = NeverStencilFunc;
 	exports.NoBlending = NoBlending;
-	exports.NoColorSpace = NoColorSpace;
 	exports.NoToneMapping = NoToneMapping;
 	exports.NormalAnimationBlendMode = NormalAnimationBlendMode;
 	exports.NormalBlending = NormalBlending;
 	exports.NotEqualDepth = NotEqualDepth;
-	exports.NotEqualStencilFunc = NotEqualStencilFunc;
 	exports.Object3D = Object3D;
 	exports.ObjectSpaceNormalMap = ObjectSpaceNormalMap;
 	exports.OneFactor = OneFactor;
@@ -20078,7 +20826,6 @@
 	exports.RedIntegerFormat = RedIntegerFormat;
 	exports.ReinhardToneMapping = ReinhardToneMapping;
 	exports.RepeatWrapping = RepeatWrapping;
-	exports.ReplaceStencilOp = ReplaceStencilOp;
 	exports.ReverseSubtractEquation = ReverseSubtractEquation;
 	exports.SRGBColorSpace = SRGBColorSpace;
 	exports.Scene = Scene;
@@ -20087,12 +20834,7 @@
 	exports.SrcAlphaFactor = SrcAlphaFactor;
 	exports.SrcAlphaSaturateFactor = SrcAlphaSaturateFactor;
 	exports.SrcColorFactor = SrcColorFactor;
-	exports.StaticCopyUsage = StaticCopyUsage;
 	exports.StaticDrawUsage = StaticDrawUsage;
-	exports.StaticReadUsage = StaticReadUsage;
-	exports.StreamCopyUsage = StreamCopyUsage;
-	exports.StreamDrawUsage = StreamDrawUsage;
-	exports.StreamReadUsage = StreamReadUsage;
 	exports.SubtractEquation = SubtractEquation;
 	exports.SubtractiveBlending = SubtractiveBlending;
 	exports.TOUCH = TOUCH;
@@ -20100,9 +20842,6 @@
 	exports.Texture = Texture;
 	exports.TextureLoader = TextureLoader;
 	exports.TorusGeometry = TorusGeometry;
-	exports.TriangleFanDrawMode = TriangleFanDrawMode;
-	exports.TriangleStripDrawMode = TriangleStripDrawMode;
-	exports.TrianglesDrawMode = TrianglesDrawMode;
 	exports.TwoPassDoubleSide = TwoPassDoubleSide;
 	exports.UVMapping = UVMapping;
 	exports.UnsignedByteType = UnsignedByteType;
@@ -20120,7 +20859,6 @@
 	exports.ZeroCurvatureEnding = ZeroCurvatureEnding;
 	exports.ZeroFactor = ZeroFactor;
 	exports.ZeroSlopeEnding = ZeroSlopeEnding;
-	exports.ZeroStencilOp = ZeroStencilOp;
 	exports._SRGBAFormat = _SRGBAFormat;
 	exports.sRGBEncoding = sRGBEncoding;
 

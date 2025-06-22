@@ -25,19 +25,19 @@ class CurvePath extends Curve {
 
 	}
 
-	closePath() {
-
-		// Add a line curve if start and end of lines are not connected
-		const startPoint = this.curves[ 0 ].getPoint( 0 );
-		const endPoint = this.curves[ this.curves.length - 1 ].getPoint( 1 );
-
-		if ( ! startPoint.equals( endPoint ) ) {
-
-			this.curves.push( new Curves[ 'LineCurve' ]( endPoint, startPoint ) );
-
-		}
-
-	}
+	// closePath() {
+	//
+	// 	// Add a line curve if start and end of lines are not connected
+	// 	const startPoint = this.curves[ 0 ].getPoint( 0 );
+	// 	const endPoint = this.curves[ this.curves.length - 1 ].getPoint( 1 );
+	//
+	// 	if ( ! startPoint.equals( endPoint ) ) {
+	//
+	// 		this.curves.push( new Curves[ 'LineCurve' ]( endPoint, startPoint ) );
+	//
+	// 	}
+	//
+	// }
 
 	// To get accurate point with reference to
 	// entire path distance at time t,
@@ -92,13 +92,13 @@ class CurvePath extends Curve {
 	}
 
 	// cacheLengths must be recalculated.
-	updateArcLengths() {
-
-		this.needsUpdate = true;
-		this.cacheLengths = null;
-		this.getCurveLengths();
-
-	}
+	// updateArcLengths() {
+	//
+	// 	this.needsUpdate = true;
+	// 	this.cacheLengths = null;
+	// 	this.getCurveLengths();
+	//
+	// }
 
 	// Compute lengths and cache them
 	// We cannot overwrite getLengths() because UtoT mapping uses it.

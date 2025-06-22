@@ -286,7 +286,7 @@ function WebGLRenderer( parameters = {} ) {
 
 	let background, morphtargets, bufferRenderer, indexedBufferRenderer;
 
-	let utils, bindingStates, uniformsGroups;
+	let utils, bindingStates;//, uniformsGroups;
 
 	function initGLContext() {
 
@@ -356,26 +356,26 @@ function WebGLRenderer( parameters = {} ) {
 
 	};
 
-	this.forceContextLoss = function () {
-
-		const extension = extensions.get( 'WEBGL_lose_context' );
-		if ( extension ) extension.loseContext();
-
-	};
-
-	this.forceContextRestore = function () {
-
-		const extension = extensions.get( 'WEBGL_lose_context' );
-		if ( extension ) extension.restoreContext();
-
-	};
-
-	this.getPixelRatio = function () {
-
-		return _pixelRatio;
-
-	};
-
+	// this.forceContextLoss = function () {
+	//
+	// 	const extension = extensions.get( 'WEBGL_lose_context' );
+	// 	if ( extension ) extension.loseContext();
+	//
+	// };
+	//
+	// this.forceContextRestore = function () {
+	//
+	// 	const extension = extensions.get( 'WEBGL_lose_context' );
+	// 	if ( extension ) extension.restoreContext();
+	//
+	// };
+	//
+	// this.getPixelRatio = function () {
+	//
+	// 	return _pixelRatio;
+	//
+	// };
+	//
 	this.setPixelRatio = function ( value ) {
 
 		if ( value === undefined ) return;
@@ -424,25 +424,25 @@ function WebGLRenderer( parameters = {} ) {
 
 	};
 
-	this.setDrawingBufferSize = function ( width, height, pixelRatio ) {
-
-		_width = width;
-		_height = height;
-
-		_pixelRatio = pixelRatio;
-
-		_canvas.width = Math.floor( width * pixelRatio );
-		_canvas.height = Math.floor( height * pixelRatio );
-
-		this.setViewport( 0, 0, width, height );
-
-	};
-
-	this.getCurrentViewport = function ( target ) {
-
-		return target.copy( _currentViewport );
-
-	};
+	// this.setDrawingBufferSize = function ( width, height, pixelRatio ) {
+	//
+	// 	_width = width;
+	// 	_height = height;
+	//
+	// 	_pixelRatio = pixelRatio;
+	//
+	// 	_canvas.width = Math.floor( width * pixelRatio );
+	// 	_canvas.height = Math.floor( height * pixelRatio );
+	//
+	// 	this.setViewport( 0, 0, width, height );
+	//
+	// };
+	//
+	// this.getCurrentViewport = function ( target ) {
+	//
+	// 	return target.copy( _currentViewport );
+	//
+	// };
 
 	this.getViewport = function ( target ) {
 
@@ -466,33 +466,33 @@ function WebGLRenderer( parameters = {} ) {
 
 	};
 
-	this.getScissor = function ( target ) {
-
-		return target.copy( _scissor );
-
-	};
-
-	this.setScissor = function ( x, y, width, height ) {
-
-		if ( x.isVector4 ) {
-
-			_scissor.set( x.x, x.y, x.z, x.w );
-
-		} else {
-
-			_scissor.set( x, y, width, height );
-
-		}
-
-		state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
-
-	};
-
-	this.getScissorTest = function () {
-
-		return _scissorTest;
-
-	};
+	// this.getScissor = function ( target ) {
+	//
+	// 	return target.copy( _scissor );
+	//
+	// };
+	//
+	// this.setScissor = function ( x, y, width, height ) {
+	//
+	// 	if ( x.isVector4 ) {
+	//
+	// 		_scissor.set( x.x, x.y, x.z, x.w );
+	//
+	// 	} else {
+	//
+	// 		_scissor.set( x, y, width, height );
+	//
+	// 	}
+	//
+	// 	state.scissor( _currentScissor.copy( _scissor ).multiplyScalar( _pixelRatio ).floor() );
+	//
+	// };
+	//
+	// this.getScissorTest = function () {
+	//
+	// 	return _scissorTest;
+	//
+	// };
 
 	this.setScissorTest = function ( boolean ) {
 
@@ -2232,16 +2232,16 @@ function WebGLRenderer( parameters = {} ) {
 
 	// };
 
-	this.resetState = function () {
-
-		_currentActiveCubeFace = 0;
-		_currentActiveMipmapLevel = 0;
-		_currentRenderTarget = null;
-
-		state.reset();
-		bindingStates.reset();
-
-	};
+	// this.resetState = function () {
+	//
+	// 	_currentActiveCubeFace = 0;
+	// 	_currentActiveMipmapLevel = 0;
+	// 	_currentRenderTarget = null;
+	//
+	// 	state.reset();
+	// 	bindingStates.reset();
+	//
+	// };
 
 	// if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 

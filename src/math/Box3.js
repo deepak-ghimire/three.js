@@ -4,7 +4,7 @@ class Box3 {
 
 	constructor( min = new Vector3( + Infinity, + Infinity, + Infinity ), max = new Vector3( - Infinity, - Infinity, - Infinity ) ) {
 
-		this.isBox3 = true;
+		// this.isBox3 = true;
 
 		this.min = min;
 		this.max = max;
@@ -20,38 +20,38 @@ class Box3 {
 
 	}
 
-	setFromArray( array ) {
-
-		let minX = + Infinity;
-		let minY = + Infinity;
-		let minZ = + Infinity;
-
-		let maxX = - Infinity;
-		let maxY = - Infinity;
-		let maxZ = - Infinity;
-
-		for ( let i = 0, l = array.length; i < l; i += 3 ) {
-
-			const x = array[ i ];
-			const y = array[ i + 1 ];
-			const z = array[ i + 2 ];
-
-			if ( x < minX ) minX = x;
-			if ( y < minY ) minY = y;
-			if ( z < minZ ) minZ = z;
-
-			if ( x > maxX ) maxX = x;
-			if ( y > maxY ) maxY = y;
-			if ( z > maxZ ) maxZ = z;
-
-		}
-
-		this.min.set( minX, minY, minZ );
-		this.max.set( maxX, maxY, maxZ );
-
-		return this;
-
-	}
+	// setFromArray( array ) {
+	//
+	// 	let minX = + Infinity;
+	// 	let minY = + Infinity;
+	// 	let minZ = + Infinity;
+	//
+	// 	let maxX = - Infinity;
+	// 	let maxY = - Infinity;
+	// 	let maxZ = - Infinity;
+	//
+	// 	for ( let i = 0, l = array.length; i < l; i += 3 ) {
+	//
+	// 		const x = array[ i ];
+	// 		const y = array[ i + 1 ];
+	// 		const z = array[ i + 2 ];
+	//
+	// 		if ( x < minX ) minX = x;
+	// 		if ( y < minY ) minY = y;
+	// 		if ( z < minZ ) minZ = z;
+	//
+	// 		if ( x > maxX ) maxX = x;
+	// 		if ( y > maxY ) maxY = y;
+	// 		if ( z > maxZ ) maxZ = z;
+	//
+	// 	}
+	//
+	// 	this.min.set( minX, minY, minZ );
+	// 	this.max.set( maxX, maxY, maxZ );
+	//
+	// 	return this;
+	//
+	// }
 
 	setFromBufferAttribute( attribute ) {
 
@@ -100,16 +100,16 @@ class Box3 {
 
 	}
 
-	setFromCenterAndSize( center, size ) {
-
-		const halfSize = _vector.copy( size ).multiplyScalar( 0.5 );
-
-		this.min.copy( center ).sub( halfSize );
-		this.max.copy( center ).add( halfSize );
-
-		return this;
-
-	}
+	// setFromCenterAndSize( center, size ) {
+	//
+	// 	const halfSize = _vector.copy( size ).multiplyScalar( 0.5 );
+	//
+	// 	this.min.copy( center ).sub( halfSize );
+	// 	this.max.copy( center ).add( halfSize );
+	//
+	// 	return this;
+	//
+	// }
 
 	setFromObject( object, precise = false ) {
 
@@ -172,14 +172,14 @@ class Box3 {
 
 	}
 
-	expandByVector( vector ) {
-
-		this.min.sub( vector );
-		this.max.add( vector );
-
-		return this;
-
-	}
+	// expandByVector( vector ) {
+	//
+	// 	this.min.sub( vector );
+	// 	this.max.add( vector );
+	//
+	// 	return this;
+	//
+	// }
 
 	expandByScalar( scalar ) {
 
@@ -240,21 +240,21 @@ class Box3 {
 
 	}
 
-	containsPoint( point ) {
-
-		return point.x < this.min.x || point.x > this.max.x ||
-			point.y < this.min.y || point.y > this.max.y ||
-			point.z < this.min.z || point.z > this.max.z ? false : true;
-
-	}
-
-	containsBox( box ) {
-
-		return this.min.x <= box.min.x && box.max.x <= this.max.x &&
-			this.min.y <= box.min.y && box.max.y <= this.max.y &&
-			this.min.z <= box.min.z && box.max.z <= this.max.z;
-
-	}
+	// containsPoint( point ) {
+	//
+	// 	return point.x < this.min.x || point.x > this.max.x ||
+	// 		point.y < this.min.y || point.y > this.max.y ||
+	// 		point.z < this.min.z || point.z > this.max.z ? false : true;
+	//
+	// }
+	//
+	// containsBox( box ) {
+	//
+	// 	return this.min.x <= box.min.x && box.max.x <= this.max.x &&
+	// 		this.min.y <= box.min.y && box.max.y <= this.max.y &&
+	// 		this.min.z <= box.min.z && box.max.z <= this.max.z;
+	//
+	// }
 
 	getParameter( point, target ) {
 
@@ -269,14 +269,14 @@ class Box3 {
 
 	}
 
-	intersectsBox( box ) {
-
-		// using 6 splitting planes to rule out intersections.
-		return box.max.x < this.min.x || box.min.x > this.max.x ||
-			box.max.y < this.min.y || box.min.y > this.max.y ||
-			box.max.z < this.min.z || box.min.z > this.max.z ? false : true;
-
-	}
+	// intersectsBox( box ) {
+	//
+	// 	// using 6 splitting planes to rule out intersections.
+	// 	return box.max.x < this.min.x || box.min.x > this.max.x ||
+	// 		box.max.y < this.min.y || box.min.y > this.max.y ||
+	// 		box.max.z < this.min.z || box.min.z > this.max.z ? false : true;
+	//
+	// }
 
 	intersectsSphere( sphere ) {
 
@@ -402,27 +402,27 @@ class Box3 {
 
 	}
 
-	getBoundingSphere( target ) {
-
-		this.getCenter( target.center );
-
-		target.radius = this.getSize( _vector ).length() * 0.5;
-
-		return target;
-
-	}
-
-	intersect( box ) {
-
-		this.min.max( box.min );
-		this.max.min( box.max );
-
-		// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
-		if ( this.isEmpty() ) this.makeEmpty();
-
-		return this;
-
-	}
+	// getBoundingSphere( target ) {
+	//
+	// 	this.getCenter( target.center );
+	//
+	// 	target.radius = this.getSize( _vector ).length() * 0.5;
+	//
+	// 	return target;
+	//
+	// }
+	//
+	// intersect( box ) {
+	//
+	// 	this.min.max( box.min );
+	// 	this.max.min( box.max );
+	//
+	// 	// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
+	// 	if ( this.isEmpty() ) this.makeEmpty();
+	//
+	// 	return this;
+	//
+	// }
 
 	union( box ) {
 
@@ -454,14 +454,14 @@ class Box3 {
 
 	}
 
-	translate( offset ) {
-
-		this.min.add( offset );
-		this.max.add( offset );
-
-		return this;
-
-	}
+	// translate( offset ) {
+	//
+	// 	this.min.add( offset );
+	// 	this.max.add( offset );
+	//
+	// 	return this;
+	//
+	// }
 
 	equals( box ) {
 

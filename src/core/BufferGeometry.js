@@ -113,18 +113,18 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	clearGroups() {
-
-		this.groups = [];
-
-	}
-
-	setDrawRange( start, count ) {
-
-		this.drawRange.start = start;
-		this.drawRange.count = count;
-
-	}
+	// clearGroups() {
+	//
+	// 	this.groups = [];
+	//
+	// }
+	//
+	// setDrawRange( start, count ) {
+	//
+	// 	this.drawRange.start = start;
+	// 	this.drawRange.count = count;
+	//
+	// }
 
 	// applyMatrix4( matrix ) {
 
@@ -176,27 +176,27 @@ class BufferGeometry extends EventDispatcher {
 
 	// }
 
-	applyQuaternion( q ) {
-
-		_m1.makeRotationFromQuaternion( q );
-
-		this.applyMatrix4( _m1 );
-
-		return this;
-
-	}
-
-	rotateX( angle ) {
-
-		// rotate geometry around world x-axis
-
-		_m1.makeRotationX( angle );
-
-		this.applyMatrix4( _m1 );
-
-		return this;
-
-	}
+	// applyQuaternion( q ) {
+	//
+	// 	_m1.makeRotationFromQuaternion( q );
+	//
+	// 	this.applyMatrix4( _m1 );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// rotateX( angle ) {
+	//
+	// 	// rotate geometry around world x-axis
+	//
+	// 	_m1.makeRotationX( angle );
+	//
+	// 	this.applyMatrix4( _m1 );
+	//
+	// 	return this;
+	//
+	// }
 
 	rotateY( angle ) {
 
@@ -210,17 +210,17 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	rotateZ( angle ) {
-
-		// rotate geometry around world z-axis
-
-		_m1.makeRotationZ( angle );
-
-		this.applyMatrix4( _m1 );
-
-		return this;
-
-	}
+	// rotateZ( angle ) {
+	//
+	// 	// rotate geometry around world z-axis
+	//
+	// 	_m1.makeRotationZ( angle );
+	//
+	// 	this.applyMatrix4( _m1 );
+	//
+	// 	return this;
+	//
+	// }
 
 	translate( x, y, z ) {
 
@@ -270,22 +270,22 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	setFromPoints( points ) {
-
-		const position = [];
-
-		for ( let i = 0, l = points.length; i < l; i ++ ) {
-
-			const point = points[ i ];
-			position.push( point.x, point.y, point.z || 0 );
-
-		}
-
-		this.setAttribute( 'position', new Float32BufferAttribute( position, 3 ) );
-
-		return this;
-
-	}
+	// setFromPoints( points ) {
+	//
+	// 	const position = [];
+	//
+	// 	for ( let i = 0, l = points.length; i < l; i ++ ) {
+	//
+	// 		const point = points[ i ];
+	// 		position.push( point.x, point.y, point.z || 0 );
+	//
+	// 	}
+	//
+	// 	this.setAttribute( 'position', new Float32BufferAttribute( position, 3 ) );
+	//
+	// 	return this;
+	//
+	// }
 
 	computeBoundingBox() {
 
@@ -469,170 +469,170 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	computeTangents() {
-
-		const index = this.index;
-		const attributes = this.attributes;
-
-		// based on http://www.terathon.com/code/tangent.html
-		// (per vertex tangents)
-
-		if ( index === null ||
-			 attributes.position === undefined ||
-			 attributes.normal === undefined ||
-			 attributes.uv === undefined ) {
-
-			console.error( 'THREE.BufferGeometry: .computeTangents() failed. Missing required attributes (index, position, normal or uv)' );
-			return;
-
-		}
-
-		const indices = index.array;
-		const positions = attributes.position.array;
-		const normals = attributes.normal.array;
-		const uvs = attributes.uv.array;
-
-		const nVertices = positions.length / 3;
-
-		if ( this.hasAttribute( 'tangent' ) === false ) {
-
-			this.setAttribute( 'tangent', new BufferAttribute( new Float32Array( 4 * nVertices ), 4 ) );
-
-		}
-
-		const tangents = this.getAttribute( 'tangent' ).array;
-
-		const tan1 = [], tan2 = [];
-
-		for ( let i = 0; i < nVertices; i ++ ) {
-
-			tan1[ i ] = new Vector3();
-			tan2[ i ] = new Vector3();
-
-		}
-
-		const vA = new Vector3(),
-			vB = new Vector3(),
-			vC = new Vector3(),
-
-			uvA = new Vector2(),
-			uvB = new Vector2(),
-			uvC = new Vector2(),
-
-			sdir = new Vector3(),
-			tdir = new Vector3();
-
-		function handleTriangle( a, b, c ) {
-
-			vA.fromArray( positions, a * 3 );
-			vB.fromArray( positions, b * 3 );
-			vC.fromArray( positions, c * 3 );
-
-			uvA.fromArray( uvs, a * 2 );
-			uvB.fromArray( uvs, b * 2 );
-			uvC.fromArray( uvs, c * 2 );
-
-			vB.sub( vA );
-			vC.sub( vA );
-
-			uvB.sub( uvA );
-			uvC.sub( uvA );
-
-			const r = 1.0 / ( uvB.x * uvC.y - uvC.x * uvB.y );
-
-			// silently ignore degenerate uv triangles having coincident or colinear vertices
-
-			if ( ! isFinite( r ) ) return;
-
-			sdir.copy( vB ).multiplyScalar( uvC.y ).addScaledVector( vC, - uvB.y ).multiplyScalar( r );
-			tdir.copy( vC ).multiplyScalar( uvB.x ).addScaledVector( vB, - uvC.x ).multiplyScalar( r );
-
-			tan1[ a ].add( sdir );
-			tan1[ b ].add( sdir );
-			tan1[ c ].add( sdir );
-
-			tan2[ a ].add( tdir );
-			tan2[ b ].add( tdir );
-			tan2[ c ].add( tdir );
-
-		}
-
-		let groups = this.groups;
-
-		if ( groups.length === 0 ) {
-
-			groups = [ {
-				start: 0,
-				count: indices.length
-			} ];
-
-		}
-
-		for ( let i = 0, il = groups.length; i < il; ++ i ) {
-
-			const group = groups[ i ];
-
-			const start = group.start;
-			const count = group.count;
-
-			for ( let j = start, jl = start + count; j < jl; j += 3 ) {
-
-				handleTriangle(
-					indices[ j + 0 ],
-					indices[ j + 1 ],
-					indices[ j + 2 ]
-				);
-
-			}
-
-		}
-
-		const tmp = new Vector3(), tmp2 = new Vector3();
-		const n = new Vector3(), n2 = new Vector3();
-
-		function handleVertex( v ) {
-
-			n.fromArray( normals, v * 3 );
-			n2.copy( n );
-
-			const t = tan1[ v ];
-
-			// Gram-Schmidt orthogonalize
-
-			tmp.copy( t );
-			tmp.sub( n.multiplyScalar( n.dot( t ) ) ).normalize();
-
-			// Calculate handedness
-
-			tmp2.crossVectors( n2, t );
-			const test = tmp2.dot( tan2[ v ] );
-			const w = ( test < 0.0 ) ? - 1.0 : 1.0;
-
-			tangents[ v * 4 ] = tmp.x;
-			tangents[ v * 4 + 1 ] = tmp.y;
-			tangents[ v * 4 + 2 ] = tmp.z;
-			tangents[ v * 4 + 3 ] = w;
-
-		}
-
-		for ( let i = 0, il = groups.length; i < il; ++ i ) {
-
-			const group = groups[ i ];
-
-			const start = group.start;
-			const count = group.count;
-
-			for ( let j = start, jl = start + count; j < jl; j += 3 ) {
-
-				handleVertex( indices[ j + 0 ] );
-				handleVertex( indices[ j + 1 ] );
-				handleVertex( indices[ j + 2 ] );
-
-			}
-
-		}
-
-	}
+	// computeTangents() {
+	//
+	// 	const index = this.index;
+	// 	const attributes = this.attributes;
+	//
+	// 	// based on http://www.terathon.com/code/tangent.html
+	// 	// (per vertex tangents)
+	//
+	// 	if ( index === null ||
+	// 		 attributes.position === undefined ||
+	// 		 attributes.normal === undefined ||
+	// 		 attributes.uv === undefined ) {
+	//
+	// 		console.error( 'THREE.BufferGeometry: .computeTangents() failed. Missing required attributes (index, position, normal or uv)' );
+	// 		return;
+	//
+	// 	}
+	//
+	// 	const indices = index.array;
+	// 	const positions = attributes.position.array;
+	// 	const normals = attributes.normal.array;
+	// 	const uvs = attributes.uv.array;
+	//
+	// 	const nVertices = positions.length / 3;
+	//
+	// 	if ( this.hasAttribute( 'tangent' ) === false ) {
+	//
+	// 		this.setAttribute( 'tangent', new BufferAttribute( new Float32Array( 4 * nVertices ), 4 ) );
+	//
+	// 	}
+	//
+	// 	const tangents = this.getAttribute( 'tangent' ).array;
+	//
+	// 	const tan1 = [], tan2 = [];
+	//
+	// 	for ( let i = 0; i < nVertices; i ++ ) {
+	//
+	// 		tan1[ i ] = new Vector3();
+	// 		tan2[ i ] = new Vector3();
+	//
+	// 	}
+	//
+	// 	const vA = new Vector3(),
+	// 		vB = new Vector3(),
+	// 		vC = new Vector3(),
+	//
+	// 		uvA = new Vector2(),
+	// 		uvB = new Vector2(),
+	// 		uvC = new Vector2(),
+	//
+	// 		sdir = new Vector3(),
+	// 		tdir = new Vector3();
+	//
+	// 	function handleTriangle( a, b, c ) {
+	//
+	// 		vA.fromArray( positions, a * 3 );
+	// 		vB.fromArray( positions, b * 3 );
+	// 		vC.fromArray( positions, c * 3 );
+	//
+	// 		uvA.fromArray( uvs, a * 2 );
+	// 		uvB.fromArray( uvs, b * 2 );
+	// 		uvC.fromArray( uvs, c * 2 );
+	//
+	// 		vB.sub( vA );
+	// 		vC.sub( vA );
+	//
+	// 		uvB.sub( uvA );
+	// 		uvC.sub( uvA );
+	//
+	// 		const r = 1.0 / ( uvB.x * uvC.y - uvC.x * uvB.y );
+	//
+	// 		// silently ignore degenerate uv triangles having coincident or colinear vertices
+	//
+	// 		if ( ! isFinite( r ) ) return;
+	//
+	// 		sdir.copy( vB ).multiplyScalar( uvC.y ).addScaledVector( vC, - uvB.y ).multiplyScalar( r );
+	// 		tdir.copy( vC ).multiplyScalar( uvB.x ).addScaledVector( vB, - uvC.x ).multiplyScalar( r );
+	//
+	// 		tan1[ a ].add( sdir );
+	// 		tan1[ b ].add( sdir );
+	// 		tan1[ c ].add( sdir );
+	//
+	// 		tan2[ a ].add( tdir );
+	// 		tan2[ b ].add( tdir );
+	// 		tan2[ c ].add( tdir );
+	//
+	// 	}
+	//
+	// 	let groups = this.groups;
+	//
+	// 	if ( groups.length === 0 ) {
+	//
+	// 		groups = [ {
+	// 			start: 0,
+	// 			count: indices.length
+	// 		} ];
+	//
+	// 	}
+	//
+	// 	for ( let i = 0, il = groups.length; i < il; ++ i ) {
+	//
+	// 		const group = groups[ i ];
+	//
+	// 		const start = group.start;
+	// 		const count = group.count;
+	//
+	// 		for ( let j = start, jl = start + count; j < jl; j += 3 ) {
+	//
+	// 			handleTriangle(
+	// 				indices[ j + 0 ],
+	// 				indices[ j + 1 ],
+	// 				indices[ j + 2 ]
+	// 			);
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	const tmp = new Vector3(), tmp2 = new Vector3();
+	// 	const n = new Vector3(), n2 = new Vector3();
+	//
+	// 	function handleVertex( v ) {
+	//
+	// 		n.fromArray( normals, v * 3 );
+	// 		n2.copy( n );
+	//
+	// 		const t = tan1[ v ];
+	//
+	// 		// Gram-Schmidt orthogonalize
+	//
+	// 		tmp.copy( t );
+	// 		tmp.sub( n.multiplyScalar( n.dot( t ) ) ).normalize();
+	//
+	// 		// Calculate handedness
+	//
+	// 		tmp2.crossVectors( n2, t );
+	// 		const test = tmp2.dot( tan2[ v ] );
+	// 		const w = ( test < 0.0 ) ? - 1.0 : 1.0;
+	//
+	// 		tangents[ v * 4 ] = tmp.x;
+	// 		tangents[ v * 4 + 1 ] = tmp.y;
+	// 		tangents[ v * 4 + 2 ] = tmp.z;
+	// 		tangents[ v * 4 + 3 ] = w;
+	//
+	// 	}
+	//
+	// 	for ( let i = 0, il = groups.length; i < il; ++ i ) {
+	//
+	// 		const group = groups[ i ];
+	//
+	// 		const start = group.start;
+	// 		const count = group.count;
+	//
+	// 		for ( let j = start, jl = start + count; j < jl; j += 3 ) {
+	//
+	// 			handleVertex( indices[ j + 0 ] );
+	// 			handleVertex( indices[ j + 1 ] );
+	// 			handleVertex( indices[ j + 2 ] );
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// }
 
 	computeVertexNormals() {
 
@@ -751,107 +751,107 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	toNonIndexed() {
-
-		function convertBufferAttribute( attribute, indices ) {
-
-			const array = attribute.array;
-			const itemSize = attribute.itemSize;
-			const normalized = attribute.normalized;
-
-			const array2 = new array.constructor( indices.length * itemSize );
-
-			let index = 0, index2 = 0;
-
-			for ( let i = 0, l = indices.length; i < l; i ++ ) {
-
-				if ( attribute.isInterleavedBufferAttribute ) {
-
-					index = indices[ i ] * attribute.data.stride + attribute.offset;
-
-				} else {
-
-					index = indices[ i ] * itemSize;
-
-				}
-
-				for ( let j = 0; j < itemSize; j ++ ) {
-
-					array2[ index2 ++ ] = array[ index ++ ];
-
-				}
-
-			}
-
-			return new BufferAttribute( array2, itemSize, normalized );
-
-		}
-
-		//
-
-		if ( this.index === null ) {
-
-			console.warn( 'THREE.BufferGeometry.toNonIndexed(): BufferGeometry is already non-indexed.' );
-			return this;
-
-		}
-
-		const geometry2 = new BufferGeometry();
-
-		const indices = this.index.array;
-		const attributes = this.attributes;
-
-		// attributes
-
-		for ( const name in attributes ) {
-
-			const attribute = attributes[ name ];
-
-			const newAttribute = convertBufferAttribute( attribute, indices );
-
-			geometry2.setAttribute( name, newAttribute );
-
-		}
-
-		// morph attributes
-
-		const morphAttributes = this.morphAttributes;
-
-		for ( const name in morphAttributes ) {
-
-			const morphArray = [];
-			const morphAttribute = morphAttributes[ name ]; // morphAttribute: array of Float32BufferAttributes
-
-			for ( let i = 0, il = morphAttribute.length; i < il; i ++ ) {
-
-				const attribute = morphAttribute[ i ];
-
-				const newAttribute = convertBufferAttribute( attribute, indices );
-
-				morphArray.push( newAttribute );
-
-			}
-
-			geometry2.morphAttributes[ name ] = morphArray;
-
-		}
-
-		geometry2.morphTargetsRelative = this.morphTargetsRelative;
-
-		// groups
-
-		const groups = this.groups;
-
-		for ( let i = 0, l = groups.length; i < l; i ++ ) {
-
-			const group = groups[ i ];
-			geometry2.addGroup( group.start, group.count, group.materialIndex );
-
-		}
-
-		return geometry2;
-
-	}
+	// toNonIndexed() {
+	//
+	// 	function convertBufferAttribute( attribute, indices ) {
+	//
+	// 		const array = attribute.array;
+	// 		const itemSize = attribute.itemSize;
+	// 		const normalized = attribute.normalized;
+	//
+	// 		const array2 = new array.constructor( indices.length * itemSize );
+	//
+	// 		let index = 0, index2 = 0;
+	//
+	// 		for ( let i = 0, l = indices.length; i < l; i ++ ) {
+	//
+	// 			if ( attribute.isInterleavedBufferAttribute ) {
+	//
+	// 				index = indices[ i ] * attribute.data.stride + attribute.offset;
+	//
+	// 			} else {
+	//
+	// 				index = indices[ i ] * itemSize;
+	//
+	// 			}
+	//
+	// 			for ( let j = 0; j < itemSize; j ++ ) {
+	//
+	// 				array2[ index2 ++ ] = array[ index ++ ];
+	//
+	// 			}
+	//
+	// 		}
+	//
+	// 		return new BufferAttribute( array2, itemSize, normalized );
+	//
+	// 	}
+	//
+	// 	//
+	//
+	// 	if ( this.index === null ) {
+	//
+	// 		console.warn( 'THREE.BufferGeometry.toNonIndexed(): BufferGeometry is already non-indexed.' );
+	// 		return this;
+	//
+	// 	}
+	//
+	// 	const geometry2 = new BufferGeometry();
+	//
+	// 	const indices = this.index.array;
+	// 	const attributes = this.attributes;
+	//
+	// 	// attributes
+	//
+	// 	for ( const name in attributes ) {
+	//
+	// 		const attribute = attributes[ name ];
+	//
+	// 		const newAttribute = convertBufferAttribute( attribute, indices );
+	//
+	// 		geometry2.setAttribute( name, newAttribute );
+	//
+	// 	}
+	//
+	// 	// morph attributes
+	//
+	// 	const morphAttributes = this.morphAttributes;
+	//
+	// 	for ( const name in morphAttributes ) {
+	//
+	// 		const morphArray = [];
+	// 		const morphAttribute = morphAttributes[ name ]; // morphAttribute: array of Float32BufferAttributes
+	//
+	// 		for ( let i = 0, il = morphAttribute.length; i < il; i ++ ) {
+	//
+	// 			const attribute = morphAttribute[ i ];
+	//
+	// 			const newAttribute = convertBufferAttribute( attribute, indices );
+	//
+	// 			morphArray.push( newAttribute );
+	//
+	// 		}
+	//
+	// 		geometry2.morphAttributes[ name ] = morphArray;
+	//
+	// 	}
+	//
+	// 	geometry2.morphTargetsRelative = this.morphTargetsRelative;
+	//
+	// 	// groups
+	//
+	// 	const groups = this.groups;
+	//
+	// 	for ( let i = 0, l = groups.length; i < l; i ++ ) {
+	//
+	// 		const group = groups[ i ];
+	// 		geometry2.addGroup( group.start, group.count, group.materialIndex );
+	//
+	// 	}
+	//
+	// 	return geometry2;
+	//
+	// }
 
 	// toJSON() {
 
