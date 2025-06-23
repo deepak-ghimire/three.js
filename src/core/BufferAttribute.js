@@ -1,10 +1,10 @@
 import { Vector3 } from '../math/Vector3.js';
-import { Vector2 } from '../math/Vector2.js';
+// import { Vector2 } from '../math/Vector2.js';
 import { denormalize, normalize } from '../math/MathUtils.js';
 import { StaticDrawUsage } from '../constants.js';
 
 const _vector = /*@__PURE__*/ new Vector3();
-const _vector2 = /*@__PURE__*/ new Vector2();
+// const _vector2 = /*@__PURE__*/ new Vector2();
 
 class BufferAttribute {
 
@@ -202,15 +202,15 @@ class BufferAttribute {
 
 	}
 
-	setY( index, y ) { //used
-
-		if ( this.normalized ) y = normalize( y, this.array );
-
-		this.array[ index * this.itemSize + 1 ] = y;
-
-		return this;
-
-	}
+	// setY( index, y ) {
+	//
+	// 	if ( this.normalized ) y = normalize( y, this.array );
+	//
+	// 	this.array[ index * this.itemSize + 1 ] = y;
+	//
+	// 	return this;
+	//
+	// }
 
 	getZ( index ) {
 

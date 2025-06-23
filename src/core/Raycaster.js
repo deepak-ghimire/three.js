@@ -53,15 +53,15 @@ class Raycaster {
 
 	}
 
-	intersectObject( object, recursive = true, intersects = [] ) { //used
-
-		intersectObject( object, this, intersects, recursive );
-
-		intersects.sort( ascSort );
-
-		return intersects;
-
-	}
+	// intersectObject( object, recursive = true, intersects = [] ) { //used
+	//
+	// 	intersectObject( object, this, intersects, recursive );
+	//
+	// 	intersects.sort( ascSort );
+	//
+	// 	return intersects;
+	//
+	// }
 
 	intersectObjects( objects, recursive = true, intersects = [] ) { //used
 

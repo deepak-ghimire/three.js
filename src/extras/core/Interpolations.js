@@ -14,33 +14,33 @@ function CatmullRom( t, p0, p1, p2, p3 ) {
 }
 
 //
-
-function QuadraticBezierP0( t, p ) {
-
-	const k = 1 - t;
-	return k * k * p;
-
-}
-
-function QuadraticBezierP1( t, p ) {
-
-	return 2 * ( 1 - t ) * t * p;
-
-}
-
-function QuadraticBezierP2( t, p ) {
-
-	return t * t * p;
-
-}
-
-function QuadraticBezier( t, p0, p1, p2 ) {
-
-	return QuadraticBezierP0( t, p0 ) + QuadraticBezierP1( t, p1 ) +
-		QuadraticBezierP2( t, p2 );
-
-}
-
+//
+// function QuadraticBezierP0( t, p ) {
+//
+// 	const k = 1 - t;
+// 	return k * k * p;
+//
+// }
+//
+// function QuadraticBezierP1( t, p ) {
+//
+// 	return 2 * ( 1 - t ) * t * p;
+//
+// }
+//
+// function QuadraticBezierP2( t, p ) {
+//
+// 	return t * t * p;
+//
+// }
+//
+// function QuadraticBezier( t, p0, p1, p2 ) {
+//
+// 	return QuadraticBezierP0( t, p0 ) + QuadraticBezierP1( t, p1 ) +
+// 		QuadraticBezierP2( t, p2 );
+//
+// }
+//
 //
 
 function CubicBezierP0( t, p ) {
@@ -76,4 +76,5 @@ function CubicBezier( t, p0, p1, p2, p3 ) {
 
 }
 
-export { CatmullRom, QuadraticBezier, CubicBezier };
+// export { CatmullRom, QuadraticBezier, CubicBezier };
+export { CatmullRom, CubicBezier };

@@ -214,20 +214,20 @@ class Vector3 {
 	// 	return this.applyQuaternion( _quaternion.setFromAxisAngle( axis, angle ) );
 	//
 	// }
-
-	applyMatrix3( m ) {
-
-		const x = this.x, y = this.y, z = this.z;
-		const e = m.elements;
-
-		this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z;
-		this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ] * z;
-		this.z = e[ 2 ] * x + e[ 5 ] * y + e[ 8 ] * z;
-
-		return this;
-
-	}
-
+	//
+	// applyMatrix3( m ) {
+	//
+	// 	const x = this.x, y = this.y, z = this.z;
+	// 	const e = m.elements;
+	//
+	// 	this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z;
+	// 	this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ] * z;
+	// 	this.z = e[ 2 ] * x + e[ 5 ] * y + e[ 8 ] * z;
+	//
+	// 	return this;
+	//
+	// }
+	//
 	// applyNormalMatrix( m ) {
 	//
 	// 	return this.applyMatrix3( m ).normalize();
@@ -248,34 +248,34 @@ class Vector3 {
 		return this;
 
 	}
-
-	applyQuaternion( q ) {
-
-		const x = this.x, y = this.y, z = this.z;
-		const qx = q.x, qy = q.y, qz = q.z, qw = q.w;
-
-		// calculate quat * vector
-
-		const ix = qw * x + qy * z - qz * y;
-		const iy = qw * y + qz * x - qx * z;
-		const iz = qw * z + qx * y - qy * x;
-		const iw = - qx * x - qy * y - qz * z;
-
-		// calculate result * inverse quat
-
-		this.x = ix * qw + iw * - qx + iy * - qz - iz * - qy;
-		this.y = iy * qw + iw * - qy + iz * - qx - ix * - qz;
-		this.z = iz * qw + iw * - qz + ix * - qy - iy * - qx;
-
-		return this;
-
-	}
-
-	project( camera ) {
-
-		return this.applyMatrix4( camera.matrixWorldInverse ).applyMatrix4( camera.projectionMatrix );
-
-	}
+	//
+	// applyQuaternion( q ) {
+	//
+	// 	const x = this.x, y = this.y, z = this.z;
+	// 	const qx = q.x, qy = q.y, qz = q.z, qw = q.w;
+	//
+	// 	// calculate quat * vector
+	//
+	// 	const ix = qw * x + qy * z - qz * y;
+	// 	const iy = qw * y + qz * x - qx * z;
+	// 	const iz = qw * z + qx * y - qy * x;
+	// 	const iw = - qx * x - qy * y - qz * z;
+	//
+	// 	// calculate result * inverse quat
+	//
+	// 	this.x = ix * qw + iw * - qx + iy * - qz - iz * - qy;
+	// 	this.y = iy * qw + iw * - qy + iz * - qx - ix * - qz;
+	// 	this.z = iz * qw + iw * - qz + ix * - qy - iy * - qx;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// project( camera ) {
+	//
+	// 	return this.applyMatrix4( camera.matrixWorldInverse ).applyMatrix4( camera.projectionMatrix );
+	//
+	// }
 
 	unproject( camera ) {
 

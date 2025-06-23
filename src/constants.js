@@ -176,7 +176,7 @@ export const StaticDrawUsage = 35044;
 // export const DynamicCopyUsage = 35050;
 // export const StreamCopyUsage = 35042;
 
-export const GLSL1 = '100'; //used
+// export const GLSL1 = '100'; //used
 export const GLSL3 = '300 es';
 
 export const _SRGBAFormat = 1035; // fallback for WebGL 1

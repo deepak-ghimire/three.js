@@ -184,7 +184,7 @@
 	// export const DynamicCopyUsage = 35050;
 	// export const StreamCopyUsage = 35042;
 
-	const GLSL1 = '100'; //used
+	// export const GLSL1 = '100'; //used
 	const GLSL3 = '300 es';
 	const _SRGBAFormat = 1035; // fallback for WebGL 1
 
@@ -193,7 +193,7 @@
 	// let _seed = 1234567;
 
 	const DEG2RAD = Math.PI / 180;
-	const RAD2DEG = 180 / Math.PI;
+	// const RAD2DEG = 180 / Math.PI;
 
 	// http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
 	function generateUUID() {
@@ -325,17 +325,23 @@
 
 		return degrees * DEG2RAD;
 	}
-	function radToDeg(radians) {
-		//used
 
-		return radians * RAD2DEG;
-	}
+	// function radToDeg( radians ) { //used
+	//
+	// 	return radians * RAD2DEG;
+	//
+	// }
+
 	function isPowerOfTwo(value) {
 		return (value & value - 1) === 0 && value !== 0;
 	}
-	function ceilPowerOfTwo(value) {
-		return Math.pow(2, Math.ceil(Math.log(value) / Math.LN2));
-	}
+	//
+	// function ceilPowerOfTwo( value ) {
+	//
+	// 	return Math.pow( 2, Math.ceil( Math.log( value ) / Math.LN2 ) );
+	//
+	// }
+
 	function floorPowerOfTwo(value) {
 		return Math.pow(2, Math.floor(Math.log(value) / Math.LN2));
 	}
@@ -432,14 +438,11 @@
 	var MathUtils = /*#__PURE__*/Object.freeze({
 		__proto__: null,
 		DEG2RAD: DEG2RAD,
-		RAD2DEG: RAD2DEG,
 		generateUUID: generateUUID,
 		clamp: clamp,
 		lerp: lerp,
 		degToRad: degToRad,
-		radToDeg: radToDeg,
 		isPowerOfTwo: isPowerOfTwo,
-		ceilPowerOfTwo: ceilPowerOfTwo,
 		floorPowerOfTwo: floorPowerOfTwo,
 		normalize: normalize,
 		denormalize: denormalize
@@ -1153,18 +1156,20 @@
 		// 	return this.applyQuaternion( _quaternion.setFromAxisAngle( axis, angle ) );
 		//
 		// }
-
-		applyMatrix3(m) {
-			const x = this.x,
-				y = this.y,
-				z = this.z;
-			const e = m.elements;
-			this.x = e[0] * x + e[3] * y + e[6] * z;
-			this.y = e[1] * x + e[4] * y + e[7] * z;
-			this.z = e[2] * x + e[5] * y + e[8] * z;
-			return this;
-		}
-
+		//
+		// applyMatrix3( m ) {
+		//
+		// 	const x = this.x, y = this.y, z = this.z;
+		// 	const e = m.elements;
+		//
+		// 	this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z;
+		// 	this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ] * z;
+		// 	this.z = e[ 2 ] * x + e[ 5 ] * y + e[ 8 ] * z;
+		//
+		// 	return this;
+		//
+		// }
+		//
 		// applyNormalMatrix( m ) {
 		//
 		// 	return this.applyMatrix3( m ).normalize();
@@ -1182,32 +1187,35 @@
 			this.z = (e[2] * x + e[6] * y + e[10] * z + e[14]) * w;
 			return this;
 		}
-		applyQuaternion(q) {
-			const x = this.x,
-				y = this.y,
-				z = this.z;
-			const qx = q.x,
-				qy = q.y,
-				qz = q.z,
-				qw = q.w;
+		//
+		// applyQuaternion( q ) {
+		//
+		// 	const x = this.x, y = this.y, z = this.z;
+		// 	const qx = q.x, qy = q.y, qz = q.z, qw = q.w;
+		//
+		// 	// calculate quat * vector
+		//
+		// 	const ix = qw * x + qy * z - qz * y;
+		// 	const iy = qw * y + qz * x - qx * z;
+		// 	const iz = qw * z + qx * y - qy * x;
+		// 	const iw = - qx * x - qy * y - qz * z;
+		//
+		// 	// calculate result * inverse quat
+		//
+		// 	this.x = ix * qw + iw * - qx + iy * - qz - iz * - qy;
+		// 	this.y = iy * qw + iw * - qy + iz * - qx - ix * - qz;
+		// 	this.z = iz * qw + iw * - qz + ix * - qy - iy * - qx;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// project( camera ) {
+		//
+		// 	return this.applyMatrix4( camera.matrixWorldInverse ).applyMatrix4( camera.projectionMatrix );
+		//
+		// }
 
-			// calculate quat * vector
-
-			const ix = qw * x + qy * z - qz * y;
-			const iy = qw * y + qz * x - qx * z;
-			const iz = qw * z + qx * y - qy * x;
-			const iw = -qx * x - qy * y - qz * z;
-
-			// calculate result * inverse quat
-
-			this.x = ix * qw + iw * -qx + iy * -qz - iz * -qy;
-			this.y = iy * qw + iw * -qy + iz * -qx - ix * -qz;
-			this.z = iz * qw + iw * -qz + ix * -qy - iy * -qx;
-			return this;
-		}
-		project(camera) {
-			return this.applyMatrix4(camera.matrixWorldInverse).applyMatrix4(camera.projectionMatrix);
-		}
 		unproject(camera) {
 			return this.applyMatrix4(camera.projectionMatrixInverse).applyMatrix4(camera.matrixWorld);
 		}
@@ -2167,305 +2175,12 @@
 		// }
 	}
 
-	class Matrix3 {
-		constructor() {
-			Matrix3.prototype.isMatrix3 = true;
-			this.elements = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-		}
-		set(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
-			const te = this.elements;
-			te[0] = n11;
-			te[1] = n21;
-			te[2] = n31;
-			te[3] = n12;
-			te[4] = n22;
-			te[5] = n32;
-			te[6] = n13;
-			te[7] = n23;
-			te[8] = n33;
-			return this;
-		}
+	// import { Matrix3 } from './Matrix3.js';
 
-		// identity() {
-		//
-		// 	this.set(
-		//
-		// 		1, 0, 0,
-		// 		0, 1, 0,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
 
-		copy(m) {
-			const te = this.elements;
-			const me = m.elements;
-			te[0] = me[0];
-			te[1] = me[1];
-			te[2] = me[2];
-			te[3] = me[3];
-			te[4] = me[4];
-			te[5] = me[5];
-			te[6] = me[6];
-			te[7] = me[7];
-			te[8] = me[8];
-			return this;
-		}
 
-		// extractBasis( xAxis, yAxis, zAxis ) {
-		//
-		// 	xAxis.setFromMatrix3Column( this, 0 );
-		// 	yAxis.setFromMatrix3Column( this, 1 );
-		// 	zAxis.setFromMatrix3Column( this, 2 );
-		//
-		// 	return this;
-		//
-		// }
 
-		setFromMatrix4(m) {
-			const me = m.elements;
-			this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10]);
-			return this;
-		}
-		multiply(m) {
-			return this.multiplyMatrices(this, m);
-		}
-		premultiply(m) {
-			return this.multiplyMatrices(m, this);
-		}
-		multiplyMatrices(a, b) {
-			const ae = a.elements;
-			const be = b.elements;
-			const te = this.elements;
-			const a11 = ae[0],
-				a12 = ae[3],
-				a13 = ae[6];
-			const a21 = ae[1],
-				a22 = ae[4],
-				a23 = ae[7];
-			const a31 = ae[2],
-				a32 = ae[5],
-				a33 = ae[8];
-			const b11 = be[0],
-				b12 = be[3],
-				b13 = be[6];
-			const b21 = be[1],
-				b22 = be[4],
-				b23 = be[7];
-			const b31 = be[2],
-				b32 = be[5],
-				b33 = be[8];
-			te[0] = a11 * b11 + a12 * b21 + a13 * b31;
-			te[3] = a11 * b12 + a12 * b22 + a13 * b32;
-			te[6] = a11 * b13 + a12 * b23 + a13 * b33;
-			te[1] = a21 * b11 + a22 * b21 + a23 * b31;
-			te[4] = a21 * b12 + a22 * b22 + a23 * b32;
-			te[7] = a21 * b13 + a22 * b23 + a23 * b33;
-			te[2] = a31 * b11 + a32 * b21 + a33 * b31;
-			te[5] = a31 * b12 + a32 * b22 + a33 * b32;
-			te[8] = a31 * b13 + a32 * b23 + a33 * b33;
-			return this;
-		}
-		multiplyScalar(s) {
-			const te = this.elements;
-			te[0] *= s;
-			te[3] *= s;
-			te[6] *= s;
-			te[1] *= s;
-			te[4] *= s;
-			te[7] *= s;
-			te[2] *= s;
-			te[5] *= s;
-			te[8] *= s;
-			return this;
-		}
 
-		// determinant() {
-		//
-		// 	const te = this.elements;
-		//
-		// 	const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
-		// 		d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
-		// 		g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
-		//
-		// 	return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
-		//
-		// }
-
-		invert() {
-			const te = this.elements,
-				n11 = te[0],
-				n21 = te[1],
-				n31 = te[2],
-				n12 = te[3],
-				n22 = te[4],
-				n32 = te[5],
-				n13 = te[6],
-				n23 = te[7],
-				n33 = te[8],
-				t11 = n33 * n22 - n32 * n23,
-				t12 = n32 * n13 - n33 * n12,
-				t13 = n23 * n12 - n22 * n13,
-				det = n11 * t11 + n21 * t12 + n31 * t13;
-			if (det === 0) return this.set(0, 0, 0, 0, 0, 0, 0, 0, 0);
-			const detInv = 1 / det;
-			te[0] = t11 * detInv;
-			te[1] = (n31 * n23 - n33 * n21) * detInv;
-			te[2] = (n32 * n21 - n31 * n22) * detInv;
-			te[3] = t12 * detInv;
-			te[4] = (n33 * n11 - n31 * n13) * detInv;
-			te[5] = (n31 * n12 - n32 * n11) * detInv;
-			te[6] = t13 * detInv;
-			te[7] = (n21 * n13 - n23 * n11) * detInv;
-			te[8] = (n22 * n11 - n21 * n12) * detInv;
-			return this;
-		}
-		transpose() {
-			let tmp;
-			const m = this.elements;
-			tmp = m[1];
-			m[1] = m[3];
-			m[3] = tmp;
-			tmp = m[2];
-			m[2] = m[6];
-			m[6] = tmp;
-			tmp = m[5];
-			m[5] = m[7];
-			m[7] = tmp;
-			return this;
-		}
-		getNormalMatrix(matrix4) {
-			return this.setFromMatrix4(matrix4).invert().transpose();
-		}
-
-		// transposeIntoArray( r ) {
-		//
-		// 	const m = this.elements;
-		//
-		// 	r[ 0 ] = m[ 0 ];
-		// 	r[ 1 ] = m[ 3 ];
-		// 	r[ 2 ] = m[ 6 ];
-		// 	r[ 3 ] = m[ 1 ];
-		// 	r[ 4 ] = m[ 4 ];
-		// 	r[ 5 ] = m[ 7 ];
-		// 	r[ 6 ] = m[ 2 ];
-		// 	r[ 7 ] = m[ 5 ];
-		// 	r[ 8 ] = m[ 8 ];
-		//
-		// 	return this;
-		//
-		// }
-
-		setUvTransform(tx, ty, sx, sy, rotation, cx, cy) {
-			const c = Math.cos(rotation);
-			const s = Math.sin(rotation);
-			this.set(sx * c, sx * s, -sx * (c * cx + s * cy) + cx + tx, -sy * s, sy * c, -sy * (-s * cx + c * cy) + cy + ty, 0, 0, 1);
-			return this;
-		}
-
-		//
-
-		scale(sx, sy) {
-			this.premultiply(_m3.makeScale(sx, sy));
-			return this;
-		}
-
-		// rotate( theta ) {
-		//
-		// 	this.premultiply( _m3.makeRotation( - theta ) );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// translate( tx, ty ) {
-		//
-		// 	this.premultiply( _m3.makeTranslation( tx, ty ) );
-		//
-		// 	return this;
-		//
-		// }
-
-		// for 2D Transforms
-
-		// makeTranslation( x, y ) {
-		//
-		// 	this.set(
-		//
-		// 		1, 0, x,
-		// 		0, 1, y,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// makeRotation( theta ) {
-		//
-		// 	// counterclockwise
-		//
-		// 	const c = Math.cos( theta );
-		// 	const s = Math.sin( theta );
-		//
-		// 	this.set(
-		//
-		// 		c, - s, 0,
-		// 		s, c, 0,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
-
-		makeScale(x, y) {
-			this.set(x, 0, 0, 0, y, 0, 0, 0, 1);
-			return this;
-		}
-
-		//
-
-		equals(matrix) {
-			const te = this.elements;
-			const me = matrix.elements;
-			for (let i = 0; i < 9; i++) {
-				if (te[i] !== me[i]) return false;
-			}
-			return true;
-		}
-		fromArray(array, offset = 0) {
-			for (let i = 0; i < 9; i++) {
-				this.elements[i] = array[i + offset];
-			}
-			return this;
-		}
-		toArray(array = [], offset = 0) {
-			const te = this.elements;
-			array[offset] = te[0];
-			array[offset + 1] = te[1];
-			array[offset + 2] = te[2];
-			array[offset + 3] = te[3];
-			array[offset + 4] = te[4];
-			array[offset + 5] = te[5];
-			array[offset + 6] = te[6];
-			array[offset + 7] = te[7];
-			array[offset + 8] = te[8];
-			return array;
-		}
-		clone() {
-			return new this.constructor().fromArray(this.elements);
-		}
-	}
-	const _m3 = /*@__PURE__*/new Matrix3();
-
-	const _vector1 = /*@__PURE__*/new Vector3();
-	const _normalMatrix = /*@__PURE__*/new Matrix3();
 	class Plane {
 		constructor(normal = new Vector3(1, 0, 0), constant = 0) {
 			// this.isPlane = true;
@@ -2524,11 +2239,16 @@
 			this.constant *= inverseNormalLength;
 			return this;
 		}
-		negate() {
-			this.constant *= -1;
-			this.normal.negate();
-			return this;
-		}
+		//
+		// negate() {
+		//
+		// 	this.constant *= - 1;
+		// 	this.normal.negate();
+		//
+		// 	return this;
+		//
+		// }
+
 		distanceToPoint(point) {
 			return this.normal.dot(point) + this.constant;
 		}
@@ -2600,16 +2320,25 @@
 		//
 		// }
 
-		coplanarPoint(target) {
-			return target.copy(this.normal).multiplyScalar(-this.constant);
-		}
-		applyMatrix4(matrix, optionalNormalMatrix) {
-			const normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix(matrix);
-			const referencePoint = this.coplanarPoint(_vector1).applyMatrix4(matrix);
-			const normal = this.normal.applyMatrix3(normalMatrix).normalize();
-			this.constant = -referencePoint.dot(normal);
-			return this;
-		}
+		// coplanarPoint( target ) {
+		//
+		// 	return target.copy( this.normal ).multiplyScalar( - this.constant );
+		//
+		// }
+
+		// applyMatrix4( matrix, optionalNormalMatrix ) {
+		//
+		// 	const normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix( matrix );
+		//
+		// 	const referencePoint = this.coplanarPoint( _vector1 ).applyMatrix4( matrix );
+		//
+		// 	const normal = this.normal.applyMatrix3( normalMatrix ).normalize();
+		//
+		// 	this.constant = - referencePoint.dot( normal );
+		//
+		// 	return this;
+		//
+		// }
 
 		// translate( offset ) {
 		//
@@ -2619,12 +2348,17 @@
 		//
 		// }
 
-		equals(plane) {
-			return plane.normal.equals(this.normal) && plane.constant === this.constant;
-		}
-		clone() {
-			return new this.constructor().copy(this);
-		}
+		// equals( plane ) {
+		//
+		// 	return plane.normal.equals( this.normal ) && ( plane.constant === this.constant );
+		//
+		// }
+
+		// clone() {
+		//
+		// 	return new this.constructor().copy( this );
+		//
+		// }
 	}
 
 	// import { Vector3 } from './Vector3.js';
@@ -2788,10 +2522,22 @@
 			te[15] = n44;
 			return this;
 		}
-		identity() {
-			this.set(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-			return this;
-		}
+
+		// identity() {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, 0, 0,
+		// 		0, 1, 0, 0,
+		// 		0, 0, 1, 0,
+		// 		0, 0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
 		clone() {
 			return new Matrix4().fromArray(this.elements);
 		}
@@ -4566,6 +4312,8 @@
 	}
 
 	const _vector$3 = /*@__PURE__*/new Vector3();
+
+
 	class BufferAttribute {
 		constructor(array, itemSize, normalized = false) {
 			if (Array.isArray(array)) {
@@ -4717,13 +4465,17 @@
 			if (this.normalized) y = denormalize(y, this.array);
 			return y;
 		}
-		setY(index, y) {
-			//used
 
-			if (this.normalized) y = normalize(y, this.array);
-			this.array[index * this.itemSize + 1] = y;
-			return this;
-		}
+		// setY( index, y ) {
+		//
+		// 	if ( this.normalized ) y = normalize( y, this.array );
+		//
+		// 	this.array[ index * this.itemSize + 1 ] = y;
+		//
+		// 	return this;
+		//
+		// }
+
 		getZ(index) {
 			let z = this.array[index * this.itemSize + 2];
 			if (this.normalized) z = denormalize(z, this.array);
@@ -4948,7 +4700,10 @@
 		}
 	}
 
+	// import { Quaternion } from './Quaternion.js';
 	const _matrix = /*@__PURE__*/new Matrix4();
+
+
 	class Euler {
 		constructor(x = 0, y = 0, z = 0, order = Euler.DefaultOrder) {
 			// this.isEuler = true;
@@ -5186,12 +4941,315 @@
 		// }
 	}
 
+	class Matrix3 {
+		constructor() {
+			Matrix3.prototype.isMatrix3 = true;
+			this.elements = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+		}
+		set(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
+			const te = this.elements;
+			te[0] = n11;
+			te[1] = n21;
+			te[2] = n31;
+			te[3] = n12;
+			te[4] = n22;
+			te[5] = n32;
+			te[6] = n13;
+			te[7] = n23;
+			te[8] = n33;
+			return this;
+		}
+
+		// identity() {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, 0,
+		// 		0, 1, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
+		copy(m) {
+			const te = this.elements;
+			const me = m.elements;
+			te[0] = me[0];
+			te[1] = me[1];
+			te[2] = me[2];
+			te[3] = me[3];
+			te[4] = me[4];
+			te[5] = me[5];
+			te[6] = me[6];
+			te[7] = me[7];
+			te[8] = me[8];
+			return this;
+		}
+
+		// extractBasis( xAxis, yAxis, zAxis ) {
+		//
+		// 	xAxis.setFromMatrix3Column( this, 0 );
+		// 	yAxis.setFromMatrix3Column( this, 1 );
+		// 	zAxis.setFromMatrix3Column( this, 2 );
+		//
+		// 	return this;
+		//
+		// }
+
+		setFromMatrix4(m) {
+			const me = m.elements;
+			this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10]);
+			return this;
+		}
+		multiply(m) {
+			return this.multiplyMatrices(this, m);
+		}
+		premultiply(m) {
+			return this.multiplyMatrices(m, this);
+		}
+		multiplyMatrices(a, b) {
+			const ae = a.elements;
+			const be = b.elements;
+			const te = this.elements;
+			const a11 = ae[0],
+				a12 = ae[3],
+				a13 = ae[6];
+			const a21 = ae[1],
+				a22 = ae[4],
+				a23 = ae[7];
+			const a31 = ae[2],
+				a32 = ae[5],
+				a33 = ae[8];
+			const b11 = be[0],
+				b12 = be[3],
+				b13 = be[6];
+			const b21 = be[1],
+				b22 = be[4],
+				b23 = be[7];
+			const b31 = be[2],
+				b32 = be[5],
+				b33 = be[8];
+			te[0] = a11 * b11 + a12 * b21 + a13 * b31;
+			te[3] = a11 * b12 + a12 * b22 + a13 * b32;
+			te[6] = a11 * b13 + a12 * b23 + a13 * b33;
+			te[1] = a21 * b11 + a22 * b21 + a23 * b31;
+			te[4] = a21 * b12 + a22 * b22 + a23 * b32;
+			te[7] = a21 * b13 + a22 * b23 + a23 * b33;
+			te[2] = a31 * b11 + a32 * b21 + a33 * b31;
+			te[5] = a31 * b12 + a32 * b22 + a33 * b32;
+			te[8] = a31 * b13 + a32 * b23 + a33 * b33;
+			return this;
+		}
+		multiplyScalar(s) {
+			const te = this.elements;
+			te[0] *= s;
+			te[3] *= s;
+			te[6] *= s;
+			te[1] *= s;
+			te[4] *= s;
+			te[7] *= s;
+			te[2] *= s;
+			te[5] *= s;
+			te[8] *= s;
+			return this;
+		}
+
+		// determinant() {
+		//
+		// 	const te = this.elements;
+		//
+		// 	const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
+		// 		d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
+		// 		g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
+		//
+		// 	return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
+		//
+		// }
+
+		invert() {
+			const te = this.elements,
+				n11 = te[0],
+				n21 = te[1],
+				n31 = te[2],
+				n12 = te[3],
+				n22 = te[4],
+				n32 = te[5],
+				n13 = te[6],
+				n23 = te[7],
+				n33 = te[8],
+				t11 = n33 * n22 - n32 * n23,
+				t12 = n32 * n13 - n33 * n12,
+				t13 = n23 * n12 - n22 * n13,
+				det = n11 * t11 + n21 * t12 + n31 * t13;
+			if (det === 0) return this.set(0, 0, 0, 0, 0, 0, 0, 0, 0);
+			const detInv = 1 / det;
+			te[0] = t11 * detInv;
+			te[1] = (n31 * n23 - n33 * n21) * detInv;
+			te[2] = (n32 * n21 - n31 * n22) * detInv;
+			te[3] = t12 * detInv;
+			te[4] = (n33 * n11 - n31 * n13) * detInv;
+			te[5] = (n31 * n12 - n32 * n11) * detInv;
+			te[6] = t13 * detInv;
+			te[7] = (n21 * n13 - n23 * n11) * detInv;
+			te[8] = (n22 * n11 - n21 * n12) * detInv;
+			return this;
+		}
+		transpose() {
+			let tmp;
+			const m = this.elements;
+			tmp = m[1];
+			m[1] = m[3];
+			m[3] = tmp;
+			tmp = m[2];
+			m[2] = m[6];
+			m[6] = tmp;
+			tmp = m[5];
+			m[5] = m[7];
+			m[7] = tmp;
+			return this;
+		}
+		getNormalMatrix(matrix4) {
+			return this.setFromMatrix4(matrix4).invert().transpose();
+		}
+
+		// transposeIntoArray( r ) {
+		//
+		// 	const m = this.elements;
+		//
+		// 	r[ 0 ] = m[ 0 ];
+		// 	r[ 1 ] = m[ 3 ];
+		// 	r[ 2 ] = m[ 6 ];
+		// 	r[ 3 ] = m[ 1 ];
+		// 	r[ 4 ] = m[ 4 ];
+		// 	r[ 5 ] = m[ 7 ];
+		// 	r[ 6 ] = m[ 2 ];
+		// 	r[ 7 ] = m[ 5 ];
+		// 	r[ 8 ] = m[ 8 ];
+		//
+		// 	return this;
+		//
+		// }
+
+		setUvTransform(tx, ty, sx, sy, rotation, cx, cy) {
+			const c = Math.cos(rotation);
+			const s = Math.sin(rotation);
+			this.set(sx * c, sx * s, -sx * (c * cx + s * cy) + cx + tx, -sy * s, sy * c, -sy * (-s * cx + c * cy) + cy + ty, 0, 0, 1);
+			return this;
+		}
+
+		//
+
+		scale(sx, sy) {
+			this.premultiply(_m3.makeScale(sx, sy));
+			return this;
+		}
+
+		// rotate( theta ) {
+		//
+		// 	this.premultiply( _m3.makeRotation( - theta ) );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// translate( tx, ty ) {
+		//
+		// 	this.premultiply( _m3.makeTranslation( tx, ty ) );
+		//
+		// 	return this;
+		//
+		// }
+
+		// for 2D Transforms
+
+		// makeTranslation( x, y ) {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, x,
+		// 		0, 1, y,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// makeRotation( theta ) {
+		//
+		// 	// counterclockwise
+		//
+		// 	const c = Math.cos( theta );
+		// 	const s = Math.sin( theta );
+		//
+		// 	this.set(
+		//
+		// 		c, - s, 0,
+		// 		s, c, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
+		makeScale(x, y) {
+			this.set(x, 0, 0, 0, y, 0, 0, 0, 1);
+			return this;
+		}
+
+		//
+
+		equals(matrix) {
+			const te = this.elements;
+			const me = matrix.elements;
+			for (let i = 0; i < 9; i++) {
+				if (te[i] !== me[i]) return false;
+			}
+			return true;
+		}
+		fromArray(array, offset = 0) {
+			for (let i = 0; i < 9; i++) {
+				this.elements[i] = array[i + offset];
+			}
+			return this;
+		}
+		toArray(array = [], offset = 0) {
+			const te = this.elements;
+			array[offset] = te[0];
+			array[offset + 1] = te[1];
+			array[offset + 2] = te[2];
+			array[offset + 3] = te[3];
+			array[offset + 4] = te[4];
+			array[offset + 5] = te[5];
+			array[offset + 6] = te[6];
+			array[offset + 7] = te[7];
+			array[offset + 8] = te[8];
+			return array;
+		}
+		clone() {
+			return new this.constructor().fromArray(this.elements);
+		}
+	}
+	const _m3 = /*@__PURE__*/new Matrix3();
+
 	let _object3DId = 0;
+
+
 	const _q1 = /*@__PURE__*/new Quaternion();
 	const _m1$1 = /*@__PURE__*/new Matrix4();
 	const _target = /*@__PURE__*/new Vector3();
 	const _position = /*@__PURE__*/new Vector3();
+
+
+
 	const _xAxis = /*@__PURE__*/new Vector3(1, 0, 0);
+
 	const _zAxis = /*@__PURE__*/new Vector3(0, 0, 1);
 	const _addedEvent = {
 		type: 'added'
@@ -6022,6 +6080,18 @@
 
 		return false;
 	}
+
+	// const TYPED_ARRAYS = {
+	// 	Int8Array: Int8Array,
+	// 	Uint8Array: Uint8Array,
+	// 	Uint8ClampedArray: Uint8ClampedArray,
+	// 	Int16Array: Int16Array,
+	// 	Uint16Array: Uint16Array,
+	// 	Int32Array: Int32Array,
+	// 	Uint32Array: Uint32Array,
+	// 	Float32Array: Float32Array,
+	// 	Float64Array: Float64Array
+	// };
 
 	// function getTypedArray( type, buffer ) {
 	//
@@ -8920,16 +8990,17 @@
 		//
 		// }
 		//
-		getBarycoord(point, target) {
-			//used
-
-			return Triangle.getBarycoord(point, this.a, this.b, this.c, target);
-		}
-		getUV(point, uv1, uv2, uv3, target) {
-			//used
-
-			return Triangle.getUV(point, this.a, this.b, this.c, uv1, uv2, uv3, target);
-		}
+		// getBarycoord( point, target ) { //used
+		//
+		// 	return Triangle.getBarycoord( point, this.a, this.b, this.c, target );
+		//
+		// }
+		//
+		// getUV( point, uv1, uv2, uv3, target ) { //used
+		//
+		// 	return Triangle.getUV( point, this.a, this.b, this.c, uv1, uv2, uv3, target );
+		//
+		// }
 		//
 		// containsPoint( point ) {
 		//
@@ -12027,6 +12098,10 @@
 		// }
 	}
 
+	// import { MeshBasicMaterial } from '../materials/MeshBasicMaterial.js';
+	// import { BoxGeometry } from '../geometries/BoxGeometry.js';
+	// import { BackSide } from '../constants.js';
+
 	const LOD_MIN = 4;
 
 	// The standard deviations (radians) associated with the extra mips. These are
@@ -12039,6 +12114,7 @@
 	// samples and exit early, but not recompile the shader.
 	const MAX_SAMPLES = 20;
 	const _flatCamera = /*@__PURE__*/new OrthographicCamera();
+
 	let _oldTarget = null;
 
 	// Golden Ratio
@@ -14447,34 +14523,15 @@
 		// check for link errors
 		if (renderer.debug.checkShaderErrors) {
 			const programLog = gl.getProgramInfoLog(program).trim();
-			const vertexLog = gl.getShaderInfoLog(glVertexShader).trim();
-			const fragmentLog = gl.getShaderInfoLog(glFragmentShader).trim();
-			let runnable = true;
-			let haveDiagnostics = true;
+			gl.getShaderInfoLog(glVertexShader).trim();
+			gl.getShaderInfoLog(glFragmentShader).trim();
 			if (gl.getProgramParameter(program, gl.LINK_STATUS) === false) {
-				runnable = false;
 				const vertexErrors = getShaderErrors(gl, glVertexShader, 'vertex');
 				const fragmentErrors = getShaderErrors(gl, glFragmentShader, 'fragment');
 				console.error('THREE.WebGLProgram: Shader Error ' + gl.getError() + ' - ' + 'VALIDATE_STATUS ' + gl.getProgramParameter(program, gl.VALIDATE_STATUS) + '\n\n' + 'Program Info Log: ' + programLog + '\n' + vertexErrors + '\n' + fragmentErrors);
 			} else if (programLog !== '') {
 				console.warn('THREE.WebGLProgram: Program Info Log:', programLog);
-			} else if (vertexLog === '' || fragmentLog === '') {
-				haveDiagnostics = false;
-			}
-			if (haveDiagnostics) {
-				this.diagnostics = {
-					runnable: runnable,
-					programLog: programLog,
-					vertexShader: {
-						log: vertexLog,
-						prefix: prefixVertex
-					},
-					fragmentShader: {
-						log: fragmentLog,
-						prefix: prefixFragment
-					}
-				};
-			}
+			} else ;
 		}
 
 		// Clean up
@@ -16587,18 +16644,6 @@
 				currentViewport.copy(viewport);
 			}
 		}
-		function updateUBOMapping(uniformsGroup, program) {
-			let mapping = uboProgramMap.get(program);
-			if (mapping === undefined) {
-				mapping = new WeakMap();
-				uboProgramMap.set(program, mapping);
-			}
-			let blockIndex = mapping.get(uniformsGroup);
-			if (blockIndex === undefined) {
-				blockIndex = gl.getUniformBlockIndex(program, uniformsGroup.name);
-				mapping.set(uniformsGroup, blockIndex);
-			}
-		}
 		function uniformBlockBinding(uniformsGroup, program) {
 			const mapping = uboProgramMap.get(program);
 			const blockIndex = mapping.get(uniformsGroup);
@@ -16689,8 +16734,9 @@
 			useProgram: useProgram,
 			setBlending: setBlending,
 			setMaterial: setMaterial,
-			setFlipSided: setFlipSided,
-			setCullFace: setCullFace,
+			// setFlipSided: setFlipSided,
+			// setCullFace: setCullFace,
+
 			setLineWidth: setLineWidth,
 			setPolygonOffset: setPolygonOffset,
 			setScissorTest: setScissorTest,
@@ -16701,7 +16747,7 @@
 			compressedTexImage3D: compressedTexImage3D,
 			texImage2D: texImage2D,
 			texImage3D: texImage3D,
-			updateUBOMapping: updateUBOMapping,
+			// updateUBOMapping: updateUBOMapping,
 			uniformBlockBinding: uniformBlockBinding,
 			texStorage2D: texStorage2D,
 			texStorage3D: texStorage3D,
@@ -18510,7 +18556,8 @@
 		return canvas;
 	}
 	function WebGLRenderer(parameters = {}) {
-		this.isWebGLRenderer = true;
+		// this.isWebGLRenderer = true;
+
 		const _canvas = parameters.canvas !== undefined ? parameters.canvas : createCanvasElement(),
 			_context = parameters.context !== undefined ? parameters.context : null,
 			_depth = parameters.depth !== undefined ? parameters.depth : true,
@@ -18867,12 +18914,18 @@
 		this.setScissorTest = function (boolean) {
 			state.setScissorTest(_scissorTest = boolean);
 		};
-		this.setOpaqueSort = function (method) {
-			_opaqueSort = method;
-		};
-		this.setTransparentSort = function (method) {
-			_transparentSort = method;
-		};
+		//
+		// this.setOpaqueSort = function ( method ) {
+		//
+		// 	_opaqueSort = method;
+		//
+		// };
+		//
+		// this.setTransparentSort = function ( method ) {
+		//
+		// 	_transparentSort = method;
+		//
+		// };
 
 		// Clearing
 
@@ -20433,6 +20486,7 @@
 			let isLoading = false;
 			let itemsLoaded = 0;
 			let itemsTotal = 0;
+			// const handlers = [];
 
 			// Refer to #5689 for the reason why we don't set .onStart
 			// in the constructor
@@ -20532,25 +20586,36 @@
 			this.crossOrigin = 'anonymous';
 			this.withCredentials = false;
 			this.path = '';
-			this.resourcePath = '';
+			// this.resourcePath = '';
 			this.requestHeader = {};
 		}
 		load( /* url, onLoad, onProgress, onError */) {}
-		loadAsync(url, onProgress) {
-			const scope = this;
-			return new Promise(function (resolve, reject) {
-				scope.load(url, resolve, onProgress, reject);
-			});
-		}
+
+		// loadAsync( url, onProgress ) {
+		//
+		// 	const scope = this;
+		//
+		// 	return new Promise( function ( resolve, reject ) {
+		//
+		// 		scope.load( url, resolve, onProgress, reject );
+		//
+		// 	} );
+		//
+		// }
+
 		parse( /* data */) {}
 		setCrossOrigin(crossOrigin) {
 			this.crossOrigin = crossOrigin;
 			return this;
 		}
-		setWithCredentials(value) {
-			this.withCredentials = value;
-			return this;
-		}
+
+		// setWithCredentials( value ) {
+		//
+		// 	this.withCredentials = value;
+		// 	return this;
+		//
+		// }
+
 		setPath(path) {
 			this.path = path;
 			return this;
@@ -20562,11 +20627,13 @@
 		// 	return this;
 		//
 		// }
-
-		setRequestHeader(requestHeader) {
-			this.requestHeader = requestHeader;
-			return this;
-		}
+		//
+		// setRequestHeader( requestHeader ) {
+		//
+		// 	this.requestHeader = requestHeader;
+		// 	return this;
+		//
+		// }
 	}
 
 	class ImageLoader extends Loader {
@@ -20852,13 +20919,17 @@
 				console.error('THREE.Raycaster: Unsupported camera type: ' + camera.type);
 			}
 		}
-		intersectObject(object, recursive = true, intersects = []) {
-			//used
 
-			intersectObject(object, this, intersects, recursive);
-			intersects.sort(ascSort);
-			return intersects;
-		}
+		// intersectObject( object, recursive = true, intersects = [] ) { //used
+		//
+		// 	intersectObject( object, this, intersects, recursive );
+		//
+		// 	intersects.sort( ascSort );
+		//
+		// 	return intersects;
+		//
+		// }
+
 		intersectObjects(objects, recursive = true, intersects = []) {
 			//used
 
@@ -21414,7 +21485,7 @@
 			this.matrixAutoUpdate = false;
 			this.update();
 		}
-		update(object) {
+		update() {
 			// if ( object !== undefined ) {
 
 			// 	console.warn( 'THREE.BoxHelper: .update() has no longer arguments.' );
@@ -21906,6 +21977,34 @@
 	 */
 
 	//
+	//
+	// function QuadraticBezierP0( t, p ) {
+	//
+	// 	const k = 1 - t;
+	// 	return k * k * p;
+	//
+	// }
+	//
+	// function QuadraticBezierP1( t, p ) {
+	//
+	// 	return 2 * ( 1 - t ) * t * p;
+	//
+	// }
+	//
+	// function QuadraticBezierP2( t, p ) {
+	//
+	// 	return t * t * p;
+	//
+	// }
+	//
+	// function QuadraticBezier( t, p0, p1, p2 ) {
+	//
+	// 	return QuadraticBezierP0( t, p0 ) + QuadraticBezierP1( t, p1 ) +
+	// 		QuadraticBezierP2( t, p2 );
+	//
+	// }
+	//
+	//
 
 	function CubicBezierP0(t, p) {
 		const k = 1 - t;
@@ -22043,7 +22142,6 @@
 	exports.EquirectangularRefractionMapping = EquirectangularRefractionMapping;
 	exports.FloatType = FloatType;
 	exports.FrontSide = FrontSide;
-	exports.GLSL1 = GLSL1;
 	exports.GLSL3 = GLSL3;
 	exports.GreaterDepth = GreaterDepth;
 	exports.GreaterEqualDepth = GreaterEqualDepth;
@@ -22165,4 +22263,3 @@
 	Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGhyZWUuanMiLCJzb3VyY2VzIjpbXSwic291cmNlc0NvbnRlbnQiOltdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIn0=

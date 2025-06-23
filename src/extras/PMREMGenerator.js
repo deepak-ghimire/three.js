@@ -19,9 +19,9 @@ import { ShaderMaterial } from '../materials/ShaderMaterial.js';
 import { Vector3 } from '../math/Vector3.js';
 import { Color } from '../math/Color.js';
 import { WebGLRenderTarget } from '../renderers/WebGLRenderTarget.js';
-import { MeshBasicMaterial } from '../materials/MeshBasicMaterial.js';
-import { BoxGeometry } from '../geometries/BoxGeometry.js';
-import { BackSide } from '../constants.js';
+// import { MeshBasicMaterial } from '../materials/MeshBasicMaterial.js';
+// import { BoxGeometry } from '../geometries/BoxGeometry.js';
+// import { BackSide } from '../constants.js';
 
 const LOD_MIN = 4;
 
@@ -36,7 +36,7 @@ const EXTRA_LOD_SIGMA = [ 0.125, 0.215, 0.35, 0.446, 0.526, 0.582 ];
 const MAX_SAMPLES = 20;
 
 const _flatCamera = /*@__PURE__*/ new OrthographicCamera();
-const _clearColor = /*@__PURE__*/ new Color();
+// const _clearColor = /*@__PURE__*/ new Color();
 let _oldTarget = null;
 
 // Golden Ratio

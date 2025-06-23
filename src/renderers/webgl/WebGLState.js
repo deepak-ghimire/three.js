@@ -1254,8 +1254,8 @@ function WebGLState( gl, extensions, capabilities ) {
 		setBlending: setBlending,
 		setMaterial: setMaterial,
 
-		setFlipSided: setFlipSided,
-		setCullFace: setCullFace,
+		// setFlipSided: setFlipSided,
+		// setCullFace: setCullFace,
 
 		setLineWidth: setLineWidth,
 		setPolygonOffset: setPolygonOffset,
@@ -1270,7 +1270,7 @@ function WebGLState( gl, extensions, capabilities ) {
 		texImage2D: texImage2D,
 		texImage3D: texImage3D,
 
-		updateUBOMapping: updateUBOMapping,
+		// updateUBOMapping: updateUBOMapping,
 		uniformBlockBinding: uniformBlockBinding,
 
 		texStorage2D: texStorage2D,

@@ -806,27 +806,27 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 		if ( haveDiagnostics ) {
 
-			this.diagnostics = {
-
-				runnable: runnable,
-
-				programLog: programLog,
-
-				vertexShader: {
-
-					log: vertexLog,
-					prefix: prefixVertex
-
-				},
-
-				fragmentShader: {
-
-					log: fragmentLog,
-					prefix: prefixFragment
-
-				}
-
-			};
+			// this.diagnostics = {
+			//
+			// 	runnable: runnable,
+			//
+			// 	programLog: programLog,
+			//
+			// 	vertexShader: {
+			//
+			// 		log: vertexLog,
+			// 		prefix: prefixVertex
+			//
+			// 	},
+			//
+			// 	fragmentShader: {
+			//
+			// 		log: fragmentLog,
+			// 		prefix: prefixFragment
+			//
+			// 	}
+			//
+			// };
 
 		}
 

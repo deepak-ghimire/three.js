@@ -4,7 +4,7 @@ const _lut = [ '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0a',
 
 
 const DEG2RAD = Math.PI / 180;
-const RAD2DEG = 180 / Math.PI;
+// const RAD2DEG = 180 / Math.PI;
 
 // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
 function generateUUID() {
@@ -147,23 +147,23 @@ function degToRad( degrees ) { //used
 
 }
 
-function radToDeg( radians ) { //used
-
-	return radians * RAD2DEG;
-
-}
+// function radToDeg( radians ) { //used
+//
+// 	return radians * RAD2DEG;
+//
+// }
 
 function isPowerOfTwo( value ) {
 
 	return ( value & ( value - 1 ) ) === 0 && value !== 0;
 
 }
-
-function ceilPowerOfTwo( value ) {
-
-	return Math.pow( 2, Math.ceil( Math.log( value ) / Math.LN2 ) );
-
-}
+//
+// function ceilPowerOfTwo( value ) {
+//
+// 	return Math.pow( 2, Math.ceil( Math.log( value ) / Math.LN2 ) );
+//
+// }
 
 function floorPowerOfTwo( value ) {
 
@@ -295,7 +295,7 @@ function normalize( value, array ) {
 
 export {
 	DEG2RAD,
-	RAD2DEG,
+	// RAD2DEG,
 	generateUUID,
 	clamp,
 	// euclideanModulo,
@@ -311,9 +311,9 @@ export {
 	// randFloatSpread,
 	// seededRandom,
 	degToRad,
-	radToDeg,
+	// radToDeg,
 	isPowerOfTwo,
-	ceilPowerOfTwo,
+	// ceilPowerOfTwo,
 	floorPowerOfTwo,
 	// setQuaternionFromProperEuler,
 	normalize,

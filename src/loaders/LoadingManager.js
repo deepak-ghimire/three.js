@@ -8,7 +8,7 @@ class LoadingManager {
 		let itemsLoaded = 0;
 		let itemsTotal = 0;
 		let urlModifier = undefined;
-		const handlers = [];
+		// const handlers = [];
 
 		// Refer to #5689 for the reason why we don't set .onStart
 		// in the constructor

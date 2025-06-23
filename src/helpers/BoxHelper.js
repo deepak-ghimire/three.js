@@ -28,7 +28,7 @@ class BoxHelper extends LineSegments {
 
 	}
 
-	update( object ) {
+	update( ) {
 
 		// if ( object !== undefined ) {
 

@@ -177,17 +177,17 @@ class Triangle {
 	//
 	// }
 	//
-	getBarycoord( point, target ) { //used
-
-		return Triangle.getBarycoord( point, this.a, this.b, this.c, target );
-
-	}
-
-	getUV( point, uv1, uv2, uv3, target ) { //used
-
-		return Triangle.getUV( point, this.a, this.b, this.c, uv1, uv2, uv3, target );
-
-	}
+	// getBarycoord( point, target ) { //used
+	//
+	// 	return Triangle.getBarycoord( point, this.a, this.b, this.c, target );
+	//
+	// }
+	//
+	// getUV( point, uv1, uv2, uv3, target ) { //used
+	//
+	// 	return Triangle.getUV( point, this.a, this.b, this.c, uv1, uv2, uv3, target );
+	//
+	// }
 	//
 	// containsPoint( point ) {
 	//

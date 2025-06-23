@@ -57,7 +57,7 @@ function createCanvasElement() {
 
 function WebGLRenderer( parameters = {} ) {
 
-	this.isWebGLRenderer = true;
+	// this.isWebGLRenderer = true;
 
 	const _canvas = parameters.canvas !== undefined ? parameters.canvas : createCanvasElement(),
 		_context = parameters.context !== undefined ? parameters.context : null,
@@ -499,18 +499,18 @@ function WebGLRenderer( parameters = {} ) {
 		state.setScissorTest( _scissorTest = boolean );
 
 	};
-
-	this.setOpaqueSort = function ( method ) {
-
-		_opaqueSort = method;
-
-	};
-
-	this.setTransparentSort = function ( method ) {
-
-		_transparentSort = method;
-
-	};
+	//
+	// this.setOpaqueSort = function ( method ) {
+	//
+	// 	_opaqueSort = method;
+	//
+	// };
+	//
+	// this.setTransparentSort = function ( method ) {
+	//
+	// 	_transparentSort = method;
+	//
+	// };
 
 	// Clearing
 

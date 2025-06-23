@@ -1,9 +1,9 @@
-import { Matrix3 } from './Matrix3.js';
+// import { Matrix3 } from './Matrix3.js';
 import { Vector3 } from './Vector3.js';
 
-const _vector1 = /*@__PURE__*/ new Vector3();
-const _vector2 = /*@__PURE__*/ new Vector3();
-const _normalMatrix = /*@__PURE__*/ new Matrix3();
+// const _vector1 = /*@__PURE__*/ new Vector3();
+// const _vector2 = /*@__PURE__*/ new Vector3();
+// const _normalMatrix = /*@__PURE__*/ new Matrix3();
 
 class Plane {
 
@@ -77,15 +77,15 @@ class Plane {
 		return this;
 
 	}
-
-	negate() {
-
-		this.constant *= - 1;
-		this.normal.negate();
-
-		return this;
-
-	}
+	//
+	// negate() {
+	//
+	// 	this.constant *= - 1;
+	// 	this.normal.negate();
+	//
+	// 	return this;
+	//
+	// }
 
 	distanceToPoint( point ) {
 
@@ -160,25 +160,25 @@ class Plane {
 	//
 	// }
 
-	coplanarPoint( target ) {
+	// coplanarPoint( target ) {
+	//
+	// 	return target.copy( this.normal ).multiplyScalar( - this.constant );
+	//
+	// }
 
-		return target.copy( this.normal ).multiplyScalar( - this.constant );
-
-	}
-
-	applyMatrix4( matrix, optionalNormalMatrix ) {
-
-		const normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix( matrix );
-
-		const referencePoint = this.coplanarPoint( _vector1 ).applyMatrix4( matrix );
-
-		const normal = this.normal.applyMatrix3( normalMatrix ).normalize();
-
-		this.constant = - referencePoint.dot( normal );
-
-		return this;
-
-	}
+	// applyMatrix4( matrix, optionalNormalMatrix ) {
+	//
+	// 	const normalMatrix = optionalNormalMatrix || _normalMatrix.getNormalMatrix( matrix );
+	//
+	// 	const referencePoint = this.coplanarPoint( _vector1 ).applyMatrix4( matrix );
+	//
+	// 	const normal = this.normal.applyMatrix3( normalMatrix ).normalize();
+	//
+	// 	this.constant = - referencePoint.dot( normal );
+	//
+	// 	return this;
+	//
+	// }
 
 	// translate( offset ) {
 	//
@@ -188,17 +188,17 @@ class Plane {
 	//
 	// }
 
-	equals( plane ) {
+	// equals( plane ) {
+	//
+	// 	return plane.normal.equals( this.normal ) && ( plane.constant === this.constant );
+	//
+	// }
 
-		return plane.normal.equals( this.normal ) && ( plane.constant === this.constant );
-
-	}
-
-	clone() {
-
-		return new this.constructor().copy( this );
-
-	}
+	// clone() {
+	//
+	// 	return new this.constructor().copy( this );
+	//
+	// }
 
 }
 
