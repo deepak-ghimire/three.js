@@ -60,20 +60,20 @@ export function mergeUniforms( uniforms ) {
 	return merged;
 
 }
-
-export function cloneUniformsGroups( src ) {
-
-	const dst = [];
-
-	for ( let u = 0; u < src.length; u ++ ) {
-
-		dst.push( src[ u ].clone() );
-
-	}
-
-	return dst;
-
-}
+//
+// export function cloneUniformsGroups( src ) {
+//
+// 	const dst = [];
+//
+// 	for ( let u = 0; u < src.length; u ++ ) {
+//
+// 		dst.push( src[ u ].clone() );
+//
+// 	}
+//
+// 	return dst;
+//
+// }
 
 export function getUnlitUniformColorSpace( renderer ) {
 
