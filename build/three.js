@@ -241,9 +241,11 @@
 	// }
 
 	// https://en.wikipedia.org/wiki/Linear_interpolation
-	function lerp(x, y, t) {
-		return (1 - t) * x + t * y;
-	}
+	// function lerp( x, y, t ) {
+	//
+	// 	return ( 1 - t ) * x + t * y;
+	//
+	// }
 
 	// http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 	// function damp( x, y, lambda, dt ) {
@@ -346,106 +348,14 @@
 		return Math.pow(2, Math.floor(Math.log(value) / Math.LN2));
 	}
 
-	// function setQuaternionFromProperEuler( q, a, b, c, order ) {
-
-	// 	// Intrinsic Proper Euler Angles - see https://en.wikipedia.org/wiki/Euler_angles
-
-	// 	// rotations are applied to the axes in the order specified by 'order'
-	// 	// rotation by angle 'a' is applied first, then by angle 'b', then by angle 'c'
-	// 	// angles are in radians
-
-	// 	const cos = Math.cos;
-	// 	const sin = Math.sin;
-
-	// 	const c2 = cos( b / 2 );
-	// 	const s2 = sin( b / 2 );
-
-	// 	const c13 = cos( ( a + c ) / 2 );
-	// 	const s13 = sin( ( a + c ) / 2 );
-
-	// 	const c1_3 = cos( ( a - c ) / 2 );
-	// 	const s1_3 = sin( ( a - c ) / 2 );
-
-	// 	const c3_1 = cos( ( c - a ) / 2 );
-	// 	const s3_1 = sin( ( c - a ) / 2 );
-
-	// 	switch ( order ) {
-
-	// 		case 'XYX':
-	// 			q.set( c2 * s13, s2 * c1_3, s2 * s1_3, c2 * c13 );
-	// 			break;
-
-	// 		case 'YZY':
-	// 			q.set( s2 * s1_3, c2 * s13, s2 * c1_3, c2 * c13 );
-	// 			break;
-
-	// 		case 'ZXZ':
-	// 			q.set( s2 * c1_3, s2 * s1_3, c2 * s13, c2 * c13 );
-	// 			break;
-
-	// 		case 'XZX':
-	// 			q.set( c2 * s13, s2 * s3_1, s2 * c3_1, c2 * c13 );
-	// 			break;
-
-	// 		case 'YXY':
-	// 			q.set( s2 * c3_1, c2 * s13, s2 * s3_1, c2 * c13 );
-	// 			break;
-
-	// 		case 'ZYZ':
-	// 			q.set( s2 * s3_1, s2 * c3_1, c2 * s13, c2 * c13 );
-	// 			break;
-
-	// 		default:
-	// 			console.warn( 'THREE.MathUtils: .setQuaternionFromProperEuler() encountered an unknown order: ' + order );
-
-	// 	}
-
-	// }
-
-	function denormalize(value, array) {
-		switch (array.constructor) {
-			case Float32Array:
-				return value;
-			case Uint16Array:
-				return value / 65535.0;
-			case Uint8Array:
-				return value / 255.0;
-			case Int16Array:
-				return Math.max(value / 32767.0, -1.0);
-			case Int8Array:
-				return Math.max(value / 127.0, -1.0);
-			default:
-				throw new Error('Invalid component type.');
-		}
-	}
-	function normalize(value, array) {
-		switch (array.constructor) {
-			case Float32Array:
-				return value;
-			case Uint16Array:
-				return Math.round(value * 65535.0);
-			case Uint8Array:
-				return Math.round(value * 255.0);
-			case Int16Array:
-				return Math.round(value * 32767.0);
-			case Int8Array:
-				return Math.round(value * 127.0);
-			default:
-				throw new Error('Invalid component type.');
-		}
-	}
-
 	var MathUtils = /*#__PURE__*/Object.freeze({
 		__proto__: null,
 		DEG2RAD: DEG2RAD,
 		generateUUID: generateUUID,
 		clamp: clamp,
-		lerp: lerp,
 		degToRad: degToRad,
 		isPowerOfTwo: isPowerOfTwo,
-		floorPowerOfTwo: floorPowerOfTwo,
-		normalize: normalize,
-		denormalize: denormalize
+		floorPowerOfTwo: floorPowerOfTwo
 	});
 
 	class Quaternion {
@@ -561,42 +471,66 @@
 		get x() {
 			return this._x;
 		}
-		set x(value) {
-			this._x = value;
-			this._onChangeCallback();
-		}
+
+		// set x( value ) {
+		//
+		// 	this._x = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
 		get y() {
 			return this._y;
 		}
-		set y(value) {
-			this._y = value;
-			this._onChangeCallback();
-		}
+
+		// set y( value ) {
+		//
+		// 	this._y = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
 		get z() {
 			return this._z;
 		}
-		set z(value) {
-			this._z = value;
-			this._onChangeCallback();
-		}
+
+		// set z( value ) {
+		//
+		// 	this._z = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
 		get w() {
 			return this._w;
 		}
-		set w(value) {
-			this._w = value;
-			this._onChangeCallback();
-		}
-		set(x, y, z, w) {
-			this._x = x;
-			this._y = y;
-			this._z = z;
-			this._w = w;
-			this._onChangeCallback();
-			return this;
-		}
-		clone() {
-			return new this.constructor(this._x, this._y, this._z, this._w);
-		}
+
+		// set w( value ) {
+		//
+		// 	this._w = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+		//
+		// set( x, y, z, w ) {
+		//
+		// 	this._x = x;
+		// 	this._y = y;
+		// 	this._z = z;
+		// 	this._w = w;
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// clone() {
+		//
+		// 	return new this.constructor( this._x, this._y, this._z, this._w );
+		//
+		// }
+
 		copy(quaternion) {
 			this._x = quaternion.x;
 			this._y = quaternion.y;
@@ -793,51 +727,83 @@
 		// 	return this.set( 0, 0, 0, 1 );
 		//
 		// }
+		//
+		// invert() {
+		//
+		// 	// quaternion is assumed to have unit length
+		//
+		// 	return this.conjugate();
+		//
+		// }
+		//
+		// conjugate() {
+		//
+		// 	this._x *= - 1;
+		// 	this._y *= - 1;
+		// 	this._z *= - 1;
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// dot( v ) {
+		//
+		// 	return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
+		//
+		// }
+		//
+		// lengthSq() {
+		//
+		// 	return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
+		//
+		// }
+		//
+		// length() {
+		//
+		// 	return Math.sqrt( this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w );
+		//
+		// }
+		//
+		// normalize() {
+		//
+		// 	let l = this.length();
+		//
+		// 	if ( l === 0 ) {
+		//
+		// 		this._x = 0;
+		// 		this._y = 0;
+		// 		this._z = 0;
+		// 		this._w = 1;
+		//
+		// 	} else {
+		//
+		// 		l = 1 / l;
+		//
+		// 		this._x = this._x * l;
+		// 		this._y = this._y * l;
+		// 		this._z = this._z * l;
+		// 		this._w = this._w * l;
+		//
+		// 	}
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
 
-		invert() {
-			// quaternion is assumed to have unit length
-
-			return this.conjugate();
-		}
-		conjugate() {
-			this._x *= -1;
-			this._y *= -1;
-			this._z *= -1;
-			this._onChangeCallback();
-			return this;
-		}
-		dot(v) {
-			return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
-		}
-		lengthSq() {
-			return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
-		}
-		length() {
-			return Math.sqrt(this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w);
-		}
-		normalize() {
-			let l = this.length();
-			if (l === 0) {
-				this._x = 0;
-				this._y = 0;
-				this._z = 0;
-				this._w = 1;
-			} else {
-				l = 1 / l;
-				this._x = this._x * l;
-				this._y = this._y * l;
-				this._z = this._z * l;
-				this._w = this._w * l;
-			}
-			this._onChangeCallback();
-			return this;
-		}
 		multiply(q) {
 			return this.multiplyQuaternions(this, q);
 		}
-		premultiply(q) {
-			return this.multiplyQuaternions(q, this);
-		}
+		//
+		// premultiply( q ) {
+		//
+		// 	return this.multiplyQuaternions( q, this );
+		//
+		// }
+		//
 		multiplyQuaternions(a, b) {
 			// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
 
@@ -856,7 +822,7 @@
 			this._onChangeCallback();
 			return this;
 		}
-
+		//
 		// slerp( qb, t ) {
 		//
 		// 	if ( t === 0 ) return this;
@@ -932,44 +898,71 @@
 		// 	return this.copy( qa ).slerp( qb, t );
 		//
 		// }
+		//
+		// random() {
+		//
+		// 	// Derived from http://planning.cs.uiuc.edu/node198.html
+		// 	// Note, this source uses w, x, y, z ordering,
+		// 	// so we swap the order below.
+		//
+		// 	const u1 = Math.random();
+		// 	const sqrt1u1 = Math.sqrt( 1 - u1 );
+		// 	const sqrtu1 = Math.sqrt( u1 );
+		//
+		// 	const u2 = 2 * Math.PI * Math.random();
+		//
+		// 	const u3 = 2 * Math.PI * Math.random();
+		//
+		// 	return this.set(
+		// 		sqrt1u1 * Math.cos( u2 ),
+		// 		sqrtu1 * Math.sin( u3 ),
+		// 		sqrtu1 * Math.cos( u3 ),
+		// 		sqrt1u1 * Math.sin( u2 ),
+		// 	);
+		//
+		// }
+		//
+		// equals( quaternion ) {
+		//
+		// 	return ( quaternion._x === this._x ) && ( quaternion._y === this._y ) && ( quaternion._z === this._z ) && ( quaternion._w === this._w );
+		//
+		// }
+		//
+		// fromArray( array, offset = 0 ) {
+		//
+		// 	this._x = array[ offset ];
+		// 	this._y = array[ offset + 1 ];
+		// 	this._z = array[ offset + 2 ];
+		// 	this._w = array[ offset + 3 ];
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	array[ offset ] = this._x;
+		// 	array[ offset + 1 ] = this._y;
+		// 	array[ offset + 2 ] = this._z;
+		// 	array[ offset + 3 ] = this._w;
+		//
+		// 	return array;
+		//
+		// }
+		//
+		// fromBufferAttribute( attribute, index ) {
+		//
+		// 	this._x = attribute.getX( index );
+		// 	this._y = attribute.getY( index );
+		// 	this._z = attribute.getZ( index );
+		// 	this._w = attribute.getW( index );
+		//
+		// 	return this;
+		//
+		// }
 
-		random() {
-			// Derived from http://planning.cs.uiuc.edu/node198.html
-			// Note, this source uses w, x, y, z ordering,
-			// so we swap the order below.
-
-			const u1 = Math.random();
-			const sqrt1u1 = Math.sqrt(1 - u1);
-			const sqrtu1 = Math.sqrt(u1);
-			const u2 = 2 * Math.PI * Math.random();
-			const u3 = 2 * Math.PI * Math.random();
-			return this.set(sqrt1u1 * Math.cos(u2), sqrtu1 * Math.sin(u3), sqrtu1 * Math.cos(u3), sqrt1u1 * Math.sin(u2));
-		}
-		equals(quaternion) {
-			return quaternion._x === this._x && quaternion._y === this._y && quaternion._z === this._z && quaternion._w === this._w;
-		}
-		fromArray(array, offset = 0) {
-			this._x = array[offset];
-			this._y = array[offset + 1];
-			this._z = array[offset + 2];
-			this._w = array[offset + 3];
-			this._onChangeCallback();
-			return this;
-		}
-		toArray(array = [], offset = 0) {
-			array[offset] = this._x;
-			array[offset + 1] = this._y;
-			array[offset + 2] = this._z;
-			array[offset + 3] = this._w;
-			return array;
-		}
-		fromBufferAttribute(attribute, index) {
-			this._x = attribute.getX(index);
-			this._y = attribute.getY(index);
-			this._z = attribute.getZ(index);
-			this._w = attribute.getW(index);
-			return this;
-		}
 		_onChange(callback) {
 			this._onChangeCallback = callback;
 			return this;
@@ -1093,12 +1086,17 @@
 			this.z = a.z + b.z;
 			return this;
 		}
-		addScaledVector(v, s) {
-			this.x += v.x * s;
-			this.y += v.y * s;
-			this.z += v.z * s;
-			return this;
-		}
+
+		// addScaledVector( v, s ) {
+		//
+		// 	this.x += v.x * s;
+		// 	this.y += v.y * s;
+		// 	this.z += v.z * s;
+		//
+		// 	return this;
+		//
+		// }
+
 		sub(v) {
 			this.x -= v.x;
 			this.y -= v.y;
@@ -1122,12 +1120,17 @@
 			this.z = a.z - b.z;
 			return this;
 		}
-		multiply(v) {
-			this.x *= v.x;
-			this.y *= v.y;
-			this.z *= v.z;
-			return this;
-		}
+
+		// multiply( v ) {
+		//
+		// 	this.x *= v.x;
+		// 	this.y *= v.y;
+		// 	this.z *= v.z;
+		//
+		// 	return this;
+		//
+		// }
+
 		multiplyScalar(scalar) {
 			this.x *= scalar;
 			this.y *= scalar;
@@ -1258,14 +1261,18 @@
 			this.z = Math.max(this.z, v.z);
 			return this;
 		}
-		clamp(min, max) {
-			// assumes min < max, componentwise
-
-			this.x = Math.max(min.x, Math.min(max.x, this.x));
-			this.y = Math.max(min.y, Math.min(max.y, this.y));
-			this.z = Math.max(min.z, Math.min(max.z, this.z));
-			return this;
-		}
+		//
+		// clamp( min, max ) {
+		//
+		// 	// assumes min < max, componentwise
+		//
+		// 	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
+		// 	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
+		// 	this.z = Math.max( min.z, Math.min( max.z, this.z ) );
+		//
+		// 	return this;
+		//
+		// }
 		//
 		// clampScalar( minVal, maxVal ) {
 		//
@@ -1284,13 +1291,16 @@
 		// 	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
 		//
 		// }
-
-		floor() {
-			this.x = Math.floor(this.x);
-			this.y = Math.floor(this.y);
-			this.z = Math.floor(this.z);
-			return this;
-		}
+		//
+		// floor() {
+		//
+		// 	this.x = Math.floor( this.x );
+		// 	this.y = Math.floor( this.y );
+		// 	this.z = Math.floor( this.z );
+		//
+		// 	return this;
+		//
+		// }
 
 		// ceil() {
 		//
@@ -1302,12 +1312,15 @@
 		//
 		// }
 
-		round() {
-			this.x = Math.round(this.x);
-			this.y = Math.round(this.y);
-			this.z = Math.round(this.z);
-			return this;
-		}
+		// round() {
+		//
+		// 	this.x = Math.round( this.x );
+		// 	this.y = Math.round( this.y );
+		// 	this.z = Math.round( this.z );
+		//
+		// 	return this;
+		//
+		// }
 
 		// roundToZero() {
 		//
@@ -1318,19 +1331,23 @@
 		// 	return this;
 		//
 		// }
-
-		negate() {
-			this.x = -this.x;
-			this.y = -this.y;
-			this.z = -this.z;
-			return this;
-		}
+		//
+		// negate() {
+		//
+		// 	this.x = - this.x;
+		// 	this.y = - this.y;
+		// 	this.z = - this.z;
+		//
+		// 	return this;
+		//
+		// }
+		//
 		dot(v) {
 			return this.x * v.x + this.y * v.y + this.z * v.z;
 		}
-
-		// TODO lengthSquared?
-
+		//
+		// // TODO lengthSquared?
+		//
 		lengthSq() {
 			return this.x * this.x + this.y * this.y + this.z * this.z;
 		}
@@ -1505,9 +1522,11 @@
 		//
 		// }
 
-		setFromMatrixColumn(m, index) {
-			return this.fromArray(m.elements, index * 4);
-		}
+		// setFromMatrixColumn( m, index ) {
+		//
+		// 	return this.fromArray( m.elements, index * 4 );
+		//
+		// }
 		//
 		// setFromMatrix3Column( m, index ) {
 		//
@@ -1525,15 +1544,22 @@
 		//
 		// }
 
-		equals(v) {
-			return v.x === this.x && v.y === this.y && v.z === this.z;
-		}
-		fromArray(array, offset = 0) {
-			this.x = array[offset];
-			this.y = array[offset + 1];
-			this.z = array[offset + 2];
-			return this;
-		}
+		// equals( v ) {
+		//
+		// 	return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
+		//
+		// }
+		//
+		// fromArray( array, offset = 0 ) {
+		//
+		// 	this.x = array[ offset ];
+		// 	this.y = array[ offset + 1 ];
+		// 	this.z = array[ offset + 2 ];
+		//
+		// 	return this;
+		//
+		// }
+
 		toArray(array = [], offset = 0) {
 			array[offset] = this.x;
 			array[offset + 1] = this.y;
@@ -1546,12 +1572,16 @@
 			this.z = attribute.getZ(index);
 			return this;
 		}
-		random() {
-			this.x = Math.random();
-			this.y = Math.random();
-			this.z = Math.random();
-			return this;
-		}
+
+		// random() {
+		//
+		// 	this.x = Math.random();
+		// 	this.y = Math.random();
+		// 	this.z = Math.random();
+		//
+		// 	return this;
+		//
+		// }
 
 		// randomDirection() {
 		//
@@ -1583,11 +1613,15 @@
 			this.min = min;
 			this.max = max;
 		}
-		set(min, max) {
-			this.min.copy(min);
-			this.max.copy(max);
-			return this;
-		}
+
+		// set( min, max ) {
+		//
+		// 	this.min.copy( min );
+		// 	this.max.copy( max );
+		//
+		// 	return this;
+		//
+		// }
 
 		// setFromArray( array ) {
 		//
@@ -1667,9 +1701,13 @@
 			this.makeEmpty();
 			return this.expandByObject(object, precise);
 		}
-		clone() {
-			return new this.constructor().copy(this);
-		}
+		//
+		// clone() {
+		//
+		// 	return new this.constructor().copy( this );
+		//
+		// }
+
 		copy(box) {
 			this.min.copy(box.min);
 			this.max.copy(box.max);
@@ -1727,8 +1765,8 @@
 				if (precise && geometry.attributes != undefined && geometry.attributes.position !== undefined) {
 					const position = geometry.attributes.position;
 					for (let i = 0, l = position.count; i < l; i++) {
-						_vector$4.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
-						this.expandByPoint(_vector$4);
+						_vector$3.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
+						this.expandByPoint(_vector$3);
 					}
 				} else {
 					if (geometry.boundingBox === null) {
@@ -1762,12 +1800,18 @@
 		//
 		// }
 
-		getParameter(point, target) {
-			// This can potentially have a divide by zero if the box
-			// has a size dimension of 0.
-
-			return target.set((point.x - this.min.x) / (this.max.x - this.min.x), (point.y - this.min.y) / (this.max.y - this.min.y), (point.z - this.min.z) / (this.max.z - this.min.z));
-		}
+		// getParameter( point, target ) {
+		//
+		// 	// This can potentially have a divide by zero if the box
+		// 	// has a size dimension of 0.
+		//
+		// 	return target.set(
+		// 		( point.x - this.min.x ) / ( this.max.x - this.min.x ),
+		// 		( point.y - this.min.y ) / ( this.max.y - this.min.y ),
+		// 		( point.z - this.min.z ) / ( this.max.z - this.min.z )
+		// 	);
+		//
+		// }
 
 		// intersectsBox( box ) {
 		//
@@ -1956,27 +2000,31 @@
 		//
 		// }
 
-		equals(box) {
-			return box.min.equals(this.min) && box.max.equals(this.max);
-		}
+		// equals( box ) {
+		//
+		// 	return box.min.equals( this.min ) && box.max.equals( this.max );
+		//
+		// }
 	}
+
 	const _points = [/*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3()];
-	const _vector$4 = /*@__PURE__*/new Vector3();
+	const _vector$3 = /*@__PURE__*/new Vector3();
 	const _box$2 = /*@__PURE__*/new Box3();
-
-	const _v1$2 = /*@__PURE__*/new Vector3();
-
 
 	class Sphere {
 		constructor(center = new Vector3(), radius = -1) {
 			this.center = center;
 			this.radius = radius;
 		}
-		set(center, radius) {
-			this.center.copy(center);
-			this.radius = radius;
-			return this;
-		}
+
+		// set( center, radius ) {
+		//
+		// 	this.center.copy( center );
+		// 	this.radius = radius;
+		//
+		// 	return this;
+		//
+		// }
 
 		// setFromPoints( points, optionalCenter ) {
 		//
@@ -2108,25 +2156,40 @@
 		// 	return this;
 		//
 		// }
-
-		expandByPoint(point) {
-			if (this.isEmpty()) {
-				this.center.copy(point);
-				this.radius = 0;
-				return this;
-			}
-			_v1$2.subVectors(point, this.center);
-			const lengthSq = _v1$2.lengthSq();
-			if (lengthSq > this.radius * this.radius) {
-				// calculate the minimal sphere
-
-				const length = Math.sqrt(lengthSq);
-				const delta = (length - this.radius) * 0.5;
-				this.center.addScaledVector(_v1$2, delta / length);
-				this.radius += delta;
-			}
-			return this;
-		}
+		//
+		// expandByPoint( point ) {
+		//
+		// 	if ( this.isEmpty() ) {
+		//
+		// 		this.center.copy( point );
+		//
+		// 		this.radius = 0;
+		//
+		// 		return this;
+		//
+		// 	}
+		//
+		// 	_v1.subVectors( point, this.center );
+		//
+		// 	const lengthSq = _v1.lengthSq();
+		//
+		// 	if ( lengthSq > ( this.radius * this.radius ) ) {
+		//
+		// 		// calculate the minimal sphere
+		//
+		// 		const length = Math.sqrt( lengthSq );
+		//
+		// 		const delta = ( length - this.radius ) * 0.5;
+		//
+		// 		this.center.addScaledVector( _v1, delta / length );
+		//
+		// 		this.radius += delta;
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
 
 		// union( sphere ) {
 		//
@@ -2190,11 +2253,16 @@
 			this.normal = normal;
 			this.constant = constant;
 		}
-		set(normal, constant) {
-			this.normal.copy(normal);
-			this.constant = constant;
-			return this;
-		}
+
+		// set( normal, constant ) {
+		//
+		// 	this.normal.copy( normal );
+		// 	this.constant = constant;
+		//
+		// 	return this;
+		//
+		// }
+
 		setComponents(x, y, z, w) {
 			this.normal.set(x, y, z);
 			this.constant = w;
@@ -2369,16 +2437,21 @@
 		constructor(p0 = new Plane(), p1 = new Plane(), p2 = new Plane(), p3 = new Plane(), p4 = new Plane(), p5 = new Plane()) {
 			this.planes = [p0, p1, p2, p3, p4, p5];
 		}
-		set(p0, p1, p2, p3, p4, p5) {
-			const planes = this.planes;
-			planes[0].copy(p0);
-			planes[1].copy(p1);
-			planes[2].copy(p2);
-			planes[3].copy(p3);
-			planes[4].copy(p4);
-			planes[5].copy(p5);
-			return this;
-		}
+
+		// set( p0, p1, p2, p3, p4, p5 ) {
+		//
+		// 	const planes = this.planes;
+		//
+		// 	planes[ 0 ].copy( p0 );
+		// 	planes[ 1 ].copy( p1 );
+		// 	planes[ 2 ].copy( p2 );
+		// 	planes[ 3 ].copy( p3 );
+		// 	planes[ 4 ].copy( p4 );
+		// 	planes[ 5 ].copy( p5 );
+		//
+		// 	return this;
+		//
+		// }
 
 		// copy( frustum ) {
 		//
@@ -2427,12 +2500,17 @@
 			_sphere$1.copy(geometry.boundingSphere).applyMatrix4(object.matrixWorld);
 			return this.intersectsSphere(_sphere$1);
 		}
-		intersectsSprite(sprite) {
-			_sphere$1.center.set(0, 0, 0);
-			_sphere$1.radius = 0.7071067811865476;
-			_sphere$1.applyMatrix4(sprite.matrixWorld);
-			return this.intersectsSphere(_sphere$1);
-		}
+
+		// intersectsSprite( sprite ) {
+		//
+		// 	_sphere.center.set( 0, 0, 0 );
+		// 	_sphere.radius = 0.7071067811865476;
+		// 	_sphere.applyMatrix4( sprite.matrixWorld );
+		//
+		// 	return this.intersectsSphere( _sphere );
+		//
+		// }
+
 		intersectsSphere(sphere) {
 			const planes = this.planes;
 			const center = sphere.center;
@@ -2537,10 +2615,13 @@
 		// 	return this;
 		//
 		// }
+		//
+		// clone() {
+		//
+		// 	return new Matrix4().fromArray( this.elements );
+		//
+		// }
 
-		clone() {
-			return new Matrix4().fromArray(this.elements);
-		}
 		copy(m) {
 			const te = this.elements;
 			const me = m.elements;
@@ -2562,14 +2643,18 @@
 			te[15] = me[15];
 			return this;
 		}
-		copyPosition(m) {
-			const te = this.elements,
-				me = m.elements;
-			te[12] = me[12];
-			te[13] = me[13];
-			te[14] = me[14];
-			return this;
-		}
+
+		// copyPosition( m ) {
+		//
+		// 	const te = this.elements, me = m.elements;
+		//
+		// 	te[ 12 ] = me[ 12 ];
+		// 	te[ 13 ] = me[ 13 ];
+		// 	te[ 14 ] = me[ 14 ];
+		//
+		// 	return this;
+		//
+		// }
 
 		// setFromMatrix3( m ) {
 		//
@@ -2611,32 +2696,40 @@
 		//
 		// }
 
-		extractRotation(m) {
-			// this method does not support reflection matrices
-
-			const te = this.elements;
-			const me = m.elements;
-			const scaleX = 1 / _v1$1.setFromMatrixColumn(m, 0).length();
-			const scaleY = 1 / _v1$1.setFromMatrixColumn(m, 1).length();
-			const scaleZ = 1 / _v1$1.setFromMatrixColumn(m, 2).length();
-			te[0] = me[0] * scaleX;
-			te[1] = me[1] * scaleX;
-			te[2] = me[2] * scaleX;
-			te[3] = 0;
-			te[4] = me[4] * scaleY;
-			te[5] = me[5] * scaleY;
-			te[6] = me[6] * scaleY;
-			te[7] = 0;
-			te[8] = me[8] * scaleZ;
-			te[9] = me[9] * scaleZ;
-			te[10] = me[10] * scaleZ;
-			te[11] = 0;
-			te[12] = 0;
-			te[13] = 0;
-			te[14] = 0;
-			te[15] = 1;
-			return this;
-		}
+		// extractRotation( m ) {
+		//
+		// 	// this method does not support reflection matrices
+		//
+		// 	const te = this.elements;
+		// 	const me = m.elements;
+		//
+		// 	const scaleX = 1 / _v1.setFromMatrixColumn( m, 0 ).length();
+		// 	const scaleY = 1 / _v1.setFromMatrixColumn( m, 1 ).length();
+		// 	const scaleZ = 1 / _v1.setFromMatrixColumn( m, 2 ).length();
+		//
+		// 	te[ 0 ] = me[ 0 ] * scaleX;
+		// 	te[ 1 ] = me[ 1 ] * scaleX;
+		// 	te[ 2 ] = me[ 2 ] * scaleX;
+		// 	te[ 3 ] = 0;
+		//
+		// 	te[ 4 ] = me[ 4 ] * scaleY;
+		// 	te[ 5 ] = me[ 5 ] * scaleY;
+		// 	te[ 6 ] = me[ 6 ] * scaleY;
+		// 	te[ 7 ] = 0;
+		//
+		// 	te[ 8 ] = me[ 8 ] * scaleZ;
+		// 	te[ 9 ] = me[ 9 ] * scaleZ;
+		// 	te[ 10 ] = me[ 10 ] * scaleZ;
+		// 	te[ 11 ] = 0;
+		//
+		// 	te[ 12 ] = 0;
+		// 	te[ 13 ] = 0;
+		// 	te[ 14 ] = 0;
+		// 	te[ 15 ] = 1;
+		//
+		// 	return this;
+		//
+		// }
 
 		// makeRotationFromEuler( euler ) {
 		//
@@ -2800,9 +2893,13 @@
 		multiply(m) {
 			return this.multiplyMatrices(this, m);
 		}
-		premultiply(m) {
-			return this.multiplyMatrices(m, this);
-		}
+
+		// premultiply( m ) {
+		//
+		// 	return this.multiplyMatrices( m, this );
+		//
+		// }
+
 		multiplyMatrices(a, b) {
 			const ae = a.elements;
 			const be = b.elements;
@@ -2857,26 +2954,20 @@
 			te[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
 			return this;
 		}
-		multiplyScalar(s) {
-			const te = this.elements;
-			te[0] *= s;
-			te[4] *= s;
-			te[8] *= s;
-			te[12] *= s;
-			te[1] *= s;
-			te[5] *= s;
-			te[9] *= s;
-			te[13] *= s;
-			te[2] *= s;
-			te[6] *= s;
-			te[10] *= s;
-			te[14] *= s;
-			te[3] *= s;
-			te[7] *= s;
-			te[11] *= s;
-			te[15] *= s;
-			return this;
-		}
+
+		// multiplyScalar( s ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	te[ 0 ] *= s; te[ 4 ] *= s; te[ 8 ] *= s; te[ 12 ] *= s;
+		// 	te[ 1 ] *= s; te[ 5 ] *= s; te[ 9 ] *= s; te[ 13 ] *= s;
+		// 	te[ 2 ] *= s; te[ 6 ] *= s; te[ 10 ] *= s; te[ 14 ] *= s;
+		// 	te[ 3 ] *= s; te[ 7 ] *= s; te[ 11 ] *= s; te[ 15 ] *= s;
+		//
+		// 	return this;
+		//
+		// }
+
 		determinant() {
 			const te = this.elements;
 			const n11 = te[0],
@@ -2985,25 +3076,21 @@
 			te[15] = (n12 * n23 * n31 - n13 * n22 * n31 + n13 * n21 * n32 - n11 * n23 * n32 - n12 * n21 * n33 + n11 * n22 * n33) * detInv;
 			return this;
 		}
-		scale(v) {
-			const te = this.elements;
-			const x = v.x,
-				y = v.y,
-				z = v.z;
-			te[0] *= x;
-			te[4] *= y;
-			te[8] *= z;
-			te[1] *= x;
-			te[5] *= y;
-			te[9] *= z;
-			te[2] *= x;
-			te[6] *= y;
-			te[10] *= z;
-			te[3] *= x;
-			te[7] *= y;
-			te[11] *= z;
-			return this;
-		}
+
+		// scale( v ) {
+		//
+		// 	const te = this.elements;
+		// 	const x = v.x, y = v.y, z = v.z;
+		//
+		// 	te[ 0 ] *= x; te[ 4 ] *= y; te[ 8 ] *= z;
+		// 	te[ 1 ] *= x; te[ 5 ] *= y; te[ 9 ] *= z;
+		// 	te[ 2 ] *= x; te[ 6 ] *= y; te[ 10 ] *= z;
+		// 	te[ 3 ] *= x; te[ 7 ] *= y; te[ 11 ] *= z;
+		//
+		// 	return this;
+		//
+		// }
+
 		getMaxScaleOnAxis() {
 			const te = this.elements;
 			const scaleXSq = te[0] * te[0] + te[1] * te[1] + te[2] * te[2];
@@ -3011,10 +3098,21 @@
 			const scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10];
 			return Math.sqrt(Math.max(scaleXSq, scaleYSq, scaleZSq));
 		}
-		makeTranslation(x, y, z) {
-			this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1);
-			return this;
-		}
+
+		// makeTranslation( x, y, z ) {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, 0, x,
+		// 		0, 1, 0, y,
+		// 		0, 0, 1, z,
+		// 		0, 0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
 
 		// makeRotationX( theta ) {
 		//
@@ -3090,10 +3188,20 @@
 		//
 		// }
 
-		makeScale(x, y, z) {
-			this.set(x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1);
-			return this;
-		}
+		// makeScale( x, y, z ) {
+		//
+		// 	this.set(
+		//
+		// 		x, 0, 0, 0,
+		// 		0, y, 0, 0,
+		// 		0, 0, z, 0,
+		// 		0, 0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
 
 		// makeShear( xy, xz, yx, yz, zx, zy ) {
 		//
@@ -3149,39 +3257,52 @@
 			te[15] = 1;
 			return this;
 		}
-		decompose(position, quaternion, scale) {
-			const te = this.elements;
-			let sx = _v1$1.set(te[0], te[1], te[2]).length();
-			const sy = _v1$1.set(te[4], te[5], te[6]).length();
-			const sz = _v1$1.set(te[8], te[9], te[10]).length();
 
-			// if determine is negative, we need to invert one scale
-			const det = this.determinant();
-			if (det < 0) sx = -sx;
-			position.x = te[12];
-			position.y = te[13];
-			position.z = te[14];
+		// decompose( position, quaternion, scale ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	let sx = _v1.set( te[ 0 ], te[ 1 ], te[ 2 ] ).length();
+		// 	const sy = _v1.set( te[ 4 ], te[ 5 ], te[ 6 ] ).length();
+		// 	const sz = _v1.set( te[ 8 ], te[ 9 ], te[ 10 ] ).length();
+		//
+		// 	// if determine is negative, we need to invert one scale
+		// 	const det = this.determinant();
+		// 	if ( det < 0 ) sx = - sx;
+		//
+		// 	position.x = te[ 12 ];
+		// 	position.y = te[ 13 ];
+		// 	position.z = te[ 14 ];
+		//
+		// 	// scale the rotation part
+		// 	_m1.copy( this );
+		//
+		// 	const invSX = 1 / sx;
+		// 	const invSY = 1 / sy;
+		// 	const invSZ = 1 / sz;
+		//
+		// 	_m1.elements[ 0 ] *= invSX;
+		// 	_m1.elements[ 1 ] *= invSX;
+		// 	_m1.elements[ 2 ] *= invSX;
+		//
+		// 	_m1.elements[ 4 ] *= invSY;
+		// 	_m1.elements[ 5 ] *= invSY;
+		// 	_m1.elements[ 6 ] *= invSY;
+		//
+		// 	_m1.elements[ 8 ] *= invSZ;
+		// 	_m1.elements[ 9 ] *= invSZ;
+		// 	_m1.elements[ 10 ] *= invSZ;
+		//
+		// 	quaternion.setFromRotationMatrix( _m1 );
+		//
+		// 	scale.x = sx;
+		// 	scale.y = sy;
+		// 	scale.z = sz;
+		//
+		// 	return this;
+		//
+		// }
 
-			// scale the rotation part
-			_m1$2.copy(this);
-			const invSX = 1 / sx;
-			const invSY = 1 / sy;
-			const invSZ = 1 / sz;
-			_m1$2.elements[0] *= invSX;
-			_m1$2.elements[1] *= invSX;
-			_m1$2.elements[2] *= invSX;
-			_m1$2.elements[4] *= invSY;
-			_m1$2.elements[5] *= invSY;
-			_m1$2.elements[6] *= invSY;
-			_m1$2.elements[8] *= invSZ;
-			_m1$2.elements[9] *= invSZ;
-			_m1$2.elements[10] *= invSZ;
-			quaternion.setFromRotationMatrix(_m1$2);
-			scale.x = sx;
-			scale.y = sy;
-			scale.z = sz;
-			return this;
-		}
 		makePerspective(left, right, top, bottom, near, far) {
 			const te = this.elements;
 			const x = 2 * near / (right - left);
@@ -3234,20 +3355,34 @@
 			te[15] = 1;
 			return this;
 		}
-		equals(matrix) {
-			const te = this.elements;
-			const me = matrix.elements;
-			for (let i = 0; i < 16; i++) {
-				if (te[i] !== me[i]) return false;
-			}
-			return true;
-		}
-		fromArray(array, offset = 0) {
-			for (let i = 0; i < 16; i++) {
-				this.elements[i] = array[i + offset];
-			}
-			return this;
-		}
+
+		// equals( matrix ) {
+		//
+		// 	const te = this.elements;
+		// 	const me = matrix.elements;
+		//
+		// 	for ( let i = 0; i < 16; i ++ ) {
+		//
+		// 		if ( te[ i ] !== me[ i ] ) return false;
+		//
+		// 	}
+		//
+		// 	return true;
+		//
+		// }
+		//
+		// fromArray( array, offset = 0 ) {
+		//
+		// 	for ( let i = 0; i < 16; i ++ ) {
+		//
+		// 		this.elements[ i ] = array[ i + offset ];
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+
 		toArray(array = [], offset = 0) {
 			const te = this.elements;
 			array[offset] = te[0];
@@ -3269,8 +3404,6 @@
 			return array;
 		}
 	}
-	const _v1$1 = /*@__PURE__*/new Vector3();
-	const _m1$2 = /*@__PURE__*/new Matrix4();
 	const _zero = /*@__PURE__*/new Vector3(0, 0, 0);
 	const _one = /*@__PURE__*/new Vector3(1, 1, 1);
 	const _x = /*@__PURE__*/new Vector3();
@@ -3283,15 +3416,23 @@
 			this.x = x;
 			this.y = y;
 		}
-		get width() {
-			return this.x;
-		}
+
+		// get width() {
+		//
+		// 	return this.x;
+		//
+		// }
+
 		set width(value) {
 			this.x = value;
 		}
-		get height() {
-			return this.y;
-		}
+
+		// get height() {
+		//
+		// 	return this.y;
+		//
+		// }
+
 		set height(value) {
 			this.y = value;
 		}
@@ -3360,11 +3501,15 @@
 			this.y = v.y;
 			return this;
 		}
-		add(v) {
-			this.x += v.x;
-			this.y += v.y;
-			return this;
-		}
+
+		// add( v ) {
+		//
+		// 	this.x += v.x;
+		// 	this.y += v.y;
+		//
+		// 	return this;
+		//
+		// }
 		//
 		// addScalar( s ) {
 		//
@@ -3374,22 +3519,30 @@
 		// 	return this;
 		//
 		// }
+		//
+		// addVectors( a, b ) {
+		//
+		// 	this.x = a.x + b.x;
+		// 	this.y = a.y + b.y;
+		//
+		// 	return this;
+		//
+		// }
 
-		addVectors(a, b) {
-			this.x = a.x + b.x;
-			this.y = a.y + b.y;
-			return this;
-		}
 		addScaledVector(v, s) {
 			this.x += v.x * s;
 			this.y += v.y * s;
 			return this;
 		}
-		sub(v) {
-			this.x -= v.x;
-			this.y -= v.y;
-			return this;
-		}
+		//
+		// sub( v ) {
+		//
+		// 	this.x -= v.x;
+		// 	this.y -= v.y;
+		//
+		// 	return this;
+		//
+		// }
 
 		// subScalar( s ) {
 		//
@@ -3399,22 +3552,30 @@
 		// 	return this;
 		//
 		// }
+		//
+		// subVectors( a, b ) {
+		//
+		// 	this.x = a.x - b.x;
+		// 	this.y = a.y - b.y;
+		//
+		// 	return this;
+		//
+		// }
 
-		subVectors(a, b) {
-			this.x = a.x - b.x;
-			this.y = a.y - b.y;
-			return this;
-		}
 		multiply(v) {
 			this.x *= v.x;
 			this.y *= v.y;
 			return this;
 		}
-		multiplyScalar(scalar) {
-			this.x *= scalar;
-			this.y *= scalar;
-			return this;
-		}
+		//
+		// multiplyScalar( scalar ) {
+		//
+		// 	this.x *= scalar;
+		// 	this.y *= scalar;
+		//
+		// 	return this;
+		//
+		// }
 
 		// divide( v ) {
 		//
@@ -3424,10 +3585,12 @@
 		// 	return this;
 		//
 		// }
-
-		divideScalar(scalar) {
-			return this.multiplyScalar(1 / scalar);
-		}
+		//
+		// divideScalar( scalar ) {
+		//
+		// 	return this.multiplyScalar( 1 / scalar );
+		//
+		// }
 		//
 		// applyMatrix3( m ) {
 		//
@@ -3440,24 +3603,35 @@
 		// 	return this;
 		//
 		// }
-
-		min(v) {
-			this.x = Math.min(this.x, v.x);
-			this.y = Math.min(this.y, v.y);
-			return this;
-		}
-		max(v) {
-			this.x = Math.max(this.x, v.x);
-			this.y = Math.max(this.y, v.y);
-			return this;
-		}
-		clamp(min, max) {
-			// assumes min < max, componentwise
-
-			this.x = Math.max(min.x, Math.min(max.x, this.x));
-			this.y = Math.max(min.y, Math.min(max.y, this.y));
-			return this;
-		}
+		//
+		// min( v ) {
+		//
+		// 	this.x = Math.min( this.x, v.x );
+		// 	this.y = Math.min( this.y, v.y );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// max( v ) {
+		//
+		// 	this.x = Math.max( this.x, v.x );
+		// 	this.y = Math.max( this.y, v.y );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// clamp( min, max ) {
+		//
+		// 	// assumes min < max, componentwise
+		//
+		// 	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
+		// 	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
+		//
+		// 	return this;
+		//
+		// }
 
 		// clampScalar( minVal, maxVal ) {
 		//
@@ -3475,12 +3649,15 @@
 		// 	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
 		//
 		// }
-
-		floor() {
-			this.x = Math.floor(this.x);
-			this.y = Math.floor(this.y);
-			return this;
-		}
+		//
+		// floor() {
+		//
+		// 	this.x = Math.floor( this.x );
+		// 	this.y = Math.floor( this.y );
+		//
+		// 	return this;
+		//
+		// }
 
 		// ceil() {
 		//
@@ -3490,12 +3667,15 @@
 		// 	return this;
 		//
 		// }
-
-		round() {
-			this.x = Math.round(this.x);
-			this.y = Math.round(this.y);
-			return this;
-		}
+		//
+		// round() {
+		//
+		// 	this.x = Math.round( this.x );
+		// 	this.y = Math.round( this.y );
+		//
+		// 	return this;
+		//
+		// }
 
 		// roundToZero() {
 		//
@@ -3505,48 +3685,74 @@
 		// 	return this;
 		//
 		// }
-
-		negate() {
-			this.x = -this.x;
-			this.y = -this.y;
-			return this;
-		}
-		dot(v) {
-			return this.x * v.x + this.y * v.y;
-		}
-		cross(v) {
-			return this.x * v.y - this.y * v.x;
-		}
-		lengthSq() {
-			return this.x * this.x + this.y * this.y;
-		}
-		length() {
-			return Math.sqrt(this.x * this.x + this.y * this.y);
-		}
+		//
+		// negate() {
+		//
+		// 	this.x = - this.x;
+		// 	this.y = - this.y;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// dot( v ) {
+		//
+		// 	return this.x * v.x + this.y * v.y;
+		//
+		// }
+		//
+		// cross( v ) {
+		//
+		// 	return this.x * v.y - this.y * v.x;
+		//
+		// }
+		//
+		// lengthSq() {
+		//
+		// 	return this.x * this.x + this.y * this.y;
+		//
+		// }
+		//
+		// length() {
+		//
+		// 	return Math.sqrt( this.x * this.x + this.y * this.y );
+		//
+		// }
 
 		// manhattanLength() {
 		//
 		// 	return Math.abs( this.x ) + Math.abs( this.y );
 		//
 		// }
-
-		normalize() {
-			return this.divideScalar(this.length() || 1);
-		}
-		angle() {
-			// computes the angle in radians with respect to the positive x-axis
-
-			const angle = Math.atan2(-this.y, -this.x) + Math.PI;
-			return angle;
-		}
-		distanceTo(v) {
-			return Math.sqrt(this.distanceToSquared(v));
-		}
-		distanceToSquared(v) {
-			const dx = this.x - v.x,
-				dy = this.y - v.y;
-			return dx * dx + dy * dy;
-		}
+		//
+		// normalize() {
+		//
+		// 	return this.divideScalar( this.length() || 1 );
+		//
+		// }
+		//
+		// angle() {
+		//
+		// 	// computes the angle in radians with respect to the positive x-axis
+		//
+		// 	const angle = Math.atan2( - this.y, - this.x ) + Math.PI;
+		//
+		// 	return angle;
+		//
+		// }
+		//
+		// distanceTo( v ) {
+		//
+		// 	return Math.sqrt( this.distanceToSquared( v ) );
+		//
+		// }
+		//
+		// distanceToSquared( v ) {
+		//
+		// 	const dx = this.x - v.x, dy = this.y - v.y;
+		// 	return dx * dx + dy * dy;
+		//
+		// }
 		//
 		// manhattanDistanceTo( v ) {
 		//
@@ -3577,20 +3783,31 @@
 		// 	return this;
 		//
 		// }
+		//
+		// equals( v ) {
+		//
+		// 	return ( ( v.x === this.x ) && ( v.y === this.y ) );
+		//
+		// }
+		//
+		// fromArray( array, offset = 0 ) {
+		//
+		// 	this.x = array[ offset ];
+		// 	this.y = array[ offset + 1 ];
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	array[ offset ] = this.x;
+		// 	array[ offset + 1 ] = this.y;
+		//
+		// 	return array;
+		//
+		// }
 
-		equals(v) {
-			return v.x === this.x && v.y === this.y;
-		}
-		fromArray(array, offset = 0) {
-			this.x = array[offset];
-			this.y = array[offset + 1];
-			return this;
-		}
-		toArray(array = [], offset = 0) {
-			array[offset] = this.x;
-			array[offset + 1] = this.y;
-			return array;
-		}
 		fromBufferAttribute(attribute, index) {
 			this.x = attribute.getX(index);
 			this.y = attribute.getY(index);
@@ -3610,12 +3827,16 @@
 		// 	return this;
 		//
 		// }
+		//
+		// random() {
+		//
+		// 	this.x = Math.random();
+		// 	this.y = Math.random();
+		//
+		// 	return this;
+		//
+		// }
 
-		random() {
-			this.x = Math.random();
-			this.y = Math.random();
-			return this;
-		}
 		*[Symbol.iterator]() {
 			yield this.x;
 			yield this.y;
@@ -3630,18 +3851,31 @@
 			this.z = z;
 			this.w = w;
 		}
-		get width() {
-			return this.z;
-		}
-		set width(value) {
-			this.z = value;
-		}
-		get height() {
-			return this.w;
-		}
-		set height(value) {
-			this.w = value;
-		}
+		//
+		// get width() {
+		//
+		// 	return this.z;
+		//
+		// }
+		//
+		// set width( value ) {
+		//
+		// 	this.z = value;
+		//
+		// }
+		//
+		// get height() {
+		//
+		// 	return this.w;
+		//
+		// }
+		//
+		// set height( value ) {
+		//
+		// 	this.w = value;
+		//
+		// }
+
 		set(x, y, z, w) {
 			this.x = x;
 			this.y = y;
@@ -3722,10 +3956,13 @@
 		// 	}
 		//
 		// }
+		//
+		// clone() {
+		//
+		// 	return new this.constructor( this.x, this.y, this.z, this.w );
+		//
+		// }
 
-		clone() {
-			return new this.constructor(this.x, this.y, this.z, this.w);
-		}
 		copy(v) {
 			this.x = v.x;
 			this.y = v.y;
@@ -3733,13 +3970,17 @@
 			this.w = v.w !== undefined ? v.w : 1;
 			return this;
 		}
-		add(v) {
-			this.x += v.x;
-			this.y += v.y;
-			this.z += v.z;
-			this.w += v.w;
-			return this;
-		}
+		//
+		// add( v ) {
+		//
+		// 	this.x += v.x;
+		// 	this.y += v.y;
+		// 	this.z += v.z;
+		// 	this.w += v.w;
+		//
+		// 	return this;
+		//
+		// }
 
 		// addScalar( s ) {
 		//
@@ -3751,28 +3992,39 @@
 		// 	return this;
 		//
 		// }
-
-		addVectors(a, b) {
-			this.x = a.x + b.x;
-			this.y = a.y + b.y;
-			this.z = a.z + b.z;
-			this.w = a.w + b.w;
-			return this;
-		}
-		addScaledVector(v, s) {
-			this.x += v.x * s;
-			this.y += v.y * s;
-			this.z += v.z * s;
-			this.w += v.w * s;
-			return this;
-		}
-		sub(v) {
-			this.x -= v.x;
-			this.y -= v.y;
-			this.z -= v.z;
-			this.w -= v.w;
-			return this;
-		}
+		//
+		// addVectors( a, b ) {
+		//
+		// 	this.x = a.x + b.x;
+		// 	this.y = a.y + b.y;
+		// 	this.z = a.z + b.z;
+		// 	this.w = a.w + b.w;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// addScaledVector( v, s ) {
+		//
+		// 	this.x += v.x * s;
+		// 	this.y += v.y * s;
+		// 	this.z += v.z * s;
+		// 	this.w += v.w * s;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// sub( v ) {
+		//
+		// 	this.x -= v.x;
+		// 	this.y -= v.y;
+		// 	this.z -= v.z;
+		// 	this.w -= v.w;
+		//
+		// 	return this;
+		//
+		// }
 		//
 		// subScalar( s ) {
 		//
@@ -3784,21 +4036,29 @@
 		// 	return this;
 		//
 		// }
+		//
+		// subVectors( a, b ) {
+		//
+		// 	this.x = a.x - b.x;
+		// 	this.y = a.y - b.y;
+		// 	this.z = a.z - b.z;
+		// 	this.w = a.w - b.w;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// multiply( v ) {
+		//
+		// 	this.x *= v.x;
+		// 	this.y *= v.y;
+		// 	this.z *= v.z;
+		// 	this.w *= v.w;
+		//
+		// 	return this;
+		//
+		// }
 
-		subVectors(a, b) {
-			this.x = a.x - b.x;
-			this.y = a.y - b.y;
-			this.z = a.z - b.z;
-			this.w = a.w - b.w;
-			return this;
-		}
-		multiply(v) {
-			this.x *= v.x;
-			this.y *= v.y;
-			this.z *= v.z;
-			this.w *= v.w;
-			return this;
-		}
 		multiplyScalar(scalar) {
 			this.x *= scalar;
 			this.y *= scalar;
@@ -3806,21 +4066,26 @@
 			this.w *= scalar;
 			return this;
 		}
-		applyMatrix4(m) {
-			const x = this.x,
-				y = this.y,
-				z = this.z,
-				w = this.w;
-			const e = m.elements;
-			this.x = e[0] * x + e[4] * y + e[8] * z + e[12] * w;
-			this.y = e[1] * x + e[5] * y + e[9] * z + e[13] * w;
-			this.z = e[2] * x + e[6] * y + e[10] * z + e[14] * w;
-			this.w = e[3] * x + e[7] * y + e[11] * z + e[15] * w;
-			return this;
-		}
-		divideScalar(scalar) {
-			return this.multiplyScalar(1 / scalar);
-		}
+
+		// applyMatrix4( m ) {
+		//
+		// 	const x = this.x, y = this.y, z = this.z, w = this.w;
+		// 	const e = m.elements;
+		//
+		// 	this.x = e[ 0 ] * x + e[ 4 ] * y + e[ 8 ] * z + e[ 12 ] * w;
+		// 	this.y = e[ 1 ] * x + e[ 5 ] * y + e[ 9 ] * z + e[ 13 ] * w;
+		// 	this.z = e[ 2 ] * x + e[ 6 ] * y + e[ 10 ] * z + e[ 14 ] * w;
+		// 	this.w = e[ 3 ] * x + e[ 7 ] * y + e[ 11 ] * z + e[ 15 ] * w;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// divideScalar( scalar ) {
+		//
+		// 	return this.multiplyScalar( 1 / scalar );
+		//
+		// }
 
 		// setAxisAngleFromQuaternion( q ) {
 		//
@@ -3979,30 +4244,41 @@
 		// 	return this;
 		//
 		// }
-
-		min(v) {
-			this.x = Math.min(this.x, v.x);
-			this.y = Math.min(this.y, v.y);
-			this.z = Math.min(this.z, v.z);
-			this.w = Math.min(this.w, v.w);
-			return this;
-		}
-		max(v) {
-			this.x = Math.max(this.x, v.x);
-			this.y = Math.max(this.y, v.y);
-			this.z = Math.max(this.z, v.z);
-			this.w = Math.max(this.w, v.w);
-			return this;
-		}
-		clamp(min, max) {
-			// assumes min < max, componentwise
-
-			this.x = Math.max(min.x, Math.min(max.x, this.x));
-			this.y = Math.max(min.y, Math.min(max.y, this.y));
-			this.z = Math.max(min.z, Math.min(max.z, this.z));
-			this.w = Math.max(min.w, Math.min(max.w, this.w));
-			return this;
-		}
+		//
+		// min( v ) {
+		//
+		// 	this.x = Math.min( this.x, v.x );
+		// 	this.y = Math.min( this.y, v.y );
+		// 	this.z = Math.min( this.z, v.z );
+		// 	this.w = Math.min( this.w, v.w );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// max( v ) {
+		//
+		// 	this.x = Math.max( this.x, v.x );
+		// 	this.y = Math.max( this.y, v.y );
+		// 	this.z = Math.max( this.z, v.z );
+		// 	this.w = Math.max( this.w, v.w );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// clamp( min, max ) {
+		//
+		// 	// assumes min < max, componentwise
+		//
+		// 	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
+		// 	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
+		// 	this.z = Math.max( min.z, Math.min( max.z, this.z ) );
+		// 	this.w = Math.max( min.w, Math.min( max.w, this.w ) );
+		//
+		// 	return this;
+		//
+		// }
 		//
 		// clampScalar( minVal, maxVal ) {
 		//
@@ -4041,14 +4317,17 @@
 		// 	return this;
 		//
 		// }
-
-		round() {
-			this.x = Math.round(this.x);
-			this.y = Math.round(this.y);
-			this.z = Math.round(this.z);
-			this.w = Math.round(this.w);
-			return this;
-		}
+		//
+		// round() {
+		//
+		// 	this.x = Math.round( this.x );
+		// 	this.y = Math.round( this.y );
+		// 	this.z = Math.round( this.z );
+		// 	this.w = Math.round( this.w );
+		//
+		// 	return this;
+		//
+		// }
 
 		// roundToZero() {
 		//
@@ -4060,33 +4339,47 @@
 		// 	return this;
 		//
 		// }
-
-		negate() {
-			this.x = -this.x;
-			this.y = -this.y;
-			this.z = -this.z;
-			this.w = -this.w;
-			return this;
-		}
-		dot(v) {
-			return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w;
-		}
-		lengthSq() {
-			return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
-		}
-		length() {
-			return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w);
-		}
+		//
+		// negate() {
+		//
+		// 	this.x = - this.x;
+		// 	this.y = - this.y;
+		// 	this.z = - this.z;
+		// 	this.w = - this.w;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// dot( v ) {
+		//
+		// 	return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w;
+		//
+		// }
+		//
+		// lengthSq() {
+		//
+		// 	return this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w;
+		//
+		// }
+		//
+		// length() {
+		//
+		// 	return Math.sqrt( this.x * this.x + this.y * this.y + this.z * this.z + this.w * this.w );
+		//
+		// }
 
 		// manhattanLength() {
 		//
 		// 	return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z ) + Math.abs( this.w );
 		//
 		// }
-
-		normalize() {
-			return this.divideScalar(this.length() || 1);
-		}
+		//
+		// normalize() {
+		//
+		// 	return this.divideScalar( this.length() || 1 );
+		//
+		// }
 		//
 		// setLength( length ) {
 		//
@@ -4126,27 +4419,40 @@
 			this.w = array[offset + 3];
 			return this;
 		}
-		toArray(array = [], offset = 0) {
-			array[offset] = this.x;
-			array[offset + 1] = this.y;
-			array[offset + 2] = this.z;
-			array[offset + 3] = this.w;
-			return array;
-		}
-		fromBufferAttribute(attribute, index) {
-			this.x = attribute.getX(index);
-			this.y = attribute.getY(index);
-			this.z = attribute.getZ(index);
-			this.w = attribute.getW(index);
-			return this;
-		}
-		random() {
-			this.x = Math.random();
-			this.y = Math.random();
-			this.z = Math.random();
-			this.w = Math.random();
-			return this;
-		}
+		//
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	array[ offset ] = this.x;
+		// 	array[ offset + 1 ] = this.y;
+		// 	array[ offset + 2 ] = this.z;
+		// 	array[ offset + 3 ] = this.w;
+		//
+		// 	return array;
+		//
+		// }
+		//
+		// fromBufferAttribute( attribute, index ) {
+		//
+		// 	this.x = attribute.getX( index );
+		// 	this.y = attribute.getY( index );
+		// 	this.z = attribute.getZ( index );
+		// 	this.w = attribute.getW( index );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// random() {
+		//
+		// 	this.x = Math.random();
+		// 	this.y = Math.random();
+		// 	this.z = Math.random();
+		// 	this.w = Math.random();
+		//
+		// 	return this;
+		//
+		// }
+
 		*[Symbol.iterator]() {
 			yield this.x;
 			yield this.y;
@@ -4311,9 +4617,6 @@
 		}
 	}
 
-	const _vector$3 = /*@__PURE__*/new Vector3();
-
-
 	class BufferAttribute {
 		constructor(array, itemSize, normalized = false) {
 			if (Array.isArray(array)) {
@@ -4346,17 +4649,21 @@
 		// 	return this;
 		//
 		// }
-
-		copy(source) {
-			this.name = source.name;
-			this.array = new source.array.constructor(source.array);
-			this.itemSize = source.itemSize;
-			this.count = source.count;
-			this.normalized = source.normalized;
-			this.usage = source.usage;
-			return this;
-		}
-
+		//
+		// copy( source ) {
+		//
+		// 	this.name = source.name;
+		// 	this.array = new source.array.constructor( source.array );
+		// 	this.itemSize = source.itemSize;
+		// 	this.count = source.count;
+		// 	this.normalized = source.normalized;
+		//
+		// 	this.usage = source.usage;
+		//
+		// 	return this;
+		//
+		// }
+		//
 		// copyAt( index1, attribute, index2 ) {
 		//
 		// 	index1 *= this.itemSize;
@@ -4409,16 +4716,23 @@
 		// 	return this;
 		//
 		// }
-
-		applyMatrix4(m) {
-			for (let i = 0, l = this.count; i < l; i++) {
-				_vector$3.fromBufferAttribute(this, i);
-				_vector$3.applyMatrix4(m);
-				this.setXYZ(i, _vector$3.x, _vector$3.y, _vector$3.z);
-			}
-			return this;
-		}
-
+		//
+		// applyMatrix4( m ) {
+		//
+		// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+		//
+		// 		_vector.fromBufferAttribute( this, i );
+		//
+		// 		_vector.applyMatrix4( m );
+		//
+		// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+		//
 		// applyNormalMatrix( m ) {
 		//
 		// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
@@ -4434,20 +4748,32 @@
 		// 	return this;
 		//
 		// }
+		//
+		// transformDirection( m ) {
+		//
+		// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+		//
+		// 		_vector.fromBufferAttribute( this, i );
+		//
+		// 		_vector.transformDirection( m );
+		//
+		// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+		//
+		// 	}
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// set( value, offset = 0 ) {
+		//
+		// 	// Matching BufferAttribute constructor, do not normalize the array.
+		// 	this.array.set( value, offset );
+		//
+		// 	return this;
+		//
+		// }
 
-		transformDirection(m) {
-			for (let i = 0, l = this.count; i < l; i++) {
-				_vector$3.fromBufferAttribute(this, i);
-				_vector$3.transformDirection(m);
-				this.setXYZ(i, _vector$3.x, _vector$3.y, _vector$3.z);
-			}
-			return this;
-		}
-		set(value, offset = 0) {
-			// Matching BufferAttribute constructor, do not normalize the array.
-			this.array.set(value, offset);
-			return this;
-		}
 		getX(index) {
 			let x = this.array[index * this.itemSize];
 			if (this.normalized) x = denormalize(x, this.array);
@@ -4569,10 +4895,12 @@
 		// 	return this;
 		//
 		// }
-
-		clone() {
-			return new this.constructor(this.array, this.itemSize).copy(this);
-		}
+		//
+		// clone() {
+		//
+		// 	return new this.constructor( this.array, this.itemSize ).copy( this );
+		//
+		// }
 
 		// toJSON() {
 
@@ -4713,27 +5041,44 @@
 			this._z = z;
 			this._order = order;
 		}
-		get x() {
-			return this._x;
-		}
-		set x(value) {
-			this._x = value;
-			this._onChangeCallback();
-		}
-		get y() {
-			return this._y;
-		}
+		//
+		// get x() {
+		//
+		// 	return this._x;
+		//
+		// }
+		//
+		// set x( value ) {
+		//
+		// 	this._x = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+		//
+		// get y() {
+		//
+		// 	return this._y;
+		//
+		// }
+
 		set y(value) {
 			this._y = value;
 			this._onChangeCallback();
 		}
-		get z() {
-			return this._z;
-		}
-		set z(value) {
-			this._z = value;
-			this._onChangeCallback();
-		}
+		//
+		// get z() {
+		//
+		// 	return this._z;
+		//
+		// }
+		//
+		// set z( value ) {
+		//
+		// 	this._z = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
 		get order() {
 			return this._order;
 		}
@@ -4749,17 +5094,26 @@
 			this._onChangeCallback();
 			return this;
 		}
-		clone() {
-			return new this.constructor(this._x, this._y, this._z, this._order);
-		}
-		copy(euler) {
-			this._x = euler._x;
-			this._y = euler._y;
-			this._z = euler._z;
-			this._order = euler._order;
-			this._onChangeCallback();
-			return this;
-		}
+
+		// clone() {
+		//
+		// 	return new this.constructor( this._x, this._y, this._z, this._order );
+		//
+		// }
+		//
+		// copy( euler ) {
+		//
+		// 	this._x = euler._x;
+		// 	this._y = euler._y;
+		// 	this._z = euler._z;
+		// 	this._order = euler._order;
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+
 		setFromRotationMatrix(m, order = this._order, update = true) {
 			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
 
@@ -4861,25 +5215,37 @@
 		// 	return this.setFromQuaternion( _quaternion, newOrder );
 		//
 		// }
+		//
+		// equals( euler ) {
+		//
+		// 	return ( euler._x === this._x ) && ( euler._y === this._y ) && ( euler._z === this._z ) && ( euler._order === this._order );
+		//
+		// }
+		//
+		// fromArray( array ) {
+		//
+		// 	this._x = array[ 0 ];
+		// 	this._y = array[ 1 ];
+		// 	this._z = array[ 2 ];
+		// 	if ( array[ 3 ] !== undefined ) this._order = array[ 3 ];
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	array[ offset ] = this._x;
+		// 	array[ offset + 1 ] = this._y;
+		// 	array[ offset + 2 ] = this._z;
+		// 	array[ offset + 3 ] = this._order;
+		//
+		// 	return array;
+		//
+		// }
 
-		equals(euler) {
-			return euler._x === this._x && euler._y === this._y && euler._z === this._z && euler._order === this._order;
-		}
-		fromArray(array) {
-			this._x = array[0];
-			this._y = array[1];
-			this._z = array[2];
-			if (array[3] !== undefined) this._order = array[3];
-			this._onChangeCallback();
-			return this;
-		}
-		toArray(array = [], offset = 0) {
-			array[offset] = this._x;
-			array[offset + 1] = this._y;
-			array[offset + 2] = this._z;
-			array[offset + 3] = this._order;
-			return array;
-		}
 		_onChange(callback) {
 			this._onChangeCallback = callback;
 			return this;
@@ -4908,25 +5274,35 @@
 		constructor() {
 			this.mask = 1 | 0;
 		}
-		set(channel) {
-			this.mask = (1 << channel | 0) >>> 0;
-		}
+
+		// set( channel ) {
+		//
+		// 	this.mask = ( 1 << channel | 0 ) >>> 0;
+		//
+		// }
+
 		enable(channel) {
 			this.mask |= 1 << channel | 0;
 		}
-		enableAll() {
-			this.mask = 0xffffffff | 0;
-		}
-
+		//
+		// enableAll() {
+		//
+		// 	this.mask = 0xffffffff | 0;
+		//
+		// }
+		//
 		// toggle( channel ) {
 		//
 		// 	this.mask ^= 1 << channel | 0;
 		//
 		// }
+		//
+		// disable( channel ) {
+		//
+		// 	this.mask &= ~ ( 1 << channel | 0 );
+		//
+		// }
 
-		disable(channel) {
-			this.mask &= ~(1 << channel | 0);
-		}
 		disableAll() {
 			this.mask = 0;
 		}
@@ -5004,58 +5380,60 @@
 			this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10]);
 			return this;
 		}
-		multiply(m) {
-			return this.multiplyMatrices(this, m);
-		}
-		premultiply(m) {
-			return this.multiplyMatrices(m, this);
-		}
-		multiplyMatrices(a, b) {
-			const ae = a.elements;
-			const be = b.elements;
-			const te = this.elements;
-			const a11 = ae[0],
-				a12 = ae[3],
-				a13 = ae[6];
-			const a21 = ae[1],
-				a22 = ae[4],
-				a23 = ae[7];
-			const a31 = ae[2],
-				a32 = ae[5],
-				a33 = ae[8];
-			const b11 = be[0],
-				b12 = be[3],
-				b13 = be[6];
-			const b21 = be[1],
-				b22 = be[4],
-				b23 = be[7];
-			const b31 = be[2],
-				b32 = be[5],
-				b33 = be[8];
-			te[0] = a11 * b11 + a12 * b21 + a13 * b31;
-			te[3] = a11 * b12 + a12 * b22 + a13 * b32;
-			te[6] = a11 * b13 + a12 * b23 + a13 * b33;
-			te[1] = a21 * b11 + a22 * b21 + a23 * b31;
-			te[4] = a21 * b12 + a22 * b22 + a23 * b32;
-			te[7] = a21 * b13 + a22 * b23 + a23 * b33;
-			te[2] = a31 * b11 + a32 * b21 + a33 * b31;
-			te[5] = a31 * b12 + a32 * b22 + a33 * b32;
-			te[8] = a31 * b13 + a32 * b23 + a33 * b33;
-			return this;
-		}
-		multiplyScalar(s) {
-			const te = this.elements;
-			te[0] *= s;
-			te[3] *= s;
-			te[6] *= s;
-			te[1] *= s;
-			te[4] *= s;
-			te[7] *= s;
-			te[2] *= s;
-			te[5] *= s;
-			te[8] *= s;
-			return this;
-		}
+		//
+		// multiply( m ) {
+		//
+		// 	return this.multiplyMatrices( this, m );
+		//
+		// }
+		//
+		// premultiply( m ) {
+		//
+		// 	return this.multiplyMatrices( m, this );
+		//
+		// }
+		//
+		// multiplyMatrices( a, b ) {
+		//
+		// 	const ae = a.elements;
+		// 	const be = b.elements;
+		// 	const te = this.elements;
+		//
+		// 	const a11 = ae[ 0 ], a12 = ae[ 3 ], a13 = ae[ 6 ];
+		// 	const a21 = ae[ 1 ], a22 = ae[ 4 ], a23 = ae[ 7 ];
+		// 	const a31 = ae[ 2 ], a32 = ae[ 5 ], a33 = ae[ 8 ];
+		//
+		// 	const b11 = be[ 0 ], b12 = be[ 3 ], b13 = be[ 6 ];
+		// 	const b21 = be[ 1 ], b22 = be[ 4 ], b23 = be[ 7 ];
+		// 	const b31 = be[ 2 ], b32 = be[ 5 ], b33 = be[ 8 ];
+		//
+		// 	te[ 0 ] = a11 * b11 + a12 * b21 + a13 * b31;
+		// 	te[ 3 ] = a11 * b12 + a12 * b22 + a13 * b32;
+		// 	te[ 6 ] = a11 * b13 + a12 * b23 + a13 * b33;
+		//
+		// 	te[ 1 ] = a21 * b11 + a22 * b21 + a23 * b31;
+		// 	te[ 4 ] = a21 * b12 + a22 * b22 + a23 * b32;
+		// 	te[ 7 ] = a21 * b13 + a22 * b23 + a23 * b33;
+		//
+		// 	te[ 2 ] = a31 * b11 + a32 * b21 + a33 * b31;
+		// 	te[ 5 ] = a31 * b12 + a32 * b22 + a33 * b32;
+		// 	te[ 8 ] = a31 * b13 + a32 * b23 + a33 * b33;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// multiplyScalar( s ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	te[ 0 ] *= s; te[ 3 ] *= s; te[ 6 ] *= s;
+		// 	te[ 1 ] *= s; te[ 4 ] *= s; te[ 7 ] *= s;
+		// 	te[ 2 ] *= s; te[ 5 ] *= s; te[ 8 ] *= s;
+		//
+		// 	return this;
+		//
+		// }
 
 		// determinant() {
 		//
@@ -5141,11 +5519,14 @@
 		}
 
 		//
-
-		scale(sx, sy) {
-			this.premultiply(_m3.makeScale(sx, sy));
-			return this;
-		}
+		//
+		// scale( sx, sy ) {
+		//
+		// 	this.premultiply( _m3.makeScale( sx, sy ) );
+		//
+		// 	return this;
+		//
+		// }
 
 		// rotate( theta ) {
 		//
@@ -5197,46 +5578,69 @@
 		// 	return this;
 		//
 		// }
-
-		makeScale(x, y) {
-			this.set(x, 0, 0, 0, y, 0, 0, 0, 1);
-			return this;
-		}
-
 		//
+		// makeScale( x, y ) {
+		//
+		// 	this.set(
+		//
+		// 		x, 0, 0,
+		// 		0, y, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		//
+		//
+		// equals( matrix ) {
+		//
+		// 	const te = this.elements;
+		// 	const me = matrix.elements;
+		//
+		// 	for ( let i = 0; i < 9; i ++ ) {
+		//
+		// 		if ( te[ i ] !== me[ i ] ) return false;
+		//
+		// 	}
+		//
+		// 	return true;
+		//
+		// }
 
-		equals(matrix) {
-			const te = this.elements;
-			const me = matrix.elements;
-			for (let i = 0; i < 9; i++) {
-				if (te[i] !== me[i]) return false;
-			}
-			return true;
-		}
 		fromArray(array, offset = 0) {
 			for (let i = 0; i < 9; i++) {
 				this.elements[i] = array[i + offset];
 			}
 			return this;
 		}
-		toArray(array = [], offset = 0) {
-			const te = this.elements;
-			array[offset] = te[0];
-			array[offset + 1] = te[1];
-			array[offset + 2] = te[2];
-			array[offset + 3] = te[3];
-			array[offset + 4] = te[4];
-			array[offset + 5] = te[5];
-			array[offset + 6] = te[6];
-			array[offset + 7] = te[7];
-			array[offset + 8] = te[8];
-			return array;
-		}
+
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	array[ offset ] = te[ 0 ];
+		// 	array[ offset + 1 ] = te[ 1 ];
+		// 	array[ offset + 2 ] = te[ 2 ];
+		//
+		// 	array[ offset + 3 ] = te[ 3 ];
+		// 	array[ offset + 4 ] = te[ 4 ];
+		// 	array[ offset + 5 ] = te[ 5 ];
+		//
+		// 	array[ offset + 6 ] = te[ 6 ];
+		// 	array[ offset + 7 ] = te[ 7 ];
+		// 	array[ offset + 8 ] = te[ 8 ];
+		//
+		// 	return array;
+		//
+		// }
+
 		clone() {
 			return new this.constructor().fromArray(this.elements);
 		}
 	}
-	const _m3 = /*@__PURE__*/new Matrix3();
 
 	let _object3DId = 0;
 
@@ -5329,12 +5733,17 @@
 		}
 		onBeforeRender( /* renderer, scene, camera, geometry, material, group */) {}
 		onAfterRender( /* renderer, scene, camera, geometry, material, group */) {}
-		applyMatrix4(matrix) {
-			if (this.matrixAutoUpdate) this.updateMatrix();
-			this.matrix.premultiply(matrix);
-			this.matrix.decompose(this.position, this.quaternion, this.scale);
-		}
 
+		// applyMatrix4( matrix ) {
+		//
+		// 	if ( this.matrixAutoUpdate ) this.updateMatrix();
+		//
+		// 	this.matrix.premultiply( matrix );
+		//
+		// 	this.matrix.decompose( this.position, this.quaternion, this.scale );
+		//
+		// }
+		//
 		// applyQuaternion( q ) {
 		//
 		// 	this.quaternion.premultiply( q );
@@ -5536,17 +5945,26 @@
 		// 	return this;
 		//
 		// }
-
-		clear() {
-			for (let i = 0; i < this.children.length; i++) {
-				const object = this.children[i];
-				object.parent = null;
-				object.dispatchEvent(_removedEvent);
-			}
-			this.children.length = 0;
-			return this;
-		}
-
+		//
+		// clear() {
+		//
+		// 	for ( let i = 0; i < this.children.length; i ++ ) {
+		//
+		// 		const object = this.children[ i ];
+		//
+		// 		object.parent = null;
+		//
+		// 		object.dispatchEvent( _removedEvent );
+		//
+		// 	}
+		//
+		// 	this.children.length = 0;
+		//
+		// 	return this;
+		//
+		//
+		// }
+		//
 		// attach( object ) {
 		//
 		// 	// adds object as a child of this, while maintaining the object's world transform
@@ -5669,13 +6087,20 @@
 		// }
 
 		raycast( /* raycaster, intersects */) {}
-		traverse(callback) {
-			callback(this);
-			const children = this.children;
-			for (let i = 0, l = children.length; i < l; i++) {
-				children[i].traverse(callback);
-			}
-		}
+
+		// traverse( callback ) {
+		//
+		// 	callback( this );
+		//
+		// 	const children = this.children;
+		//
+		// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
+		//
+		// 		children[ i ].traverse( callback );
+		//
+		// 	}
+		//
+		// }
 		//
 		// traverseVisible( callback ) {
 		//
@@ -7817,8 +8242,7 @@
 			return LinearSRGBColorSpace;
 		},
 		set workingColorSpace(colorSpace) {
-
-			// console.warn( 'THREE.ColorManagement: .workingColorSpace is readonly.' );
+			console.warn('THREE.ColorManagement: .workingColorSpace is readonly.');
 		},
 		convert: function (color, sourceColorSpace, targetColorSpace) {
 			if (this.legacyMode || sourceColorSpace === targetColorSpace || !sourceColorSpace || !targetColorSpace) {
@@ -11434,6 +11858,8 @@
 	Texture.DEFAULT_MAPPING = UVMapping;
 	Texture.DEFAULT_ANISOTROPY = 1;
 
+	// import { Source } from '../textures/Source.js';
+
 	/*
 	 In options, we can specify:
 	 * Texture parameters for an auto-generated target texture
@@ -11465,40 +11891,61 @@
 			this.depthTexture = options.depthTexture !== undefined ? options.depthTexture : null;
 			this.samples = options.samples !== undefined ? options.samples : 0;
 		}
-		setSize(width, height, depth = 1) {
-			if (this.width !== width || this.height !== height || this.depth !== depth) {
-				this.width = width;
-				this.height = height;
-				this.depth = depth;
-				this.texture.image.width = width;
-				this.texture.image.height = height;
-				this.texture.image.depth = depth;
-				this.dispose();
-			}
-			this.viewport.set(0, 0, width, height);
-			this.scissor.set(0, 0, width, height);
-		}
-		clone() {
-			return new this.constructor().copy(this);
-		}
-		copy(source) {
-			this.width = source.width;
-			this.height = source.height;
-			this.depth = source.depth;
-			this.viewport.copy(source.viewport);
-			this.texture = source.texture.clone();
-			this.texture.isRenderTargetTexture = true;
 
-			// ensure image object is not shared, see #20328
+		// setSize( width, height, depth = 1 ) {
+		//
+		// 	if ( this.width !== width || this.height !== height || this.depth !== depth ) {
+		//
+		// 		this.width = width;
+		// 		this.height = height;
+		// 		this.depth = depth;
+		//
+		// 		this.texture.image.width = width;
+		// 		this.texture.image.height = height;
+		// 		this.texture.image.depth = depth;
+		//
+		// 		this.dispose();
+		//
+		// 	}
+		//
+		// 	this.viewport.set( 0, 0, width, height );
+		// 	this.scissor.set( 0, 0, width, height );
+		//
+		// }
 
-			const image = Object.assign({}, source.texture.image);
-			this.texture.source = new Source(image);
-			this.depthBuffer = source.depthBuffer;
-			this.stencilBuffer = source.stencilBuffer;
-			if (source.depthTexture !== null) this.depthTexture = source.depthTexture.clone();
-			this.samples = source.samples;
-			return this;
-		}
+		// clone() {
+		//
+		// 	return new this.constructor().copy( this );
+		//
+		// }
+
+		// copy( source ) {
+		//
+		// 	this.width = source.width;
+		// 	this.height = source.height;
+		// 	this.depth = source.depth;
+		//
+		// 	this.viewport.copy( source.viewport );
+		//
+		// 	this.texture = source.texture.clone();
+		// 	this.texture.isRenderTargetTexture = true;
+		//
+		// 	// ensure image object is not shared, see #20328
+		//
+		// 	const image = Object.assign( {}, source.texture.image );
+		// 	this.texture.source = new Source( image );
+		//
+		// 	this.depthBuffer = source.depthBuffer;
+		// 	this.stencilBuffer = source.stencilBuffer;
+		//
+		// 	if ( source.depthTexture !== null ) this.depthTexture = source.depthTexture.clone();
+		//
+		// 	this.samples = source.samples;
+		//
+		// 	return this;
+		//
+		// }
+
 		dispose() {
 			this.dispatchEvent({
 				type: 'dispose'
@@ -11515,13 +11962,19 @@
 			this.projectionMatrix = new Matrix4();
 			this.projectionMatrixInverse = new Matrix4();
 		}
-		copy(source, recursive) {
-			super.copy(source, recursive);
-			this.matrixWorldInverse.copy(source.matrixWorldInverse);
-			this.projectionMatrix.copy(source.projectionMatrix);
-			this.projectionMatrixInverse.copy(source.projectionMatrixInverse);
-			return this;
-		}
+		//
+		// copy( source, recursive ) {
+		//
+		// 	super.copy( source, recursive );
+		//
+		// 	this.matrixWorldInverse.copy( source.matrixWorldInverse );
+		//
+		// 	this.projectionMatrix.copy( source.projectionMatrix );
+		// 	this.projectionMatrixInverse.copy( source.projectionMatrixInverse );
+		//
+		// 	return this;
+		//
+		// }
 
 		// getWorldDirection( target ) {
 		//
@@ -11541,9 +11994,12 @@
 			super.updateWorldMatrix(updateParents, updateChildren);
 			this.matrixWorldInverse.copy(this.matrixWorld).invert();
 		}
-		clone() {
-			return new this.constructor().copy(this);
-		}
+
+		// clone() {
+		//
+		// 	return new this.constructor().copy( this );
+		//
+		// }
 	}
 
 	class PerspectiveCamera extends Camera {
@@ -14851,8 +15307,8 @@
 		function getProgramCacheKeyParameters(array, parameters) {
 			array.push(parameters.precision);
 			array.push(parameters.outputEncoding);
-			array.push(parameters.envMapMode);
-			array.push(parameters.envMapCubeUVHeight);
+			// array.push( parameters.envMapMode );
+			// array.push( parameters.envMapCubeUVHeight );
 			array.push(parameters.combine);
 			array.push(parameters.vertexUvs);
 			array.push(parameters.fogExp2);
@@ -14883,7 +15339,8 @@
 			if (parameters.instancingColor) _programLayers.enable(3);
 			if (parameters.map) _programLayers.enable(4);
 			if (parameters.matcap) _programLayers.enable(5);
-			if (parameters.envMap) _programLayers.enable(6);
+			// if ( parameters.envMap )
+			// 	_programLayers.enable( 6 );
 			if (parameters.lightMap) _programLayers.enable(7);
 			if (parameters.aoMap) _programLayers.enable(8);
 			if (parameters.emissiveMap) _programLayers.enable(9);
@@ -16280,6 +16737,11 @@
 			}
 			return false;
 		}
+
+		/**
+			@param {WebGLRenderTarget} renderTarget
+			@param {object} framebuffer
+		 */
 		function drawBuffers(renderTarget, framebuffer) {
 			let drawBuffers = defaultDrawbuffers;
 			let needsUpdate = false;
@@ -16644,6 +17106,31 @@
 				currentViewport.copy(viewport);
 			}
 		}
+
+		// function updateUBOMapping( uniformsGroup, program ) {
+		//
+		// 	let mapping = uboProgramMap.get( program );
+		//
+		// 	if ( mapping === undefined ) {
+		//
+		// 		mapping = new WeakMap();
+		//
+		// 		uboProgramMap.set( program, mapping );
+		//
+		// 	}
+		//
+		// 	let blockIndex = mapping.get( uniformsGroup );
+		//
+		// 	if ( blockIndex === undefined ) {
+		//
+		// 		blockIndex = gl.getUniformBlockIndex( program, uniformsGroup.name );
+		//
+		// 		mapping.set( uniformsGroup, blockIndex );
+		//
+		// 	}
+		//
+		// }
+
 		function uniformBlockBinding(uniformsGroup, program) {
 			const mapping = uboProgramMap.get(program);
 			const blockIndex = mapping.get(uniformsGroup);
@@ -20584,11 +21071,12 @@
 		constructor(manager) {
 			this.manager = manager !== undefined ? manager : DefaultLoadingManager;
 			this.crossOrigin = 'anonymous';
-			this.withCredentials = false;
+			// this.withCredentials = false;
 			this.path = '';
 			// this.resourcePath = '';
-			this.requestHeader = {};
+			// this.requestHeader = {};
 		}
+
 		load( /* url, onLoad, onProgress, onError */) {}
 
 		// loadAsync( url, onProgress ) {
@@ -21606,7 +22094,8 @@
 
 	class Curve {
 		constructor() {
-			this.type = 'Curve';
+
+			// this.type = 'Curve';
 
 			// this.arcLengthDivisions = 200;
 		}
@@ -21616,8 +22105,9 @@
 
 		getPoint( /* t, optionalTarget */
 		) {
-			console.warn('THREE.Curve: .getPoint() not implemented.');
-			return null;
+
+			// console.warn( 'THREE.Curve: .getPoint() not implemented.' );
+			// return null;
 		}
 
 		// Get point at relative position in curve according to arc length
@@ -21975,6 +22465,16 @@
 	 * Bezier Curves formulas obtained from
 	 * https://en.wikipedia.org/wiki/B%C3%A9zier_curve
 	 */
+	//
+	// function CatmullRom( t, p0, p1, p2, p3 ) {
+	//
+	// 	const v0 = ( p2 - p0 ) * 0.5;
+	// 	const v1 = ( p3 - p1 ) * 0.5;
+	// 	const t2 = t * t;
+	// 	const t3 = t * t2;
+	// 	return ( 2 * p1 - 2 * p2 + v0 + v1 ) * t3 + ( - 3 * p1 + 3 * p2 - 2 * v0 - v1 ) * t2 + v0 * t + p1;
+	//
+	// }
 
 	//
 	//

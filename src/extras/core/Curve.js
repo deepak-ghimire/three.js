@@ -37,7 +37,7 @@ class Curve {
 
 	constructor() {
 
-		this.type = 'Curve';
+		// this.type = 'Curve';
 
 		// this.arcLengthDivisions = 200;
 
@@ -48,8 +48,8 @@ class Curve {
 
 	getPoint( /* t, optionalTarget */ ) {
 
-		console.warn( 'THREE.Curve: .getPoint() not implemented.' );
-		return null;
+		// console.warn( 'THREE.Curve: .getPoint() not implemented.' );
+		// return null;
 
 	}
 

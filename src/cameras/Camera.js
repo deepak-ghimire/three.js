@@ -17,19 +17,19 @@ class Camera extends Object3D {
 		this.projectionMatrixInverse = new Matrix4();
 
 	}
-
-	copy( source, recursive ) {
-
-		super.copy( source, recursive );
-
-		this.matrixWorldInverse.copy( source.matrixWorldInverse );
-
-		this.projectionMatrix.copy( source.projectionMatrix );
-		this.projectionMatrixInverse.copy( source.projectionMatrixInverse );
-
-		return this;
-
-	}
+	//
+	// copy( source, recursive ) {
+	//
+	// 	super.copy( source, recursive );
+	//
+	// 	this.matrixWorldInverse.copy( source.matrixWorldInverse );
+	//
+	// 	this.projectionMatrix.copy( source.projectionMatrix );
+	// 	this.projectionMatrixInverse.copy( source.projectionMatrixInverse );
+	//
+	// 	return this;
+	//
+	// }
 
 	// getWorldDirection( target ) {
 	//
@@ -57,11 +57,11 @@ class Camera extends Object3D {
 
 	}
 
-	clone() {
-
-		return new this.constructor().copy( this );
-
-	}
+	// clone() {
+	//
+	// 	return new this.constructor().copy( this );
+	//
+	// }
 
 }
 

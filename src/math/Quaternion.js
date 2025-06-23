@@ -120,12 +120,12 @@ class Quaternion {
 
 	}
 
-	set x( value ) {
-
-		this._x = value;
-		this._onChangeCallback();
-
-	}
+	// set x( value ) {
+	//
+	// 	this._x = value;
+	// 	this._onChangeCallback();
+	//
+	// }
 
 	get y() {
 
@@ -133,12 +133,12 @@ class Quaternion {
 
 	}
 
-	set y( value ) {
-
-		this._y = value;
-		this._onChangeCallback();
-
-	}
+	// set y( value ) {
+	//
+	// 	this._y = value;
+	// 	this._onChangeCallback();
+	//
+	// }
 
 	get z() {
 
@@ -146,12 +146,12 @@ class Quaternion {
 
 	}
 
-	set z( value ) {
-
-		this._z = value;
-		this._onChangeCallback();
-
-	}
+	// set z( value ) {
+	//
+	// 	this._z = value;
+	// 	this._onChangeCallback();
+	//
+	// }
 
 	get w() {
 
@@ -159,31 +159,31 @@ class Quaternion {
 
 	}
 
-	set w( value ) {
-
-		this._w = value;
-		this._onChangeCallback();
-
-	}
-
-	set( x, y, z, w ) {
-
-		this._x = x;
-		this._y = y;
-		this._z = z;
-		this._w = w;
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
-
-	clone() {
-
-		return new this.constructor( this._x, this._y, this._z, this._w );
-
-	}
+	// set w( value ) {
+	//
+	// 	this._w = value;
+	// 	this._onChangeCallback();
+	//
+	// }
+	//
+	// set( x, y, z, w ) {
+	//
+	// 	this._x = x;
+	// 	this._y = y;
+	// 	this._z = z;
+	// 	this._w = w;
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// clone() {
+	//
+	// 	return new this.constructor( this._x, this._y, this._z, this._w );
+	//
+	// }
 
 	copy( quaternion ) {
 
@@ -417,85 +417,85 @@ class Quaternion {
 	// 	return this.set( 0, 0, 0, 1 );
 	//
 	// }
-
-	invert() {
-
-		// quaternion is assumed to have unit length
-
-		return this.conjugate();
-
-	}
-
-	conjugate() {
-
-		this._x *= - 1;
-		this._y *= - 1;
-		this._z *= - 1;
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
-
-	dot( v ) {
-
-		return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
-
-	}
-
-	lengthSq() {
-
-		return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
-
-	}
-
-	length() {
-
-		return Math.sqrt( this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w );
-
-	}
-
-	normalize() {
-
-		let l = this.length();
-
-		if ( l === 0 ) {
-
-			this._x = 0;
-			this._y = 0;
-			this._z = 0;
-			this._w = 1;
-
-		} else {
-
-			l = 1 / l;
-
-			this._x = this._x * l;
-			this._y = this._y * l;
-			this._z = this._z * l;
-			this._w = this._w * l;
-
-		}
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
+	//
+	// invert() {
+	//
+	// 	// quaternion is assumed to have unit length
+	//
+	// 	return this.conjugate();
+	//
+	// }
+	//
+	// conjugate() {
+	//
+	// 	this._x *= - 1;
+	// 	this._y *= - 1;
+	// 	this._z *= - 1;
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// dot( v ) {
+	//
+	// 	return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
+	//
+	// }
+	//
+	// lengthSq() {
+	//
+	// 	return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
+	//
+	// }
+	//
+	// length() {
+	//
+	// 	return Math.sqrt( this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w );
+	//
+	// }
+	//
+	// normalize() {
+	//
+	// 	let l = this.length();
+	//
+	// 	if ( l === 0 ) {
+	//
+	// 		this._x = 0;
+	// 		this._y = 0;
+	// 		this._z = 0;
+	// 		this._w = 1;
+	//
+	// 	} else {
+	//
+	// 		l = 1 / l;
+	//
+	// 		this._x = this._x * l;
+	// 		this._y = this._y * l;
+	// 		this._z = this._z * l;
+	// 		this._w = this._w * l;
+	//
+	// 	}
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
 
 	multiply( q ) {
 
 		return this.multiplyQuaternions( this, q );
 
 	}
-
-	premultiply( q ) {
-
-		return this.multiplyQuaternions( q, this );
-
-	}
-
+	//
+	// premultiply( q ) {
+	//
+	// 	return this.multiplyQuaternions( q, this );
+	//
+	// }
+	//
 	multiplyQuaternions( a, b ) {
 
 		// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
@@ -513,7 +513,7 @@ class Quaternion {
 		return this;
 
 	}
-
+	//
 	// slerp( qb, t ) {
 	//
 	// 	if ( t === 0 ) return this;
@@ -589,70 +589,70 @@ class Quaternion {
 	// 	return this.copy( qa ).slerp( qb, t );
 	//
 	// }
-
-	random() {
-
-		// Derived from http://planning.cs.uiuc.edu/node198.html
-		// Note, this source uses w, x, y, z ordering,
-		// so we swap the order below.
-
-		const u1 = Math.random();
-		const sqrt1u1 = Math.sqrt( 1 - u1 );
-		const sqrtu1 = Math.sqrt( u1 );
-
-		const u2 = 2 * Math.PI * Math.random();
-
-		const u3 = 2 * Math.PI * Math.random();
-
-		return this.set(
-			sqrt1u1 * Math.cos( u2 ),
-			sqrtu1 * Math.sin( u3 ),
-			sqrtu1 * Math.cos( u3 ),
-			sqrt1u1 * Math.sin( u2 ),
-		);
-
-	}
-
-	equals( quaternion ) {
-
-		return ( quaternion._x === this._x ) && ( quaternion._y === this._y ) && ( quaternion._z === this._z ) && ( quaternion._w === this._w );
-
-	}
-
-	fromArray( array, offset = 0 ) {
-
-		this._x = array[ offset ];
-		this._y = array[ offset + 1 ];
-		this._z = array[ offset + 2 ];
-		this._w = array[ offset + 3 ];
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
-
-	toArray( array = [], offset = 0 ) {
-
-		array[ offset ] = this._x;
-		array[ offset + 1 ] = this._y;
-		array[ offset + 2 ] = this._z;
-		array[ offset + 3 ] = this._w;
-
-		return array;
-
-	}
-
-	fromBufferAttribute( attribute, index ) {
-
-		this._x = attribute.getX( index );
-		this._y = attribute.getY( index );
-		this._z = attribute.getZ( index );
-		this._w = attribute.getW( index );
-
-		return this;
-
-	}
+	//
+	// random() {
+	//
+	// 	// Derived from http://planning.cs.uiuc.edu/node198.html
+	// 	// Note, this source uses w, x, y, z ordering,
+	// 	// so we swap the order below.
+	//
+	// 	const u1 = Math.random();
+	// 	const sqrt1u1 = Math.sqrt( 1 - u1 );
+	// 	const sqrtu1 = Math.sqrt( u1 );
+	//
+	// 	const u2 = 2 * Math.PI * Math.random();
+	//
+	// 	const u3 = 2 * Math.PI * Math.random();
+	//
+	// 	return this.set(
+	// 		sqrt1u1 * Math.cos( u2 ),
+	// 		sqrtu1 * Math.sin( u3 ),
+	// 		sqrtu1 * Math.cos( u3 ),
+	// 		sqrt1u1 * Math.sin( u2 ),
+	// 	);
+	//
+	// }
+	//
+	// equals( quaternion ) {
+	//
+	// 	return ( quaternion._x === this._x ) && ( quaternion._y === this._y ) && ( quaternion._z === this._z ) && ( quaternion._w === this._w );
+	//
+	// }
+	//
+	// fromArray( array, offset = 0 ) {
+	//
+	// 	this._x = array[ offset ];
+	// 	this._y = array[ offset + 1 ];
+	// 	this._z = array[ offset + 2 ];
+	// 	this._w = array[ offset + 3 ];
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// toArray( array = [], offset = 0 ) {
+	//
+	// 	array[ offset ] = this._x;
+	// 	array[ offset + 1 ] = this._y;
+	// 	array[ offset + 2 ] = this._z;
+	// 	array[ offset + 3 ] = this._w;
+	//
+	// 	return array;
+	//
+	// }
+	//
+	// fromBufferAttribute( attribute, index ) {
+	//
+	// 	this._x = attribute.getX( index );
+	// 	this._y = attribute.getY( index );
+	// 	this._z = attribute.getZ( index );
+	// 	this._w = attribute.getW( index );
+	//
+	// 	return this;
+	//
+	// }
 
 	_onChange( callback ) {
 

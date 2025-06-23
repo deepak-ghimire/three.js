@@ -133,15 +133,15 @@ class Vector3 {
 
 	}
 
-	addScaledVector( v, s ) {
-
-		this.x += v.x * s;
-		this.y += v.y * s;
-		this.z += v.z * s;
-
-		return this;
-
-	}
+	// addScaledVector( v, s ) {
+	//
+	// 	this.x += v.x * s;
+	// 	this.y += v.y * s;
+	// 	this.z += v.z * s;
+	//
+	// 	return this;
+	//
+	// }
 
 	sub( v ) {
 
@@ -173,15 +173,15 @@ class Vector3 {
 
 	}
 
-	multiply( v ) {
-
-		this.x *= v.x;
-		this.y *= v.y;
-		this.z *= v.z;
-
-		return this;
-
-	}
+	// multiply( v ) {
+	//
+	// 	this.x *= v.x;
+	// 	this.y *= v.y;
+	// 	this.z *= v.z;
+	//
+	// 	return this;
+	//
+	// }
 
 	multiplyScalar( scalar ) {
 
@@ -334,18 +334,18 @@ class Vector3 {
 		return this;
 
 	}
-
-	clamp( min, max ) {
-
-		// assumes min < max, componentwise
-
-		this.x = Math.max( min.x, Math.min( max.x, this.x ) );
-		this.y = Math.max( min.y, Math.min( max.y, this.y ) );
-		this.z = Math.max( min.z, Math.min( max.z, this.z ) );
-
-		return this;
-
-	}
+	//
+	// clamp( min, max ) {
+	//
+	// 	// assumes min < max, componentwise
+	//
+	// 	this.x = Math.max( min.x, Math.min( max.x, this.x ) );
+	// 	this.y = Math.max( min.y, Math.min( max.y, this.y ) );
+	// 	this.z = Math.max( min.z, Math.min( max.z, this.z ) );
+	//
+	// 	return this;
+	//
+	// }
 	//
 	// clampScalar( minVal, maxVal ) {
 	//
@@ -364,16 +364,16 @@ class Vector3 {
 	// 	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
 	//
 	// }
-
-	floor() {
-
-		this.x = Math.floor( this.x );
-		this.y = Math.floor( this.y );
-		this.z = Math.floor( this.z );
-
-		return this;
-
-	}
+	//
+	// floor() {
+	//
+	// 	this.x = Math.floor( this.x );
+	// 	this.y = Math.floor( this.y );
+	// 	this.z = Math.floor( this.z );
+	//
+	// 	return this;
+	//
+	// }
 
 	// ceil() {
 	//
@@ -385,15 +385,15 @@ class Vector3 {
 	//
 	// }
 
-	round() {
-
-		this.x = Math.round( this.x );
-		this.y = Math.round( this.y );
-		this.z = Math.round( this.z );
-
-		return this;
-
-	}
+	// round() {
+	//
+	// 	this.x = Math.round( this.x );
+	// 	this.y = Math.round( this.y );
+	// 	this.z = Math.round( this.z );
+	//
+	// 	return this;
+	//
+	// }
 
 	// roundToZero() {
 	//
@@ -404,25 +404,25 @@ class Vector3 {
 	// 	return this;
 	//
 	// }
-
-	negate() {
-
-		this.x = - this.x;
-		this.y = - this.y;
-		this.z = - this.z;
-
-		return this;
-
-	}
-
+	//
+	// negate() {
+	//
+	// 	this.x = - this.x;
+	// 	this.y = - this.y;
+	// 	this.z = - this.z;
+	//
+	// 	return this;
+	//
+	// }
+	//
 	dot( v ) {
 
 		return this.x * v.x + this.y * v.y + this.z * v.z;
 
 	}
-
-	// TODO lengthSquared?
-
+	//
+	// // TODO lengthSquared?
+	//
 	lengthSq() {
 
 		return this.x * this.x + this.y * this.y + this.z * this.z;
@@ -615,11 +615,11 @@ class Vector3 {
 	//
 	// }
 
-	setFromMatrixColumn( m, index ) {
-
-		return this.fromArray( m.elements, index * 4 );
-
-	}
+	// setFromMatrixColumn( m, index ) {
+	//
+	// 	return this.fromArray( m.elements, index * 4 );
+	//
+	// }
 	//
 	// setFromMatrix3Column( m, index ) {
 	//
@@ -637,21 +637,21 @@ class Vector3 {
 	//
 	// }
 
-	equals( v ) {
-
-		return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
-
-	}
-
-	fromArray( array, offset = 0 ) {
-
-		this.x = array[ offset ];
-		this.y = array[ offset + 1 ];
-		this.z = array[ offset + 2 ];
-
-		return this;
-
-	}
+	// equals( v ) {
+	//
+	// 	return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
+	//
+	// }
+	//
+	// fromArray( array, offset = 0 ) {
+	//
+	// 	this.x = array[ offset ];
+	// 	this.y = array[ offset + 1 ];
+	// 	this.z = array[ offset + 2 ];
+	//
+	// 	return this;
+	//
+	// }
 
 	toArray( array = [], offset = 0 ) {
 
@@ -673,15 +673,15 @@ class Vector3 {
 
 	}
 
-	random() {
-
-		this.x = Math.random();
-		this.y = Math.random();
-		this.z = Math.random();
-
-		return this;
-
-	}
+	// random() {
+	//
+	// 	this.x = Math.random();
+	// 	this.y = Math.random();
+	// 	this.z = Math.random();
+	//
+	// 	return this;
+	//
+	// }
 
 	// randomDirection() {
 	//

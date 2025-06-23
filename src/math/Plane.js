@@ -18,14 +18,14 @@ class Plane {
 
 	}
 
-	set( normal, constant ) {
-
-		this.normal.copy( normal );
-		this.constant = constant;
-
-		return this;
-
-	}
+	// set( normal, constant ) {
+	//
+	// 	this.normal.copy( normal );
+	// 	this.constant = constant;
+	//
+	// 	return this;
+	//
+	// }
 
 	setComponents( x, y, z, w ) {
 

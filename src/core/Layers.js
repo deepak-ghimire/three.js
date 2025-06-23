@@ -6,35 +6,35 @@ class Layers {
 
 	}
 
-	set( channel ) {
-
-		this.mask = ( 1 << channel | 0 ) >>> 0;
-
-	}
+	// set( channel ) {
+	//
+	// 	this.mask = ( 1 << channel | 0 ) >>> 0;
+	//
+	// }
 
 	enable( channel ) {
 
 		this.mask |= 1 << channel | 0;
 
 	}
-
-	enableAll() {
-
-		this.mask = 0xffffffff | 0;
-
-	}
-
+	//
+	// enableAll() {
+	//
+	// 	this.mask = 0xffffffff | 0;
+	//
+	// }
+	//
 	// toggle( channel ) {
 	//
 	// 	this.mask ^= 1 << channel | 0;
 	//
 	// }
-
-	disable( channel ) {
-
-		this.mask &= ~ ( 1 << channel | 0 );
-
-	}
+	//
+	// disable( channel ) {
+	//
+	// 	this.mask &= ~ ( 1 << channel | 0 );
+	//
+	// }
 
 	disableAll() {
 

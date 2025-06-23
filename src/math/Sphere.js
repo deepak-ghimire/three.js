@@ -14,14 +14,14 @@ class Sphere {
 
 	}
 
-	set( center, radius ) {
-
-		this.center.copy( center );
-		this.radius = radius;
-
-		return this;
-
-	}
+	// set( center, radius ) {
+	//
+	// 	this.center.copy( center );
+	// 	this.radius = radius;
+	//
+	// 	return this;
+	//
+	// }
 
 	// setFromPoints( points, optionalCenter ) {
 	//
@@ -157,40 +157,40 @@ class Sphere {
 	// 	return this;
 	//
 	// }
-
-	expandByPoint( point ) {
-
-		if ( this.isEmpty() ) {
-
-			this.center.copy( point );
-
-			this.radius = 0;
-
-			return this;
-
-		}
-
-		_v1.subVectors( point, this.center );
-
-		const lengthSq = _v1.lengthSq();
-
-		if ( lengthSq > ( this.radius * this.radius ) ) {
-
-			// calculate the minimal sphere
-
-			const length = Math.sqrt( lengthSq );
-
-			const delta = ( length - this.radius ) * 0.5;
-
-			this.center.addScaledVector( _v1, delta / length );
-
-			this.radius += delta;
-
-		}
-
-		return this;
-
-	}
+	//
+	// expandByPoint( point ) {
+	//
+	// 	if ( this.isEmpty() ) {
+	//
+	// 		this.center.copy( point );
+	//
+	// 		this.radius = 0;
+	//
+	// 		return this;
+	//
+	// 	}
+	//
+	// 	_v1.subVectors( point, this.center );
+	//
+	// 	const lengthSq = _v1.lengthSq();
+	//
+	// 	if ( lengthSq > ( this.radius * this.radius ) ) {
+	//
+	// 		// calculate the minimal sphere
+	//
+	// 		const length = Math.sqrt( lengthSq );
+	//
+	// 		const delta = ( length - this.radius ) * 0.5;
+	//
+	// 		this.center.addScaledVector( _v1, delta / length );
+	//
+	// 		this.radius += delta;
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	// union( sphere ) {
 	//

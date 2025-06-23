@@ -121,16 +121,16 @@ class Object3D extends EventDispatcher {
 
 	onAfterRender( /* renderer, scene, camera, geometry, material, group */ ) {}
 
-	applyMatrix4( matrix ) {
-
-		if ( this.matrixAutoUpdate ) this.updateMatrix();
-
-		this.matrix.premultiply( matrix );
-
-		this.matrix.decompose( this.position, this.quaternion, this.scale );
-
-	}
-
+	// applyMatrix4( matrix ) {
+	//
+	// 	if ( this.matrixAutoUpdate ) this.updateMatrix();
+	//
+	// 	this.matrix.premultiply( matrix );
+	//
+	// 	this.matrix.decompose( this.position, this.quaternion, this.scale );
+	//
+	// }
+	//
 	// applyQuaternion( q ) {
 	//
 	// 	this.quaternion.premultiply( q );
@@ -389,26 +389,26 @@ class Object3D extends EventDispatcher {
 	// 	return this;
 	//
 	// }
-
-	clear() {
-
-		for ( let i = 0; i < this.children.length; i ++ ) {
-
-			const object = this.children[ i ];
-
-			object.parent = null;
-
-			object.dispatchEvent( _removedEvent );
-
-		}
-
-		this.children.length = 0;
-
-		return this;
-
-
-	}
-
+	//
+	// clear() {
+	//
+	// 	for ( let i = 0; i < this.children.length; i ++ ) {
+	//
+	// 		const object = this.children[ i ];
+	//
+	// 		object.parent = null;
+	//
+	// 		object.dispatchEvent( _removedEvent );
+	//
+	// 	}
+	//
+	// 	this.children.length = 0;
+	//
+	// 	return this;
+	//
+	//
+	// }
+	//
 	// attach( object ) {
 	//
 	// 	// adds object as a child of this, while maintaining the object's world transform
@@ -532,19 +532,19 @@ class Object3D extends EventDispatcher {
 
 	raycast( /* raycaster, intersects */ ) {}
 
-	traverse( callback ) {
-
-		callback( this );
-
-		const children = this.children;
-
-		for ( let i = 0, l = children.length; i < l; i ++ ) {
-
-			children[ i ].traverse( callback );
-
-		}
-
-	}
+	// traverse( callback ) {
+	//
+	// 	callback( this );
+	//
+	// 	const children = this.children;
+	//
+	// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
+	//
+	// 		children[ i ].traverse( callback );
+	//
+	// 	}
+	//
+	// }
 	//
 	// traverseVisible( callback ) {
 	//

@@ -1,5 +1,5 @@
 // import { clamp, euclideanModulo, lerp } from './MathUtils.js';
-import { clamp, lerp } from './MathUtils.js';
+import { clamp } from './MathUtils.js';
 import { ColorManagement, SRGBToLinear, LinearToSRGB } from './ColorManagement.js';
 import { SRGBColorSpace } from '../constants.js';
 

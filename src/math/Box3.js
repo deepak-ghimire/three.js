@@ -11,14 +11,14 @@ class Box3 {
 
 	}
 
-	set( min, max ) {
-
-		this.min.copy( min );
-		this.max.copy( max );
-
-		return this;
-
-	}
+	// set( min, max ) {
+	//
+	// 	this.min.copy( min );
+	// 	this.max.copy( max );
+	//
+	// 	return this;
+	//
+	// }
 
 	// setFromArray( array ) {
 	//
@@ -118,12 +118,12 @@ class Box3 {
 		return this.expandByObject( object, precise );
 
 	}
-
-	clone() {
-
-		return new this.constructor().copy( this );
-
-	}
+	//
+	// clone() {
+	//
+	// 	return new this.constructor().copy( this );
+	//
+	// }
 
 	copy( box ) {
 
@@ -256,18 +256,18 @@ class Box3 {
 	//
 	// }
 
-	getParameter( point, target ) {
-
-		// This can potentially have a divide by zero if the box
-		// has a size dimension of 0.
-
-		return target.set(
-			( point.x - this.min.x ) / ( this.max.x - this.min.x ),
-			( point.y - this.min.y ) / ( this.max.y - this.min.y ),
-			( point.z - this.min.z ) / ( this.max.z - this.min.z )
-		);
-
-	}
+	// getParameter( point, target ) {
+	//
+	// 	// This can potentially have a divide by zero if the box
+	// 	// has a size dimension of 0.
+	//
+	// 	return target.set(
+	// 		( point.x - this.min.x ) / ( this.max.x - this.min.x ),
+	// 		( point.y - this.min.y ) / ( this.max.y - this.min.y ),
+	// 		( point.z - this.min.z ) / ( this.max.z - this.min.z )
+	// 	);
+	//
+	// }
 
 	// intersectsBox( box ) {
 	//
@@ -463,11 +463,11 @@ class Box3 {
 	//
 	// }
 
-	equals( box ) {
-
-		return box.min.equals( this.min ) && box.max.equals( this.max );
-
-	}
+	// equals( box ) {
+	//
+	// 	return box.min.equals( this.min ) && box.max.equals( this.max );
+	//
+	// }
 
 }
 

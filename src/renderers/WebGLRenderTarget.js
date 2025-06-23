@@ -2,7 +2,7 @@ import { EventDispatcher } from '../core/EventDispatcher.js';
 import { Texture } from '../textures/Texture.js';
 import { LinearFilter } from '../constants.js';
 import { Vector4 } from '../math/Vector4.js';
-import { Source } from '../textures/Source.js';
+// import { Source } from '../textures/Source.js';
 
 /*
  In options, we can specify:
@@ -45,59 +45,59 @@ class WebGLRenderTarget extends EventDispatcher {
 
 	}
 
-	setSize( width, height, depth = 1 ) {
+	// setSize( width, height, depth = 1 ) {
+	//
+	// 	if ( this.width !== width || this.height !== height || this.depth !== depth ) {
+	//
+	// 		this.width = width;
+	// 		this.height = height;
+	// 		this.depth = depth;
+	//
+	// 		this.texture.image.width = width;
+	// 		this.texture.image.height = height;
+	// 		this.texture.image.depth = depth;
+	//
+	// 		this.dispose();
+	//
+	// 	}
+	//
+	// 	this.viewport.set( 0, 0, width, height );
+	// 	this.scissor.set( 0, 0, width, height );
+	//
+	// }
 
-		if ( this.width !== width || this.height !== height || this.depth !== depth ) {
+	// clone() {
+	//
+	// 	return new this.constructor().copy( this );
+	//
+	// }
 
-			this.width = width;
-			this.height = height;
-			this.depth = depth;
-
-			this.texture.image.width = width;
-			this.texture.image.height = height;
-			this.texture.image.depth = depth;
-
-			this.dispose();
-
-		}
-
-		this.viewport.set( 0, 0, width, height );
-		this.scissor.set( 0, 0, width, height );
-
-	}
-
-	clone() {
-
-		return new this.constructor().copy( this );
-
-	}
-
-	copy( source ) {
-
-		this.width = source.width;
-		this.height = source.height;
-		this.depth = source.depth;
-
-		this.viewport.copy( source.viewport );
-
-		this.texture = source.texture.clone();
-		this.texture.isRenderTargetTexture = true;
-
-		// ensure image object is not shared, see #20328
-
-		const image = Object.assign( {}, source.texture.image );
-		this.texture.source = new Source( image );
-
-		this.depthBuffer = source.depthBuffer;
-		this.stencilBuffer = source.stencilBuffer;
-
-		if ( source.depthTexture !== null ) this.depthTexture = source.depthTexture.clone();
-
-		this.samples = source.samples;
-
-		return this;
-
-	}
+	// copy( source ) {
+	//
+	// 	this.width = source.width;
+	// 	this.height = source.height;
+	// 	this.depth = source.depth;
+	//
+	// 	this.viewport.copy( source.viewport );
+	//
+	// 	this.texture = source.texture.clone();
+	// 	this.texture.isRenderTargetTexture = true;
+	//
+	// 	// ensure image object is not shared, see #20328
+	//
+	// 	const image = Object.assign( {}, source.texture.image );
+	// 	this.texture.source = new Source( image );
+	//
+	// 	this.depthBuffer = source.depthBuffer;
+	// 	this.stencilBuffer = source.stencilBuffer;
+	//
+	// 	if ( source.depthTexture !== null ) this.depthTexture = source.depthTexture.clone();
+	//
+	// 	this.samples = source.samples;
+	//
+	// 	return this;
+	//
+	// }
 
 	dispose() {
 

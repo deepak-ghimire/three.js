@@ -17,25 +17,25 @@ class Euler {
 		this._order = order;
 
 	}
-
-	get x() {
-
-		return this._x;
-
-	}
-
-	set x( value ) {
-
-		this._x = value;
-		this._onChangeCallback();
-
-	}
-
-	get y() {
-
-		return this._y;
-
-	}
+	//
+	// get x() {
+	//
+	// 	return this._x;
+	//
+	// }
+	//
+	// set x( value ) {
+	//
+	// 	this._x = value;
+	// 	this._onChangeCallback();
+	//
+	// }
+	//
+	// get y() {
+	//
+	// 	return this._y;
+	//
+	// }
 
 	set y( value ) {
 
@@ -43,19 +43,19 @@ class Euler {
 		this._onChangeCallback();
 
 	}
-
-	get z() {
-
-		return this._z;
-
-	}
-
-	set z( value ) {
-
-		this._z = value;
-		this._onChangeCallback();
-
-	}
+	//
+	// get z() {
+	//
+	// 	return this._z;
+	//
+	// }
+	//
+	// set z( value ) {
+	//
+	// 	this._z = value;
+	// 	this._onChangeCallback();
+	//
+	// }
 
 	get order() {
 
@@ -83,24 +83,24 @@ class Euler {
 
 	}
 
-	clone() {
-
-		return new this.constructor( this._x, this._y, this._z, this._order );
-
-	}
-
-	copy( euler ) {
-
-		this._x = euler._x;
-		this._y = euler._y;
-		this._z = euler._z;
-		this._order = euler._order;
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
+	// clone() {
+	//
+	// 	return new this.constructor( this._x, this._y, this._z, this._order );
+	//
+	// }
+	//
+	// copy( euler ) {
+	//
+	// 	this._x = euler._x;
+	// 	this._y = euler._y;
+	// 	this._z = euler._z;
+	// 	this._order = euler._order;
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
 
 	setFromRotationMatrix( m, order = this._order, update = true ) {
 
@@ -258,36 +258,36 @@ class Euler {
 	// 	return this.setFromQuaternion( _quaternion, newOrder );
 	//
 	// }
-
-	equals( euler ) {
-
-		return ( euler._x === this._x ) && ( euler._y === this._y ) && ( euler._z === this._z ) && ( euler._order === this._order );
-
-	}
-
-	fromArray( array ) {
-
-		this._x = array[ 0 ];
-		this._y = array[ 1 ];
-		this._z = array[ 2 ];
-		if ( array[ 3 ] !== undefined ) this._order = array[ 3 ];
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
-
-	toArray( array = [], offset = 0 ) {
-
-		array[ offset ] = this._x;
-		array[ offset + 1 ] = this._y;
-		array[ offset + 2 ] = this._z;
-		array[ offset + 3 ] = this._order;
-
-		return array;
-
-	}
+	//
+	// equals( euler ) {
+	//
+	// 	return ( euler._x === this._x ) && ( euler._y === this._y ) && ( euler._z === this._z ) && ( euler._order === this._order );
+	//
+	// }
+	//
+	// fromArray( array ) {
+	//
+	// 	this._x = array[ 0 ];
+	// 	this._y = array[ 1 ];
+	// 	this._z = array[ 2 ];
+	// 	if ( array[ 3 ] !== undefined ) this._order = array[ 3 ];
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// toArray( array = [], offset = 0 ) {
+	//
+	// 	array[ offset ] = this._x;
+	// 	array[ offset + 1 ] = this._y;
+	// 	array[ offset + 2 ] = this._z;
+	// 	array[ offset + 3 ] = this._order;
+	//
+	// 	return array;
+	//
+	// }
 
 	_onChange( callback ) {
 

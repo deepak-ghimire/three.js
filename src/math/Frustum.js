@@ -13,20 +13,20 @@ class Frustum {
 
 	}
 
-	set( p0, p1, p2, p3, p4, p5 ) {
-
-		const planes = this.planes;
-
-		planes[ 0 ].copy( p0 );
-		planes[ 1 ].copy( p1 );
-		planes[ 2 ].copy( p2 );
-		planes[ 3 ].copy( p3 );
-		planes[ 4 ].copy( p4 );
-		planes[ 5 ].copy( p5 );
-
-		return this;
-
-	}
+	// set( p0, p1, p2, p3, p4, p5 ) {
+	//
+	// 	const planes = this.planes;
+	//
+	// 	planes[ 0 ].copy( p0 );
+	// 	planes[ 1 ].copy( p1 );
+	// 	planes[ 2 ].copy( p2 );
+	// 	planes[ 3 ].copy( p3 );
+	// 	planes[ 4 ].copy( p4 );
+	// 	planes[ 5 ].copy( p5 );
+	//
+	// 	return this;
+	//
+	// }
 
 	// copy( frustum ) {
 	//
@@ -74,15 +74,15 @@ class Frustum {
 
 	}
 
-	intersectsSprite( sprite ) {
-
-		_sphere.center.set( 0, 0, 0 );
-		_sphere.radius = 0.7071067811865476;
-		_sphere.applyMatrix4( sprite.matrixWorld );
-
-		return this.intersectsSphere( _sphere );
-
-	}
+	// intersectsSprite( sprite ) {
+	//
+	// 	_sphere.center.set( 0, 0, 0 );
+	// 	_sphere.radius = 0.7071067811865476;
+	// 	_sphere.applyMatrix4( sprite.matrixWorld );
+	//
+	// 	return this.intersectsSphere( _sphere );
+	//
+	// }
 
 	intersectsSphere( sphere ) {
 

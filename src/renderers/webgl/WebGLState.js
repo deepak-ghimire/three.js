@@ -458,6 +458,11 @@ function WebGLState( gl, extensions, capabilities ) {
 
 	}
 
+
+	/**
+		@param {WebGLRenderTarget} renderTarget
+		@param {object} framebuffer
+	 */
 	function drawBuffers( renderTarget, framebuffer ) {
 
 		let drawBuffers = defaultDrawbuffers;
@@ -1102,29 +1107,29 @@ function WebGLState( gl, extensions, capabilities ) {
 
 	}
 
-	function updateUBOMapping( uniformsGroup, program ) {
-
-		let mapping = uboProgramMap.get( program );
-
-		if ( mapping === undefined ) {
-
-			mapping = new WeakMap();
-
-			uboProgramMap.set( program, mapping );
-
-		}
-
-		let blockIndex = mapping.get( uniformsGroup );
-
-		if ( blockIndex === undefined ) {
-
-			blockIndex = gl.getUniformBlockIndex( program, uniformsGroup.name );
-
-			mapping.set( uniformsGroup, blockIndex );
-
-		}
-
-	}
+	// function updateUBOMapping( uniformsGroup, program ) {
+	//
+	// 	let mapping = uboProgramMap.get( program );
+	//
+	// 	if ( mapping === undefined ) {
+	//
+	// 		mapping = new WeakMap();
+	//
+	// 		uboProgramMap.set( program, mapping );
+	//
+	// 	}
+	//
+	// 	let blockIndex = mapping.get( uniformsGroup );
+	//
+	// 	if ( blockIndex === undefined ) {
+	//
+	// 		blockIndex = gl.getUniformBlockIndex( program, uniformsGroup.name );
+	//
+	// 		mapping.set( uniformsGroup, blockIndex );
+	//
+	// 	}
+	//
+	// }
 
 	function uniformBlockBinding( uniformsGroup, program ) {
 

@@ -1,6 +1,6 @@
 import { Vector3 } from '../math/Vector3.js';
 // import { Vector2 } from '../math/Vector2.js';
-import { denormalize, normalize } from '../math/MathUtils.js';
+// import { denormalize, normalize } from '../math/MathUtils.js';
 import { StaticDrawUsage } from '../constants.js';
 
 const _vector = /*@__PURE__*/ new Vector3();
@@ -47,21 +47,21 @@ class BufferAttribute {
 	// 	return this;
 	//
 	// }
-
-	copy( source ) {
-
-		this.name = source.name;
-		this.array = new source.array.constructor( source.array );
-		this.itemSize = source.itemSize;
-		this.count = source.count;
-		this.normalized = source.normalized;
-
-		this.usage = source.usage;
-
-		return this;
-
-	}
-
+	//
+	// copy( source ) {
+	//
+	// 	this.name = source.name;
+	// 	this.array = new source.array.constructor( source.array );
+	// 	this.itemSize = source.itemSize;
+	// 	this.count = source.count;
+	// 	this.normalized = source.normalized;
+	//
+	// 	this.usage = source.usage;
+	//
+	// 	return this;
+	//
+	// }
+	//
 	// copyAt( index1, attribute, index2 ) {
 	//
 	// 	index1 *= this.itemSize;
@@ -114,23 +114,23 @@ class BufferAttribute {
 	// 	return this;
 	//
 	// }
-
-	applyMatrix4( m ) {
-
-		for ( let i = 0, l = this.count; i < l; i ++ ) {
-
-			_vector.fromBufferAttribute( this, i );
-
-			_vector.applyMatrix4( m );
-
-			this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-
-		}
-
-		return this;
-
-	}
-
+	//
+	// applyMatrix4( m ) {
+	//
+	// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+	//
+	// 		_vector.fromBufferAttribute( this, i );
+	//
+	// 		_vector.applyMatrix4( m );
+	//
+	// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
+	//
 	// applyNormalMatrix( m ) {
 	//
 	// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
@@ -146,31 +146,31 @@ class BufferAttribute {
 	// 	return this;
 	//
 	// }
-
-	transformDirection( m ) {
-
-		for ( let i = 0, l = this.count; i < l; i ++ ) {
-
-			_vector.fromBufferAttribute( this, i );
-
-			_vector.transformDirection( m );
-
-			this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-
-		}
-
-		return this;
-
-	}
-
-	set( value, offset = 0 ) {
-
-		// Matching BufferAttribute constructor, do not normalize the array.
-		this.array.set( value, offset );
-
-		return this;
-
-	}
+	//
+	// transformDirection( m ) {
+	//
+	// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
+	//
+	// 		_vector.fromBufferAttribute( this, i );
+	//
+	// 		_vector.transformDirection( m );
+	//
+	// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// set( value, offset = 0 ) {
+	//
+	// 	// Matching BufferAttribute constructor, do not normalize the array.
+	// 	this.array.set( value, offset );
+	//
+	// 	return this;
+	//
+	// }
 
 	getX( index ) {
 
@@ -319,12 +319,12 @@ class BufferAttribute {
 	// 	return this;
 	//
 	// }
-
-	clone() {
-
-		return new this.constructor( this.array, this.itemSize ).copy( this );
-
-	}
+	//
+	// clone() {
+	//
+	// 	return new this.constructor( this.array, this.itemSize ).copy( this );
+	//
+	// }
 
 	// toJSON() {
 

@@ -4,7 +4,7 @@ import {
 	CubeUVReflectionMapping,
 	LinearEncoding,
 	LinearFilter,
-	NoToneMapping,
+	// NoToneMapping,
 	NoBlending,
 	RGBAFormat,
 	HalfFloatType

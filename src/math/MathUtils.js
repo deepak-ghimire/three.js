@@ -60,11 +60,11 @@ function clamp( value, min, max ) {
 // }
 
 // https://en.wikipedia.org/wiki/Linear_interpolation
-function lerp( x, y, t ) {
-
-	return ( 1 - t ) * x + t * y;
-
-}
+// function lerp( x, y, t ) {
+//
+// 	return ( 1 - t ) * x + t * y;
+//
+// }
 
 // http://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
 // function damp( x, y, lambda, dt ) {
@@ -226,70 +226,70 @@ function floorPowerOfTwo( value ) {
 // 	}
 
 // }
-
-function denormalize( value, array ) {
-
-	switch ( array.constructor ) {
-
-		case Float32Array:
-
-			return value;
-
-		case Uint16Array:
-
-			return value / 65535.0;
-
-		case Uint8Array:
-
-			return value / 255.0;
-
-		case Int16Array:
-
-			return Math.max( value / 32767.0, - 1.0 );
-
-		case Int8Array:
-
-			return Math.max( value / 127.0, - 1.0 );
-
-		default:
-
-			throw new Error( 'Invalid component type.' );
-
-	}
-
-}
-
-function normalize( value, array ) {
-
-	switch ( array.constructor ) {
-
-		case Float32Array:
-
-			return value;
-
-		case Uint16Array:
-
-			return Math.round( value * 65535.0 );
-
-		case Uint8Array:
-
-			return Math.round( value * 255.0 );
-
-		case Int16Array:
-
-			return Math.round( value * 32767.0 );
-
-		case Int8Array:
-
-			return Math.round( value * 127.0 );
-
-		default:
-
-			throw new Error( 'Invalid component type.' );
-
-	}
-
-}
+//
+// function denormalize( value, array ) {
+//
+// 	switch ( array.constructor ) {
+//
+// 		case Float32Array:
+//
+// 			return value;
+//
+// 		case Uint16Array:
+//
+// 			return value / 65535.0;
+//
+// 		case Uint8Array:
+//
+// 			return value / 255.0;
+//
+// 		case Int16Array:
+//
+// 			return Math.max( value / 32767.0, - 1.0 );
+//
+// 		case Int8Array:
+//
+// 			return Math.max( value / 127.0, - 1.0 );
+//
+// 		default:
+//
+// 			throw new Error( 'Invalid component type.' );
+//
+// 	}
+//
+// }
+//
+// function normalize( value, array ) {
+//
+// 	switch ( array.constructor ) {
+//
+// 		case Float32Array:
+//
+// 			return value;
+//
+// 		case Uint16Array:
+//
+// 			return Math.round( value * 65535.0 );
+//
+// 		case Uint8Array:
+//
+// 			return Math.round( value * 255.0 );
+//
+// 		case Int16Array:
+//
+// 			return Math.round( value * 32767.0 );
+//
+// 		case Int8Array:
+//
+// 			return Math.round( value * 127.0 );
+//
+// 		default:
+//
+// 			throw new Error( 'Invalid component type.' );
+//
+// 	}
+//
+// }
 
 
 
@@ -301,7 +301,7 @@ export {
 	// euclideanModulo,
 	// mapLinear,
 	// inverseLerp,
-	lerp,
+	// lerp,
 	// damp,
 	// pingpong,
 	// smoothstep,
@@ -316,6 +316,6 @@ export {
 	// ceilPowerOfTwo,
 	floorPowerOfTwo,
 	// setQuaternionFromProperEuler,
-	normalize,
-	denormalize,
+	// normalize,
+	// denormalize,
 };

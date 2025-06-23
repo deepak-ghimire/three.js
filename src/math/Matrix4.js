@@ -44,12 +44,12 @@ class Matrix4 {
 	// 	return this;
 	//
 	// }
-
-	clone() {
-
-		return new Matrix4().fromArray( this.elements );
-
-	}
+	//
+	// clone() {
+	//
+	// 	return new Matrix4().fromArray( this.elements );
+	//
+	// }
 
 	copy( m ) {
 
@@ -65,17 +65,17 @@ class Matrix4 {
 
 	}
 
-	copyPosition( m ) {
-
-		const te = this.elements, me = m.elements;
-
-		te[ 12 ] = me[ 12 ];
-		te[ 13 ] = me[ 13 ];
-		te[ 14 ] = me[ 14 ];
-
-		return this;
-
-	}
+	// copyPosition( m ) {
+	//
+	// 	const te = this.elements, me = m.elements;
+	//
+	// 	te[ 12 ] = me[ 12 ];
+	// 	te[ 13 ] = me[ 13 ];
+	// 	te[ 14 ] = me[ 14 ];
+	//
+	// 	return this;
+	//
+	// }
 
 	// setFromMatrix3( m ) {
 	//
@@ -117,40 +117,40 @@ class Matrix4 {
 	//
 	// }
 
-	extractRotation( m ) {
-
-		// this method does not support reflection matrices
-
-		const te = this.elements;
-		const me = m.elements;
-
-		const scaleX = 1 / _v1.setFromMatrixColumn( m, 0 ).length();
-		const scaleY = 1 / _v1.setFromMatrixColumn( m, 1 ).length();
-		const scaleZ = 1 / _v1.setFromMatrixColumn( m, 2 ).length();
-
-		te[ 0 ] = me[ 0 ] * scaleX;
-		te[ 1 ] = me[ 1 ] * scaleX;
-		te[ 2 ] = me[ 2 ] * scaleX;
-		te[ 3 ] = 0;
-
-		te[ 4 ] = me[ 4 ] * scaleY;
-		te[ 5 ] = me[ 5 ] * scaleY;
-		te[ 6 ] = me[ 6 ] * scaleY;
-		te[ 7 ] = 0;
-
-		te[ 8 ] = me[ 8 ] * scaleZ;
-		te[ 9 ] = me[ 9 ] * scaleZ;
-		te[ 10 ] = me[ 10 ] * scaleZ;
-		te[ 11 ] = 0;
-
-		te[ 12 ] = 0;
-		te[ 13 ] = 0;
-		te[ 14 ] = 0;
-		te[ 15 ] = 1;
-
-		return this;
-
-	}
+	// extractRotation( m ) {
+	//
+	// 	// this method does not support reflection matrices
+	//
+	// 	const te = this.elements;
+	// 	const me = m.elements;
+	//
+	// 	const scaleX = 1 / _v1.setFromMatrixColumn( m, 0 ).length();
+	// 	const scaleY = 1 / _v1.setFromMatrixColumn( m, 1 ).length();
+	// 	const scaleZ = 1 / _v1.setFromMatrixColumn( m, 2 ).length();
+	//
+	// 	te[ 0 ] = me[ 0 ] * scaleX;
+	// 	te[ 1 ] = me[ 1 ] * scaleX;
+	// 	te[ 2 ] = me[ 2 ] * scaleX;
+	// 	te[ 3 ] = 0;
+	//
+	// 	te[ 4 ] = me[ 4 ] * scaleY;
+	// 	te[ 5 ] = me[ 5 ] * scaleY;
+	// 	te[ 6 ] = me[ 6 ] * scaleY;
+	// 	te[ 7 ] = 0;
+	//
+	// 	te[ 8 ] = me[ 8 ] * scaleZ;
+	// 	te[ 9 ] = me[ 9 ] * scaleZ;
+	// 	te[ 10 ] = me[ 10 ] * scaleZ;
+	// 	te[ 11 ] = 0;
+	//
+	// 	te[ 12 ] = 0;
+	// 	te[ 13 ] = 0;
+	// 	te[ 14 ] = 0;
+	// 	te[ 15 ] = 1;
+	//
+	// 	return this;
+	//
+	// }
 
 	// makeRotationFromEuler( euler ) {
 	//
@@ -333,11 +333,11 @@ class Matrix4 {
 
 	}
 
-	premultiply( m ) {
-
-		return this.multiplyMatrices( m, this );
-
-	}
+	// premultiply( m ) {
+	//
+	// 	return this.multiplyMatrices( m, this );
+	//
+	// }
 
 	multiplyMatrices( a, b ) {
 
@@ -379,18 +379,18 @@ class Matrix4 {
 
 	}
 
-	multiplyScalar( s ) {
-
-		const te = this.elements;
-
-		te[ 0 ] *= s; te[ 4 ] *= s; te[ 8 ] *= s; te[ 12 ] *= s;
-		te[ 1 ] *= s; te[ 5 ] *= s; te[ 9 ] *= s; te[ 13 ] *= s;
-		te[ 2 ] *= s; te[ 6 ] *= s; te[ 10 ] *= s; te[ 14 ] *= s;
-		te[ 3 ] *= s; te[ 7 ] *= s; te[ 11 ] *= s; te[ 15 ] *= s;
-
-		return this;
-
-	}
+	// multiplyScalar( s ) {
+	//
+	// 	const te = this.elements;
+	//
+	// 	te[ 0 ] *= s; te[ 4 ] *= s; te[ 8 ] *= s; te[ 12 ] *= s;
+	// 	te[ 1 ] *= s; te[ 5 ] *= s; te[ 9 ] *= s; te[ 13 ] *= s;
+	// 	te[ 2 ] *= s; te[ 6 ] *= s; te[ 10 ] *= s; te[ 14 ] *= s;
+	// 	te[ 3 ] *= s; te[ 7 ] *= s; te[ 11 ] *= s; te[ 15 ] *= s;
+	//
+	// 	return this;
+	//
+	// }
 
 	determinant() {
 
@@ -526,19 +526,19 @@ class Matrix4 {
 
 	}
 
-	scale( v ) {
-
-		const te = this.elements;
-		const x = v.x, y = v.y, z = v.z;
-
-		te[ 0 ] *= x; te[ 4 ] *= y; te[ 8 ] *= z;
-		te[ 1 ] *= x; te[ 5 ] *= y; te[ 9 ] *= z;
-		te[ 2 ] *= x; te[ 6 ] *= y; te[ 10 ] *= z;
-		te[ 3 ] *= x; te[ 7 ] *= y; te[ 11 ] *= z;
-
-		return this;
-
-	}
+	// scale( v ) {
+	//
+	// 	const te = this.elements;
+	// 	const x = v.x, y = v.y, z = v.z;
+	//
+	// 	te[ 0 ] *= x; te[ 4 ] *= y; te[ 8 ] *= z;
+	// 	te[ 1 ] *= x; te[ 5 ] *= y; te[ 9 ] *= z;
+	// 	te[ 2 ] *= x; te[ 6 ] *= y; te[ 10 ] *= z;
+	// 	te[ 3 ] *= x; te[ 7 ] *= y; te[ 11 ] *= z;
+	//
+	// 	return this;
+	//
+	// }
 
 	getMaxScaleOnAxis() {
 
@@ -552,20 +552,20 @@ class Matrix4 {
 
 	}
 
-	makeTranslation( x, y, z ) {
-
-		this.set(
-
-			1, 0, 0, x,
-			0, 1, 0, y,
-			0, 0, 1, z,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// makeTranslation( x, y, z ) {
+	//
+	// 	this.set(
+	//
+	// 		1, 0, 0, x,
+	// 		0, 1, 0, y,
+	// 		0, 0, 1, z,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	// makeRotationX( theta ) {
 	//
@@ -641,20 +641,20 @@ class Matrix4 {
 	//
 	// }
 
-	makeScale( x, y, z ) {
-
-		this.set(
-
-			x, 0, 0, 0,
-			0, y, 0, 0,
-			0, 0, z, 0,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// makeScale( x, y, z ) {
+	//
+	// 	this.set(
+	//
+	// 		x, 0, 0, 0,
+	// 		0, y, 0, 0,
+	// 		0, 0, z, 0,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	// makeShear( xy, xz, yx, yz, zx, zy ) {
 	//
@@ -707,50 +707,50 @@ class Matrix4 {
 
 	}
 
-	decompose( position, quaternion, scale ) {
-
-		const te = this.elements;
-
-		let sx = _v1.set( te[ 0 ], te[ 1 ], te[ 2 ] ).length();
-		const sy = _v1.set( te[ 4 ], te[ 5 ], te[ 6 ] ).length();
-		const sz = _v1.set( te[ 8 ], te[ 9 ], te[ 10 ] ).length();
-
-		// if determine is negative, we need to invert one scale
-		const det = this.determinant();
-		if ( det < 0 ) sx = - sx;
-
-		position.x = te[ 12 ];
-		position.y = te[ 13 ];
-		position.z = te[ 14 ];
-
-		// scale the rotation part
-		_m1.copy( this );
-
-		const invSX = 1 / sx;
-		const invSY = 1 / sy;
-		const invSZ = 1 / sz;
-
-		_m1.elements[ 0 ] *= invSX;
-		_m1.elements[ 1 ] *= invSX;
-		_m1.elements[ 2 ] *= invSX;
-
-		_m1.elements[ 4 ] *= invSY;
-		_m1.elements[ 5 ] *= invSY;
-		_m1.elements[ 6 ] *= invSY;
-
-		_m1.elements[ 8 ] *= invSZ;
-		_m1.elements[ 9 ] *= invSZ;
-		_m1.elements[ 10 ] *= invSZ;
-
-		quaternion.setFromRotationMatrix( _m1 );
-
-		scale.x = sx;
-		scale.y = sy;
-		scale.z = sz;
-
-		return this;
-
-	}
+	// decompose( position, quaternion, scale ) {
+	//
+	// 	const te = this.elements;
+	//
+	// 	let sx = _v1.set( te[ 0 ], te[ 1 ], te[ 2 ] ).length();
+	// 	const sy = _v1.set( te[ 4 ], te[ 5 ], te[ 6 ] ).length();
+	// 	const sz = _v1.set( te[ 8 ], te[ 9 ], te[ 10 ] ).length();
+	//
+	// 	// if determine is negative, we need to invert one scale
+	// 	const det = this.determinant();
+	// 	if ( det < 0 ) sx = - sx;
+	//
+	// 	position.x = te[ 12 ];
+	// 	position.y = te[ 13 ];
+	// 	position.z = te[ 14 ];
+	//
+	// 	// scale the rotation part
+	// 	_m1.copy( this );
+	//
+	// 	const invSX = 1 / sx;
+	// 	const invSY = 1 / sy;
+	// 	const invSZ = 1 / sz;
+	//
+	// 	_m1.elements[ 0 ] *= invSX;
+	// 	_m1.elements[ 1 ] *= invSX;
+	// 	_m1.elements[ 2 ] *= invSX;
+	//
+	// 	_m1.elements[ 4 ] *= invSY;
+	// 	_m1.elements[ 5 ] *= invSY;
+	// 	_m1.elements[ 6 ] *= invSY;
+	//
+	// 	_m1.elements[ 8 ] *= invSZ;
+	// 	_m1.elements[ 9 ] *= invSZ;
+	// 	_m1.elements[ 10 ] *= invSZ;
+	//
+	// 	quaternion.setFromRotationMatrix( _m1 );
+	//
+	// 	scale.x = sx;
+	// 	scale.y = sy;
+	// 	scale.z = sz;
+	//
+	// 	return this;
+	//
+	// }
 
 	makePerspective( left, right, top, bottom, near, far ) {
 
@@ -792,32 +792,32 @@ class Matrix4 {
 
 	}
 
-	equals( matrix ) {
-
-		const te = this.elements;
-		const me = matrix.elements;
-
-		for ( let i = 0; i < 16; i ++ ) {
-
-			if ( te[ i ] !== me[ i ] ) return false;
-
-		}
-
-		return true;
-
-	}
-
-	fromArray( array, offset = 0 ) {
-
-		for ( let i = 0; i < 16; i ++ ) {
-
-			this.elements[ i ] = array[ i + offset ];
-
-		}
-
-		return this;
-
-	}
+	// equals( matrix ) {
+	//
+	// 	const te = this.elements;
+	// 	const me = matrix.elements;
+	//
+	// 	for ( let i = 0; i < 16; i ++ ) {
+	//
+	// 		if ( te[ i ] !== me[ i ] ) return false;
+	//
+	// 	}
+	//
+	// 	return true;
+	//
+	// }
+	//
+	// fromArray( array, offset = 0 ) {
+	//
+	// 	for ( let i = 0; i < 16; i ++ ) {
+	//
+	// 		this.elements[ i ] = array[ i + offset ];
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	toArray( array = [], offset = 0 ) {
 

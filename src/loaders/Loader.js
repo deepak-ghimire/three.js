@@ -7,10 +7,10 @@ class Loader {
 		this.manager = ( manager !== undefined ) ? manager : DefaultLoadingManager;
 
 		this.crossOrigin = 'anonymous';
-		this.withCredentials = false;
+		// this.withCredentials = false;
 		this.path = '';
 		// this.resourcePath = '';
-		this.requestHeader = {};
+		// this.requestHeader = {};
 
 	}
 
