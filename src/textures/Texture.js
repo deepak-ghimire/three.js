@@ -73,7 +73,7 @@ class Texture extends EventDispatcher {
 		this.onUpdate = null;
 
 		this.isRenderTargetTexture = false; // indicates whether a texture belongs to a render target or not
-		this.needsPMREMUpdate = false; // indicates whether this texture should be processed by PMREMGenerator or not (only relevant for render target textures)
+		// this.needsPMREMUpdate = false; // indicates whether this texture should be processed by PMREMGenerator or not (only relevant for render target textures)
 
 	}
 

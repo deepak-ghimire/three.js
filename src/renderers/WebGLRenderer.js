@@ -19,13 +19,13 @@ import { Vector3 } from '../math/Vector3.js';
 import { Vector4 } from '../math/Vector4.js';
 // import { WebGLAnimation } from './webgl/WebGLAnimation.js';
 import { WebGLAttributes } from './webgl/WebGLAttributes.js';
-import { WebGLBackground } from './webgl/WebGLBackground.js';
+// import { WebGLBackground } from './webgl/WebGLBackground.js';
 import { WebGLBindingStates } from './webgl/WebGLBindingStates.js';
 import { WebGLBufferRenderer } from './webgl/WebGLBufferRenderer.js';
 import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
 import { WebGLClipping } from './webgl/WebGLClipping.js';
-import { WebGLCubeMaps } from './webgl/WebGLCubeMaps.js';
-import { WebGLCubeUVMaps } from './webgl/WebGLCubeUVMaps.js';
+// import { WebGLCubeMaps } from './webgl/WebGLCubeMaps.js';
+// import { WebGLCubeUVMaps } from './webgl/WebGLCubeUVMaps.js';
 import { WebGLExtensions } from './webgl/WebGLExtensions.js';
 import { WebGLGeometries } from './webgl/WebGLGeometries.js';
 import { WebGLIndexedBufferRenderer } from './webgl/WebGLIndexedBufferRenderer.js';
@@ -107,10 +107,10 @@ function WebGLRenderer( parameters = {} ) {
 
 	// clearing
 
-	this.autoClear = true;
-	this.autoClearColor = true;
-	this.autoClearDepth = true;
-	this.autoClearStencil = true;
+	// this.autoClear = true;
+	// this.autoClearColor = true;
+	// this.autoClearDepth = true;
+	// this.autoClearStencil = true;
 
 	// scene graph
 
@@ -303,8 +303,8 @@ function WebGLRenderer( parameters = {} ) {
 		info = new WebGLInfo( _gl );
 		properties = new WebGLProperties();
 		textures = new WebGLTextures( _gl, extensions, state, properties, capabilities, utils, info );
-		cubemaps = new WebGLCubeMaps( _this );
-		cubeuvmaps = new WebGLCubeUVMaps( _this );
+		// cubemaps = new WebGLCubeMaps( _this );
+		// cubeuvmaps = new WebGLCubeUVMaps( _this );
 		attributes = new WebGLAttributes( _gl, capabilities );
 		bindingStates = new WebGLBindingStates( _gl, extensions, attributes, capabilities );
 		geometries = new WebGLGeometries( _gl, attributes, info, bindingStates );
@@ -315,7 +315,7 @@ function WebGLRenderer( parameters = {} ) {
 		materials = new WebGLMaterials( _this, properties );
 		renderLists = new WebGLRenderLists();
 		renderStates = new WebGLRenderStates( extensions, capabilities );
-		background = new WebGLBackground( _this, cubemaps, cubeuvmaps, state, objects, _alpha, _premultipliedAlpha );
+		// background = new WebGLBackground( _this, cubemaps, cubeuvmaps, state, objects, _alpha, _premultipliedAlpha );
 		shadowMap = new WebGLShadowMap( _this, objects, capabilities );
 		// uniformsGroups = new WebGLUniformsGroups( _gl, info, capabilities, state );
 
@@ -522,21 +522,21 @@ function WebGLRenderer( parameters = {} ) {
 
 	this.setClearColor = function () {
 
-		background.setClearColor.apply( background, arguments );
+		// background.setClearColor.apply( background, arguments );
 
 	};
 
-	this.getClearAlpha = function () {
-
-		return background.getClearAlpha();
-
-	};
-
-	this.setClearAlpha = function () {
-
-		background.setClearAlpha.apply( background, arguments );
-
-	};
+	// this.getClearAlpha = function () {
+	//
+	// 	return background.getClearAlpha();
+	//
+	// };
+	//
+	// this.setClearAlpha = function () {
+	//
+	// 	background.setClearAlpha.apply( background, arguments );
+	//
+	// };
 
 	this.clear = function ( color = true, depth = true, stencil = true ) {
 
@@ -1015,7 +1015,7 @@ function WebGLRenderer( parameters = {} ) {
 
 		//
 
-		background.render( currentRenderList, scene );
+		// background.render( currentRenderList, scene );
 
 		// render scene
 
@@ -1350,9 +1350,9 @@ function WebGLRenderer( parameters = {} ) {
 
 		// always update environment and fog - changing these trigger an getProgram call, but it's possible that the program doesn't change
 
-		materialProperties.environment = material.isMeshStandardMaterial ? scene.environment : null;
-		materialProperties.fog = scene.fog;
-		materialProperties.envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || materialProperties.environment );
+		// materialProperties.environment = material.isMeshStandardMaterial ? scene.environment : null;
+		// materialProperties.fog = scene.fog;
+		// materialProperties.envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || materialProperties.environment );
 
 		if ( programs === undefined ) {
 
@@ -1473,9 +1473,10 @@ function WebGLRenderer( parameters = {} ) {
 		textures.resetTextureUnits();
 
 		const fog = scene.fog;
-		const environment = material.isMeshStandardMaterial ? scene.environment : null;
+		// const environment = material.isMeshStandardMaterial ? scene.environment : null;
 		const encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : ( _currentRenderTarget.isXRRenderTarget === true ? _currentRenderTarget.texture.encoding : LinearEncoding );
-		const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
+		// const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
+		const envMap = null;//( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
 		const vertexAlphas = material.vertexColors === true && !! geometry.attributes.color && geometry.attributes.color.itemSize === 4;
 		const vertexTangents = !! material.normalMap && !! geometry.attributes.tangent;
 		const morphTargets = !! geometry.morphAttributes.position;

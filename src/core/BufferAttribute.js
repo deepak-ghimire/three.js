@@ -3,7 +3,7 @@ import { Vector3 } from '../math/Vector3.js';
 // import { denormalize, normalize } from '../math/MathUtils.js';
 import { StaticDrawUsage } from '../constants.js';
 
-const _vector = /*@__PURE__*/ new Vector3();
+// const _vector = /*@__PURE__*/ new Vector3();
 // const _vector2 = /*@__PURE__*/ new Vector2();
 
 class BufferAttribute {

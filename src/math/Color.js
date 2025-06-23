@@ -355,15 +355,15 @@ class Color {
 	// 	return this;
 	//
 	// }
-
-	getHex( colorSpace = SRGBColorSpace ) {
-
-		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
-
-		return clamp( _rgb.r * 255, 0, 255 ) << 16 ^ clamp( _rgb.g * 255, 0, 255 ) << 8 ^ clamp( _rgb.b * 255, 0, 255 ) << 0;
-
-	}
-
+	//
+	// getHex( colorSpace = SRGBColorSpace ) {
+	//
+	// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+	//
+	// 	return clamp( _rgb.r * 255, 0, 255 ) << 16 ^ clamp( _rgb.g * 255, 0, 255 ) << 8 ^ clamp( _rgb.b * 255, 0, 255 ) << 0;
+	//
+	// }
+	//
 	// getHexString( colorSpace = SRGBColorSpace ) {
 	//
 	// 	return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );

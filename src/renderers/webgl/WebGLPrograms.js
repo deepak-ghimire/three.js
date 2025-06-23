@@ -38,10 +38,10 @@ function WebGLPrograms( renderer, cubemaps, cubeuvmaps, extensions, capabilities
 
 		const fog = scene.fog;
 		const geometry = object.geometry;
-		const environment = material.isMeshStandardMaterial ? scene.environment : null;
-
-		const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
-		const envMapCubeUVHeight = ( !! envMap ) && ( envMap.mapping === CubeUVReflectionMapping ) ? envMap.image.height : null;
+		// const environment = material.isMeshStandardMaterial ? scene.environment : null;
+		//
+		// const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
+		// const envMapCubeUVHeight = ( !! envMap ) && ( envMap.mapping === CubeUVReflectionMapping ) ? envMap.image.height : null;
 
 		const shaderID = shaderIDs[ material.type ];
 
@@ -127,9 +127,9 @@ function WebGLPrograms( renderer, cubemaps, cubeuvmaps, extensions, capabilities
 			outputEncoding: ( currentRenderTarget === null ) ? renderer.outputEncoding : ( currentRenderTarget.isXRRenderTarget === true ? currentRenderTarget.texture.encoding : LinearEncoding ),
 			map: !! material.map,
 			matcap: !! material.matcap,
-			envMap: !! envMap,
-			envMapMode: envMap && envMap.mapping,
-			envMapCubeUVHeight: envMapCubeUVHeight,
+			// envMap: !! envMap,
+			// envMapMode: envMap && envMap.mapping,
+			// envMapCubeUVHeight: envMapCubeUVHeight,
 			lightMap: !! material.lightMap,
 			aoMap: !! material.aoMap,
 			emissiveMap: !! material.emissiveMap,
