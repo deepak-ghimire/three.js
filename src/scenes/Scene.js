@@ -10,12 +10,12 @@ class Scene extends Object3D {
 
 		this.type = 'Scene';
 
-		this.background = null;
-		this.environment = null;
-		this.fog = null;
+		// this.background = null;
+		// this.environment = null;
+		// this.fog = null;
 
-		this.backgroundBlurriness = 0;
-		this.backgroundIntensity = 1;
+		// this.backgroundBlurriness = 0;
+		// this.backgroundIntensity = 1;
 
 		this.overrideMaterial = null;
 

@@ -2,7 +2,9 @@ import { Vector3 } from '../math/Vector3.js';
 // import { Vector2 } from '../math/Vector2.js';
 import { Box3 } from '../math/Box3.js';
 import { EventDispatcher } from './EventDispatcher.js';
-import { BufferAttribute, Float32BufferAttribute, Uint16BufferAttribute, Uint32BufferAttribute } from './BufferAttribute.js';
+import { BufferAttribute,
+	// Float32BufferAttribute,
+	Uint16BufferAttribute, Uint32BufferAttribute } from './BufferAttribute.js';
 import { Sphere } from '../math/Sphere.js';
 // import { Object3D } from './Object3D.js';
 // import { Matrix4 } from '../math/Matrix4.js';

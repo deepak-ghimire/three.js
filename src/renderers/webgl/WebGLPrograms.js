@@ -1,4 +1,14 @@
-import { BackSide, DoubleSide, CubeUVReflectionMapping, ObjectSpaceNormalMap, TangentSpaceNormalMap, NoToneMapping, LinearEncoding, sRGBEncoding, NormalBlending } from '../../constants.js';
+import {
+	BackSide,
+	DoubleSide,
+	// CubeUVReflectionMapping,
+	ObjectSpaceNormalMap,
+	TangentSpaceNormalMap,
+	NoToneMapping,
+	LinearEncoding,
+	sRGBEncoding,
+	NormalBlending
+} from '../../constants.js';
 import { Layers } from '../../core/Layers.js';
 import { WebGLProgram } from './WebGLProgram.js';
 import { WebGLShaderCache } from './WebGLShaderCache.js';

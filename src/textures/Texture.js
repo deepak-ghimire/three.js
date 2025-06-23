@@ -1,8 +1,8 @@
 import { EventDispatcher } from '../core/EventDispatcher.js';
 import {
-	MirroredRepeatWrapping,
+	// MirroredRepeatWrapping,
 	ClampToEdgeWrapping,
-	RepeatWrapping,
+	// RepeatWrapping,
 	LinearEncoding,
 	UnsignedByteType,
 	RGBAFormat,

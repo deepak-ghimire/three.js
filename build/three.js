@@ -55,17 +55,18 @@
 	const GreaterDepth = 6;
 	const NotEqualDepth = 7;
 	const MultiplyOperation = 0;
-	const MixOperation = 1;
-	const AddOperation = 2;
+	// export const MixOperation = 1;
+	// export const AddOperation = 2;
 	const NoToneMapping = 0;
-	const LinearToneMapping = 1;
-	const ReinhardToneMapping = 2;
-	const CineonToneMapping = 3;
-	const ACESFilmicToneMapping = 4;
-	const CustomToneMapping = 5;
+	// export const LinearToneMapping = 1;
+	// export const ReinhardToneMapping = 2;
+	// export const CineonToneMapping = 3;
+	// export const ACESFilmicToneMapping = 4;
+	// export const CustomToneMapping = 5;
+
 	const UVMapping = 300;
-	const CubeReflectionMapping = 301;
-	const CubeRefractionMapping = 302;
+	// export const CubeReflectionMapping = 301;
+	// export const CubeRefractionMapping = 302;
 	// export const EquirectangularReflectionMapping = 303;
 	// export const EquirectangularRefractionMapping = 304;
 	const CubeUVReflectionMapping = 306;
@@ -359,623 +360,8 @@
 		floorPowerOfTwo: floorPowerOfTwo
 	});
 
-	class Quaternion {
-		constructor(x = 0, y = 0, z = 0, w = 1) {
-			this.isQuaternion = true;
-			this._x = x;
-			this._y = y;
-			this._z = z;
-			this._w = w;
-		}
-
-		// static slerpFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t ) {
-		//
-		// 	// fuzz-free, array-based Quaternion SLERP operation
-		//
-		// 	let x0 = src0[ srcOffset0 + 0 ],
-		// 		y0 = src0[ srcOffset0 + 1 ],
-		// 		z0 = src0[ srcOffset0 + 2 ],
-		// 		w0 = src0[ srcOffset0 + 3 ];
-		//
-		// 	const x1 = src1[ srcOffset1 + 0 ],
-		// 		y1 = src1[ srcOffset1 + 1 ],
-		// 		z1 = src1[ srcOffset1 + 2 ],
-		// 		w1 = src1[ srcOffset1 + 3 ];
-		//
-		// 	if ( t === 0 ) {
-		//
-		// 		dst[ dstOffset + 0 ] = x0;
-		// 		dst[ dstOffset + 1 ] = y0;
-		// 		dst[ dstOffset + 2 ] = z0;
-		// 		dst[ dstOffset + 3 ] = w0;
-		// 		return;
-		//
-		// 	}
-		//
-		// 	if ( t === 1 ) {
-		//
-		// 		dst[ dstOffset + 0 ] = x1;
-		// 		dst[ dstOffset + 1 ] = y1;
-		// 		dst[ dstOffset + 2 ] = z1;
-		// 		dst[ dstOffset + 3 ] = w1;
-		// 		return;
-		//
-		// 	}
-		//
-		// 	if ( w0 !== w1 || x0 !== x1 || y0 !== y1 || z0 !== z1 ) {
-		//
-		// 		let s = 1 - t;
-		// 		const cos = x0 * x1 + y0 * y1 + z0 * z1 + w0 * w1,
-		// 			dir = ( cos >= 0 ? 1 : - 1 ),
-		// 			sqrSin = 1 - cos * cos;
-		//
-		// 		// Skip the Slerp for tiny steps to avoid numeric problems:
-		// 		if ( sqrSin > Number.EPSILON ) {
-		//
-		// 			const sin = Math.sqrt( sqrSin ),
-		// 				len = Math.atan2( sin, cos * dir );
-		//
-		// 			s = Math.sin( s * len ) / sin;
-		// 			t = Math.sin( t * len ) / sin;
-		//
-		// 		}
-		//
-		// 		const tDir = t * dir;
-		//
-		// 		x0 = x0 * s + x1 * tDir;
-		// 		y0 = y0 * s + y1 * tDir;
-		// 		z0 = z0 * s + z1 * tDir;
-		// 		w0 = w0 * s + w1 * tDir;
-		//
-		// 		// Normalize in case we just did a lerp:
-		// 		if ( s === 1 - t ) {
-		//
-		// 			const f = 1 / Math.sqrt( x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0 );
-		//
-		// 			x0 *= f;
-		// 			y0 *= f;
-		// 			z0 *= f;
-		// 			w0 *= f;
-		//
-		// 		}
-		//
-		// 	}
-		//
-		// 	dst[ dstOffset ] = x0;
-		// 	dst[ dstOffset + 1 ] = y0;
-		// 	dst[ dstOffset + 2 ] = z0;
-		// 	dst[ dstOffset + 3 ] = w0;
-		//
-		// }
-		//
-		// static multiplyQuaternionsFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1 ) {
-		//
-		// 	const x0 = src0[ srcOffset0 ];
-		// 	const y0 = src0[ srcOffset0 + 1 ];
-		// 	const z0 = src0[ srcOffset0 + 2 ];
-		// 	const w0 = src0[ srcOffset0 + 3 ];
-		//
-		// 	const x1 = src1[ srcOffset1 ];
-		// 	const y1 = src1[ srcOffset1 + 1 ];
-		// 	const z1 = src1[ srcOffset1 + 2 ];
-		// 	const w1 = src1[ srcOffset1 + 3 ];
-		//
-		// 	dst[ dstOffset ] = x0 * w1 + w0 * x1 + y0 * z1 - z0 * y1;
-		// 	dst[ dstOffset + 1 ] = y0 * w1 + w0 * y1 + z0 * x1 - x0 * z1;
-		// 	dst[ dstOffset + 2 ] = z0 * w1 + w0 * z1 + x0 * y1 - y0 * x1;
-		// 	dst[ dstOffset + 3 ] = w0 * w1 - x0 * x1 - y0 * y1 - z0 * z1;
-		//
-		// 	return dst;
-		//
-		// }
-
-		get x() {
-			return this._x;
-		}
-
-		// set x( value ) {
-		//
-		// 	this._x = value;
-		// 	this._onChangeCallback();
-		//
-		// }
-
-		get y() {
-			return this._y;
-		}
-
-		// set y( value ) {
-		//
-		// 	this._y = value;
-		// 	this._onChangeCallback();
-		//
-		// }
-
-		get z() {
-			return this._z;
-		}
-
-		// set z( value ) {
-		//
-		// 	this._z = value;
-		// 	this._onChangeCallback();
-		//
-		// }
-
-		get w() {
-			return this._w;
-		}
-
-		// set w( value ) {
-		//
-		// 	this._w = value;
-		// 	this._onChangeCallback();
-		//
-		// }
-		//
-		// set( x, y, z, w ) {
-		//
-		// 	this._x = x;
-		// 	this._y = y;
-		// 	this._z = z;
-		// 	this._w = w;
-		//
-		// 	this._onChangeCallback();
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// clone() {
-		//
-		// 	return new this.constructor( this._x, this._y, this._z, this._w );
-		//
-		// }
-
-		copy(quaternion) {
-			this._x = quaternion.x;
-			this._y = quaternion.y;
-			this._z = quaternion.z;
-			this._w = quaternion.w;
-			this._onChangeCallback();
-			return this;
-		}
-		setFromEuler(euler, update) {
-			const x = euler._x,
-				y = euler._y,
-				z = euler._z,
-				order = euler._order;
-
-			// http://www.mathworks.com/matlabcentral/fileexchange/
-			// 	20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/
-			//	content/SpinCalc.m
-
-			const cos = Math.cos;
-			const sin = Math.sin;
-			const c1 = cos(x / 2);
-			const c2 = cos(y / 2);
-			const c3 = cos(z / 2);
-			const s1 = sin(x / 2);
-			const s2 = sin(y / 2);
-			const s3 = sin(z / 2);
-			switch (order) {
-				case 'XYZ':
-					this._x = s1 * c2 * c3 + c1 * s2 * s3;
-					this._y = c1 * s2 * c3 - s1 * c2 * s3;
-					this._z = c1 * c2 * s3 + s1 * s2 * c3;
-					this._w = c1 * c2 * c3 - s1 * s2 * s3;
-					break;
-				case 'YXZ':
-					this._x = s1 * c2 * c3 + c1 * s2 * s3;
-					this._y = c1 * s2 * c3 - s1 * c2 * s3;
-					this._z = c1 * c2 * s3 - s1 * s2 * c3;
-					this._w = c1 * c2 * c3 + s1 * s2 * s3;
-					break;
-				case 'ZXY':
-					this._x = s1 * c2 * c3 - c1 * s2 * s3;
-					this._y = c1 * s2 * c3 + s1 * c2 * s3;
-					this._z = c1 * c2 * s3 + s1 * s2 * c3;
-					this._w = c1 * c2 * c3 - s1 * s2 * s3;
-					break;
-				case 'ZYX':
-					this._x = s1 * c2 * c3 - c1 * s2 * s3;
-					this._y = c1 * s2 * c3 + s1 * c2 * s3;
-					this._z = c1 * c2 * s3 - s1 * s2 * c3;
-					this._w = c1 * c2 * c3 + s1 * s2 * s3;
-					break;
-				case 'YZX':
-					this._x = s1 * c2 * c3 + c1 * s2 * s3;
-					this._y = c1 * s2 * c3 + s1 * c2 * s3;
-					this._z = c1 * c2 * s3 - s1 * s2 * c3;
-					this._w = c1 * c2 * c3 - s1 * s2 * s3;
-					break;
-				case 'XZY':
-					this._x = s1 * c2 * c3 - c1 * s2 * s3;
-					this._y = c1 * s2 * c3 - s1 * c2 * s3;
-					this._z = c1 * c2 * s3 + s1 * s2 * c3;
-					this._w = c1 * c2 * c3 + s1 * s2 * s3;
-					break;
-				default:
-					console.warn('THREE.Quaternion: .setFromEuler() encountered an unknown order: ' + order);
-			}
-			if (update !== false) this._onChangeCallback();
-			return this;
-		}
-		setFromAxisAngle(axis, angle) {
-			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
-
-			// assumes axis is normalized
-
-			const halfAngle = angle / 2,
-				s = Math.sin(halfAngle);
-			this._x = axis.x * s;
-			this._y = axis.y * s;
-			this._z = axis.z * s;
-			this._w = Math.cos(halfAngle);
-			this._onChangeCallback();
-			return this;
-		}
-		setFromRotationMatrix(m) {
-			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
-
-			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
-
-			const te = m.elements,
-				m11 = te[0],
-				m12 = te[4],
-				m13 = te[8],
-				m21 = te[1],
-				m22 = te[5],
-				m23 = te[9],
-				m31 = te[2],
-				m32 = te[6],
-				m33 = te[10],
-				trace = m11 + m22 + m33;
-			if (trace > 0) {
-				const s = 0.5 / Math.sqrt(trace + 1.0);
-				this._w = 0.25 / s;
-				this._x = (m32 - m23) * s;
-				this._y = (m13 - m31) * s;
-				this._z = (m21 - m12) * s;
-			} else if (m11 > m22 && m11 > m33) {
-				const s = 2.0 * Math.sqrt(1.0 + m11 - m22 - m33);
-				this._w = (m32 - m23) / s;
-				this._x = 0.25 * s;
-				this._y = (m12 + m21) / s;
-				this._z = (m13 + m31) / s;
-			} else if (m22 > m33) {
-				const s = 2.0 * Math.sqrt(1.0 + m22 - m11 - m33);
-				this._w = (m13 - m31) / s;
-				this._x = (m12 + m21) / s;
-				this._y = 0.25 * s;
-				this._z = (m23 + m32) / s;
-			} else {
-				const s = 2.0 * Math.sqrt(1.0 + m33 - m11 - m22);
-				this._w = (m21 - m12) / s;
-				this._x = (m13 + m31) / s;
-				this._y = (m23 + m32) / s;
-				this._z = 0.25 * s;
-			}
-			this._onChangeCallback();
-			return this;
-		}
-
-		// setFromUnitVectors( vFrom, vTo ) {
-		//
-		// 	// assumes direction vectors vFrom and vTo are normalized
-		//
-		// 	let r = vFrom.dot( vTo ) + 1;
-		//
-		// 	if ( r < Number.EPSILON ) {
-		//
-		// 		// vFrom and vTo point in opposite directions
-		//
-		// 		r = 0;
-		//
-		// 		if ( Math.abs( vFrom.x ) > Math.abs( vFrom.z ) ) {
-		//
-		// 			this._x = - vFrom.y;
-		// 			this._y = vFrom.x;
-		// 			this._z = 0;
-		// 			this._w = r;
-		//
-		// 		} else {
-		//
-		// 			this._x = 0;
-		// 			this._y = - vFrom.z;
-		// 			this._z = vFrom.y;
-		// 			this._w = r;
-		//
-		// 		}
-		//
-		// 	} else {
-		//
-		// 		// crossVectors( vFrom, vTo ); // inlined to avoid cyclic dependency on Vector3
-		//
-		// 		this._x = vFrom.y * vTo.z - vFrom.z * vTo.y;
-		// 		this._y = vFrom.z * vTo.x - vFrom.x * vTo.z;
-		// 		this._z = vFrom.x * vTo.y - vFrom.y * vTo.x;
-		// 		this._w = r;
-		//
-		// 	}
-		//
-		// 	return this.normalize();
-		//
-		// }
-
-		// angleTo( q ) {
-		//
-		// 	return 2 * Math.acos( Math.abs( MathUtils.clamp( this.dot( q ), - 1, 1 ) ) );
-		//
-		// }
-
-		// rotateTowards( q, step ) {
-		//
-		// 	const angle = this.angleTo( q );
-		//
-		// 	if ( angle === 0 ) return this;
-		//
-		// 	const t = Math.min( 1, step / angle );
-		//
-		// 	this.slerp( q, t );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// identity() {
-		//
-		// 	return this.set( 0, 0, 0, 1 );
-		//
-		// }
-		//
-		// invert() {
-		//
-		// 	// quaternion is assumed to have unit length
-		//
-		// 	return this.conjugate();
-		//
-		// }
-		//
-		// conjugate() {
-		//
-		// 	this._x *= - 1;
-		// 	this._y *= - 1;
-		// 	this._z *= - 1;
-		//
-		// 	this._onChangeCallback();
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// dot( v ) {
-		//
-		// 	return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
-		//
-		// }
-		//
-		// lengthSq() {
-		//
-		// 	return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
-		//
-		// }
-		//
-		// length() {
-		//
-		// 	return Math.sqrt( this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w );
-		//
-		// }
-		//
-		// normalize() {
-		//
-		// 	let l = this.length();
-		//
-		// 	if ( l === 0 ) {
-		//
-		// 		this._x = 0;
-		// 		this._y = 0;
-		// 		this._z = 0;
-		// 		this._w = 1;
-		//
-		// 	} else {
-		//
-		// 		l = 1 / l;
-		//
-		// 		this._x = this._x * l;
-		// 		this._y = this._y * l;
-		// 		this._z = this._z * l;
-		// 		this._w = this._w * l;
-		//
-		// 	}
-		//
-		// 	this._onChangeCallback();
-		//
-		// 	return this;
-		//
-		// }
-
-		multiply(q) {
-			return this.multiplyQuaternions(this, q);
-		}
-		//
-		// premultiply( q ) {
-		//
-		// 	return this.multiplyQuaternions( q, this );
-		//
-		// }
-		//
-		multiplyQuaternions(a, b) {
-			// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
-
-			const qax = a._x,
-				qay = a._y,
-				qaz = a._z,
-				qaw = a._w;
-			const qbx = b._x,
-				qby = b._y,
-				qbz = b._z,
-				qbw = b._w;
-			this._x = qax * qbw + qaw * qbx + qay * qbz - qaz * qby;
-			this._y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
-			this._z = qaz * qbw + qaw * qbz + qax * qby - qay * qbx;
-			this._w = qaw * qbw - qax * qbx - qay * qby - qaz * qbz;
-			this._onChangeCallback();
-			return this;
-		}
-		//
-		// slerp( qb, t ) {
-		//
-		// 	if ( t === 0 ) return this;
-		// 	if ( t === 1 ) return this.copy( qb );
-		//
-		// 	const x = this._x, y = this._y, z = this._z, w = this._w;
-		//
-		// 	// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
-		//
-		// 	let cosHalfTheta = w * qb._w + x * qb._x + y * qb._y + z * qb._z;
-		//
-		// 	if ( cosHalfTheta < 0 ) {
-		//
-		// 		this._w = - qb._w;
-		// 		this._x = - qb._x;
-		// 		this._y = - qb._y;
-		// 		this._z = - qb._z;
-		//
-		// 		cosHalfTheta = - cosHalfTheta;
-		//
-		// 	} else {
-		//
-		// 		this.copy( qb );
-		//
-		// 	}
-		//
-		// 	if ( cosHalfTheta >= 1.0 ) {
-		//
-		// 		this._w = w;
-		// 		this._x = x;
-		// 		this._y = y;
-		// 		this._z = z;
-		//
-		// 		return this;
-		//
-		// 	}
-		//
-		// 	const sqrSinHalfTheta = 1.0 - cosHalfTheta * cosHalfTheta;
-		//
-		// 	if ( sqrSinHalfTheta <= Number.EPSILON ) {
-		//
-		// 		const s = 1 - t;
-		// 		this._w = s * w + t * this._w;
-		// 		this._x = s * x + t * this._x;
-		// 		this._y = s * y + t * this._y;
-		// 		this._z = s * z + t * this._z;
-		//
-		// 		this.normalize();
-		// 		this._onChangeCallback();
-		//
-		// 		return this;
-		//
-		// 	}
-		//
-		// 	const sinHalfTheta = Math.sqrt( sqrSinHalfTheta );
-		// 	const halfTheta = Math.atan2( sinHalfTheta, cosHalfTheta );
-		// 	const ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta,
-		// 		ratioB = Math.sin( t * halfTheta ) / sinHalfTheta;
-		//
-		// 	this._w = ( w * ratioA + this._w * ratioB );
-		// 	this._x = ( x * ratioA + this._x * ratioB );
-		// 	this._y = ( y * ratioA + this._y * ratioB );
-		// 	this._z = ( z * ratioA + this._z * ratioB );
-		//
-		// 	this._onChangeCallback();
-		//
-		// 	return this;
-		//
-		// }
-
-		// slerpQuaternions( qa, qb, t ) {
-		//
-		// 	return this.copy( qa ).slerp( qb, t );
-		//
-		// }
-		//
-		// random() {
-		//
-		// 	// Derived from http://planning.cs.uiuc.edu/node198.html
-		// 	// Note, this source uses w, x, y, z ordering,
-		// 	// so we swap the order below.
-		//
-		// 	const u1 = Math.random();
-		// 	const sqrt1u1 = Math.sqrt( 1 - u1 );
-		// 	const sqrtu1 = Math.sqrt( u1 );
-		//
-		// 	const u2 = 2 * Math.PI * Math.random();
-		//
-		// 	const u3 = 2 * Math.PI * Math.random();
-		//
-		// 	return this.set(
-		// 		sqrt1u1 * Math.cos( u2 ),
-		// 		sqrtu1 * Math.sin( u3 ),
-		// 		sqrtu1 * Math.cos( u3 ),
-		// 		sqrt1u1 * Math.sin( u2 ),
-		// 	);
-		//
-		// }
-		//
-		// equals( quaternion ) {
-		//
-		// 	return ( quaternion._x === this._x ) && ( quaternion._y === this._y ) && ( quaternion._z === this._z ) && ( quaternion._w === this._w );
-		//
-		// }
-		//
-		// fromArray( array, offset = 0 ) {
-		//
-		// 	this._x = array[ offset ];
-		// 	this._y = array[ offset + 1 ];
-		// 	this._z = array[ offset + 2 ];
-		// 	this._w = array[ offset + 3 ];
-		//
-		// 	this._onChangeCallback();
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// toArray( array = [], offset = 0 ) {
-		//
-		// 	array[ offset ] = this._x;
-		// 	array[ offset + 1 ] = this._y;
-		// 	array[ offset + 2 ] = this._z;
-		// 	array[ offset + 3 ] = this._w;
-		//
-		// 	return array;
-		//
-		// }
-		//
-		// fromBufferAttribute( attribute, index ) {
-		//
-		// 	this._x = attribute.getX( index );
-		// 	this._y = attribute.getY( index );
-		// 	this._z = attribute.getZ( index );
-		// 	this._w = attribute.getW( index );
-		//
-		// 	return this;
-		//
-		// }
-
-		_onChange(callback) {
-			this._onChangeCallback = callback;
-			return this;
-		}
-		_onChangeCallback() {}
-		*[Symbol.iterator]() {
-			yield this._x;
-			yield this._y;
-			yield this._z;
-			yield this._w;
-		}
-	}
+	// import * as MathUtils from './MathUtils.js';
+	// import { Quaternion } from './Quaternion.js';
 
 	class Vector3 {
 		constructor(x = 0, y = 0, z = 0) {
@@ -1607,410 +993,11 @@
 		}
 	}
 
-	class Box3 {
-		constructor(min = new Vector3(+Infinity, +Infinity, +Infinity), max = new Vector3(-Infinity, -Infinity, -Infinity)) {
-			// this.isBox3 = true;
+	// import { Box3 } from './Box3.js';
 
-			this.min = min;
-			this.max = max;
-		}
 
-		// set( min, max ) {
-		//
-		// 	this.min.copy( min );
-		// 	this.max.copy( max );
-		//
-		// 	return this;
-		//
-		// }
 
-		// setFromArray( array ) {
-		//
-		// 	let minX = + Infinity;
-		// 	let minY = + Infinity;
-		// 	let minZ = + Infinity;
-		//
-		// 	let maxX = - Infinity;
-		// 	let maxY = - Infinity;
-		// 	let maxZ = - Infinity;
-		//
-		// 	for ( let i = 0, l = array.length; i < l; i += 3 ) {
-		//
-		// 		const x = array[ i ];
-		// 		const y = array[ i + 1 ];
-		// 		const z = array[ i + 2 ];
-		//
-		// 		if ( x < minX ) minX = x;
-		// 		if ( y < minY ) minY = y;
-		// 		if ( z < minZ ) minZ = z;
-		//
-		// 		if ( x > maxX ) maxX = x;
-		// 		if ( y > maxY ) maxY = y;
-		// 		if ( z > maxZ ) maxZ = z;
-		//
-		// 	}
-		//
-		// 	this.min.set( minX, minY, minZ );
-		// 	this.max.set( maxX, maxY, maxZ );
-		//
-		// 	return this;
-		//
-		// }
 
-		setFromBufferAttribute(attribute) {
-			let minX = +Infinity;
-			let minY = +Infinity;
-			let minZ = +Infinity;
-			let maxX = -Infinity;
-			let maxY = -Infinity;
-			let maxZ = -Infinity;
-			for (let i = 0, l = attribute.count; i < l; i++) {
-				const x = attribute.getX(i);
-				const y = attribute.getY(i);
-				const z = attribute.getZ(i);
-				if (x < minX) minX = x;
-				if (y < minY) minY = y;
-				if (z < minZ) minZ = z;
-				if (x > maxX) maxX = x;
-				if (y > maxY) maxY = y;
-				if (z > maxZ) maxZ = z;
-			}
-			this.min.set(minX, minY, minZ);
-			this.max.set(maxX, maxY, maxZ);
-			return this;
-		}
-		setFromPoints(points) {
-			this.makeEmpty();
-			for (let i = 0, il = points.length; i < il; i++) {
-				this.expandByPoint(points[i]);
-			}
-			return this;
-		}
-
-		// setFromCenterAndSize( center, size ) {
-		//
-		// 	const halfSize = _vector.copy( size ).multiplyScalar( 0.5 );
-		//
-		// 	this.min.copy( center ).sub( halfSize );
-		// 	this.max.copy( center ).add( halfSize );
-		//
-		// 	return this;
-		//
-		// }
-
-		setFromObject(object, precise = false) {
-			this.makeEmpty();
-			return this.expandByObject(object, precise);
-		}
-		//
-		// clone() {
-		//
-		// 	return new this.constructor().copy( this );
-		//
-		// }
-
-		copy(box) {
-			this.min.copy(box.min);
-			this.max.copy(box.max);
-			return this;
-		}
-		makeEmpty() {
-			this.min.x = this.min.y = this.min.z = +Infinity;
-			this.max.x = this.max.y = this.max.z = -Infinity;
-			return this;
-		}
-		isEmpty() {
-			// this is a more robust check for empty than ( volume <= 0 ) because volume can get positive with two negative axes
-
-			return this.max.x < this.min.x || this.max.y < this.min.y || this.max.z < this.min.z;
-		}
-		getCenter(target) {
-			return this.isEmpty() ? target.set(0, 0, 0) : target.addVectors(this.min, this.max).multiplyScalar(0.5);
-		}
-		getSize(target) {
-			//used
-
-			return this.isEmpty() ? target.set(0, 0, 0) : target.subVectors(this.max, this.min);
-		}
-		expandByPoint(point) {
-			this.min.min(point);
-			this.max.max(point);
-			return this;
-		}
-
-		// expandByVector( vector ) {
-		//
-		// 	this.min.sub( vector );
-		// 	this.max.add( vector );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// expandByScalar( scalar ) {
-		//
-		// 	this.min.addScalar( - scalar );
-		// 	this.max.addScalar( scalar );
-		//
-		// 	return this;
-		//
-		// }
-
-		expandByObject(object, precise = false) {
-			// Computes the world-axis-aligned bounding box of an object (including its children),
-			// accounting for both the object's, and children's, world transforms
-
-			object.updateWorldMatrix(false, false);
-			const geometry = object.geometry;
-			if (geometry !== undefined) {
-				if (precise && geometry.attributes != undefined && geometry.attributes.position !== undefined) {
-					const position = geometry.attributes.position;
-					for (let i = 0, l = position.count; i < l; i++) {
-						_vector$3.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
-						this.expandByPoint(_vector$3);
-					}
-				} else {
-					if (geometry.boundingBox === null) {
-						geometry.computeBoundingBox();
-					}
-					_box$2.copy(geometry.boundingBox);
-					_box$2.applyMatrix4(object.matrixWorld);
-					this.union(_box$2);
-				}
-			}
-			const children = object.children;
-			for (let i = 0, l = children.length; i < l; i++) {
-				this.expandByObject(children[i], precise);
-			}
-			return this;
-		}
-
-		// containsPoint( point ) {
-		//
-		// 	return point.x < this.min.x || point.x > this.max.x ||
-		// 		point.y < this.min.y || point.y > this.max.y ||
-		// 		point.z < this.min.z || point.z > this.max.z ? false : true;
-		//
-		// }
-		//
-		// containsBox( box ) {
-		//
-		// 	return this.min.x <= box.min.x && box.max.x <= this.max.x &&
-		// 		this.min.y <= box.min.y && box.max.y <= this.max.y &&
-		// 		this.min.z <= box.min.z && box.max.z <= this.max.z;
-		//
-		// }
-
-		// getParameter( point, target ) {
-		//
-		// 	// This can potentially have a divide by zero if the box
-		// 	// has a size dimension of 0.
-		//
-		// 	return target.set(
-		// 		( point.x - this.min.x ) / ( this.max.x - this.min.x ),
-		// 		( point.y - this.min.y ) / ( this.max.y - this.min.y ),
-		// 		( point.z - this.min.z ) / ( this.max.z - this.min.z )
-		// 	);
-		//
-		// }
-
-		// intersectsBox( box ) {
-		//
-		// 	// using 6 splitting planes to rule out intersections.
-		// 	return box.max.x < this.min.x || box.min.x > this.max.x ||
-		// 		box.max.y < this.min.y || box.min.y > this.max.y ||
-		// 		box.max.z < this.min.z || box.min.z > this.max.z ? false : true;
-		//
-		// }
-
-		// intersectsSphere( sphere ) {
-		//
-		// 	// Find the point on the AABB closest to the sphere center.
-		// 	this.clampPoint( sphere.center, _vector );
-		//
-		// 	// If that point is inside the sphere, the AABB and sphere intersect.
-		// 	return _vector.distanceToSquared( sphere.center ) <= ( sphere.radius * sphere.radius );
-		//
-		// }
-
-		// intersectsPlane( plane ) {
-		//
-		// 	// We compute the minimum and maximum dot product values. If those values
-		// 	// are on the same side (back or front) of the plane, then there is no intersection.
-		//
-		// 	let min, max;
-		//
-		// 	if ( plane.normal.x > 0 ) {
-		//
-		// 		min = plane.normal.x * this.min.x;
-		// 		max = plane.normal.x * this.max.x;
-		//
-		// 	} else {
-		//
-		// 		min = plane.normal.x * this.max.x;
-		// 		max = plane.normal.x * this.min.x;
-		//
-		// 	}
-		//
-		// 	if ( plane.normal.y > 0 ) {
-		//
-		// 		min += plane.normal.y * this.min.y;
-		// 		max += plane.normal.y * this.max.y;
-		//
-		// 	} else {
-		//
-		// 		min += plane.normal.y * this.max.y;
-		// 		max += plane.normal.y * this.min.y;
-		//
-		// 	}
-		//
-		// 	if ( plane.normal.z > 0 ) {
-		//
-		// 		min += plane.normal.z * this.min.z;
-		// 		max += plane.normal.z * this.max.z;
-		//
-		// 	} else {
-		//
-		// 		min += plane.normal.z * this.max.z;
-		// 		max += plane.normal.z * this.min.z;
-		//
-		// 	}
-		//
-		// 	return ( min <= - plane.constant && max >= - plane.constant );
-		//
-		// }
-
-		// intersectsTriangle( triangle ) {
-		//
-		// 	if ( this.isEmpty() ) {
-		//
-		// 		return false;
-		//
-		// 	}
-		//
-		// 	// compute box center and extents
-		// 	this.getCenter( _center );
-		// 	_extents.subVectors( this.max, _center );
-		//
-		// 	// translate triangle to aabb origin
-		// 	_v0.subVectors( triangle.a, _center );
-		// 	_v1.subVectors( triangle.b, _center );
-		// 	_v2.subVectors( triangle.c, _center );
-		//
-		// 	// compute edge vectors for triangle
-		// 	_f0.subVectors( _v1, _v0 );
-		// 	_f1.subVectors( _v2, _v1 );
-		// 	_f2.subVectors( _v0, _v2 );
-		//
-		// 	// test against axes that are given by cross product combinations of the edges of the triangle and the edges of the aabb
-		// 	// make an axis testing of each of the 3 sides of the aabb against each of the 3 sides of the triangle = 9 axis of separation
-		// 	// axis_ij = u_i x f_j (u0, u1, u2 = face normals of aabb = x,y,z axes vectors since aabb is axis aligned)
-		// 	let axes = [
-		// 		0, - _f0.z, _f0.y, 0, - _f1.z, _f1.y, 0, - _f2.z, _f2.y,
-		// 		_f0.z, 0, - _f0.x, _f1.z, 0, - _f1.x, _f2.z, 0, - _f2.x,
-		// 		- _f0.y, _f0.x, 0, - _f1.y, _f1.x, 0, - _f2.y, _f2.x, 0
-		// 	];
-		// 	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
-		//
-		// 		return false;
-		//
-		// 	}
-		//
-		// 	// test 3 face normals from the aabb
-		// 	axes = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
-		// 	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
-		//
-		// 		return false;
-		//
-		// 	}
-		//
-		// 	// finally testing the face normal of the triangle
-		// 	// use already existing triangle edge vectors here
-		// 	_triangleNormal.crossVectors( _f0, _f1 );
-		// 	axes = [ _triangleNormal.x, _triangleNormal.y, _triangleNormal.z ];
-		//
-		// 	return satForAxes( axes, _v0, _v1, _v2, _extents );
-		//
-		// }
-		//
-		// clampPoint( point, target ) {
-		//
-		// 	return target.copy( point ).clamp( this.min, this.max );
-		//
-		// }
-		//
-		// distanceToPoint( point ) {
-		//
-		// 	const clampedPoint = _vector.copy( point ).clamp( this.min, this.max );
-		//
-		// 	return clampedPoint.sub( point ).length();
-		//
-		// }
-		//
-		// getBoundingSphere( target ) {
-		//
-		// 	this.getCenter( target.center );
-		//
-		// 	target.radius = this.getSize( _vector ).length() * 0.5;
-		//
-		// 	return target;
-		//
-		// }
-		//
-		// intersect( box ) {
-		//
-		// 	this.min.max( box.min );
-		// 	this.max.min( box.max );
-		//
-		// 	// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
-		// 	if ( this.isEmpty() ) this.makeEmpty();
-		//
-		// 	return this;
-		//
-		// }
-
-		union(box) {
-			this.min.min(box.min);
-			this.max.max(box.max);
-			return this;
-		}
-		applyMatrix4(matrix) {
-			// transform of empty box is an empty box.
-			if (this.isEmpty()) return this;
-
-			// NOTE: I am using a binary pattern to specify all 2^3 combinations below
-			_points[0].set(this.min.x, this.min.y, this.min.z).applyMatrix4(matrix); // 000
-			_points[1].set(this.min.x, this.min.y, this.max.z).applyMatrix4(matrix); // 001
-			_points[2].set(this.min.x, this.max.y, this.min.z).applyMatrix4(matrix); // 010
-			_points[3].set(this.min.x, this.max.y, this.max.z).applyMatrix4(matrix); // 011
-			_points[4].set(this.max.x, this.min.y, this.min.z).applyMatrix4(matrix); // 100
-			_points[5].set(this.max.x, this.min.y, this.max.z).applyMatrix4(matrix); // 101
-			_points[6].set(this.max.x, this.max.y, this.min.z).applyMatrix4(matrix); // 110
-			_points[7].set(this.max.x, this.max.y, this.max.z).applyMatrix4(matrix); // 111
-
-			this.setFromPoints(_points);
-			return this;
-		}
-
-		// translate( offset ) {
-		//
-		// 	this.min.add( offset );
-		// 	this.max.add( offset );
-		//
-		// 	return this;
-		//
-		// }
-
-		// equals( box ) {
-		//
-		// 	return box.min.equals( this.min ) && box.max.equals( this.max );
-		//
-		// }
-	}
-
-	const _points = [/*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3()];
-	const _vector$3 = /*@__PURE__*/new Vector3();
-	const _box$2 = /*@__PURE__*/new Box3();
 
 	class Sphere {
 		constructor(center = new Vector3(), radius = -1) {
@@ -5495,6 +4482,11 @@
 		};
 	}
 
+	// import { Vector3 } from '../math/Vector3.js';
+
+
+
+
 	class BufferAttribute {
 		constructor(array, itemSize, normalized = false) {
 			if (Array.isArray(array)) {
@@ -6311,645 +5303,7 @@
 		}
 	}
 
-	function SRGBToLinear(c) {
-		return c < 0.04045 ? c * 0.0773993808 : Math.pow(c * 0.9478672986 + 0.0521327014, 2.4);
-	}
-	function LinearToSRGB(c) {
-		return c < 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 0.41666) - 0.055;
-	}
-
-	// JavaScript RGB-to-RGB transforms, defined as
-	// FN[InputColorSpace][OutputColorSpace] callback functions.
-	const FN = {
-		[SRGBColorSpace]: {
-			[LinearSRGBColorSpace]: SRGBToLinear
-		},
-		[LinearSRGBColorSpace]: {
-			[SRGBColorSpace]: LinearToSRGB
-		}
-	};
-	const ColorManagement = {
-		legacyMode: true,
-		get workingColorSpace() {
-			return LinearSRGBColorSpace;
-		},
-		set workingColorSpace(colorSpace) {
-			console.warn('THREE.ColorManagement: .workingColorSpace is readonly.');
-		},
-		convert: function (color, sourceColorSpace, targetColorSpace) {
-			if (this.legacyMode || sourceColorSpace === targetColorSpace || !sourceColorSpace || !targetColorSpace) {
-				return color;
-			}
-			if (FN[sourceColorSpace] && FN[sourceColorSpace][targetColorSpace] !== undefined) {
-				const fn = FN[sourceColorSpace][targetColorSpace];
-				color.r = fn(color.r);
-				color.g = fn(color.g);
-				color.b = fn(color.b);
-				return color;
-			}
-			throw new Error('Unsupported color space conversion.');
-		},
-		fromWorkingColorSpace: function (color, targetColorSpace) {
-			return this.convert(color, this.workingColorSpace, targetColorSpace);
-		},
-		toWorkingColorSpace: function (color, sourceColorSpace) {
-			return this.convert(color, sourceColorSpace, this.workingColorSpace);
-		}
-	};
-
-	// import { clamp, euclideanModulo, lerp } from './MathUtils.js';
-	const _colorKeywords = {
-		'aliceblue': 0xF0F8FF,
-		'antiquewhite': 0xFAEBD7,
-		'aqua': 0x00FFFF,
-		'aquamarine': 0x7FFFD4,
-		'azure': 0xF0FFFF,
-		'beige': 0xF5F5DC,
-		'bisque': 0xFFE4C4,
-		'black': 0x000000,
-		'blanchedalmond': 0xFFEBCD,
-		'blue': 0x0000FF,
-		'blueviolet': 0x8A2BE2,
-		'brown': 0xA52A2A,
-		'burlywood': 0xDEB887,
-		'cadetblue': 0x5F9EA0,
-		'chartreuse': 0x7FFF00,
-		'chocolate': 0xD2691E,
-		'coral': 0xFF7F50,
-		'cornflowerblue': 0x6495ED,
-		'cornsilk': 0xFFF8DC,
-		'crimson': 0xDC143C,
-		'cyan': 0x00FFFF,
-		'darkblue': 0x00008B,
-		'darkcyan': 0x008B8B,
-		'darkgoldenrod': 0xB8860B,
-		'darkgray': 0xA9A9A9,
-		'darkgreen': 0x006400,
-		'darkgrey': 0xA9A9A9,
-		'darkkhaki': 0xBDB76B,
-		'darkmagenta': 0x8B008B,
-		'darkolivegreen': 0x556B2F,
-		'darkorange': 0xFF8C00,
-		'darkorchid': 0x9932CC,
-		'darkred': 0x8B0000,
-		'darksalmon': 0xE9967A,
-		'darkseagreen': 0x8FBC8F,
-		'darkslateblue': 0x483D8B,
-		'darkslategray': 0x2F4F4F,
-		'darkslategrey': 0x2F4F4F,
-		'darkturquoise': 0x00CED1,
-		'darkviolet': 0x9400D3,
-		'deeppink': 0xFF1493,
-		'deepskyblue': 0x00BFFF,
-		'dimgray': 0x696969,
-		'dimgrey': 0x696969,
-		'dodgerblue': 0x1E90FF,
-		'firebrick': 0xB22222,
-		'floralwhite': 0xFFFAF0,
-		'forestgreen': 0x228B22,
-		'fuchsia': 0xFF00FF,
-		'gainsboro': 0xDCDCDC,
-		'ghostwhite': 0xF8F8FF,
-		'gold': 0xFFD700,
-		'goldenrod': 0xDAA520,
-		'gray': 0x808080,
-		'green': 0x008000,
-		'greenyellow': 0xADFF2F,
-		'grey': 0x808080,
-		'honeydew': 0xF0FFF0,
-		'hotpink': 0xFF69B4,
-		'indianred': 0xCD5C5C,
-		'indigo': 0x4B0082,
-		'ivory': 0xFFFFF0,
-		'khaki': 0xF0E68C,
-		'lavender': 0xE6E6FA,
-		'lavenderblush': 0xFFF0F5,
-		'lawngreen': 0x7CFC00,
-		'lemonchiffon': 0xFFFACD,
-		'lightblue': 0xADD8E6,
-		'lightcoral': 0xF08080,
-		'lightcyan': 0xE0FFFF,
-		'lightgoldenrodyellow': 0xFAFAD2,
-		'lightgray': 0xD3D3D3,
-		'lightgreen': 0x90EE90,
-		'lightgrey': 0xD3D3D3,
-		'lightpink': 0xFFB6C1,
-		'lightsalmon': 0xFFA07A,
-		'lightseagreen': 0x20B2AA,
-		'lightskyblue': 0x87CEFA,
-		'lightslategray': 0x778899,
-		'lightslategrey': 0x778899,
-		'lightsteelblue': 0xB0C4DE,
-		'lightyellow': 0xFFFFE0,
-		'lime': 0x00FF00,
-		'limegreen': 0x32CD32,
-		'linen': 0xFAF0E6,
-		'magenta': 0xFF00FF,
-		'maroon': 0x800000,
-		'mediumaquamarine': 0x66CDAA,
-		'mediumblue': 0x0000CD,
-		'mediumorchid': 0xBA55D3,
-		'mediumpurple': 0x9370DB,
-		'mediumseagreen': 0x3CB371,
-		'mediumslateblue': 0x7B68EE,
-		'mediumspringgreen': 0x00FA9A,
-		'mediumturquoise': 0x48D1CC,
-		'mediumvioletred': 0xC71585,
-		'midnightblue': 0x191970,
-		'mintcream': 0xF5FFFA,
-		'mistyrose': 0xFFE4E1,
-		'moccasin': 0xFFE4B5,
-		'navajowhite': 0xFFDEAD,
-		'navy': 0x000080,
-		'oldlace': 0xFDF5E6,
-		'olive': 0x808000,
-		'olivedrab': 0x6B8E23,
-		'orange': 0xFFA500,
-		'orangered': 0xFF4500,
-		'orchid': 0xDA70D6,
-		'palegoldenrod': 0xEEE8AA,
-		'palegreen': 0x98FB98,
-		'paleturquoise': 0xAFEEEE,
-		'palevioletred': 0xDB7093,
-		'papayawhip': 0xFFEFD5,
-		'peachpuff': 0xFFDAB9,
-		'peru': 0xCD853F,
-		'pink': 0xFFC0CB,
-		'plum': 0xDDA0DD,
-		'powderblue': 0xB0E0E6,
-		'purple': 0x800080,
-		'rebeccapurple': 0x663399,
-		'red': 0xFF0000,
-		'rosybrown': 0xBC8F8F,
-		'royalblue': 0x4169E1,
-		'saddlebrown': 0x8B4513,
-		'salmon': 0xFA8072,
-		'sandybrown': 0xF4A460,
-		'seagreen': 0x2E8B57,
-		'seashell': 0xFFF5EE,
-		'sienna': 0xA0522D,
-		'silver': 0xC0C0C0,
-		'skyblue': 0x87CEEB,
-		'slateblue': 0x6A5ACD,
-		'slategray': 0x708090,
-		'slategrey': 0x708090,
-		'snow': 0xFFFAFA,
-		'springgreen': 0x00FF7F,
-		'steelblue': 0x4682B4,
-		'tan': 0xD2B48C,
-		'teal': 0x008080,
-		'thistle': 0xD8BFD8,
-		'tomato': 0xFF6347,
-		'turquoise': 0x40E0D0,
-		'violet': 0xEE82EE,
-		'wheat': 0xF5DEB3,
-		'white': 0xFFFFFF,
-		'whitesmoke': 0xF5F5F5,
-		'yellow': 0xFFFF00,
-		'yellowgreen': 0x9ACD32
-	};
-	const _rgb = {
-		r: 0,
-		g: 0,
-		b: 0
-	};
-	// const _hslA = { h: 0, s: 0, l: 0 };
-	// const _hslB = { h: 0, s: 0, l: 0 };
-
-	// function hue2rgb( p, q, t ) {
-
-	// 	if ( t < 0 ) t += 1;
-	// 	if ( t > 1 ) t -= 1;
-	// 	if ( t < 1 / 6 ) return p + ( q - p ) * 6 * t;
-	// 	if ( t < 1 / 2 ) return q;
-	// 	if ( t < 2 / 3 ) return p + ( q - p ) * 6 * ( 2 / 3 - t );
-	// 	return p;
-
-	// }
-
-	function toComponents(source, target) {
-		target.r = source.r;
-		target.g = source.g;
-		target.b = source.b;
-		return target;
-	}
-	class Color {
-		constructor(r, g, b) {
-			this.isColor = true;
-			this.r = 1;
-			this.g = 1;
-			this.b = 1;
-			if (g === undefined && b === undefined) {
-				// r is THREE.Color, hex or string
-				return this.set(r);
-			}
-			return this.setRGB(r, g, b);
-		}
-		set(value) {
-			if (value && value.isColor) {
-				this.copy(value);
-			} else if (typeof value === 'number') {
-				this.setHex(value);
-			} else if (typeof value === 'string') {
-				this.setStyle(value);
-			}
-			return this;
-		}
-
-		// setScalar( scalar ) {
-		//
-		// 	this.r = scalar;
-		// 	this.g = scalar;
-		// 	this.b = scalar;
-		//
-		// 	return this;
-		//
-		// }
-
-		setHex(hex, colorSpace = SRGBColorSpace) {
-			hex = Math.floor(hex);
-			this.r = (hex >> 16 & 255) / 255;
-			this.g = (hex >> 8 & 255) / 255;
-			this.b = (hex & 255) / 255;
-			ColorManagement.toWorkingColorSpace(this, colorSpace);
-			return this;
-		}
-		setRGB(r, g, b, colorSpace = ColorManagement.workingColorSpace) {
-			this.r = r;
-			this.g = g;
-			this.b = b;
-			ColorManagement.toWorkingColorSpace(this, colorSpace);
-			return this;
-		}
-
-		// setHSL( h, s, l, colorSpace = ColorManagement.workingColorSpace ) {
-
-		// 	// h,s,l ranges are in 0.0 - 1.0
-		// 	h = euclideanModulo( h, 1 );
-		// 	s = clamp( s, 0, 1 );
-		// 	l = clamp( l, 0, 1 );
-
-		// 	if ( s === 0 ) {
-
-		// 		this.r = this.g = this.b = l;
-
-		// 	} else {
-
-		// 		const p = l <= 0.5 ? l * ( 1 + s ) : l + s - ( l * s );
-		// 		const q = ( 2 * l ) - p;
-
-		// 		this.r = hue2rgb( q, p, h + 1 / 3 );
-		// 		this.g = hue2rgb( q, p, h );
-		// 		this.b = hue2rgb( q, p, h - 1 / 3 );
-
-		// 	}
-
-		// 	ColorManagement.toWorkingColorSpace( this, colorSpace );
-
-		// 	return this;
-
-		// }
-
-		setStyle(style, colorSpace = SRGBColorSpace) {
-			function handleAlpha(string) {
-				if (string === undefined) return;
-				if (parseFloat(string) < 1) {
-					console.warn('THREE.Color: Alpha component of ' + style + ' will be ignored.');
-				}
-			}
-			let m;
-			if (m = /^((?:rgb|hsl)a?)\(([^\)]*)\)/.exec(style)) {
-				// rgb / hsl
-
-				let color;
-				const name = m[1];
-				const components = m[2];
-				switch (name) {
-					case 'rgb':
-					case 'rgba':
-						if (color = /^\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d*\.?\d+)\s*)?$/.exec(components)) {
-							// rgb(255,0,0) rgba(255,0,0,0.5)
-							this.r = Math.min(255, parseInt(color[1], 10)) / 255;
-							this.g = Math.min(255, parseInt(color[2], 10)) / 255;
-							this.b = Math.min(255, parseInt(color[3], 10)) / 255;
-							ColorManagement.toWorkingColorSpace(this, colorSpace);
-							handleAlpha(color[4]);
-							return this;
-						}
-						if (color = /^\s*(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(?:,\s*(\d*\.?\d+)\s*)?$/.exec(components)) {
-							// rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
-							this.r = Math.min(100, parseInt(color[1], 10)) / 100;
-							this.g = Math.min(100, parseInt(color[2], 10)) / 100;
-							this.b = Math.min(100, parseInt(color[3], 10)) / 100;
-							ColorManagement.toWorkingColorSpace(this, colorSpace);
-							handleAlpha(color[4]);
-							return this;
-						}
-						break;
-				}
-			} else if (m = /^\#([A-Fa-f\d]+)$/.exec(style)) {
-				// hex color
-
-				const hex = m[1];
-				const size = hex.length;
-				if (size === 3) {
-					// #ff0
-					this.r = parseInt(hex.charAt(0) + hex.charAt(0), 16) / 255;
-					this.g = parseInt(hex.charAt(1) + hex.charAt(1), 16) / 255;
-					this.b = parseInt(hex.charAt(2) + hex.charAt(2), 16) / 255;
-					ColorManagement.toWorkingColorSpace(this, colorSpace);
-					return this;
-				} else if (size === 6) {
-					// #ff0000
-					this.r = parseInt(hex.charAt(0) + hex.charAt(1), 16) / 255;
-					this.g = parseInt(hex.charAt(2) + hex.charAt(3), 16) / 255;
-					this.b = parseInt(hex.charAt(4) + hex.charAt(5), 16) / 255;
-					ColorManagement.toWorkingColorSpace(this, colorSpace);
-					return this;
-				}
-			}
-			if (style && style.length > 0) {
-				return this.setColorName(style, colorSpace);
-			}
-			return this;
-		}
-		setColorName(style, colorSpace = SRGBColorSpace) {
-			// color keywords
-			const hex = _colorKeywords[style.toLowerCase()];
-			if (hex !== undefined) {
-				// red
-				this.setHex(hex, colorSpace);
-			} else {
-				// unknown color
-				console.warn('THREE.Color: Unknown color ' + style);
-			}
-			return this;
-		}
-		clone() {
-			return new this.constructor(this.r, this.g, this.b);
-		}
-		copy(color) {
-			this.r = color.r;
-			this.g = color.g;
-			this.b = color.b;
-			return this;
-		}
-
-		// copySRGBToLinear( color ) {
-		//
-		// 	this.r = SRGBToLinear( color.r );
-		// 	this.g = SRGBToLinear( color.g );
-		// 	this.b = SRGBToLinear( color.b );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// copyLinearToSRGB( color ) {
-		//
-		// 	this.r = LinearToSRGB( color.r );
-		// 	this.g = LinearToSRGB( color.g );
-		// 	this.b = LinearToSRGB( color.b );
-		//
-		// 	return this;
-		//
-		// }
-
-		// convertSRGBToLinear() {
-		//
-		// 	this.copySRGBToLinear( this );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// convertLinearToSRGB() {
-		//
-		// 	this.copyLinearToSRGB( this );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// getHex( colorSpace = SRGBColorSpace ) {
-		//
-		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
-		//
-		// 	return clamp( _rgb.r * 255, 0, 255 ) << 16 ^ clamp( _rgb.g * 255, 0, 255 ) << 8 ^ clamp( _rgb.b * 255, 0, 255 ) << 0;
-		//
-		// }
-		//
-		// getHexString( colorSpace = SRGBColorSpace ) {
-		//
-		// 	return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );
-		//
-		// }
-
-		// getHSL( target, colorSpace = ColorManagement.workingColorSpace ) {
-
-		// 	// h,s,l ranges are in 0.0 - 1.0
-
-		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
-
-		// 	const r = _rgb.r, g = _rgb.g, b = _rgb.b;
-
-		// 	const max = Math.max( r, g, b );
-		// 	const min = Math.min( r, g, b );
-
-		// 	let hue, saturation;
-		// 	const lightness = ( min + max ) / 2.0;
-
-		// 	if ( min === max ) {
-
-		// 		hue = 0;
-		// 		saturation = 0;
-
-		// 	} else {
-
-		// 		const delta = max - min;
-
-		// 		saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
-
-		// 		switch ( max ) {
-
-		// 			case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
-		// 			case g: hue = ( b - r ) / delta + 2; break;
-		// 			case b: hue = ( r - g ) / delta + 4; break;
-
-		// 		}
-
-		// 		hue /= 6;
-
-		// 	}
-
-		// 	target.h = hue;
-		// 	target.s = saturation;
-		// 	target.l = lightness;
-
-		// 	return target;
-
-		// }
-
-		getRGB(target, colorSpace = ColorManagement.workingColorSpace) {
-			ColorManagement.fromWorkingColorSpace(toComponents(this, _rgb), colorSpace);
-			target.r = _rgb.r;
-			target.g = _rgb.g;
-			target.b = _rgb.b;
-			return target;
-		}
-		//
-		// getStyle( colorSpace = SRGBColorSpace ) {
-		//
-		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
-		//
-		// 	if ( colorSpace !== SRGBColorSpace ) {
-		//
-		// 		// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
-		// 		return `color(${ colorSpace } ${ _rgb.r } ${ _rgb.g } ${ _rgb.b })`;
-		//
-		// 	}
-		//
-		// 	return `rgb(${( _rgb.r * 255 ) | 0},${( _rgb.g * 255 ) | 0},${( _rgb.b * 255 ) | 0})`;
-		//
-		// }
-
-		// offsetHSL( h, s, l ) {
-
-		// 	this.getHSL( _hslA );
-
-		// 	_hslA.h += h; _hslA.s += s; _hslA.l += l;
-
-		// 	this.setHSL( _hslA.h, _hslA.s, _hslA.l );
-
-		// 	return this;
-
-		// }
-
-		add(color) {
-			this.r += color.r;
-			this.g += color.g;
-			this.b += color.b;
-			return this;
-		}
-
-		// addColors( color1, color2 ) {
-		//
-		// 	this.r = color1.r + color2.r;
-		// 	this.g = color1.g + color2.g;
-		// 	this.b = color1.b + color2.b;
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// addScalar( s ) {
-		//
-		// 	this.r += s;
-		// 	this.g += s;
-		// 	this.b += s;
-		//
-		// 	return this;
-		//
-		// }
-
-		sub(color) {
-			this.r = Math.max(0, this.r - color.r);
-			this.g = Math.max(0, this.g - color.g);
-			this.b = Math.max(0, this.b - color.b);
-			return this;
-		}
-		multiply(color) {
-			this.r *= color.r;
-			this.g *= color.g;
-			this.b *= color.b;
-			return this;
-		}
-		multiplyScalar(s) {
-			this.r *= s;
-			this.g *= s;
-			this.b *= s;
-			return this;
-		}
-
-		// lerp( color, alpha ) {
-		//
-		// 	this.r += ( color.r - this.r ) * alpha;
-		// 	this.g += ( color.g - this.g ) * alpha;
-		// 	this.b += ( color.b - this.b ) * alpha;
-		//
-		// 	return this;
-		//
-		// }
-
-		// lerpColors( color1, color2, alpha ) {
-		//
-		// 	this.r = color1.r + ( color2.r - color1.r ) * alpha;
-		// 	this.g = color1.g + ( color2.g - color1.g ) * alpha;
-		// 	this.b = color1.b + ( color2.b - color1.b ) * alpha;
-		//
-		// 	return this;
-		//
-		// }
-
-		// lerpHSL( color, alpha ) {
-
-		// 	this.getHSL( _hslA );
-		// 	color.getHSL( _hslB );
-
-		// 	const h = lerp( _hslA.h, _hslB.h, alpha );
-		// 	const s = lerp( _hslA.s, _hslB.s, alpha );
-		// 	const l = lerp( _hslA.l, _hslB.l, alpha );
-
-		// 	this.setHSL( h, s, l );
-
-		// 	return this;
-
-		// }
-
-		equals(c) {
-			return c.r === this.r && c.g === this.g && c.b === this.b;
-		}
-
-		// fromArray( array, offset = 0 ) {
-
-		// 	this.r = array[ offset ];
-		// 	this.g = array[ offset + 1 ];
-		// 	this.b = array[ offset + 2 ];
-
-		// 	return this;
-
-		// }
-
-		// toArray( array = [], offset = 0 ) {
-
-		// 	array[ offset ] = this.r;
-		// 	array[ offset + 1 ] = this.g;
-		// 	array[ offset + 2 ] = this.b;
-
-		// 	return array;
-
-		// }
-
-		fromBufferAttribute(attribute, index) {
-			this.r = attribute.getX(index);
-			this.g = attribute.getY(index);
-			this.b = attribute.getZ(index);
-			return this;
-		}
-
-		// toJSON() {
-
-		// 	return this.getHex();
-
-		// }
-
-		*[Symbol.iterator]() {
-			yield this.r;
-			yield this.g;
-			yield this.b;
-		}
-	}
-	Color.NAMES = _colorKeywords;
+	// import { SRGBToLinear } from '../math/Color.js';
 
 	let _canvas;
 	class ImageUtils {
@@ -8518,6 +6872,23 @@
 		}
 		return lines2.join('\n');
 	}
+
+	// function getEncodingComponents( encoding ) {
+	//
+	// 	switch ( encoding ) {
+	//
+	// 		case LinearEncoding:
+	// 			return [ 'Linear', '( value )' ];
+	// 		case sRGBEncoding:
+	// 			return [ 'sRGB', '( value )' ];
+	// 		default:
+	// 			console.warn( 'THREE.WebGLProgram: Unsupported encoding:', encoding );
+	// 			return [ 'Linear', '( value )' ];
+	//
+	// 	}
+	//
+	// }
+
 	function getShaderErrors(gl, shader, type) {
 		const status = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
 		const errors = gl.getShaderInfoLog(shader).trim();
@@ -8533,6 +6904,13 @@
 			return errors;
 		}
 	}
+
+	// function getTexelEncodingFunction( functionName, encoding ) {
+	//
+	// 	const components = getEncodingComponents( encoding );
+	// 	return 'vec4 ' + functionName + '( vec4 value ) { return LinearTo' + components[ 0 ] + components[ 1 ] + '; }';
+	//
+	// }
 
 	// function getToneMappingFunction( functionName, toneMapping ) {
 	//
@@ -8667,61 +7045,97 @@
 		}
 		return shadowMapTypeDefine;
 	}
-	function generateEnvMapTypeDefine(parameters) {
-		let envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-		if (parameters.envMap) {
-			switch (parameters.envMapMode) {
-				case CubeReflectionMapping:
-				case CubeRefractionMapping:
-					envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-					break;
-				case CubeUVReflectionMapping:
-					envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
-					break;
-			}
-		}
-		return envMapTypeDefine;
-	}
-	function generateEnvMapModeDefine(parameters) {
-		let envMapModeDefine = 'ENVMAP_MODE_REFLECTION';
-		if (parameters.envMap) {
-			switch (parameters.envMapMode) {
-				case CubeRefractionMapping:
-					envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
-					break;
-			}
-		}
-		return envMapModeDefine;
-	}
-	function generateEnvMapBlendingDefine(parameters) {
-		let envMapBlendingDefine = 'ENVMAP_BLENDING_NONE';
-		if (parameters.envMap) {
-			switch (parameters.combine) {
-				case MultiplyOperation:
-					envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
-					break;
-				case MixOperation:
-					envMapBlendingDefine = 'ENVMAP_BLENDING_MIX';
-					break;
-				case AddOperation:
-					envMapBlendingDefine = 'ENVMAP_BLENDING_ADD';
-					break;
-			}
-		}
-		return envMapBlendingDefine;
-	}
-	function generateCubeUVSize(parameters) {
-		const imageHeight = parameters.envMapCubeUVHeight;
-		if (imageHeight === null) return null;
-		const maxMip = Math.log2(imageHeight) - 2;
-		const texelHeight = 1.0 / imageHeight;
-		const texelWidth = 1.0 / (3 * Math.max(Math.pow(2, maxMip), 7 * 16));
-		return {
-			texelWidth,
-			texelHeight,
-			maxMip
-		};
-	}
+	//
+	// function generateEnvMapTypeDefine( parameters ) {
+	//
+	// 	let envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
+	//
+	// 	if ( parameters.envMap ) {
+	//
+	// 		switch ( parameters.envMapMode ) {
+	//
+	// 			case CubeReflectionMapping:
+	// 			case CubeRefractionMapping:
+	// 				envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
+	// 				break;
+	//
+	// 			case CubeUVReflectionMapping:
+	// 				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
+	// 				break;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return envMapTypeDefine;
+	//
+	// }
+	//
+	// function generateEnvMapModeDefine( parameters ) {
+	//
+	// 	let envMapModeDefine = 'ENVMAP_MODE_REFLECTION';
+	//
+	// 	if ( parameters.envMap ) {
+	//
+	// 		switch ( parameters.envMapMode ) {
+	//
+	// 			case CubeRefractionMapping:
+	//
+	// 				envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
+	// 				break;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return envMapModeDefine;
+	//
+	// }
+	//
+	// function generateEnvMapBlendingDefine( parameters ) {
+	//
+	// 	let envMapBlendingDefine = 'ENVMAP_BLENDING_NONE';
+	//
+	// 	if ( parameters.envMap ) {
+	//
+	// 		switch ( parameters.combine ) {
+	//
+	// 			case MultiplyOperation:
+	// 				envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
+	// 				break;
+	//
+	// 			case MixOperation:
+	// 				envMapBlendingDefine = 'ENVMAP_BLENDING_MIX';
+	// 				break;
+	//
+	// 			case AddOperation:
+	// 				envMapBlendingDefine = 'ENVMAP_BLENDING_ADD';
+	// 				break;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return envMapBlendingDefine;
+	//
+	// }
+	//
+	// function generateCubeUVSize( parameters ) {
+	//
+	// 	const imageHeight = parameters.envMapCubeUVHeight;
+	//
+	// 	if ( imageHeight === null ) return null;
+	//
+	// 	const maxMip = Math.log2( imageHeight ) - 2;
+	//
+	// 	const texelHeight = 1.0 / imageHeight;
+	//
+	// 	const texelWidth = 1.0 / ( 3 * Math.max( Math.pow( 2, maxMip ), 7 * 16 ) );
+	//
+	// 	return { texelWidth, texelHeight, maxMip };
+	//
+	// }
+
 	function WebGLProgram(renderer, cacheKey, parameters, bindingStates) {
 		// TODO Send this event to Three.js DevTools
 		// console.log( 'WebGLProgram', cacheKey );
@@ -8731,10 +7145,11 @@
 		let vertexShader = parameters.vertexShader;
 		let fragmentShader = parameters.fragmentShader;
 		const shadowMapTypeDefine = generateShadowMapTypeDefine(parameters);
-		generateEnvMapTypeDefine(parameters);
-		generateEnvMapModeDefine(parameters);
-		generateEnvMapBlendingDefine(parameters);
-		generateCubeUVSize(parameters);
+		// const envMapTypeDefine = generateEnvMapTypeDefine( parameters );
+		// const envMapModeDefine = generateEnvMapModeDefine( parameters );
+		// const envMapBlendingDefine = generateEnvMapBlendingDefine( parameters );
+		// const envMapCubeUVSize = generateCubeUVSize( parameters );
+
 		const customExtensions = parameters.isWebGL2 ? '' : generateExtensions(parameters);
 		const customDefines = generateDefines(defines);
 		const program = gl.createProgram();
@@ -8787,7 +7202,8 @@
 			// ( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_TEXTURE_STRIDE ' + parameters.morphTextureStride : '',
 			// ( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_COUNT ' + parameters.morphTargetsCount : '',
 			parameters.doubleSided ? '#define DOUBLE_SIDED' : '', parameters.flipSided ? '#define FLIP_SIDED' : '', parameters.shadowMapEnabled ? '#define USE_SHADOWMAP' : '', parameters.shadowMapEnabled ? '#define ' + shadowMapTypeDefine : '', parameters.sizeAttenuation ? '#define USE_SIZEATTENUATION' : '', parameters.logarithmicDepthBuffer ? '#define USE_LOGDEPTHBUF' : '', parameters.logarithmicDepthBuffer && parameters.rendererExtensionFragDepth ? '#define USE_LOGDEPTHBUF_EXT' : '', 'uniform mat4 modelMatrix;', 'uniform mat4 modelViewMatrix;', 'uniform mat4 projectionMatrix;', 'uniform mat4 viewMatrix;', 'uniform mat3 normalMatrix;', 'uniform vec3 cameraPosition;', 'uniform bool isOrthographic;', '#ifdef USE_INSTANCING', '	attribute mat4 instanceMatrix;', '#endif', '#ifdef USE_INSTANCING_COLOR', '	attribute vec3 instanceColor;', '#endif', 'attribute vec3 position;', 'attribute vec3 normal;', 'attribute vec2 uv;', '#ifdef USE_TANGENT', '	attribute vec4 tangent;', '#endif', '#if defined( USE_COLOR_ALPHA )', '	attribute vec4 color;', '#elif defined( USE_COLOR )', '	attribute vec3 color;', '#endif', '#if ( defined( USE_MORPHTARGETS ) && ! defined( MORPHTARGETS_TEXTURE ) )', '	attribute vec3 morphTarget0;', '	attribute vec3 morphTarget1;', '	attribute vec3 morphTarget2;', '	attribute vec3 morphTarget3;', '	#ifdef USE_MORPHNORMALS', '		attribute vec3 morphNormal0;', '		attribute vec3 morphNormal1;', '		attribute vec3 morphNormal2;', '		attribute vec3 morphNormal3;', '	#else', '		attribute vec3 morphTarget4;', '		attribute vec3 morphTarget5;', '		attribute vec3 morphTarget6;', '		attribute vec3 morphTarget7;', '	#endif', '#endif', '#ifdef USE_SKINNING', '	attribute vec4 skinIndex;', '	attribute vec4 skinWeight;', '#endif', '\n'].filter(filterEmptyLine).join('\n');
-			prefixFragment = [customExtensions, generatePrecision(parameters), '#define SHADER_NAME ' + parameters.shaderName, customDefines, parameters.useFog && parameters.fog ? '#define USE_FOG' : '', parameters.useFog && parameters.fogExp2 ? '#define FOG_EXP2' : '', parameters.map ? '#define USE_MAP' : '', parameters.matcap ? '#define USE_MATCAP' : '',
+			prefixFragment = [customExtensions, generatePrecision(parameters), '#define SHADER_NAME ' + parameters.shaderName, customDefines, parameters.useFog && parameters.fog ? '#define USE_FOG' : '', parameters.useFog && parameters.fogExp2 ? '#define FOG_EXP2' : '', parameters.map ? '#define USE_MAP' : '',
+			// parameters.matcap ? '#define USE_MATCAP' : '',
 			// parameters.envMap ? '#define USE_ENVMAP' : '',
 			// parameters.envMap ? '#define ' + envMapTypeDefine : '',
 			// parameters.envMap ? '#define ' + envMapModeDefine : '',
@@ -9081,6 +7497,646 @@
 		clone: cloneUniforms,
 		merge: mergeUniforms
 	};
+
+	function SRGBToLinear(c) {
+		return c < 0.04045 ? c * 0.0773993808 : Math.pow(c * 0.9478672986 + 0.0521327014, 2.4);
+	}
+	function LinearToSRGB(c) {
+		return c < 0.0031308 ? c * 12.92 : 1.055 * Math.pow(c, 0.41666) - 0.055;
+	}
+
+	// JavaScript RGB-to-RGB transforms, defined as
+	// FN[InputColorSpace][OutputColorSpace] callback functions.
+	const FN = {
+		[SRGBColorSpace]: {
+			[LinearSRGBColorSpace]: SRGBToLinear
+		},
+		[LinearSRGBColorSpace]: {
+			[SRGBColorSpace]: LinearToSRGB
+		}
+	};
+	const ColorManagement = {
+		legacyMode: true,
+		get workingColorSpace() {
+			return LinearSRGBColorSpace;
+		},
+		set workingColorSpace(colorSpace) {
+			console.warn('THREE.ColorManagement: .workingColorSpace is readonly.');
+		},
+		convert: function (color, sourceColorSpace, targetColorSpace) {
+			if (this.legacyMode || sourceColorSpace === targetColorSpace || !sourceColorSpace || !targetColorSpace) {
+				return color;
+			}
+			if (FN[sourceColorSpace] && FN[sourceColorSpace][targetColorSpace] !== undefined) {
+				const fn = FN[sourceColorSpace][targetColorSpace];
+				color.r = fn(color.r);
+				color.g = fn(color.g);
+				color.b = fn(color.b);
+				return color;
+			}
+			throw new Error('Unsupported color space conversion.');
+		},
+		fromWorkingColorSpace: function (color, targetColorSpace) {
+			return this.convert(color, this.workingColorSpace, targetColorSpace);
+		},
+		toWorkingColorSpace: function (color, sourceColorSpace) {
+			return this.convert(color, sourceColorSpace, this.workingColorSpace);
+		}
+	};
+
+	// import { clamp, euclideanModulo, lerp } from './MathUtils.js';
+	const _colorKeywords = {
+		'aliceblue': 0xF0F8FF,
+		'antiquewhite': 0xFAEBD7,
+		'aqua': 0x00FFFF,
+		'aquamarine': 0x7FFFD4,
+		'azure': 0xF0FFFF,
+		'beige': 0xF5F5DC,
+		'bisque': 0xFFE4C4,
+		'black': 0x000000,
+		'blanchedalmond': 0xFFEBCD,
+		'blue': 0x0000FF,
+		'blueviolet': 0x8A2BE2,
+		'brown': 0xA52A2A,
+		'burlywood': 0xDEB887,
+		'cadetblue': 0x5F9EA0,
+		'chartreuse': 0x7FFF00,
+		'chocolate': 0xD2691E,
+		'coral': 0xFF7F50,
+		'cornflowerblue': 0x6495ED,
+		'cornsilk': 0xFFF8DC,
+		'crimson': 0xDC143C,
+		'cyan': 0x00FFFF,
+		'darkblue': 0x00008B,
+		'darkcyan': 0x008B8B,
+		'darkgoldenrod': 0xB8860B,
+		'darkgray': 0xA9A9A9,
+		'darkgreen': 0x006400,
+		'darkgrey': 0xA9A9A9,
+		'darkkhaki': 0xBDB76B,
+		'darkmagenta': 0x8B008B,
+		'darkolivegreen': 0x556B2F,
+		'darkorange': 0xFF8C00,
+		'darkorchid': 0x9932CC,
+		'darkred': 0x8B0000,
+		'darksalmon': 0xE9967A,
+		'darkseagreen': 0x8FBC8F,
+		'darkslateblue': 0x483D8B,
+		'darkslategray': 0x2F4F4F,
+		'darkslategrey': 0x2F4F4F,
+		'darkturquoise': 0x00CED1,
+		'darkviolet': 0x9400D3,
+		'deeppink': 0xFF1493,
+		'deepskyblue': 0x00BFFF,
+		'dimgray': 0x696969,
+		'dimgrey': 0x696969,
+		'dodgerblue': 0x1E90FF,
+		'firebrick': 0xB22222,
+		'floralwhite': 0xFFFAF0,
+		'forestgreen': 0x228B22,
+		'fuchsia': 0xFF00FF,
+		'gainsboro': 0xDCDCDC,
+		'ghostwhite': 0xF8F8FF,
+		'gold': 0xFFD700,
+		'goldenrod': 0xDAA520,
+		'gray': 0x808080,
+		'green': 0x008000,
+		'greenyellow': 0xADFF2F,
+		'grey': 0x808080,
+		'honeydew': 0xF0FFF0,
+		'hotpink': 0xFF69B4,
+		'indianred': 0xCD5C5C,
+		'indigo': 0x4B0082,
+		'ivory': 0xFFFFF0,
+		'khaki': 0xF0E68C,
+		'lavender': 0xE6E6FA,
+		'lavenderblush': 0xFFF0F5,
+		'lawngreen': 0x7CFC00,
+		'lemonchiffon': 0xFFFACD,
+		'lightblue': 0xADD8E6,
+		'lightcoral': 0xF08080,
+		'lightcyan': 0xE0FFFF,
+		'lightgoldenrodyellow': 0xFAFAD2,
+		'lightgray': 0xD3D3D3,
+		'lightgreen': 0x90EE90,
+		'lightgrey': 0xD3D3D3,
+		'lightpink': 0xFFB6C1,
+		'lightsalmon': 0xFFA07A,
+		'lightseagreen': 0x20B2AA,
+		'lightskyblue': 0x87CEFA,
+		'lightslategray': 0x778899,
+		'lightslategrey': 0x778899,
+		'lightsteelblue': 0xB0C4DE,
+		'lightyellow': 0xFFFFE0,
+		'lime': 0x00FF00,
+		'limegreen': 0x32CD32,
+		'linen': 0xFAF0E6,
+		'magenta': 0xFF00FF,
+		'maroon': 0x800000,
+		'mediumaquamarine': 0x66CDAA,
+		'mediumblue': 0x0000CD,
+		'mediumorchid': 0xBA55D3,
+		'mediumpurple': 0x9370DB,
+		'mediumseagreen': 0x3CB371,
+		'mediumslateblue': 0x7B68EE,
+		'mediumspringgreen': 0x00FA9A,
+		'mediumturquoise': 0x48D1CC,
+		'mediumvioletred': 0xC71585,
+		'midnightblue': 0x191970,
+		'mintcream': 0xF5FFFA,
+		'mistyrose': 0xFFE4E1,
+		'moccasin': 0xFFE4B5,
+		'navajowhite': 0xFFDEAD,
+		'navy': 0x000080,
+		'oldlace': 0xFDF5E6,
+		'olive': 0x808000,
+		'olivedrab': 0x6B8E23,
+		'orange': 0xFFA500,
+		'orangered': 0xFF4500,
+		'orchid': 0xDA70D6,
+		'palegoldenrod': 0xEEE8AA,
+		'palegreen': 0x98FB98,
+		'paleturquoise': 0xAFEEEE,
+		'palevioletred': 0xDB7093,
+		'papayawhip': 0xFFEFD5,
+		'peachpuff': 0xFFDAB9,
+		'peru': 0xCD853F,
+		'pink': 0xFFC0CB,
+		'plum': 0xDDA0DD,
+		'powderblue': 0xB0E0E6,
+		'purple': 0x800080,
+		'rebeccapurple': 0x663399,
+		'red': 0xFF0000,
+		'rosybrown': 0xBC8F8F,
+		'royalblue': 0x4169E1,
+		'saddlebrown': 0x8B4513,
+		'salmon': 0xFA8072,
+		'sandybrown': 0xF4A460,
+		'seagreen': 0x2E8B57,
+		'seashell': 0xFFF5EE,
+		'sienna': 0xA0522D,
+		'silver': 0xC0C0C0,
+		'skyblue': 0x87CEEB,
+		'slateblue': 0x6A5ACD,
+		'slategray': 0x708090,
+		'slategrey': 0x708090,
+		'snow': 0xFFFAFA,
+		'springgreen': 0x00FF7F,
+		'steelblue': 0x4682B4,
+		'tan': 0xD2B48C,
+		'teal': 0x008080,
+		'thistle': 0xD8BFD8,
+		'tomato': 0xFF6347,
+		'turquoise': 0x40E0D0,
+		'violet': 0xEE82EE,
+		'wheat': 0xF5DEB3,
+		'white': 0xFFFFFF,
+		'whitesmoke': 0xF5F5F5,
+		'yellow': 0xFFFF00,
+		'yellowgreen': 0x9ACD32
+	};
+	const _rgb = {
+		r: 0,
+		g: 0,
+		b: 0
+	};
+	// const _hslA = { h: 0, s: 0, l: 0 };
+	// const _hslB = { h: 0, s: 0, l: 0 };
+
+	// function hue2rgb( p, q, t ) {
+
+	// 	if ( t < 0 ) t += 1;
+	// 	if ( t > 1 ) t -= 1;
+	// 	if ( t < 1 / 6 ) return p + ( q - p ) * 6 * t;
+	// 	if ( t < 1 / 2 ) return q;
+	// 	if ( t < 2 / 3 ) return p + ( q - p ) * 6 * ( 2 / 3 - t );
+	// 	return p;
+
+	// }
+
+	function toComponents(source, target) {
+		target.r = source.r;
+		target.g = source.g;
+		target.b = source.b;
+		return target;
+	}
+	class Color {
+		constructor(r, g, b) {
+			this.isColor = true;
+			this.r = 1;
+			this.g = 1;
+			this.b = 1;
+			if (g === undefined && b === undefined) {
+				// r is THREE.Color, hex or string
+				return this.set(r);
+			}
+			return this.setRGB(r, g, b);
+		}
+		set(value) {
+			if (value && value.isColor) {
+				this.copy(value);
+			} else if (typeof value === 'number') {
+				this.setHex(value);
+			} else if (typeof value === 'string') {
+				this.setStyle(value);
+			}
+			return this;
+		}
+
+		// setScalar( scalar ) {
+		//
+		// 	this.r = scalar;
+		// 	this.g = scalar;
+		// 	this.b = scalar;
+		//
+		// 	return this;
+		//
+		// }
+
+		setHex(hex, colorSpace = SRGBColorSpace) {
+			hex = Math.floor(hex);
+			this.r = (hex >> 16 & 255) / 255;
+			this.g = (hex >> 8 & 255) / 255;
+			this.b = (hex & 255) / 255;
+			ColorManagement.toWorkingColorSpace(this, colorSpace);
+			return this;
+		}
+		setRGB(r, g, b, colorSpace = ColorManagement.workingColorSpace) {
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			ColorManagement.toWorkingColorSpace(this, colorSpace);
+			return this;
+		}
+
+		// setHSL( h, s, l, colorSpace = ColorManagement.workingColorSpace ) {
+
+		// 	// h,s,l ranges are in 0.0 - 1.0
+		// 	h = euclideanModulo( h, 1 );
+		// 	s = clamp( s, 0, 1 );
+		// 	l = clamp( l, 0, 1 );
+
+		// 	if ( s === 0 ) {
+
+		// 		this.r = this.g = this.b = l;
+
+		// 	} else {
+
+		// 		const p = l <= 0.5 ? l * ( 1 + s ) : l + s - ( l * s );
+		// 		const q = ( 2 * l ) - p;
+
+		// 		this.r = hue2rgb( q, p, h + 1 / 3 );
+		// 		this.g = hue2rgb( q, p, h );
+		// 		this.b = hue2rgb( q, p, h - 1 / 3 );
+
+		// 	}
+
+		// 	ColorManagement.toWorkingColorSpace( this, colorSpace );
+
+		// 	return this;
+
+		// }
+
+		setStyle(style, colorSpace = SRGBColorSpace) {
+			function handleAlpha(string) {
+				if (string === undefined) return;
+				if (parseFloat(string) < 1) {
+					console.warn('THREE.Color: Alpha component of ' + style + ' will be ignored.');
+				}
+			}
+			let m;
+			if (m = /^((?:rgb|hsl)a?)\(([^\)]*)\)/.exec(style)) {
+				// rgb / hsl
+
+				let color;
+				const name = m[1];
+				const components = m[2];
+				switch (name) {
+					case 'rgb':
+					case 'rgba':
+						if (color = /^\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*(\d*\.?\d+)\s*)?$/.exec(components)) {
+							// rgb(255,0,0) rgba(255,0,0,0.5)
+							this.r = Math.min(255, parseInt(color[1], 10)) / 255;
+							this.g = Math.min(255, parseInt(color[2], 10)) / 255;
+							this.b = Math.min(255, parseInt(color[3], 10)) / 255;
+							ColorManagement.toWorkingColorSpace(this, colorSpace);
+							handleAlpha(color[4]);
+							return this;
+						}
+						if (color = /^\s*(\d+)\%\s*,\s*(\d+)\%\s*,\s*(\d+)\%\s*(?:,\s*(\d*\.?\d+)\s*)?$/.exec(components)) {
+							// rgb(100%,0%,0%) rgba(100%,0%,0%,0.5)
+							this.r = Math.min(100, parseInt(color[1], 10)) / 100;
+							this.g = Math.min(100, parseInt(color[2], 10)) / 100;
+							this.b = Math.min(100, parseInt(color[3], 10)) / 100;
+							ColorManagement.toWorkingColorSpace(this, colorSpace);
+							handleAlpha(color[4]);
+							return this;
+						}
+						break;
+				}
+			} else if (m = /^\#([A-Fa-f\d]+)$/.exec(style)) {
+				// hex color
+
+				const hex = m[1];
+				const size = hex.length;
+				if (size === 3) {
+					// #ff0
+					this.r = parseInt(hex.charAt(0) + hex.charAt(0), 16) / 255;
+					this.g = parseInt(hex.charAt(1) + hex.charAt(1), 16) / 255;
+					this.b = parseInt(hex.charAt(2) + hex.charAt(2), 16) / 255;
+					ColorManagement.toWorkingColorSpace(this, colorSpace);
+					return this;
+				} else if (size === 6) {
+					// #ff0000
+					this.r = parseInt(hex.charAt(0) + hex.charAt(1), 16) / 255;
+					this.g = parseInt(hex.charAt(2) + hex.charAt(3), 16) / 255;
+					this.b = parseInt(hex.charAt(4) + hex.charAt(5), 16) / 255;
+					ColorManagement.toWorkingColorSpace(this, colorSpace);
+					return this;
+				}
+			}
+			if (style && style.length > 0) {
+				return this.setColorName(style, colorSpace);
+			}
+			return this;
+		}
+		setColorName(style, colorSpace = SRGBColorSpace) {
+			// color keywords
+			const hex = _colorKeywords[style.toLowerCase()];
+			if (hex !== undefined) {
+				// red
+				this.setHex(hex, colorSpace);
+			} else {
+				// unknown color
+				console.warn('THREE.Color: Unknown color ' + style);
+			}
+			return this;
+		}
+		clone() {
+			return new this.constructor(this.r, this.g, this.b);
+		}
+		copy(color) {
+			this.r = color.r;
+			this.g = color.g;
+			this.b = color.b;
+			return this;
+		}
+
+		// copySRGBToLinear( color ) {
+		//
+		// 	this.r = SRGBToLinear( color.r );
+		// 	this.g = SRGBToLinear( color.g );
+		// 	this.b = SRGBToLinear( color.b );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// copyLinearToSRGB( color ) {
+		//
+		// 	this.r = LinearToSRGB( color.r );
+		// 	this.g = LinearToSRGB( color.g );
+		// 	this.b = LinearToSRGB( color.b );
+		//
+		// 	return this;
+		//
+		// }
+
+		// convertSRGBToLinear() {
+		//
+		// 	this.copySRGBToLinear( this );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// convertLinearToSRGB() {
+		//
+		// 	this.copyLinearToSRGB( this );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// getHex( colorSpace = SRGBColorSpace ) {
+		//
+		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+		//
+		// 	return clamp( _rgb.r * 255, 0, 255 ) << 16 ^ clamp( _rgb.g * 255, 0, 255 ) << 8 ^ clamp( _rgb.b * 255, 0, 255 ) << 0;
+		//
+		// }
+		//
+		// getHexString( colorSpace = SRGBColorSpace ) {
+		//
+		// 	return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );
+		//
+		// }
+
+		// getHSL( target, colorSpace = ColorManagement.workingColorSpace ) {
+
+		// 	// h,s,l ranges are in 0.0 - 1.0
+
+		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+
+		// 	const r = _rgb.r, g = _rgb.g, b = _rgb.b;
+
+		// 	const max = Math.max( r, g, b );
+		// 	const min = Math.min( r, g, b );
+
+		// 	let hue, saturation;
+		// 	const lightness = ( min + max ) / 2.0;
+
+		// 	if ( min === max ) {
+
+		// 		hue = 0;
+		// 		saturation = 0;
+
+		// 	} else {
+
+		// 		const delta = max - min;
+
+		// 		saturation = lightness <= 0.5 ? delta / ( max + min ) : delta / ( 2 - max - min );
+
+		// 		switch ( max ) {
+
+		// 			case r: hue = ( g - b ) / delta + ( g < b ? 6 : 0 ); break;
+		// 			case g: hue = ( b - r ) / delta + 2; break;
+		// 			case b: hue = ( r - g ) / delta + 4; break;
+
+		// 		}
+
+		// 		hue /= 6;
+
+		// 	}
+
+		// 	target.h = hue;
+		// 	target.s = saturation;
+		// 	target.l = lightness;
+
+		// 	return target;
+
+		// }
+
+		getRGB(target, colorSpace = ColorManagement.workingColorSpace) {
+			ColorManagement.fromWorkingColorSpace(toComponents(this, _rgb), colorSpace);
+			target.r = _rgb.r;
+			target.g = _rgb.g;
+			target.b = _rgb.b;
+			return target;
+		}
+		//
+		// getStyle( colorSpace = SRGBColorSpace ) {
+		//
+		// 	ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+		//
+		// 	if ( colorSpace !== SRGBColorSpace ) {
+		//
+		// 		// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
+		// 		return `color(${ colorSpace } ${ _rgb.r } ${ _rgb.g } ${ _rgb.b })`;
+		//
+		// 	}
+		//
+		// 	return `rgb(${( _rgb.r * 255 ) | 0},${( _rgb.g * 255 ) | 0},${( _rgb.b * 255 ) | 0})`;
+		//
+		// }
+
+		// offsetHSL( h, s, l ) {
+
+		// 	this.getHSL( _hslA );
+
+		// 	_hslA.h += h; _hslA.s += s; _hslA.l += l;
+
+		// 	this.setHSL( _hslA.h, _hslA.s, _hslA.l );
+
+		// 	return this;
+
+		// }
+
+		add(color) {
+			this.r += color.r;
+			this.g += color.g;
+			this.b += color.b;
+			return this;
+		}
+
+		// addColors( color1, color2 ) {
+		//
+		// 	this.r = color1.r + color2.r;
+		// 	this.g = color1.g + color2.g;
+		// 	this.b = color1.b + color2.b;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// addScalar( s ) {
+		//
+		// 	this.r += s;
+		// 	this.g += s;
+		// 	this.b += s;
+		//
+		// 	return this;
+		//
+		// }
+
+		sub(color) {
+			this.r = Math.max(0, this.r - color.r);
+			this.g = Math.max(0, this.g - color.g);
+			this.b = Math.max(0, this.b - color.b);
+			return this;
+		}
+		multiply(color) {
+			this.r *= color.r;
+			this.g *= color.g;
+			this.b *= color.b;
+			return this;
+		}
+		multiplyScalar(s) {
+			this.r *= s;
+			this.g *= s;
+			this.b *= s;
+			return this;
+		}
+
+		// lerp( color, alpha ) {
+		//
+		// 	this.r += ( color.r - this.r ) * alpha;
+		// 	this.g += ( color.g - this.g ) * alpha;
+		// 	this.b += ( color.b - this.b ) * alpha;
+		//
+		// 	return this;
+		//
+		// }
+
+		// lerpColors( color1, color2, alpha ) {
+		//
+		// 	this.r = color1.r + ( color2.r - color1.r ) * alpha;
+		// 	this.g = color1.g + ( color2.g - color1.g ) * alpha;
+		// 	this.b = color1.b + ( color2.b - color1.b ) * alpha;
+		//
+		// 	return this;
+		//
+		// }
+
+		// lerpHSL( color, alpha ) {
+
+		// 	this.getHSL( _hslA );
+		// 	color.getHSL( _hslB );
+
+		// 	const h = lerp( _hslA.h, _hslB.h, alpha );
+		// 	const s = lerp( _hslA.s, _hslB.s, alpha );
+		// 	const l = lerp( _hslA.l, _hslB.l, alpha );
+
+		// 	this.setHSL( h, s, l );
+
+		// 	return this;
+
+		// }
+
+		equals(c) {
+			return c.r === this.r && c.g === this.g && c.b === this.b;
+		}
+
+		// fromArray( array, offset = 0 ) {
+
+		// 	this.r = array[ offset ];
+		// 	this.g = array[ offset + 1 ];
+		// 	this.b = array[ offset + 2 ];
+
+		// 	return this;
+
+		// }
+
+		// toArray( array = [], offset = 0 ) {
+
+		// 	array[ offset ] = this.r;
+		// 	array[ offset + 1 ] = this.g;
+		// 	array[ offset + 2 ] = this.b;
+
+		// 	return array;
+
+		// }
+
+		fromBufferAttribute(attribute, index) {
+			this.r = attribute.getX(index);
+			this.g = attribute.getY(index);
+			this.b = attribute.getZ(index);
+			return this;
+		}
+
+		// toJSON() {
+
+		// 	return this.getHex();
+
+		// }
+
+		*[Symbol.iterator]() {
+			yield this.r;
+			yield this.g;
+			yield this.b;
+		}
+	}
+	Color.NAMES = _colorKeywords;
 
 	/**
 	 * Uniforms library for shared webgl shaders
@@ -10134,6 +9190,8 @@
 			dispose: dispose
 		};
 	}
+
+	// import { UniformsLib } from '../shaders/UniformsLib.js';
 
 	function UniformsCache() {
 		const lights = {};
@@ -11256,6 +10314,411 @@
 			return this;
 		}
 	}
+
+	class Box3 {
+		constructor(min = new Vector3(+Infinity, +Infinity, +Infinity), max = new Vector3(-Infinity, -Infinity, -Infinity)) {
+			// this.isBox3 = true;
+
+			this.min = min;
+			this.max = max;
+		}
+
+		// set( min, max ) {
+		//
+		// 	this.min.copy( min );
+		// 	this.max.copy( max );
+		//
+		// 	return this;
+		//
+		// }
+
+		// setFromArray( array ) {
+		//
+		// 	let minX = + Infinity;
+		// 	let minY = + Infinity;
+		// 	let minZ = + Infinity;
+		//
+		// 	let maxX = - Infinity;
+		// 	let maxY = - Infinity;
+		// 	let maxZ = - Infinity;
+		//
+		// 	for ( let i = 0, l = array.length; i < l; i += 3 ) {
+		//
+		// 		const x = array[ i ];
+		// 		const y = array[ i + 1 ];
+		// 		const z = array[ i + 2 ];
+		//
+		// 		if ( x < minX ) minX = x;
+		// 		if ( y < minY ) minY = y;
+		// 		if ( z < minZ ) minZ = z;
+		//
+		// 		if ( x > maxX ) maxX = x;
+		// 		if ( y > maxY ) maxY = y;
+		// 		if ( z > maxZ ) maxZ = z;
+		//
+		// 	}
+		//
+		// 	this.min.set( minX, minY, minZ );
+		// 	this.max.set( maxX, maxY, maxZ );
+		//
+		// 	return this;
+		//
+		// }
+
+		setFromBufferAttribute(attribute) {
+			let minX = +Infinity;
+			let minY = +Infinity;
+			let minZ = +Infinity;
+			let maxX = -Infinity;
+			let maxY = -Infinity;
+			let maxZ = -Infinity;
+			for (let i = 0, l = attribute.count; i < l; i++) {
+				const x = attribute.getX(i);
+				const y = attribute.getY(i);
+				const z = attribute.getZ(i);
+				if (x < minX) minX = x;
+				if (y < minY) minY = y;
+				if (z < minZ) minZ = z;
+				if (x > maxX) maxX = x;
+				if (y > maxY) maxY = y;
+				if (z > maxZ) maxZ = z;
+			}
+			this.min.set(minX, minY, minZ);
+			this.max.set(maxX, maxY, maxZ);
+			return this;
+		}
+		setFromPoints(points) {
+			this.makeEmpty();
+			for (let i = 0, il = points.length; i < il; i++) {
+				this.expandByPoint(points[i]);
+			}
+			return this;
+		}
+
+		// setFromCenterAndSize( center, size ) {
+		//
+		// 	const halfSize = _vector.copy( size ).multiplyScalar( 0.5 );
+		//
+		// 	this.min.copy( center ).sub( halfSize );
+		// 	this.max.copy( center ).add( halfSize );
+		//
+		// 	return this;
+		//
+		// }
+
+		setFromObject(object, precise = false) {
+			this.makeEmpty();
+			return this.expandByObject(object, precise);
+		}
+		//
+		// clone() {
+		//
+		// 	return new this.constructor().copy( this );
+		//
+		// }
+
+		copy(box) {
+			this.min.copy(box.min);
+			this.max.copy(box.max);
+			return this;
+		}
+		makeEmpty() {
+			this.min.x = this.min.y = this.min.z = +Infinity;
+			this.max.x = this.max.y = this.max.z = -Infinity;
+			return this;
+		}
+		isEmpty() {
+			// this is a more robust check for empty than ( volume <= 0 ) because volume can get positive with two negative axes
+
+			return this.max.x < this.min.x || this.max.y < this.min.y || this.max.z < this.min.z;
+		}
+		getCenter(target) {
+			return this.isEmpty() ? target.set(0, 0, 0) : target.addVectors(this.min, this.max).multiplyScalar(0.5);
+		}
+		getSize(target) {
+			//used
+
+			return this.isEmpty() ? target.set(0, 0, 0) : target.subVectors(this.max, this.min);
+		}
+		expandByPoint(point) {
+			this.min.min(point);
+			this.max.max(point);
+			return this;
+		}
+
+		// expandByVector( vector ) {
+		//
+		// 	this.min.sub( vector );
+		// 	this.max.add( vector );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// expandByScalar( scalar ) {
+		//
+		// 	this.min.addScalar( - scalar );
+		// 	this.max.addScalar( scalar );
+		//
+		// 	return this;
+		//
+		// }
+
+		expandByObject(object, precise = false) {
+			// Computes the world-axis-aligned bounding box of an object (including its children),
+			// accounting for both the object's, and children's, world transforms
+
+			object.updateWorldMatrix(false, false);
+			const geometry = object.geometry;
+			if (geometry !== undefined) {
+				if (precise && geometry.attributes != undefined && geometry.attributes.position !== undefined) {
+					const position = geometry.attributes.position;
+					for (let i = 0, l = position.count; i < l; i++) {
+						_vector$3.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
+						this.expandByPoint(_vector$3);
+					}
+				} else {
+					if (geometry.boundingBox === null) {
+						geometry.computeBoundingBox();
+					}
+					_box$2.copy(geometry.boundingBox);
+					_box$2.applyMatrix4(object.matrixWorld);
+					this.union(_box$2);
+				}
+			}
+			const children = object.children;
+			for (let i = 0, l = children.length; i < l; i++) {
+				this.expandByObject(children[i], precise);
+			}
+			return this;
+		}
+
+		// containsPoint( point ) {
+		//
+		// 	return point.x < this.min.x || point.x > this.max.x ||
+		// 		point.y < this.min.y || point.y > this.max.y ||
+		// 		point.z < this.min.z || point.z > this.max.z ? false : true;
+		//
+		// }
+		//
+		// containsBox( box ) {
+		//
+		// 	return this.min.x <= box.min.x && box.max.x <= this.max.x &&
+		// 		this.min.y <= box.min.y && box.max.y <= this.max.y &&
+		// 		this.min.z <= box.min.z && box.max.z <= this.max.z;
+		//
+		// }
+
+		// getParameter( point, target ) {
+		//
+		// 	// This can potentially have a divide by zero if the box
+		// 	// has a size dimension of 0.
+		//
+		// 	return target.set(
+		// 		( point.x - this.min.x ) / ( this.max.x - this.min.x ),
+		// 		( point.y - this.min.y ) / ( this.max.y - this.min.y ),
+		// 		( point.z - this.min.z ) / ( this.max.z - this.min.z )
+		// 	);
+		//
+		// }
+
+		// intersectsBox( box ) {
+		//
+		// 	// using 6 splitting planes to rule out intersections.
+		// 	return box.max.x < this.min.x || box.min.x > this.max.x ||
+		// 		box.max.y < this.min.y || box.min.y > this.max.y ||
+		// 		box.max.z < this.min.z || box.min.z > this.max.z ? false : true;
+		//
+		// }
+
+		// intersectsSphere( sphere ) {
+		//
+		// 	// Find the point on the AABB closest to the sphere center.
+		// 	this.clampPoint( sphere.center, _vector );
+		//
+		// 	// If that point is inside the sphere, the AABB and sphere intersect.
+		// 	return _vector.distanceToSquared( sphere.center ) <= ( sphere.radius * sphere.radius );
+		//
+		// }
+
+		// intersectsPlane( plane ) {
+		//
+		// 	// We compute the minimum and maximum dot product values. If those values
+		// 	// are on the same side (back or front) of the plane, then there is no intersection.
+		//
+		// 	let min, max;
+		//
+		// 	if ( plane.normal.x > 0 ) {
+		//
+		// 		min = plane.normal.x * this.min.x;
+		// 		max = plane.normal.x * this.max.x;
+		//
+		// 	} else {
+		//
+		// 		min = plane.normal.x * this.max.x;
+		// 		max = plane.normal.x * this.min.x;
+		//
+		// 	}
+		//
+		// 	if ( plane.normal.y > 0 ) {
+		//
+		// 		min += plane.normal.y * this.min.y;
+		// 		max += plane.normal.y * this.max.y;
+		//
+		// 	} else {
+		//
+		// 		min += plane.normal.y * this.max.y;
+		// 		max += plane.normal.y * this.min.y;
+		//
+		// 	}
+		//
+		// 	if ( plane.normal.z > 0 ) {
+		//
+		// 		min += plane.normal.z * this.min.z;
+		// 		max += plane.normal.z * this.max.z;
+		//
+		// 	} else {
+		//
+		// 		min += plane.normal.z * this.max.z;
+		// 		max += plane.normal.z * this.min.z;
+		//
+		// 	}
+		//
+		// 	return ( min <= - plane.constant && max >= - plane.constant );
+		//
+		// }
+
+		// intersectsTriangle( triangle ) {
+		//
+		// 	if ( this.isEmpty() ) {
+		//
+		// 		return false;
+		//
+		// 	}
+		//
+		// 	// compute box center and extents
+		// 	this.getCenter( _center );
+		// 	_extents.subVectors( this.max, _center );
+		//
+		// 	// translate triangle to aabb origin
+		// 	_v0.subVectors( triangle.a, _center );
+		// 	_v1.subVectors( triangle.b, _center );
+		// 	_v2.subVectors( triangle.c, _center );
+		//
+		// 	// compute edge vectors for triangle
+		// 	_f0.subVectors( _v1, _v0 );
+		// 	_f1.subVectors( _v2, _v1 );
+		// 	_f2.subVectors( _v0, _v2 );
+		//
+		// 	// test against axes that are given by cross product combinations of the edges of the triangle and the edges of the aabb
+		// 	// make an axis testing of each of the 3 sides of the aabb against each of the 3 sides of the triangle = 9 axis of separation
+		// 	// axis_ij = u_i x f_j (u0, u1, u2 = face normals of aabb = x,y,z axes vectors since aabb is axis aligned)
+		// 	let axes = [
+		// 		0, - _f0.z, _f0.y, 0, - _f1.z, _f1.y, 0, - _f2.z, _f2.y,
+		// 		_f0.z, 0, - _f0.x, _f1.z, 0, - _f1.x, _f2.z, 0, - _f2.x,
+		// 		- _f0.y, _f0.x, 0, - _f1.y, _f1.x, 0, - _f2.y, _f2.x, 0
+		// 	];
+		// 	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
+		//
+		// 		return false;
+		//
+		// 	}
+		//
+		// 	// test 3 face normals from the aabb
+		// 	axes = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
+		// 	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
+		//
+		// 		return false;
+		//
+		// 	}
+		//
+		// 	// finally testing the face normal of the triangle
+		// 	// use already existing triangle edge vectors here
+		// 	_triangleNormal.crossVectors( _f0, _f1 );
+		// 	axes = [ _triangleNormal.x, _triangleNormal.y, _triangleNormal.z ];
+		//
+		// 	return satForAxes( axes, _v0, _v1, _v2, _extents );
+		//
+		// }
+		//
+		// clampPoint( point, target ) {
+		//
+		// 	return target.copy( point ).clamp( this.min, this.max );
+		//
+		// }
+		//
+		// distanceToPoint( point ) {
+		//
+		// 	const clampedPoint = _vector.copy( point ).clamp( this.min, this.max );
+		//
+		// 	return clampedPoint.sub( point ).length();
+		//
+		// }
+		//
+		// getBoundingSphere( target ) {
+		//
+		// 	this.getCenter( target.center );
+		//
+		// 	target.radius = this.getSize( _vector ).length() * 0.5;
+		//
+		// 	return target;
+		//
+		// }
+		//
+		// intersect( box ) {
+		//
+		// 	this.min.max( box.min );
+		// 	this.max.min( box.max );
+		//
+		// 	// ensure that if there is no overlap, the result is fully empty, not slightly empty with non-inf/+inf values that will cause subsequence intersects to erroneously return valid values.
+		// 	if ( this.isEmpty() ) this.makeEmpty();
+		//
+		// 	return this;
+		//
+		// }
+
+		union(box) {
+			this.min.min(box.min);
+			this.max.max(box.max);
+			return this;
+		}
+		applyMatrix4(matrix) {
+			// transform of empty box is an empty box.
+			if (this.isEmpty()) return this;
+
+			// NOTE: I am using a binary pattern to specify all 2^3 combinations below
+			_points[0].set(this.min.x, this.min.y, this.min.z).applyMatrix4(matrix); // 000
+			_points[1].set(this.min.x, this.min.y, this.max.z).applyMatrix4(matrix); // 001
+			_points[2].set(this.min.x, this.max.y, this.min.z).applyMatrix4(matrix); // 010
+			_points[3].set(this.min.x, this.max.y, this.max.z).applyMatrix4(matrix); // 011
+			_points[4].set(this.max.x, this.min.y, this.min.z).applyMatrix4(matrix); // 100
+			_points[5].set(this.max.x, this.min.y, this.max.z).applyMatrix4(matrix); // 101
+			_points[6].set(this.max.x, this.max.y, this.min.z).applyMatrix4(matrix); // 110
+			_points[7].set(this.max.x, this.max.y, this.max.z).applyMatrix4(matrix); // 111
+
+			this.setFromPoints(_points);
+			return this;
+		}
+
+		// translate( offset ) {
+		//
+		// 	this.min.add( offset );
+		// 	this.max.add( offset );
+		//
+		// 	return this;
+		//
+		// }
+
+		// equals( box ) {
+		//
+		// 	return box.min.equals( this.min ) && box.max.equals( this.max );
+		//
+		// }
+	}
+
+	const _points = [/*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3()];
+	const _vector$3 = /*@__PURE__*/new Vector3();
+	const _box$2 = /*@__PURE__*/new Box3();
 
 	let _id = 0;
 
@@ -16752,6 +16215,626 @@
 		// }
 	}
 
+	// import * as MathUtils from './MathUtils.js';
+
+	class Quaternion {
+		constructor(x = 0, y = 0, z = 0, w = 1) {
+			this.isQuaternion = true;
+			this._x = x;
+			this._y = y;
+			this._z = z;
+			this._w = w;
+		}
+
+		// static slerpFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t ) {
+		//
+		// 	// fuzz-free, array-based Quaternion SLERP operation
+		//
+		// 	let x0 = src0[ srcOffset0 + 0 ],
+		// 		y0 = src0[ srcOffset0 + 1 ],
+		// 		z0 = src0[ srcOffset0 + 2 ],
+		// 		w0 = src0[ srcOffset0 + 3 ];
+		//
+		// 	const x1 = src1[ srcOffset1 + 0 ],
+		// 		y1 = src1[ srcOffset1 + 1 ],
+		// 		z1 = src1[ srcOffset1 + 2 ],
+		// 		w1 = src1[ srcOffset1 + 3 ];
+		//
+		// 	if ( t === 0 ) {
+		//
+		// 		dst[ dstOffset + 0 ] = x0;
+		// 		dst[ dstOffset + 1 ] = y0;
+		// 		dst[ dstOffset + 2 ] = z0;
+		// 		dst[ dstOffset + 3 ] = w0;
+		// 		return;
+		//
+		// 	}
+		//
+		// 	if ( t === 1 ) {
+		//
+		// 		dst[ dstOffset + 0 ] = x1;
+		// 		dst[ dstOffset + 1 ] = y1;
+		// 		dst[ dstOffset + 2 ] = z1;
+		// 		dst[ dstOffset + 3 ] = w1;
+		// 		return;
+		//
+		// 	}
+		//
+		// 	if ( w0 !== w1 || x0 !== x1 || y0 !== y1 || z0 !== z1 ) {
+		//
+		// 		let s = 1 - t;
+		// 		const cos = x0 * x1 + y0 * y1 + z0 * z1 + w0 * w1,
+		// 			dir = ( cos >= 0 ? 1 : - 1 ),
+		// 			sqrSin = 1 - cos * cos;
+		//
+		// 		// Skip the Slerp for tiny steps to avoid numeric problems:
+		// 		if ( sqrSin > Number.EPSILON ) {
+		//
+		// 			const sin = Math.sqrt( sqrSin ),
+		// 				len = Math.atan2( sin, cos * dir );
+		//
+		// 			s = Math.sin( s * len ) / sin;
+		// 			t = Math.sin( t * len ) / sin;
+		//
+		// 		}
+		//
+		// 		const tDir = t * dir;
+		//
+		// 		x0 = x0 * s + x1 * tDir;
+		// 		y0 = y0 * s + y1 * tDir;
+		// 		z0 = z0 * s + z1 * tDir;
+		// 		w0 = w0 * s + w1 * tDir;
+		//
+		// 		// Normalize in case we just did a lerp:
+		// 		if ( s === 1 - t ) {
+		//
+		// 			const f = 1 / Math.sqrt( x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0 );
+		//
+		// 			x0 *= f;
+		// 			y0 *= f;
+		// 			z0 *= f;
+		// 			w0 *= f;
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	dst[ dstOffset ] = x0;
+		// 	dst[ dstOffset + 1 ] = y0;
+		// 	dst[ dstOffset + 2 ] = z0;
+		// 	dst[ dstOffset + 3 ] = w0;
+		//
+		// }
+		//
+		// static multiplyQuaternionsFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1 ) {
+		//
+		// 	const x0 = src0[ srcOffset0 ];
+		// 	const y0 = src0[ srcOffset0 + 1 ];
+		// 	const z0 = src0[ srcOffset0 + 2 ];
+		// 	const w0 = src0[ srcOffset0 + 3 ];
+		//
+		// 	const x1 = src1[ srcOffset1 ];
+		// 	const y1 = src1[ srcOffset1 + 1 ];
+		// 	const z1 = src1[ srcOffset1 + 2 ];
+		// 	const w1 = src1[ srcOffset1 + 3 ];
+		//
+		// 	dst[ dstOffset ] = x0 * w1 + w0 * x1 + y0 * z1 - z0 * y1;
+		// 	dst[ dstOffset + 1 ] = y0 * w1 + w0 * y1 + z0 * x1 - x0 * z1;
+		// 	dst[ dstOffset + 2 ] = z0 * w1 + w0 * z1 + x0 * y1 - y0 * x1;
+		// 	dst[ dstOffset + 3 ] = w0 * w1 - x0 * x1 - y0 * y1 - z0 * z1;
+		//
+		// 	return dst;
+		//
+		// }
+
+		get x() {
+			return this._x;
+		}
+
+		// set x( value ) {
+		//
+		// 	this._x = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
+		get y() {
+			return this._y;
+		}
+
+		// set y( value ) {
+		//
+		// 	this._y = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
+		get z() {
+			return this._z;
+		}
+
+		// set z( value ) {
+		//
+		// 	this._z = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+
+		get w() {
+			return this._w;
+		}
+
+		// set w( value ) {
+		//
+		// 	this._w = value;
+		// 	this._onChangeCallback();
+		//
+		// }
+		//
+		// set( x, y, z, w ) {
+		//
+		// 	this._x = x;
+		// 	this._y = y;
+		// 	this._z = z;
+		// 	this._w = w;
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// clone() {
+		//
+		// 	return new this.constructor( this._x, this._y, this._z, this._w );
+		//
+		// }
+
+		copy(quaternion) {
+			this._x = quaternion.x;
+			this._y = quaternion.y;
+			this._z = quaternion.z;
+			this._w = quaternion.w;
+			this._onChangeCallback();
+			return this;
+		}
+		setFromEuler(euler, update) {
+			const x = euler._x,
+				y = euler._y,
+				z = euler._z,
+				order = euler._order;
+
+			// http://www.mathworks.com/matlabcentral/fileexchange/
+			// 	20696-function-to-convert-between-dcm-euler-angles-quaternions-and-euler-vectors/
+			//	content/SpinCalc.m
+
+			const cos = Math.cos;
+			const sin = Math.sin;
+			const c1 = cos(x / 2);
+			const c2 = cos(y / 2);
+			const c3 = cos(z / 2);
+			const s1 = sin(x / 2);
+			const s2 = sin(y / 2);
+			const s3 = sin(z / 2);
+			switch (order) {
+				case 'XYZ':
+					this._x = s1 * c2 * c3 + c1 * s2 * s3;
+					this._y = c1 * s2 * c3 - s1 * c2 * s3;
+					this._z = c1 * c2 * s3 + s1 * s2 * c3;
+					this._w = c1 * c2 * c3 - s1 * s2 * s3;
+					break;
+				case 'YXZ':
+					this._x = s1 * c2 * c3 + c1 * s2 * s3;
+					this._y = c1 * s2 * c3 - s1 * c2 * s3;
+					this._z = c1 * c2 * s3 - s1 * s2 * c3;
+					this._w = c1 * c2 * c3 + s1 * s2 * s3;
+					break;
+				case 'ZXY':
+					this._x = s1 * c2 * c3 - c1 * s2 * s3;
+					this._y = c1 * s2 * c3 + s1 * c2 * s3;
+					this._z = c1 * c2 * s3 + s1 * s2 * c3;
+					this._w = c1 * c2 * c3 - s1 * s2 * s3;
+					break;
+				case 'ZYX':
+					this._x = s1 * c2 * c3 - c1 * s2 * s3;
+					this._y = c1 * s2 * c3 + s1 * c2 * s3;
+					this._z = c1 * c2 * s3 - s1 * s2 * c3;
+					this._w = c1 * c2 * c3 + s1 * s2 * s3;
+					break;
+				case 'YZX':
+					this._x = s1 * c2 * c3 + c1 * s2 * s3;
+					this._y = c1 * s2 * c3 + s1 * c2 * s3;
+					this._z = c1 * c2 * s3 - s1 * s2 * c3;
+					this._w = c1 * c2 * c3 - s1 * s2 * s3;
+					break;
+				case 'XZY':
+					this._x = s1 * c2 * c3 - c1 * s2 * s3;
+					this._y = c1 * s2 * c3 - s1 * c2 * s3;
+					this._z = c1 * c2 * s3 + s1 * s2 * c3;
+					this._w = c1 * c2 * c3 + s1 * s2 * s3;
+					break;
+				default:
+					console.warn('THREE.Quaternion: .setFromEuler() encountered an unknown order: ' + order);
+			}
+			if (update !== false) this._onChangeCallback();
+			return this;
+		}
+		setFromAxisAngle(axis, angle) {
+			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToQuaternion/index.htm
+
+			// assumes axis is normalized
+
+			const halfAngle = angle / 2,
+				s = Math.sin(halfAngle);
+			this._x = axis.x * s;
+			this._y = axis.y * s;
+			this._z = axis.z * s;
+			this._w = Math.cos(halfAngle);
+			this._onChangeCallback();
+			return this;
+		}
+		setFromRotationMatrix(m) {
+			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
+
+			// assumes the upper 3x3 of m is a pure rotation matrix (i.e, unscaled)
+
+			const te = m.elements,
+				m11 = te[0],
+				m12 = te[4],
+				m13 = te[8],
+				m21 = te[1],
+				m22 = te[5],
+				m23 = te[9],
+				m31 = te[2],
+				m32 = te[6],
+				m33 = te[10],
+				trace = m11 + m22 + m33;
+			if (trace > 0) {
+				const s = 0.5 / Math.sqrt(trace + 1.0);
+				this._w = 0.25 / s;
+				this._x = (m32 - m23) * s;
+				this._y = (m13 - m31) * s;
+				this._z = (m21 - m12) * s;
+			} else if (m11 > m22 && m11 > m33) {
+				const s = 2.0 * Math.sqrt(1.0 + m11 - m22 - m33);
+				this._w = (m32 - m23) / s;
+				this._x = 0.25 * s;
+				this._y = (m12 + m21) / s;
+				this._z = (m13 + m31) / s;
+			} else if (m22 > m33) {
+				const s = 2.0 * Math.sqrt(1.0 + m22 - m11 - m33);
+				this._w = (m13 - m31) / s;
+				this._x = (m12 + m21) / s;
+				this._y = 0.25 * s;
+				this._z = (m23 + m32) / s;
+			} else {
+				const s = 2.0 * Math.sqrt(1.0 + m33 - m11 - m22);
+				this._w = (m21 - m12) / s;
+				this._x = (m13 + m31) / s;
+				this._y = (m23 + m32) / s;
+				this._z = 0.25 * s;
+			}
+			this._onChangeCallback();
+			return this;
+		}
+
+		// setFromUnitVectors( vFrom, vTo ) {
+		//
+		// 	// assumes direction vectors vFrom and vTo are normalized
+		//
+		// 	let r = vFrom.dot( vTo ) + 1;
+		//
+		// 	if ( r < Number.EPSILON ) {
+		//
+		// 		// vFrom and vTo point in opposite directions
+		//
+		// 		r = 0;
+		//
+		// 		if ( Math.abs( vFrom.x ) > Math.abs( vFrom.z ) ) {
+		//
+		// 			this._x = - vFrom.y;
+		// 			this._y = vFrom.x;
+		// 			this._z = 0;
+		// 			this._w = r;
+		//
+		// 		} else {
+		//
+		// 			this._x = 0;
+		// 			this._y = - vFrom.z;
+		// 			this._z = vFrom.y;
+		// 			this._w = r;
+		//
+		// 		}
+		//
+		// 	} else {
+		//
+		// 		// crossVectors( vFrom, vTo ); // inlined to avoid cyclic dependency on Vector3
+		//
+		// 		this._x = vFrom.y * vTo.z - vFrom.z * vTo.y;
+		// 		this._y = vFrom.z * vTo.x - vFrom.x * vTo.z;
+		// 		this._z = vFrom.x * vTo.y - vFrom.y * vTo.x;
+		// 		this._w = r;
+		//
+		// 	}
+		//
+		// 	return this.normalize();
+		//
+		// }
+
+		// angleTo( q ) {
+		//
+		// 	return 2 * Math.acos( Math.abs( MathUtils.clamp( this.dot( q ), - 1, 1 ) ) );
+		//
+		// }
+
+		// rotateTowards( q, step ) {
+		//
+		// 	const angle = this.angleTo( q );
+		//
+		// 	if ( angle === 0 ) return this;
+		//
+		// 	const t = Math.min( 1, step / angle );
+		//
+		// 	this.slerp( q, t );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// identity() {
+		//
+		// 	return this.set( 0, 0, 0, 1 );
+		//
+		// }
+		//
+		// invert() {
+		//
+		// 	// quaternion is assumed to have unit length
+		//
+		// 	return this.conjugate();
+		//
+		// }
+		//
+		// conjugate() {
+		//
+		// 	this._x *= - 1;
+		// 	this._y *= - 1;
+		// 	this._z *= - 1;
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// dot( v ) {
+		//
+		// 	return this._x * v._x + this._y * v._y + this._z * v._z + this._w * v._w;
+		//
+		// }
+		//
+		// lengthSq() {
+		//
+		// 	return this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w;
+		//
+		// }
+		//
+		// length() {
+		//
+		// 	return Math.sqrt( this._x * this._x + this._y * this._y + this._z * this._z + this._w * this._w );
+		//
+		// }
+		//
+		// normalize() {
+		//
+		// 	let l = this.length();
+		//
+		// 	if ( l === 0 ) {
+		//
+		// 		this._x = 0;
+		// 		this._y = 0;
+		// 		this._z = 0;
+		// 		this._w = 1;
+		//
+		// 	} else {
+		//
+		// 		l = 1 / l;
+		//
+		// 		this._x = this._x * l;
+		// 		this._y = this._y * l;
+		// 		this._z = this._z * l;
+		// 		this._w = this._w * l;
+		//
+		// 	}
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+
+		multiply(q) {
+			return this.multiplyQuaternions(this, q);
+		}
+		//
+		// premultiply( q ) {
+		//
+		// 	return this.multiplyQuaternions( q, this );
+		//
+		// }
+		//
+		multiplyQuaternions(a, b) {
+			// from http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/code/index.htm
+
+			const qax = a._x,
+				qay = a._y,
+				qaz = a._z,
+				qaw = a._w;
+			const qbx = b._x,
+				qby = b._y,
+				qbz = b._z,
+				qbw = b._w;
+			this._x = qax * qbw + qaw * qbx + qay * qbz - qaz * qby;
+			this._y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
+			this._z = qaz * qbw + qaw * qbz + qax * qby - qay * qbx;
+			this._w = qaw * qbw - qax * qbx - qay * qby - qaz * qbz;
+			this._onChangeCallback();
+			return this;
+		}
+		//
+		// slerp( qb, t ) {
+		//
+		// 	if ( t === 0 ) return this;
+		// 	if ( t === 1 ) return this.copy( qb );
+		//
+		// 	const x = this._x, y = this._y, z = this._z, w = this._w;
+		//
+		// 	// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
+		//
+		// 	let cosHalfTheta = w * qb._w + x * qb._x + y * qb._y + z * qb._z;
+		//
+		// 	if ( cosHalfTheta < 0 ) {
+		//
+		// 		this._w = - qb._w;
+		// 		this._x = - qb._x;
+		// 		this._y = - qb._y;
+		// 		this._z = - qb._z;
+		//
+		// 		cosHalfTheta = - cosHalfTheta;
+		//
+		// 	} else {
+		//
+		// 		this.copy( qb );
+		//
+		// 	}
+		//
+		// 	if ( cosHalfTheta >= 1.0 ) {
+		//
+		// 		this._w = w;
+		// 		this._x = x;
+		// 		this._y = y;
+		// 		this._z = z;
+		//
+		// 		return this;
+		//
+		// 	}
+		//
+		// 	const sqrSinHalfTheta = 1.0 - cosHalfTheta * cosHalfTheta;
+		//
+		// 	if ( sqrSinHalfTheta <= Number.EPSILON ) {
+		//
+		// 		const s = 1 - t;
+		// 		this._w = s * w + t * this._w;
+		// 		this._x = s * x + t * this._x;
+		// 		this._y = s * y + t * this._y;
+		// 		this._z = s * z + t * this._z;
+		//
+		// 		this.normalize();
+		// 		this._onChangeCallback();
+		//
+		// 		return this;
+		//
+		// 	}
+		//
+		// 	const sinHalfTheta = Math.sqrt( sqrSinHalfTheta );
+		// 	const halfTheta = Math.atan2( sinHalfTheta, cosHalfTheta );
+		// 	const ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta,
+		// 		ratioB = Math.sin( t * halfTheta ) / sinHalfTheta;
+		//
+		// 	this._w = ( w * ratioA + this._w * ratioB );
+		// 	this._x = ( x * ratioA + this._x * ratioB );
+		// 	this._y = ( y * ratioA + this._y * ratioB );
+		// 	this._z = ( z * ratioA + this._z * ratioB );
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+
+		// slerpQuaternions( qa, qb, t ) {
+		//
+		// 	return this.copy( qa ).slerp( qb, t );
+		//
+		// }
+		//
+		// random() {
+		//
+		// 	// Derived from http://planning.cs.uiuc.edu/node198.html
+		// 	// Note, this source uses w, x, y, z ordering,
+		// 	// so we swap the order below.
+		//
+		// 	const u1 = Math.random();
+		// 	const sqrt1u1 = Math.sqrt( 1 - u1 );
+		// 	const sqrtu1 = Math.sqrt( u1 );
+		//
+		// 	const u2 = 2 * Math.PI * Math.random();
+		//
+		// 	const u3 = 2 * Math.PI * Math.random();
+		//
+		// 	return this.set(
+		// 		sqrt1u1 * Math.cos( u2 ),
+		// 		sqrtu1 * Math.sin( u3 ),
+		// 		sqrtu1 * Math.cos( u3 ),
+		// 		sqrt1u1 * Math.sin( u2 ),
+		// 	);
+		//
+		// }
+		//
+		// equals( quaternion ) {
+		//
+		// 	return ( quaternion._x === this._x ) && ( quaternion._y === this._y ) && ( quaternion._z === this._z ) && ( quaternion._w === this._w );
+		//
+		// }
+		//
+		// fromArray( array, offset = 0 ) {
+		//
+		// 	this._x = array[ offset ];
+		// 	this._y = array[ offset + 1 ];
+		// 	this._z = array[ offset + 2 ];
+		// 	this._w = array[ offset + 3 ];
+		//
+		// 	this._onChangeCallback();
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	array[ offset ] = this._x;
+		// 	array[ offset + 1 ] = this._y;
+		// 	array[ offset + 2 ] = this._z;
+		// 	array[ offset + 3 ] = this._w;
+		//
+		// 	return array;
+		//
+		// }
+		//
+		// fromBufferAttribute( attribute, index ) {
+		//
+		// 	this._x = attribute.getX( index );
+		// 	this._y = attribute.getY( index );
+		// 	this._z = attribute.getZ( index );
+		// 	this._w = attribute.getW( index );
+		//
+		// 	return this;
+		//
+		// }
+
+		_onChange(callback) {
+			this._onChangeCallback = callback;
+			return this;
+		}
+		_onChangeCallback() {}
+		*[Symbol.iterator]() {
+			yield this._x;
+			yield this._y;
+			yield this._z;
+			yield this._w;
+		}
+	}
+
 	// import { Quaternion } from './Quaternion.js';
 	const _matrix = /*@__PURE__*/new Matrix4();
 
@@ -17821,11 +17904,14 @@
 			super();
 			this.isScene = true;
 			this.type = 'Scene';
-			this.background = null;
-			this.environment = null;
-			this.fog = null;
-			this.backgroundBlurriness = 0;
-			this.backgroundIntensity = 1;
+
+			// this.background = null;
+			// this.environment = null;
+			// this.fog = null;
+
+			// this.backgroundBlurriness = 0;
+			// this.backgroundIntensity = 1;
+
 			this.overrideMaterial = null;
 
 			// if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
@@ -21213,9 +21299,7 @@
 		}
 	}
 
-	exports.ACESFilmicToneMapping = ACESFilmicToneMapping;
 	exports.AddEquation = AddEquation;
-	exports.AddOperation = AddOperation;
 	exports.AdditiveBlending = AdditiveBlending;
 	exports.AlwaysDepth = AlwaysDepth;
 	exports.AlwaysStencilFunc = AlwaysStencilFunc;
@@ -21227,18 +21311,14 @@
 	exports.BoxHelper = BoxHelper;
 	exports.ByteType = ByteType;
 	exports.CameraHelper = CameraHelper;
-	exports.CineonToneMapping = CineonToneMapping;
 	exports.ClampToEdgeWrapping = ClampToEdgeWrapping;
 	exports.Color = Color;
-	exports.CubeReflectionMapping = CubeReflectionMapping;
-	exports.CubeRefractionMapping = CubeRefractionMapping;
 	exports.CubeUVReflectionMapping = CubeUVReflectionMapping;
 	exports.CubicBezierCurve3 = CubicBezierCurve3;
 	exports.CullFaceBack = CullFaceBack;
 	exports.CullFaceFront = CullFaceFront;
 	exports.CullFaceNone = CullFaceNone;
 	exports.CustomBlending = CustomBlending;
-	exports.CustomToneMapping = CustomToneMapping;
 	exports.DepthFormat = DepthFormat;
 	exports.DepthStencilFormat = DepthStencilFormat;
 	exports.DirectionalLight = DirectionalLight;
@@ -21262,7 +21342,6 @@
 	exports.LinearMipmapLinearFilter = LinearMipmapLinearFilter;
 	exports.LinearMipmapNearestFilter = LinearMipmapNearestFilter;
 	exports.LinearSRGBColorSpace = LinearSRGBColorSpace;
-	exports.LinearToneMapping = LinearToneMapping;
 	exports.Material = Material;
 	exports.MathUtils = MathUtils;
 	exports.Matrix4 = Matrix4;
@@ -21272,7 +21351,6 @@
 	exports.MeshPhongMaterial = MeshPhongMaterial;
 	exports.MinEquation = MinEquation;
 	exports.MirroredRepeatWrapping = MirroredRepeatWrapping;
-	exports.MixOperation = MixOperation;
 	exports.MultiplyBlending = MultiplyBlending;
 	exports.MultiplyOperation = MultiplyOperation;
 	exports.NearestFilter = NearestFilter;
@@ -21297,7 +21375,6 @@
 	exports.RGBADepthPacking = RGBADepthPacking;
 	exports.RGBAFormat = RGBAFormat;
 	exports.Raycaster = Raycaster;
-	exports.ReinhardToneMapping = ReinhardToneMapping;
 	exports.RepeatWrapping = RepeatWrapping;
 	exports.ReverseSubtractEquation = ReverseSubtractEquation;
 	exports.SRGBColorSpace = SRGBColorSpace;

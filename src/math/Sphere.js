@@ -1,4 +1,4 @@
-import { Box3 } from './Box3.js';
+// import { Box3 } from './Box3.js';
 import { Vector3 } from './Vector3.js';
 
 // const _box = /*@__PURE__*/ new Box3();

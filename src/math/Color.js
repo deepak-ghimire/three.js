@@ -1,6 +1,8 @@
 // import { clamp, euclideanModulo, lerp } from './MathUtils.js';
-import { clamp } from './MathUtils.js';
-import { ColorManagement, SRGBToLinear, LinearToSRGB } from './ColorManagement.js';
+// import { clamp } from './MathUtils.js';
+import { ColorManagement, SRGBToLinear,
+	// LinearToSRGB
+} from './ColorManagement.js';
 import { SRGBColorSpace } from '../constants.js';
 
 const _colorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF, 'aquamarine': 0x7FFFD4, 'azure': 0xF0FFFF,

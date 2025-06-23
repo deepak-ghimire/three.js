@@ -1,4 +1,12 @@
-import { LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, RGBAFormat, DepthFormat, DepthStencilFormat, UnsignedShortType, UnsignedIntType, UnsignedInt248Type, FloatType, HalfFloatType, MirroredRepeatWrapping, ClampToEdgeWrapping, RepeatWrapping, sRGBEncoding, LinearEncoding, UnsignedByteType, _SRGBAFormat } from '../../constants.js';
+import { LinearFilter,	LinearMipmapLinearFilter,	LinearMipmapNearestFilter,	NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter,
+	// RGBAFormat,
+	DepthFormat, DepthStencilFormat,
+	// UnsignedShortType,
+	UnsignedIntType,
+	// UnsignedInt248Type,
+	FloatType, HalfFloatType, MirroredRepeatWrapping, ClampToEdgeWrapping, RepeatWrapping, sRGBEncoding,
+	// LinearEncoding, UnsignedByteType,
+	_SRGBAFormat } from '../../constants.js';
 import * as MathUtils from '../../math/MathUtils.js';
 // import { ImageUtils } from '../../extras/ImageUtils.js';
 import { createElementNS } from '../../utils.js';

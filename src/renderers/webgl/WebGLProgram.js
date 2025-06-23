@@ -1,7 +1,8 @@
 import { WebGLUniforms } from './WebGLUniforms.js';
 import { WebGLShader } from './WebGLShader.js';
 import { ShaderChunk } from '../shaders/ShaderChunk.js';
-import { NoToneMapping, AddOperation, MixOperation, MultiplyOperation, CubeRefractionMapping, CubeUVReflectionMapping, CubeReflectionMapping, PCFSoftShadowMap, PCFShadowMap, VSMShadowMap, ACESFilmicToneMapping, CineonToneMapping, CustomToneMapping, ReinhardToneMapping, LinearToneMapping, sRGBEncoding, LinearEncoding, GLSL3 } from '../../constants.js';
+// import { NoToneMapping, AddOperation, MixOperation, MultiplyOperation, CubeRefractionMapping, CubeUVReflectionMapping, CubeReflectionMapping, PCFSoftShadowMap, PCFShadowMap, VSMShadowMap, ACESFilmicToneMapping, CineonToneMapping, CustomToneMapping, ReinhardToneMapping, LinearToneMapping, sRGBEncoding, LinearEncoding, GLSL3 } from '../../constants.js';
+import { PCFSoftShadowMap, PCFShadowMap, VSMShadowMap, GLSL3 } from '../../constants.js';
 
 let programIdCount = 0;
 
@@ -24,21 +25,21 @@ function handleSource( string, errorLine ) {
 
 }
 
-function getEncodingComponents( encoding ) {
-
-	switch ( encoding ) {
-
-		case LinearEncoding:
-			return [ 'Linear', '( value )' ];
-		case sRGBEncoding:
-			return [ 'sRGB', '( value )' ];
-		default:
-			console.warn( 'THREE.WebGLProgram: Unsupported encoding:', encoding );
-			return [ 'Linear', '( value )' ];
-
-	}
-
-}
+// function getEncodingComponents( encoding ) {
+//
+// 	switch ( encoding ) {
+//
+// 		case LinearEncoding:
+// 			return [ 'Linear', '( value )' ];
+// 		case sRGBEncoding:
+// 			return [ 'sRGB', '( value )' ];
+// 		default:
+// 			console.warn( 'THREE.WebGLProgram: Unsupported encoding:', encoding );
+// 			return [ 'Linear', '( value )' ];
+//
+// 	}
+//
+// }
 
 function getShaderErrors( gl, shader, type ) {
 
@@ -64,12 +65,12 @@ function getShaderErrors( gl, shader, type ) {
 
 }
 
-function getTexelEncodingFunction( functionName, encoding ) {
-
-	const components = getEncodingComponents( encoding );
-	return 'vec4 ' + functionName + '( vec4 value ) { return LinearTo' + components[ 0 ] + components[ 1 ] + '; }';
-
-}
+// function getTexelEncodingFunction( functionName, encoding ) {
+//
+// 	const components = getEncodingComponents( encoding );
+// 	return 'vec4 ' + functionName + '( vec4 value ) { return LinearTo' + components[ 0 ] + components[ 1 ] + '; }';
+//
+// }
 
 // function getToneMappingFunction( functionName, toneMapping ) {
 //
@@ -296,96 +297,96 @@ function generateShadowMapTypeDefine( parameters ) {
 	return shadowMapTypeDefine;
 
 }
-
-function generateEnvMapTypeDefine( parameters ) {
-
-	let envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-
-	if ( parameters.envMap ) {
-
-		switch ( parameters.envMapMode ) {
-
-			case CubeReflectionMapping:
-			case CubeRefractionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
-				break;
-
-			case CubeUVReflectionMapping:
-				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
-				break;
-
-		}
-
-	}
-
-	return envMapTypeDefine;
-
-}
-
-function generateEnvMapModeDefine( parameters ) {
-
-	let envMapModeDefine = 'ENVMAP_MODE_REFLECTION';
-
-	if ( parameters.envMap ) {
-
-		switch ( parameters.envMapMode ) {
-
-			case CubeRefractionMapping:
-
-				envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
-				break;
-
-		}
-
-	}
-
-	return envMapModeDefine;
-
-}
-
-function generateEnvMapBlendingDefine( parameters ) {
-
-	let envMapBlendingDefine = 'ENVMAP_BLENDING_NONE';
-
-	if ( parameters.envMap ) {
-
-		switch ( parameters.combine ) {
-
-			case MultiplyOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
-				break;
-
-			case MixOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_MIX';
-				break;
-
-			case AddOperation:
-				envMapBlendingDefine = 'ENVMAP_BLENDING_ADD';
-				break;
-
-		}
-
-	}
-
-	return envMapBlendingDefine;
-
-}
-
-function generateCubeUVSize( parameters ) {
-
-	const imageHeight = parameters.envMapCubeUVHeight;
-
-	if ( imageHeight === null ) return null;
-
-	const maxMip = Math.log2( imageHeight ) - 2;
-
-	const texelHeight = 1.0 / imageHeight;
-
-	const texelWidth = 1.0 / ( 3 * Math.max( Math.pow( 2, maxMip ), 7 * 16 ) );
-
-	return { texelWidth, texelHeight, maxMip };
-
-}
+//
+// function generateEnvMapTypeDefine( parameters ) {
+//
+// 	let envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
+//
+// 	if ( parameters.envMap ) {
+//
+// 		switch ( parameters.envMapMode ) {
+//
+// 			case CubeReflectionMapping:
+// 			case CubeRefractionMapping:
+// 				envMapTypeDefine = 'ENVMAP_TYPE_CUBE';
+// 				break;
+//
+// 			case CubeUVReflectionMapping:
+// 				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
+// 				break;
+//
+// 		}
+//
+// 	}
+//
+// 	return envMapTypeDefine;
+//
+// }
+//
+// function generateEnvMapModeDefine( parameters ) {
+//
+// 	let envMapModeDefine = 'ENVMAP_MODE_REFLECTION';
+//
+// 	if ( parameters.envMap ) {
+//
+// 		switch ( parameters.envMapMode ) {
+//
+// 			case CubeRefractionMapping:
+//
+// 				envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
+// 				break;
+//
+// 		}
+//
+// 	}
+//
+// 	return envMapModeDefine;
+//
+// }
+//
+// function generateEnvMapBlendingDefine( parameters ) {
+//
+// 	let envMapBlendingDefine = 'ENVMAP_BLENDING_NONE';
+//
+// 	if ( parameters.envMap ) {
+//
+// 		switch ( parameters.combine ) {
+//
+// 			case MultiplyOperation:
+// 				envMapBlendingDefine = 'ENVMAP_BLENDING_MULTIPLY';
+// 				break;
+//
+// 			case MixOperation:
+// 				envMapBlendingDefine = 'ENVMAP_BLENDING_MIX';
+// 				break;
+//
+// 			case AddOperation:
+// 				envMapBlendingDefine = 'ENVMAP_BLENDING_ADD';
+// 				break;
+//
+// 		}
+//
+// 	}
+//
+// 	return envMapBlendingDefine;
+//
+// }
+//
+// function generateCubeUVSize( parameters ) {
+//
+// 	const imageHeight = parameters.envMapCubeUVHeight;
+//
+// 	if ( imageHeight === null ) return null;
+//
+// 	const maxMip = Math.log2( imageHeight ) - 2;
+//
+// 	const texelHeight = 1.0 / imageHeight;
+//
+// 	const texelWidth = 1.0 / ( 3 * Math.max( Math.pow( 2, maxMip ), 7 * 16 ) );
+//
+// 	return { texelWidth, texelHeight, maxMip };
+//
+// }
 
 function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
@@ -400,10 +401,10 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 	let fragmentShader = parameters.fragmentShader;
 
 	const shadowMapTypeDefine = generateShadowMapTypeDefine( parameters );
-	const envMapTypeDefine = generateEnvMapTypeDefine( parameters );
-	const envMapModeDefine = generateEnvMapModeDefine( parameters );
-	const envMapBlendingDefine = generateEnvMapBlendingDefine( parameters );
-	const envMapCubeUVSize = generateCubeUVSize( parameters );
+	// const envMapTypeDefine = generateEnvMapTypeDefine( parameters );
+	// const envMapModeDefine = generateEnvMapModeDefine( parameters );
+	// const envMapBlendingDefine = generateEnvMapBlendingDefine( parameters );
+	// const envMapCubeUVSize = generateCubeUVSize( parameters );
 
 	const customExtensions = parameters.isWebGL2 ? '' : generateExtensions( parameters );
 
@@ -611,7 +612,7 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 			( parameters.useFog && parameters.fogExp2 ) ? '#define FOG_EXP2' : '',
 
 			parameters.map ? '#define USE_MAP' : '',
-			parameters.matcap ? '#define USE_MATCAP' : '',
+			// parameters.matcap ? '#define USE_MATCAP' : '',
 			// parameters.envMap ? '#define USE_ENVMAP' : '',
 			// parameters.envMap ? '#define ' + envMapTypeDefine : '',
 			// parameters.envMap ? '#define ' + envMapModeDefine : '',
