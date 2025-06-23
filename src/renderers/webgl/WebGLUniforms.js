@@ -1100,13 +1100,13 @@ class WebGLUniforms {
 
 	}
 
-	setOptional( gl, object, name ) {
-
-		const v = object[ name ];
-
-		if ( v !== undefined ) this.setValue( gl, name, v );
-
-	}
+	// setOptional( gl, object, name ) {
+	//
+	// 	const v = object[ name ];
+	//
+	// 	if ( v !== undefined ) this.setValue( gl, name, v );
+	//
+	// }
 
 	static upload( gl, seq, values, textures ) {
 

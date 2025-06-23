@@ -6177,6 +6177,92 @@
 		};
 	}
 
+	function WebGLObjects(gl, geometries, attributes, info) {
+		let updateMap = new WeakMap();
+		function update(object) {
+			const frame = info.render.frame;
+			const geometry = object.geometry;
+			const buffergeometry = geometries.get(object, geometry);
+
+			// Update once per frame
+
+			if (updateMap.get(buffergeometry) !== frame) {
+				geometries.update(buffergeometry);
+				updateMap.set(buffergeometry, frame);
+			}
+			if (object.isInstancedMesh) {
+				if (object.hasEventListener('dispose', onInstancedMeshDispose) === false) {
+					object.addEventListener('dispose', onInstancedMeshDispose);
+				}
+				attributes.update(object.instanceMatrix, gl.ARRAY_BUFFER);
+				if (object.instanceColor !== null) {
+					attributes.update(object.instanceColor, gl.ARRAY_BUFFER);
+				}
+			}
+			return buffergeometry;
+		}
+		function dispose() {
+			updateMap = new WeakMap();
+		}
+		function onInstancedMeshDispose(event) {
+			const instancedMesh = event.target;
+			instancedMesh.removeEventListener('dispose', onInstancedMeshDispose);
+			attributes.remove(instancedMesh.instanceMatrix);
+			if (instancedMesh.instanceColor !== null) attributes.remove(instancedMesh.instanceColor);
+		}
+		return {
+			update: update,
+			dispose: dispose
+		};
+	}
+
+	class Layers {
+		constructor() {
+			this.mask = 1 | 0;
+		}
+
+		// set( channel ) {
+		//
+		// 	this.mask = ( 1 << channel | 0 ) >>> 0;
+		//
+		// }
+
+		enable(channel) {
+			this.mask |= 1 << channel | 0;
+		}
+		//
+		// enableAll() {
+		//
+		// 	this.mask = 0xffffffff | 0;
+		//
+		// }
+		//
+		// toggle( channel ) {
+		//
+		// 	this.mask ^= 1 << channel | 0;
+		//
+		// }
+		//
+		// disable( channel ) {
+		//
+		// 	this.mask &= ~ ( 1 << channel | 0 );
+		//
+		// }
+
+		disableAll() {
+			this.mask = 0;
+		}
+		test(layers) {
+			return (this.mask & layers.mask) !== 0;
+		}
+
+		// isEnabled( channel ) {
+		//
+		// 	return ( this.mask & ( 1 << channel | 0 ) ) !== 0;
+		//
+		// }
+	}
+
 	/**
 	 * https://github.com/mrdoob/eventdispatcher.js/
 	 */
@@ -7308,271 +7394,6 @@
 		}
 	}
 
-	function numericalSort(a, b) {
-		return a[0] - b[0];
-	}
-	function absNumericalSort(a, b) {
-		return Math.abs(b[1]) - Math.abs(a[1]);
-	}
-	function WebGLMorphtargets(gl, capabilities, textures) {
-		const influencesList = {};
-		const morphInfluences = new Float32Array(8);
-		const morphTextures = new WeakMap();
-		const morph = new Vector4();
-		const workInfluences = [];
-		for (let i = 0; i < 8; i++) {
-			workInfluences[i] = [i, 0];
-		}
-		function update(object, geometry, material, program) {
-			const objectInfluences = object.morphTargetInfluences;
-			if (capabilities.isWebGL2 === true) {
-				// instead of using attributes, the WebGL 2 code path encodes morph targets
-				// into an array of data textures. Each layer represents a single morph target.
-
-				const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
-				const morphTargetsCount = morphAttribute !== undefined ? morphAttribute.length : 0;
-				let entry = morphTextures.get(geometry);
-				if (entry === undefined || entry.count !== morphTargetsCount) {
-					if (entry !== undefined) entry.texture.dispose();
-					const hasMorphPosition = geometry.morphAttributes.position !== undefined;
-					const hasMorphNormals = geometry.morphAttributes.normal !== undefined;
-					const hasMorphColors = geometry.morphAttributes.color !== undefined;
-					const morphTargets = geometry.morphAttributes.position || [];
-					const morphNormals = geometry.morphAttributes.normal || [];
-					const morphColors = geometry.morphAttributes.color || [];
-					let vertexDataCount = 0;
-					if (hasMorphPosition === true) vertexDataCount = 1;
-					if (hasMorphNormals === true) vertexDataCount = 2;
-					if (hasMorphColors === true) vertexDataCount = 3;
-					let width = geometry.attributes.position.count * vertexDataCount;
-					let height = 1;
-					if (width > capabilities.maxTextureSize) {
-						height = Math.ceil(width / capabilities.maxTextureSize);
-						width = capabilities.maxTextureSize;
-					}
-					const buffer = new Float32Array(width * height * 4 * morphTargetsCount);
-					const texture = new DataArrayTexture(buffer, width, height, morphTargetsCount);
-					texture.type = FloatType;
-					texture.needsUpdate = true;
-
-					// fill buffer
-
-					const vertexDataStride = vertexDataCount * 4;
-					for (let i = 0; i < morphTargetsCount; i++) {
-						const morphTarget = morphTargets[i];
-						const morphNormal = morphNormals[i];
-						const morphColor = morphColors[i];
-						const offset = width * height * 4 * i;
-						for (let j = 0; j < morphTarget.count; j++) {
-							const stride = j * vertexDataStride;
-							if (hasMorphPosition === true) {
-								morph.fromBufferAttribute(morphTarget, j);
-								buffer[offset + stride + 0] = morph.x;
-								buffer[offset + stride + 1] = morph.y;
-								buffer[offset + stride + 2] = morph.z;
-								buffer[offset + stride + 3] = 0;
-							}
-							if (hasMorphNormals === true) {
-								morph.fromBufferAttribute(morphNormal, j);
-								buffer[offset + stride + 4] = morph.x;
-								buffer[offset + stride + 5] = morph.y;
-								buffer[offset + stride + 6] = morph.z;
-								buffer[offset + stride + 7] = 0;
-							}
-							if (hasMorphColors === true) {
-								morph.fromBufferAttribute(morphColor, j);
-								buffer[offset + stride + 8] = morph.x;
-								buffer[offset + stride + 9] = morph.y;
-								buffer[offset + stride + 10] = morph.z;
-								buffer[offset + stride + 11] = morphColor.itemSize === 4 ? morph.w : 1;
-							}
-						}
-					}
-					entry = {
-						count: morphTargetsCount,
-						texture: texture,
-						size: new Vector2(width, height)
-					};
-					morphTextures.set(geometry, entry);
-					function disposeTexture() {
-						texture.dispose();
-						morphTextures.delete(geometry);
-						geometry.removeEventListener('dispose', disposeTexture);
-					}
-					geometry.addEventListener('dispose', disposeTexture);
-				}
-
-				//
-
-				let morphInfluencesSum = 0;
-				for (let i = 0; i < objectInfluences.length; i++) {
-					morphInfluencesSum += objectInfluences[i];
-				}
-				const morphBaseInfluence = geometry.morphTargetsRelative ? 1 : 1 - morphInfluencesSum;
-				program.getUniforms().setValue(gl, 'morphTargetBaseInfluence', morphBaseInfluence);
-				program.getUniforms().setValue(gl, 'morphTargetInfluences', objectInfluences);
-				program.getUniforms().setValue(gl, 'morphTargetsTexture', entry.texture, textures);
-				program.getUniforms().setValue(gl, 'morphTargetsTextureSize', entry.size);
-			} else {
-				// When object doesn't have morph target influences defined, we treat it as a 0-length array
-				// This is important to make sure we set up morphTargetBaseInfluence / morphTargetInfluences
-
-				const length = objectInfluences === undefined ? 0 : objectInfluences.length;
-				let influences = influencesList[geometry.id];
-				if (influences === undefined || influences.length !== length) {
-					// initialise list
-
-					influences = [];
-					for (let i = 0; i < length; i++) {
-						influences[i] = [i, 0];
-					}
-					influencesList[geometry.id] = influences;
-				}
-
-				// Collect influences
-
-				for (let i = 0; i < length; i++) {
-					const influence = influences[i];
-					influence[0] = i;
-					influence[1] = objectInfluences[i];
-				}
-				influences.sort(absNumericalSort);
-				for (let i = 0; i < 8; i++) {
-					if (i < length && influences[i][1]) {
-						workInfluences[i][0] = influences[i][0];
-						workInfluences[i][1] = influences[i][1];
-					} else {
-						workInfluences[i][0] = Number.MAX_SAFE_INTEGER;
-						workInfluences[i][1] = 0;
-					}
-				}
-				workInfluences.sort(numericalSort);
-				const morphTargets = geometry.morphAttributes.position;
-				const morphNormals = geometry.morphAttributes.normal;
-				let morphInfluencesSum = 0;
-				for (let i = 0; i < 8; i++) {
-					const influence = workInfluences[i];
-					const index = influence[0];
-					const value = influence[1];
-					if (index !== Number.MAX_SAFE_INTEGER && value) {
-						if (morphTargets && geometry.getAttribute('morphTarget' + i) !== morphTargets[index]) {
-							geometry.setAttribute('morphTarget' + i, morphTargets[index]);
-						}
-						if (morphNormals && geometry.getAttribute('morphNormal' + i) !== morphNormals[index]) {
-							geometry.setAttribute('morphNormal' + i, morphNormals[index]);
-						}
-						morphInfluences[i] = value;
-						morphInfluencesSum += value;
-					} else {
-						if (morphTargets && geometry.hasAttribute('morphTarget' + i) === true) {
-							geometry.deleteAttribute('morphTarget' + i);
-						}
-						if (morphNormals && geometry.hasAttribute('morphNormal' + i) === true) {
-							geometry.deleteAttribute('morphNormal' + i);
-						}
-						morphInfluences[i] = 0;
-					}
-				}
-
-				// GLSL shader uses formula baseinfluence * base + sum(target * influence)
-				// This allows us to switch between absolute morphs and relative morphs without changing shader code
-				// When baseinfluence = 1 - sum(influence), the above is equivalent to sum((target - base) * influence)
-				const morphBaseInfluence = geometry.morphTargetsRelative ? 1 : 1 - morphInfluencesSum;
-				program.getUniforms().setValue(gl, 'morphTargetBaseInfluence', morphBaseInfluence);
-				program.getUniforms().setValue(gl, 'morphTargetInfluences', morphInfluences);
-			}
-		}
-		return {
-			update: update
-		};
-	}
-
-	function WebGLObjects(gl, geometries, attributes, info) {
-		let updateMap = new WeakMap();
-		function update(object) {
-			const frame = info.render.frame;
-			const geometry = object.geometry;
-			const buffergeometry = geometries.get(object, geometry);
-
-			// Update once per frame
-
-			if (updateMap.get(buffergeometry) !== frame) {
-				geometries.update(buffergeometry);
-				updateMap.set(buffergeometry, frame);
-			}
-			if (object.isInstancedMesh) {
-				if (object.hasEventListener('dispose', onInstancedMeshDispose) === false) {
-					object.addEventListener('dispose', onInstancedMeshDispose);
-				}
-				attributes.update(object.instanceMatrix, gl.ARRAY_BUFFER);
-				if (object.instanceColor !== null) {
-					attributes.update(object.instanceColor, gl.ARRAY_BUFFER);
-				}
-			}
-			return buffergeometry;
-		}
-		function dispose() {
-			updateMap = new WeakMap();
-		}
-		function onInstancedMeshDispose(event) {
-			const instancedMesh = event.target;
-			instancedMesh.removeEventListener('dispose', onInstancedMeshDispose);
-			attributes.remove(instancedMesh.instanceMatrix);
-			if (instancedMesh.instanceColor !== null) attributes.remove(instancedMesh.instanceColor);
-		}
-		return {
-			update: update,
-			dispose: dispose
-		};
-	}
-
-	class Layers {
-		constructor() {
-			this.mask = 1 | 0;
-		}
-
-		// set( channel ) {
-		//
-		// 	this.mask = ( 1 << channel | 0 ) >>> 0;
-		//
-		// }
-
-		enable(channel) {
-			this.mask |= 1 << channel | 0;
-		}
-		//
-		// enableAll() {
-		//
-		// 	this.mask = 0xffffffff | 0;
-		//
-		// }
-		//
-		// toggle( channel ) {
-		//
-		// 	this.mask ^= 1 << channel | 0;
-		//
-		// }
-		//
-		// disable( channel ) {
-		//
-		// 	this.mask &= ~ ( 1 << channel | 0 );
-		//
-		// }
-
-		disableAll() {
-			this.mask = 0;
-		}
-		test(layers) {
-			return (this.mask & layers.mask) !== 0;
-		}
-
-		// isEnabled( channel ) {
-		//
-		// 	return ( this.mask & ( 1 << channel | 0 ) ) !== 0;
-		//
-		// }
-	}
-
 	class Data3DTexture extends Texture {
 		constructor(data = null, width = 1, height = 1, depth = 1) {
 			// We're going to add .setXXX() methods for setting properties later.
@@ -8405,10 +8226,15 @@
 			const u = this.map[name];
 			if (u !== undefined) u.setValue(gl, value, textures);
 		}
-		setOptional(gl, object, name) {
-			const v = object[name];
-			if (v !== undefined) this.setValue(gl, name, v);
-		}
+
+		// setOptional( gl, object, name ) {
+		//
+		// 	const v = object[ name ];
+		//
+		// 	if ( v !== undefined ) this.setValue( gl, name, v );
+		//
+		// }
+
 		static upload(gl, seq, values, textures) {
 			for (let i = 0, n = seq.length; i !== n; ++i) {
 				const u = seq[i],
@@ -9085,15 +8911,34 @@
 		// check for link errors
 		if (renderer.debug.checkShaderErrors) {
 			const programLog = gl.getProgramInfoLog(program).trim();
-			gl.getShaderInfoLog(glVertexShader).trim();
-			gl.getShaderInfoLog(glFragmentShader).trim();
+			const vertexLog = gl.getShaderInfoLog(glVertexShader).trim();
+			const fragmentLog = gl.getShaderInfoLog(glFragmentShader).trim();
+			let runnable = true;
+			let haveDiagnostics = true;
 			if (gl.getProgramParameter(program, gl.LINK_STATUS) === false) {
+				runnable = false;
 				const vertexErrors = getShaderErrors(gl, glVertexShader, 'vertex');
 				const fragmentErrors = getShaderErrors(gl, glFragmentShader, 'fragment');
 				console.error('THREE.WebGLProgram: Shader Error ' + gl.getError() + ' - ' + 'VALIDATE_STATUS ' + gl.getProgramParameter(program, gl.VALIDATE_STATUS) + '\n\n' + 'Program Info Log: ' + programLog + '\n' + vertexErrors + '\n' + fragmentErrors);
 			} else if (programLog !== '') {
 				console.warn('THREE.WebGLProgram: Program Info Log:', programLog);
-			} else ;
+			} else if (vertexLog === '' || fragmentLog === '') {
+				haveDiagnostics = false;
+			}
+			if (haveDiagnostics) {
+				this.diagnostics = {
+					runnable: runnable,
+					programLog: programLog,
+					vertexShader: {
+						log: vertexLog,
+						prefix: prefixVertex
+					},
+					fragmentShader: {
+						log: fragmentLog,
+						prefix: prefixFragment
+					}
+				};
+			}
 		}
 
 		// Clean up
@@ -15313,11 +15158,19 @@
 			_preserveDrawingBuffer = parameters.preserveDrawingBuffer !== undefined ? parameters.preserveDrawingBuffer : false,
 			_powerPreference = parameters.powerPreference !== undefined ? parameters.powerPreference : 'default',
 			_failIfMajorPerformanceCaveat = parameters.failIfMajorPerformanceCaveat !== undefined ? parameters.failIfMajorPerformanceCaveat : false;
-		if (_context !== null) {
-			_context.getContextAttributes().alpha;
-		} else {
-			parameters.alpha !== undefined ? parameters.alpha : false;
-		}
+
+		// let _alpha;
+		//
+		// if ( _context !== null ) {
+		//
+		// 	_alpha = _context.getContextAttributes().alpha;
+		//
+		// } else {
+		//
+		// 	_alpha = parameters.alpha !== undefined ? parameters.alpha : false;
+		//
+		// }
+
 		let currentRenderList = null;
 		let currentRenderState = null;
 
@@ -15488,7 +15341,9 @@
 		let extensions, capabilities, state, info;
 		let properties, textures, cubemaps, cubeuvmaps, attributes, geometries, objects;
 		let programCache, materials, renderLists, renderStates, clipping, shadowMap;
-		let background, morphtargets, bufferRenderer, indexedBufferRenderer;
+		let background,
+			// morphtargets,
+			bufferRenderer, indexedBufferRenderer;
 		let utils, bindingStates; //, uniformsGroups;
 
 		function initGLContext() {
@@ -15506,7 +15361,7 @@
 			bindingStates = new WebGLBindingStates(_gl, extensions, attributes, capabilities);
 			geometries = new WebGLGeometries(_gl, attributes, info, bindingStates);
 			objects = new WebGLObjects(_gl, geometries, attributes, info);
-			morphtargets = new WebGLMorphtargets(_gl, capabilities, textures);
+			// morphtargets = new WebGLMorphtargets( _gl, capabilities, textures );
 			clipping = new WebGLClipping(properties);
 			programCache = new WebGLPrograms(_this, cubemaps, cubeuvmaps, extensions, capabilities, bindingStates, clipping);
 			materials = new WebGLMaterials(_this, properties);
@@ -15720,8 +15575,8 @@
 			renderLists.dispose();
 			renderStates.dispose();
 			properties.dispose();
-			cubemaps.dispose();
-			cubeuvmaps.dispose();
+			// cubemaps.dispose();
+			// cubeuvmaps.dispose();
 			objects.dispose();
 			bindingStates.dispose();
 			// uniformsGroups.dispose();
@@ -16125,14 +15980,19 @@
 						}
 					}
 				} else if (object.isMesh || object.isLine || object.isPoints) {
-					if (object.isSkinnedMesh) {
-						// update skeleton only once in a frame
+					// if ( object.isSkinnedMesh ) {
+					//
+					// 	// update skeleton only once in a frame
+					//
+					// 	if ( object.skeleton.frame !== info.render.frame ) {
+					//
+					// 		object.skeleton.update();
+					// 		object.skeleton.frame = info.render.frame;
+					//
+					// 	}
+					//
+					// }
 
-						if (object.skeleton.frame !== info.render.frame) {
-							object.skeleton.update();
-							object.skeleton.frame = info.render.frame;
-						}
-					}
 					if (!object.frustumCulled || _frustum.intersectsObject(object)) {
 						if (sortObjects) {
 							_vector3.setFromMatrixPosition(object.matrixWorld).applyMatrix4(_projScreenMatrix);
@@ -16326,11 +16186,11 @@
 			const materialProperties = properties.get(material);
 			materialProperties.outputEncoding = parameters.outputEncoding;
 			materialProperties.instancing = parameters.instancing;
-			materialProperties.skinning = parameters.skinning;
-			materialProperties.morphTargets = parameters.morphTargets;
-			materialProperties.morphNormals = parameters.morphNormals;
-			materialProperties.morphColors = parameters.morphColors;
-			materialProperties.morphTargetsCount = parameters.morphTargetsCount;
+			// materialProperties.skinning = parameters.skinning;
+			// materialProperties.morphTargets = parameters.morphTargets;
+			// materialProperties.morphNormals = parameters.morphNormals;
+			// materialProperties.morphColors = parameters.morphColors;
+			// materialProperties.morphTargetsCount = parameters.morphTargetsCount;
 			materialProperties.numClippingPlanes = parameters.numClippingPlanes;
 			materialProperties.numIntersection = parameters.numClipIntersection;
 			materialProperties.vertexAlphas = parameters.vertexAlphas;
@@ -16348,12 +16208,14 @@
 			const envMap = null; //( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
 			const vertexAlphas = material.vertexColors === true && !!geometry.attributes.color && geometry.attributes.color.itemSize === 4;
 			const vertexTangents = !!material.normalMap && !!geometry.attributes.tangent;
-			const morphTargets = !!geometry.morphAttributes.position;
-			const morphNormals = !!geometry.morphAttributes.normal;
-			const morphColors = !!geometry.morphAttributes.color;
+			// const morphTargets = !! geometry.morphAttributes.position;
+			// const morphNormals = !! geometry.morphAttributes.normal;
+			// const morphColors = !! geometry.morphAttributes.color;
 			const toneMapping = material.toneMapped ? _this.toneMapping : NoToneMapping;
-			const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
-			const morphTargetsCount = morphAttribute !== undefined ? morphAttribute.length : 0;
+
+			// const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
+			// const morphTargetsCount = ( morphAttribute !== undefined ) ? morphAttribute.length : 0;
+
 			const materialProperties = properties.get(material);
 			const lights = currentRenderState.state.lights;
 			if (_clippingEnabled === true) {
@@ -16379,10 +16241,14 @@
 					needsProgramChange = true;
 				} else if (!object.isInstancedMesh && materialProperties.instancing === true) {
 					needsProgramChange = true;
-				} else if (object.isSkinnedMesh && materialProperties.skinning === false) {
-					needsProgramChange = true;
-				} else if (!object.isSkinnedMesh && materialProperties.skinning === true) {
-					needsProgramChange = true;
+
+					// } else if ( object.isSkinnedMesh && materialProperties.skinning === false ) {
+					//
+					// 	needsProgramChange = true;
+					//
+					// } else if ( ! object.isSkinnedMesh && materialProperties.skinning === true ) {
+					//
+					// 	needsProgramChange = true;
 				} else if (materialProperties.envMap !== envMap) {
 					needsProgramChange = true;
 				} else if (material.fog === true && materialProperties.fog !== fog) {
@@ -16393,16 +16259,20 @@
 					needsProgramChange = true;
 				} else if (materialProperties.vertexTangents !== vertexTangents) {
 					needsProgramChange = true;
-				} else if (materialProperties.morphTargets !== morphTargets) {
-					needsProgramChange = true;
+
+					// } else if ( materialProperties.morphTargets !== morphTargets ) {
+					//
+					// 	needsProgramChange = true;
 				} else if (materialProperties.morphNormals !== morphNormals) {
 					needsProgramChange = true;
 				} else if (materialProperties.morphColors !== morphColors) {
 					needsProgramChange = true;
 				} else if (materialProperties.toneMapping !== toneMapping) {
 					needsProgramChange = true;
-				} else if (capabilities.isWebGL2 === true && materialProperties.morphTargetsCount !== morphTargetsCount) {
-					needsProgramChange = true;
+
+					// } else if ( capabilities.isWebGL2 === true && materialProperties.morphTargetsCount !== morphTargetsCount ) {
+					//
+					// 	needsProgramChange = true;
 				}
 			} else {
 				needsProgramChange = true;
@@ -16448,16 +16318,33 @@
 				// load material specific uniforms
 				// (shader material also gets them for the sake of genericity)
 
-				if (material.isShaderMaterial || material.isMeshPhongMaterial || material.isMeshToonMaterial || material.isMeshStandardMaterial || material.envMap) {
+				if (material.isMeshPhongMaterial ||
+				// material.isShaderMaterial ||
+				// material.isMeshToonMaterial ||
+				// material.isMeshStandardMaterial ||
+				material.envMap) {
 					const uCamPos = p_uniforms.map.cameraPosition;
 					if (uCamPos !== undefined) {
 						uCamPos.setValue(_gl, _vector3.setFromMatrixPosition(camera.matrixWorld));
 					}
 				}
-				if (material.isMeshPhongMaterial || material.isMeshToonMaterial || material.isMeshLambertMaterial || material.isMeshBasicMaterial || material.isMeshStandardMaterial || material.isShaderMaterial) {
+				if (material.isMeshPhongMaterial ||
+				// material.isMeshToonMaterial ||
+				// material.isMeshLambertMaterial ||
+				material.isMeshBasicMaterial ||
+				// material.isMeshStandardMaterial ||
+				// material.isShaderMaterial ||
+				material.isMeshBasicMaterial) {
 					p_uniforms.setValue(_gl, 'isOrthographic', camera.isOrthographicCamera === true);
 				}
-				if (material.isMeshPhongMaterial || material.isMeshToonMaterial || material.isMeshLambertMaterial || material.isMeshBasicMaterial || material.isMeshStandardMaterial || material.isShaderMaterial || material.isShadowMaterial || object.isSkinnedMesh) {
+				if (material.isMeshPhongMaterial ||
+				// material.isMeshToonMaterial ||
+				// material.isMeshLambertMaterial ||
+				material.isMeshBasicMaterial ||
+				// material.isMeshStandardMaterial ||
+				// material.isShaderMaterial ||
+				// object.isSkinnedMesh ||
+				material.isShadowMaterial) {
 					p_uniforms.setValue(_gl, 'viewMatrix', camera.matrixWorldInverse);
 				}
 			}
@@ -16466,24 +16353,40 @@
 			// auto-setting of texture unit for bone and morph texture must go before other textures
 			// otherwise textures used for skinning and morphing can take over texture units reserved for other material textures
 
-			if (object.isSkinnedMesh) {
-				p_uniforms.setOptional(_gl, object, 'bindMatrix');
-				p_uniforms.setOptional(_gl, object, 'bindMatrixInverse');
-				const skeleton = object.skeleton;
-				if (skeleton) {
-					if (capabilities.floatVertexTextures) {
-						if (skeleton.boneTexture === null) skeleton.computeBoneTexture();
-						p_uniforms.setValue(_gl, 'boneTexture', skeleton.boneTexture, textures);
-						p_uniforms.setValue(_gl, 'boneTextureSize', skeleton.boneTextureSize);
-					} else {
-						console.warn('THREE.WebGLRenderer: SkinnedMesh can only be used with WebGL 2. With WebGL 1 OES_texture_float and vertex textures support is required.');
-					}
-				}
-			}
-			const morphAttributes = geometry.morphAttributes;
-			if (morphAttributes.position !== undefined || morphAttributes.normal !== undefined || morphAttributes.color !== undefined && capabilities.isWebGL2 === true) {
-				morphtargets.update(object, geometry, material, program);
-			}
+			// if ( object.isSkinnedMesh ) {
+			//
+			// 	p_uniforms.setOptional( _gl, object, 'bindMatrix' );
+			// 	p_uniforms.setOptional( _gl, object, 'bindMatrixInverse' );
+			//
+			// 	const skeleton = object.skeleton;
+			//
+			// 	if ( skeleton ) {
+			//
+			// 		if ( capabilities.floatVertexTextures ) {
+			//
+			// 			if ( skeleton.boneTexture === null ) skeleton.computeBoneTexture();
+			//
+			// 			p_uniforms.setValue( _gl, 'boneTexture', skeleton.boneTexture, textures );
+			// 			p_uniforms.setValue( _gl, 'boneTextureSize', skeleton.boneTextureSize );
+			//
+			// 		} else {
+			//
+			// 			console.warn( 'THREE.WebGLRenderer: SkinnedMesh can only be used with WebGL 2. With WebGL 1 OES_texture_float and vertex textures support is required.' );
+			//
+			// 		}
+			//
+			// 	}
+			//
+			// }
+
+			// const morphAttributes = geometry.morphAttributes;
+			//
+			// if ( morphAttributes.position !== undefined || morphAttributes.normal !== undefined || ( morphAttributes.color !== undefined && capabilities.isWebGL2 === true ) ) {
+			//
+			// 	morphtargets.update( object, geometry, material, program );
+			//
+			// }
+
 			if (refreshMaterial || materialProperties.receiveShadow !== object.receiveShadow) {
 				materialProperties.receiveShadow = object.receiveShadow;
 				p_uniforms.setValue(_gl, 'receiveShadow', object.receiveShadow);
