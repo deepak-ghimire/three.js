@@ -17,8 +17,8 @@ const UniformsLib = {
 		uvTransform: { value: /*@__PURE__*/ new Matrix3() },
 		uv2Transform: { value: /*@__PURE__*/ new Matrix3() },
 
-		alphaMap: { value: null },
-		alphaTest: { value: 0 }
+		// alphaMap: { value: null },
+		// alphaTest: { value: 0 }
 
 	},
 
@@ -28,29 +28,29 @@ const UniformsLib = {
 
 	},
 
-	envmap: {
+	// envmap: {
+	//
+	// 	envMap: { value: null },
+	// 	flipEnvMap: { value: - 1 },
+	// 	reflectivity: { value: 1.0 }, // basic, lambert, phong
+	// 	ior: { value: 1.5 }, // physical
+	// 	refractionRatio: { value: 0.98 }, // basic, lambert, phong
+	//
+	// },
+	//
+	// aomap: {
+	//
+	// 	aoMap: { value: null },
+	// 	aoMapIntensity: { value: 1 }
+	//
+	// },
 
-		envMap: { value: null },
-		flipEnvMap: { value: - 1 },
-		reflectivity: { value: 1.0 }, // basic, lambert, phong
-		ior: { value: 1.5 }, // physical
-		refractionRatio: { value: 0.98 }, // basic, lambert, phong
-
-	},
-
-	aomap: {
-
-		aoMap: { value: null },
-		aoMapIntensity: { value: 1 }
-
-	},
-
-	lightmap: {
-
-		lightMap: { value: null },
-		lightMapIntensity: { value: 1 }
-
-	},
+	// lightmap: {
+	//
+	// 	lightMap: { value: null },
+	// 	lightMapIntensity: { value: 1 }
+	//
+	// },
 
 	emissivemap: {
 
@@ -58,12 +58,12 @@ const UniformsLib = {
 
 	},
 
-	bumpmap: {
-
-		bumpMap: { value: null },
-		bumpScale: { value: 1 }
-
-	},
+	// bumpmap: {
+	//
+	// 	bumpMap: { value: null },
+	// 	bumpScale: { value: 1 }
+	//
+	// },
 
 	normalmap: {
 
@@ -72,40 +72,40 @@ const UniformsLib = {
 
 	},
 
-	displacementmap: {
+	// displacementmap: {
+	//
+	// 	displacementMap: { value: null },
+	// 	displacementScale: { value: 1 },
+	// 	displacementBias: { value: 0 }
+	//
+	// },
+	//
+	// roughnessmap: {
+	//
+	// 	roughnessMap: { value: null }
+	//
+	// },
+	//
+	// metalnessmap: {
+	//
+	// 	metalnessMap: { value: null }
+	//
+	// },
+	//
+	// gradientmap: {
+	//
+	// 	gradientMap: { value: null }
+	//
+	// },
 
-		displacementMap: { value: null },
-		displacementScale: { value: 1 },
-		displacementBias: { value: 0 }
-
-	},
-
-	roughnessmap: {
-
-		roughnessMap: { value: null }
-
-	},
-
-	metalnessmap: {
-
-		metalnessMap: { value: null }
-
-	},
-
-	gradientmap: {
-
-		gradientMap: { value: null }
-
-	},
-
-	fog: {
-
-		fogDensity: { value: 0.00025 },
-		fogNear: { value: 1 },
-		fogFar: { value: 2000 },
-		fogColor: { value: /*@__PURE__*/ new Color( 0xffffff ) }
-
-	},
+	// fog: {
+	//
+	// 	fogDensity: { value: 0.00025 },
+	// 	fogNear: { value: 1 },
+	// 	fogFar: { value: 2000 },
+	// 	fogColor: { value: /*@__PURE__*/ new Color( 0xffffff ) }
+	//
+	// },
 
 	lights: {
 

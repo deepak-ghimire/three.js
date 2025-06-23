@@ -71,41 +71,41 @@ function getTexelEncodingFunction( functionName, encoding ) {
 
 }
 
-function getToneMappingFunction( functionName, toneMapping ) {
-
-	let toneMappingName;
-
-	switch ( toneMapping ) {
-
-		case LinearToneMapping:
-			toneMappingName = 'Linear';
-			break;
-
-		case ReinhardToneMapping:
-			toneMappingName = 'Reinhard';
-			break;
-
-		case CineonToneMapping:
-			toneMappingName = 'OptimizedCineon';
-			break;
-
-		case ACESFilmicToneMapping:
-			toneMappingName = 'ACESFilmic';
-			break;
-
-		case CustomToneMapping:
-			toneMappingName = 'Custom';
-			break;
-
-		default:
-			console.warn( 'THREE.WebGLProgram: Unsupported toneMapping:', toneMapping );
-			toneMappingName = 'Linear';
-
-	}
-
-	return 'vec3 ' + functionName + '( vec3 color ) { return ' + toneMappingName + 'ToneMapping( color ); }';
-
-}
+// function getToneMappingFunction( functionName, toneMapping ) {
+//
+// 	let toneMappingName;
+//
+// 	switch ( toneMapping ) {
+//
+// 		case LinearToneMapping:
+// 			toneMappingName = 'Linear';
+// 			break;
+//
+// 		case ReinhardToneMapping:
+// 			toneMappingName = 'Reinhard';
+// 			break;
+//
+// 		case CineonToneMapping:
+// 			toneMappingName = 'OptimizedCineon';
+// 			break;
+//
+// 		case ACESFilmicToneMapping:
+// 			toneMappingName = 'ACESFilmic';
+// 			break;
+//
+// 		case CustomToneMapping:
+// 			toneMappingName = 'Custom';
+// 			break;
+//
+// 		default:
+// 			console.warn( 'THREE.WebGLProgram: Unsupported toneMapping:', toneMapping );
+// 			toneMappingName = 'Linear';
+//
+// 	}
+//
+// 	return 'vec3 ' + functionName + '( vec3 color ) { return ' + toneMappingName + 'ToneMapping( color ); }';
+//
+// }
 
 function generateExtensions( parameters ) {
 
@@ -460,39 +460,39 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 			( parameters.useFog && parameters.fogExp2 ) ? '#define FOG_EXP2' : '',
 
 			parameters.map ? '#define USE_MAP' : '',
-			parameters.envMap ? '#define USE_ENVMAP' : '',
-			parameters.envMap ? '#define ' + envMapModeDefine : '',
+			// parameters.envMap ? '#define USE_ENVMAP' : '',
+			// parameters.envMap ? '#define ' + envMapModeDefine : '',
 			parameters.lightMap ? '#define USE_LIGHTMAP' : '',
-			parameters.aoMap ? '#define USE_AOMAP' : '',
+			// parameters.aoMap ? '#define USE_AOMAP' : '',
 			parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '',
-			parameters.bumpMap ? '#define USE_BUMPMAP' : '',
+			// parameters.bumpMap ? '#define USE_BUMPMAP' : '',
 			parameters.normalMap ? '#define USE_NORMALMAP' : '',
 			( parameters.normalMap && parameters.objectSpaceNormalMap ) ? '#define OBJECTSPACE_NORMALMAP' : '',
 			( parameters.normalMap && parameters.tangentSpaceNormalMap ) ? '#define TANGENTSPACE_NORMALMAP' : '',
 
-			parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '',
-			parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '',
-			parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '',
+			// parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '',
+			// parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '',
+			// parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '',
 
-			parameters.iridescenceMap ? '#define USE_IRIDESCENCEMAP' : '',
-			parameters.iridescenceThicknessMap ? '#define USE_IRIDESCENCE_THICKNESSMAP' : '',
+			// parameters.iridescenceMap ? '#define USE_IRIDESCENCEMAP' : '',
+			// parameters.iridescenceThicknessMap ? '#define USE_IRIDESCENCE_THICKNESSMAP' : '',
 
-			parameters.displacementMap && parameters.supportsVertexTextures ? '#define USE_DISPLACEMENTMAP' : '',
+			// parameters.displacementMap && parameters.supportsVertexTextures ? '#define USE_DISPLACEMENTMAP' : '',
 
 			parameters.specularMap ? '#define USE_SPECULARMAP' : '',
 			parameters.specularIntensityMap ? '#define USE_SPECULARINTENSITYMAP' : '',
 			parameters.specularColorMap ? '#define USE_SPECULARCOLORMAP' : '',
 
-			parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
-			parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
-			parameters.alphaMap ? '#define USE_ALPHAMAP' : '',
+			// parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
+			// parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
+			// parameters.alphaMap ? '#define USE_ALPHAMAP' : '',
 
-			parameters.transmission ? '#define USE_TRANSMISSION' : '',
-			parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '',
-			parameters.thicknessMap ? '#define USE_THICKNESSMAP' : '',
+			// parameters.transmission ? '#define USE_TRANSMISSION' : '',
+			// parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '',
+			// parameters.thicknessMap ? '#define USE_THICKNESSMAP' : '',
 
-			parameters.sheenColorMap ? '#define USE_SHEENCOLORMAP' : '',
-			parameters.sheenRoughnessMap ? '#define USE_SHEENROUGHNESSMAP' : '',
+			// parameters.sheenColorMap ? '#define USE_SHEENCOLORMAP' : '',
+			// parameters.sheenRoughnessMap ? '#define USE_SHEENROUGHNESSMAP' : '',
 
 			parameters.vertexTangents ? '#define USE_TANGENT' : '',
 			parameters.vertexColors ? '#define USE_COLOR' : '',
@@ -504,12 +504,12 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 			parameters.skinning ? '#define USE_SKINNING' : '',
 
-			parameters.morphTargets ? '#define USE_MORPHTARGETS' : '',
-			parameters.morphNormals && parameters.flatShading === false ? '#define USE_MORPHNORMALS' : '',
-			( parameters.morphColors && parameters.isWebGL2 ) ? '#define USE_MORPHCOLORS' : '',
-			( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_TEXTURE' : '',
-			( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_TEXTURE_STRIDE ' + parameters.morphTextureStride : '',
-			( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_COUNT ' + parameters.morphTargetsCount : '',
+			// parameters.morphTargets ? '#define USE_MORPHTARGETS' : '',
+			// parameters.morphNormals && parameters.flatShading === false ? '#define USE_MORPHNORMALS' : '',
+			// ( parameters.morphColors && parameters.isWebGL2 ) ? '#define USE_MORPHCOLORS' : '',
+			// ( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_TEXTURE' : '',
+			// ( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_TEXTURE_STRIDE ' + parameters.morphTextureStride : '',
+			// ( parameters.morphTargetsCount > 0 && parameters.isWebGL2 ) ? '#define MORPHTARGETS_COUNT ' + parameters.morphTargetsCount : '',
 			parameters.doubleSided ? '#define DOUBLE_SIDED' : '',
 			parameters.flipSided ? '#define FLIP_SIDED' : '',
 
@@ -612,46 +612,46 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 			parameters.map ? '#define USE_MAP' : '',
 			parameters.matcap ? '#define USE_MATCAP' : '',
-			parameters.envMap ? '#define USE_ENVMAP' : '',
-			parameters.envMap ? '#define ' + envMapTypeDefine : '',
-			parameters.envMap ? '#define ' + envMapModeDefine : '',
-			parameters.envMap ? '#define ' + envMapBlendingDefine : '',
-			envMapCubeUVSize ? '#define CUBEUV_TEXEL_WIDTH ' + envMapCubeUVSize.texelWidth : '',
-			envMapCubeUVSize ? '#define CUBEUV_TEXEL_HEIGHT ' + envMapCubeUVSize.texelHeight : '',
-			envMapCubeUVSize ? '#define CUBEUV_MAX_MIP ' + envMapCubeUVSize.maxMip + '.0' : '',
+			// parameters.envMap ? '#define USE_ENVMAP' : '',
+			// parameters.envMap ? '#define ' + envMapTypeDefine : '',
+			// parameters.envMap ? '#define ' + envMapModeDefine : '',
+			// parameters.envMap ? '#define ' + envMapBlendingDefine : '',
+			// envMapCubeUVSize ? '#define CUBEUV_TEXEL_WIDTH ' + envMapCubeUVSize.texelWidth : '',
+			// envMapCubeUVSize ? '#define CUBEUV_TEXEL_HEIGHT ' + envMapCubeUVSize.texelHeight : '',
+			// envMapCubeUVSize ? '#define CUBEUV_MAX_MIP ' + envMapCubeUVSize.maxMip + '.0' : '',
 			parameters.lightMap ? '#define USE_LIGHTMAP' : '',
-			parameters.aoMap ? '#define USE_AOMAP' : '',
+			// parameters.aoMap ? '#define USE_AOMAP' : '',
 			parameters.emissiveMap ? '#define USE_EMISSIVEMAP' : '',
-			parameters.bumpMap ? '#define USE_BUMPMAP' : '',
+			// parameters.bumpMap ? '#define USE_BUMPMAP' : '',
 			parameters.normalMap ? '#define USE_NORMALMAP' : '',
 			( parameters.normalMap && parameters.objectSpaceNormalMap ) ? '#define OBJECTSPACE_NORMALMAP' : '',
 			( parameters.normalMap && parameters.tangentSpaceNormalMap ) ? '#define TANGENTSPACE_NORMALMAP' : '',
 
-			parameters.clearcoat ? '#define USE_CLEARCOAT' : '',
-			parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '',
-			parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '',
-			parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '',
+			// parameters.clearcoat ? '#define USE_CLEARCOAT' : '',
+			// parameters.clearcoatMap ? '#define USE_CLEARCOATMAP' : '',
+			// parameters.clearcoatRoughnessMap ? '#define USE_CLEARCOAT_ROUGHNESSMAP' : '',
+			// parameters.clearcoatNormalMap ? '#define USE_CLEARCOAT_NORMALMAP' : '',
 
-			parameters.iridescence ? '#define USE_IRIDESCENCE' : '',
-			parameters.iridescenceMap ? '#define USE_IRIDESCENCEMAP' : '',
-			parameters.iridescenceThicknessMap ? '#define USE_IRIDESCENCE_THICKNESSMAP' : '',
+			// parameters.iridescence ? '#define USE_IRIDESCENCE' : '',
+			// parameters.iridescenceMap ? '#define USE_IRIDESCENCEMAP' : '',
+			// parameters.iridescenceThicknessMap ? '#define USE_IRIDESCENCE_THICKNESSMAP' : '',
 
 			parameters.specularMap ? '#define USE_SPECULARMAP' : '',
 			parameters.specularIntensityMap ? '#define USE_SPECULARINTENSITYMAP' : '',
 			parameters.specularColorMap ? '#define USE_SPECULARCOLORMAP' : '',
-			parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
-			parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
+			// parameters.roughnessMap ? '#define USE_ROUGHNESSMAP' : '',
+			// parameters.metalnessMap ? '#define USE_METALNESSMAP' : '',
 
-			parameters.alphaMap ? '#define USE_ALPHAMAP' : '',
-			parameters.alphaTest ? '#define USE_ALPHATEST' : '',
+			// parameters.alphaMap ? '#define USE_ALPHAMAP' : '',
+			// parameters.alphaTest ? '#define USE_ALPHATEST' : '',
 
-			parameters.sheen ? '#define USE_SHEEN' : '',
-			parameters.sheenColorMap ? '#define USE_SHEENCOLORMAP' : '',
-			parameters.sheenRoughnessMap ? '#define USE_SHEENROUGHNESSMAP' : '',
+			// parameters.sheen ? '#define USE_SHEEN' : '',
+			// parameters.sheenColorMap ? '#define USE_SHEENCOLORMAP' : '',
+			// parameters.sheenRoughnessMap ? '#define USE_SHEENROUGHNESSMAP' : '',
 
-			parameters.transmission ? '#define USE_TRANSMISSION' : '',
-			parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '',
-			parameters.thicknessMap ? '#define USE_THICKNESSMAP' : '',
+			// parameters.transmission ? '#define USE_TRANSMISSION' : '',
+			// parameters.transmissionMap ? '#define USE_TRANSMISSIONMAP' : '',
+			// parameters.thicknessMap ? '#define USE_THICKNESSMAP' : '',
 
 			parameters.decodeVideoTexture ? '#define DECODE_VIDEO_TEXTURE' : '',
 
@@ -682,15 +682,15 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 			'uniform vec3 cameraPosition;',
 			'uniform bool isOrthographic;',
 
-			( parameters.toneMapping !== NoToneMapping ) ? '#define TONE_MAPPING' : '',
-			( parameters.toneMapping !== NoToneMapping ) ? ShaderChunk[ 'tonemapping_pars_fragment' ] : '', // this code is required here because it is used by the toneMapping() function defined below
-			( parameters.toneMapping !== NoToneMapping ) ? getToneMappingFunction( 'toneMapping', parameters.toneMapping ) : '',
+			// ( parameters.toneMapping !== NoToneMapping ) ? '#define TONE_MAPPING' : '',
+			// ( parameters.toneMapping !== NoToneMapping ) ? ShaderChunk[ 'tonemapping_pars_fragment' ] : '', // this code is required here because it is used by the toneMapping() function defined below
+			// ( parameters.toneMapping !== NoToneMapping ) ? getToneMappingFunction( 'toneMapping', parameters.toneMapping ) : '',
 
 			parameters.dithering ? '#define DITHERING' : '',
 			parameters.opaque ? '#define OPAQUE' : '',
 
-			ShaderChunk[ 'encodings_pars_fragment' ], // this code is required here because it is used by the various encoding/decoding function defined below
-			getTexelEncodingFunction( 'linearToOutputTexel', parameters.outputEncoding ),
+			// ShaderChunk[ 'encodings_pars_fragment' ], // this code is required here because it is used by the various encoding/decoding function defined below
+			// getTexelEncodingFunction( 'linearToOutputTexel', parameters.outputEncoding ),
 
 			parameters.useDepthPacking ? '#define DEPTH_PACKING ' + parameters.depthPacking : '',
 
