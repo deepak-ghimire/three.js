@@ -42,56 +42,56 @@ class Vector2 {
 
 	}
 
-	setScalar( scalar ) {
-
-		this.x = scalar;
-		this.y = scalar;
-
-		return this;
-
-	}
-
-	setX( x ) {
-
-		this.x = x;
-
-		return this;
-
-	}
-
-	setY( y ) {
-
-		this.y = y;
-
-		return this;
-
-	}
-
-	setComponent( index, value ) {
-
-		switch ( index ) {
-
-			case 0: this.x = value; break;
-			case 1: this.y = value; break;
-			default: throw new Error( 'index is out of range: ' + index );
-
-		}
-
-		return this;
-
-	}
-
-	getComponent( index ) {
-
-		switch ( index ) {
-
-			case 0: return this.x;
-			case 1: return this.y;
-			default: throw new Error( 'index is out of range: ' + index );
-
-		}
-
-	}
+	// setScalar( scalar ) {
+	//
+	// 	this.x = scalar;
+	// 	this.y = scalar;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setX( x ) {
+	//
+	// 	this.x = x;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setY( y ) {
+	//
+	// 	this.y = y;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// setComponent( index, value ) {
+	//
+	// 	switch ( index ) {
+	//
+	// 		case 0: this.x = value; break;
+	// 		case 1: this.y = value; break;
+	// 		default: throw new Error( 'index is out of range: ' + index );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// getComponent( index ) {
+	//
+	// 	switch ( index ) {
+	//
+	// 		case 0: return this.x;
+	// 		case 1: return this.y;
+	// 		default: throw new Error( 'index is out of range: ' + index );
+	//
+	// 	}
+	//
+	// }
 
 	clone() {
 
@@ -116,15 +116,15 @@ class Vector2 {
 		return this;
 
 	}
-
-	addScalar( s ) {
-
-		this.x += s;
-		this.y += s;
-
-		return this;
-
-	}
+	//
+	// addScalar( s ) {
+	//
+	// 	this.x += s;
+	// 	this.y += s;
+	//
+	// 	return this;
+	//
+	// }
 
 	addVectors( a, b ) {
 
@@ -153,14 +153,14 @@ class Vector2 {
 
 	}
 
-	subScalar( s ) {
-
-		this.x -= s;
-		this.y -= s;
-
-		return this;
-
-	}
+	// subScalar( s ) {
+	//
+	// 	this.x -= s;
+	// 	this.y -= s;
+	//
+	// 	return this;
+	//
+	// }
 
 	subVectors( a, b ) {
 
@@ -189,32 +189,32 @@ class Vector2 {
 
 	}
 
-	divide( v ) {
-
-		this.x /= v.x;
-		this.y /= v.y;
-
-		return this;
-
-	}
+	// divide( v ) {
+	//
+	// 	this.x /= v.x;
+	// 	this.y /= v.y;
+	//
+	// 	return this;
+	//
+	// }
 
 	divideScalar( scalar ) {
 
 		return this.multiplyScalar( 1 / scalar );
 
 	}
-
-	applyMatrix3( m ) {
-
-		const x = this.x, y = this.y;
-		const e = m.elements;
-
-		this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ];
-		this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ];
-
-		return this;
-
-	}
+	//
+	// applyMatrix3( m ) {
+	//
+	// 	const x = this.x, y = this.y;
+	// 	const e = m.elements;
+	//
+	// 	this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ];
+	// 	this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ];
+	//
+	// 	return this;
+	//
+	// }
 
 	min( v ) {
 
@@ -245,22 +245,22 @@ class Vector2 {
 
 	}
 
-	clampScalar( minVal, maxVal ) {
-
-		this.x = Math.max( minVal, Math.min( maxVal, this.x ) );
-		this.y = Math.max( minVal, Math.min( maxVal, this.y ) );
-
-		return this;
-
-	}
-
-	clampLength( min, max ) {
-
-		const length = this.length();
-
-		return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
-
-	}
+	// clampScalar( minVal, maxVal ) {
+	//
+	// 	this.x = Math.max( minVal, Math.min( maxVal, this.x ) );
+	// 	this.y = Math.max( minVal, Math.min( maxVal, this.y ) );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// clampLength( min, max ) {
+	//
+	// 	const length = this.length();
+	//
+	// 	return this.divideScalar( length || 1 ).multiplyScalar( Math.max( min, Math.min( max, length ) ) );
+	//
+	// }
 
 	floor() {
 
@@ -271,14 +271,14 @@ class Vector2 {
 
 	}
 
-	ceil() {
-
-		this.x = Math.ceil( this.x );
-		this.y = Math.ceil( this.y );
-
-		return this;
-
-	}
+	// ceil() {
+	//
+	// 	this.x = Math.ceil( this.x );
+	// 	this.y = Math.ceil( this.y );
+	//
+	// 	return this;
+	//
+	// }
 
 	round() {
 
@@ -289,14 +289,14 @@ class Vector2 {
 
 	}
 
-	roundToZero() {
-
-		this.x = ( this.x < 0 ) ? Math.ceil( this.x ) : Math.floor( this.x );
-		this.y = ( this.y < 0 ) ? Math.ceil( this.y ) : Math.floor( this.y );
-
-		return this;
-
-	}
+	// roundToZero() {
+	//
+	// 	this.x = ( this.x < 0 ) ? Math.ceil( this.x ) : Math.floor( this.x );
+	// 	this.y = ( this.y < 0 ) ? Math.ceil( this.y ) : Math.floor( this.y );
+	//
+	// 	return this;
+	//
+	// }
 
 	negate() {
 
@@ -331,11 +331,11 @@ class Vector2 {
 
 	}
 
-	manhattanLength() {
-
-		return Math.abs( this.x ) + Math.abs( this.y );
-
-	}
+	// manhattanLength() {
+	//
+	// 	return Math.abs( this.x ) + Math.abs( this.y );
+	//
+	// }
 
 	normalize() {
 
@@ -365,36 +365,36 @@ class Vector2 {
 		return dx * dx + dy * dy;
 
 	}
-
-	manhattanDistanceTo( v ) {
-
-		return Math.abs( this.x - v.x ) + Math.abs( this.y - v.y );
-
-	}
-
-	setLength( length ) {
-
-		return this.normalize().multiplyScalar( length );
-
-	}
-
-	lerp( v, alpha ) {
-
-		this.x += ( v.x - this.x ) * alpha;
-		this.y += ( v.y - this.y ) * alpha;
-
-		return this;
-
-	}
-
-	lerpVectors( v1, v2, alpha ) {
-
-		this.x = v1.x + ( v2.x - v1.x ) * alpha;
-		this.y = v1.y + ( v2.y - v1.y ) * alpha;
-
-		return this;
-
-	}
+	//
+	// manhattanDistanceTo( v ) {
+	//
+	// 	return Math.abs( this.x - v.x ) + Math.abs( this.y - v.y );
+	//
+	// }
+	//
+	// setLength( length ) {
+	//
+	// 	return this.normalize().multiplyScalar( length );
+	//
+	// }
+	//
+	// lerp( v, alpha ) {
+	//
+	// 	this.x += ( v.x - this.x ) * alpha;
+	// 	this.y += ( v.y - this.y ) * alpha;
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// lerpVectors( v1, v2, alpha ) {
+	//
+	// 	this.x = v1.x + ( v2.x - v1.x ) * alpha;
+	// 	this.y = v1.y + ( v2.y - v1.y ) * alpha;
+	//
+	// 	return this;
+	//
+	// }
 
 	equals( v ) {
 
@@ -429,19 +429,19 @@ class Vector2 {
 
 	}
 
-	rotateAround( center, angle ) {
-
-		const c = Math.cos( angle ), s = Math.sin( angle );
-
-		const x = this.x - center.x;
-		const y = this.y - center.y;
-
-		this.x = x * c - y * s + center.x;
-		this.y = x * s + y * c + center.y;
-
-		return this;
-
-	}
+	// rotateAround( center, angle ) {
+	//
+	// 	const c = Math.cos( angle ), s = Math.sin( angle );
+	//
+	// 	const x = this.x - center.x;
+	// 	const y = this.y - center.y;
+	//
+	// 	this.x = x * c - y * s + center.x;
+	// 	this.y = x * s + y * c + center.y;
+	//
+	// 	return this;
+	//
+	// }
 
 	random() {
 

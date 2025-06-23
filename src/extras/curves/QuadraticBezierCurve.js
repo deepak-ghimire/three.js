@@ -8,7 +8,7 @@ class QuadraticBezierCurve extends Curve {
 
 		super();
 
-		this.isQuadraticBezierCurve = true;
+		// this.isQuadraticBezierCurve = true;
 
 		this.type = 'QuadraticBezierCurve';
 

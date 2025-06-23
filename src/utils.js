@@ -56,11 +56,11 @@ const TYPED_ARRAYS = {
 	Float64Array: Float64Array
 };
 
-function getTypedArray( type, buffer ) {
-
-	return new TYPED_ARRAYS[ type ]( buffer );
-
-}
+// function getTypedArray( type, buffer ) {
+//
+// 	return new TYPED_ARRAYS[ type ]( buffer );
+//
+// }
 
 function createElementNS( name ) {
 
@@ -69,4 +69,4 @@ function createElementNS( name ) {
 }
 
 // export { arrayMin, arrayMax, arrayNeedsUint32, getTypedArray, createElementNS };
-export { arrayNeedsUint32, getTypedArray, createElementNS };
+export { arrayNeedsUint32, createElementNS };

@@ -111,7 +111,7 @@ class Object3D extends EventDispatcher {
 		this.frustumCulled = true;
 		this.renderOrder = 0;
 
-		this.animations = [];
+		// this.animations = [];
 
 		this.userData = {};
 
@@ -196,7 +196,7 @@ class Object3D extends EventDispatcher {
 	//
 	// }
 	//
-	rotateX( angle ) {
+	rotateX( angle ) { //used
 
 		return this.rotateOnAxis( _xAxis, angle );
 
@@ -208,42 +208,42 @@ class Object3D extends EventDispatcher {
 	//
 	// }
 	//
-	// rotateZ( angle ) {
+	rotateZ( angle ) { //used
+
+		return this.rotateOnAxis( _zAxis, angle );
+
+	}
 	//
-	// 	return this.rotateOnAxis( _zAxis, angle );
+	// translateOnAxis( axis, distance ) {
+	//
+	// 	// translate object by distance along axis in object space
+	// 	// axis is assumed to be normalized
+	//
+	// 	_v1.copy( axis ).applyQuaternion( this.quaternion );
+	//
+	// 	this.position.add( _v1.multiplyScalar( distance ) );
+	//
+	// 	return this;
 	//
 	// }
 
-	translateOnAxis( axis, distance ) {
-
-		// translate object by distance along axis in object space
-		// axis is assumed to be normalized
-
-		_v1.copy( axis ).applyQuaternion( this.quaternion );
-
-		this.position.add( _v1.multiplyScalar( distance ) );
-
-		return this;
-
-	}
-
-	translateX( distance ) {
-
-		return this.translateOnAxis( _xAxis, distance );
-
-	}
-
+	// translateX( distance ) {
+	//
+	// 	return this.translateOnAxis( _xAxis, distance );
+	//
+	// }
+	//
 	// translateY( distance ) {
 	//
 	// 	return this.translateOnAxis( _yAxis, distance );
 	//
 	// }
-
-	translateZ( distance ) {
-
-		return this.translateOnAxis( _zAxis, distance );
-
-	}
+	//
+	// translateZ( distance ) {
+	//
+	// 	return this.translateOnAxis( _zAxis, distance );
+	//
+	// }
 	//
 	// localToWorld( vector ) {
 	//
@@ -448,27 +448,27 @@ class Object3D extends EventDispatcher {
 	// 	return this.getObjectByProperty( 'name', name );
 	//
 	// }
-
-	getObjectByProperty( name, value ) {
-
-		if ( this[ name ] === value ) return this;
-
-		for ( let i = 0, l = this.children.length; i < l; i ++ ) {
-
-			const child = this.children[ i ];
-			const object = child.getObjectByProperty( name, value );
-
-			if ( object !== undefined ) {
-
-				return object;
-
-			}
-
-		}
-
-		return undefined;
-
-	}
+	//
+	// getObjectByProperty( name, value ) {
+	//
+	// 	if ( this[ name ] === value ) return this;
+	//
+	// 	for ( let i = 0, l = this.children.length; i < l; i ++ ) {
+	//
+	// 		const child = this.children[ i ];
+	// 		const object = child.getObjectByProperty( name, value );
+	//
+	// 		if ( object !== undefined ) {
+	//
+	// 			return object;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return undefined;
+	//
+	// }
 	//
 	// getObjectsByProperty( name, value ) {
 	//

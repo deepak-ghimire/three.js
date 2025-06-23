@@ -25,7 +25,7 @@ class BufferGeometry extends EventDispatcher {
 
 		super();
 
-		this.isBufferGeometry = true;
+		// this.isBufferGeometry = true;
 
 		Object.defineProperty( this, 'id', { value: _id ++ } );
 
@@ -51,11 +51,11 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	getIndex() {
-
-		return this.index;
-
-	}
+	// getIndex() {
+	//
+	// 	return this.index;
+	//
+	// }
 
 	setIndex( index ) {
 
@@ -198,17 +198,17 @@ class BufferGeometry extends EventDispatcher {
 	//
 	// }
 
-	rotateY( angle ) {
-
-		// rotate geometry around world y-axis
-
-		_m1.makeRotationY( angle );
-
-		this.applyMatrix4( _m1 );
-
-		return this;
-
-	}
+	// rotateY( angle ) {
+	//
+	// 	// rotate geometry around world y-axis
+	//
+	// 	_m1.makeRotationY( angle );
+	//
+	// 	this.applyMatrix4( _m1 );
+	//
+	// 	return this;
+	//
+	// }
 
 	// rotateZ( angle ) {
 	//
@@ -634,7 +634,7 @@ class BufferGeometry extends EventDispatcher {
 	//
 	// }
 
-	computeVertexNormals() {
+	computeVertexNormals() { //used
 
 		const index = this.index;
 		const positionAttribute = this.getAttribute( 'position' );

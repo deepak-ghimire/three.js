@@ -5,7 +5,7 @@ class Source {
 
 	constructor( data = null ) {
 
-		this.isSource = true;
+		// this.isSource = true;
 
 		this.uuid = MathUtils.generateUUID();
 

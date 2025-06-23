@@ -40,13 +40,13 @@ class BufferAttribute {
 
 	}
 
-	setUsage( value ) {
-
-		this.usage = value;
-
-		return this;
-
-	}
+	// setUsage( value ) {
+	//
+	// 	this.usage = value;
+	//
+	// 	return this;
+	//
+	// }
 
 	copy( source ) {
 
@@ -84,36 +84,36 @@ class BufferAttribute {
 	// 	return this;
 	//
 	// }
-
-	applyMatrix3( m ) {
-
-		if ( this.itemSize === 2 ) {
-
-			for ( let i = 0, l = this.count; i < l; i ++ ) {
-
-				_vector2.fromBufferAttribute( this, i );
-				_vector2.applyMatrix3( m );
-
-				this.setXY( i, _vector2.x, _vector2.y );
-
-			}
-
-		} else if ( this.itemSize === 3 ) {
-
-			for ( let i = 0, l = this.count; i < l; i ++ ) {
-
-				_vector.fromBufferAttribute( this, i );
-				_vector.applyMatrix3( m );
-
-				this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-
-			}
-
-		}
-
-		return this;
-
-	}
+	//
+	// applyMatrix3( m ) {
+	//
+	// 	if ( this.itemSize === 2 ) {
+	//
+	// 		for ( let i = 0, l = this.count; i < l; i ++ ) {
+	//
+	// 			_vector2.fromBufferAttribute( this, i );
+	// 			_vector2.applyMatrix3( m );
+	//
+	// 			this.setXY( i, _vector2.x, _vector2.y );
+	//
+	// 		}
+	//
+	// 	} else if ( this.itemSize === 3 ) {
+	//
+	// 		for ( let i = 0, l = this.count; i < l; i ++ ) {
+	//
+	// 			_vector.fromBufferAttribute( this, i );
+	// 			_vector.applyMatrix3( m );
+	//
+	// 			this.setXYZ( i, _vector.x, _vector.y, _vector.z );
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	applyMatrix4( m ) {
 
@@ -182,7 +182,7 @@ class BufferAttribute {
 
 	}
 
-	setX( index, x ) {
+	setX( index, x ) { //used
 
 		if ( this.normalized ) x = normalize( x, this.array );
 
@@ -202,7 +202,7 @@ class BufferAttribute {
 
 	}
 
-	setY( index, y ) {
+	setY( index, y ) { //used
 
 		if ( this.normalized ) y = normalize( y, this.array );
 
@@ -222,7 +222,7 @@ class BufferAttribute {
 
 	}
 
-	setZ( index, z ) {
+	setZ( index, z ) { //used
 
 		if ( this.normalized ) z = normalize( z, this.array );
 
@@ -231,16 +231,16 @@ class BufferAttribute {
 		return this;
 
 	}
-
-	getW( index ) {
-
-		let w = this.array[ index * this.itemSize + 3 ];
-
-		if ( this.normalized ) w = denormalize( w, this.array );
-
-		return w;
-
-	}
+	//
+	// getW( index ) {
+	//
+	// 	let w = this.array[ index * this.itemSize + 3 ];
+	//
+	// 	if ( this.normalized ) w = denormalize( w, this.array );
+	//
+	// 	return w;
+	//
+	// }
 
 	// setW( index, w ) {
 	//
@@ -251,25 +251,25 @@ class BufferAttribute {
 	// 	return this;
 	//
 	// }
-
-	setXY( index, x, y ) {
-
-		index *= this.itemSize;
-
-		if ( this.normalized ) {
-
-			x = normalize( x, this.array );
-			y = normalize( y, this.array );
-
-		}
-
-		this.array[ index + 0 ] = x;
-		this.array[ index + 1 ] = y;
-
-		return this;
-
-	}
-
+	//
+	// setXY( index, x, y ) {
+	//
+	// 	index *= this.itemSize;
+	//
+	// 	if ( this.normalized ) {
+	//
+	// 		x = normalize( x, this.array );
+	// 		y = normalize( y, this.array );
+	//
+	// 	}
+	//
+	// 	this.array[ index + 0 ] = x;
+	// 	this.array[ index + 1 ] = y;
+	//
+	// 	return this;
+	//
+	// }
+	//
 	setXYZ( index, x, y, z ) {
 
 		index *= this.itemSize;
@@ -290,27 +290,27 @@ class BufferAttribute {
 
 	}
 
-	setXYZW( index, x, y, z, w ) {
-
-		index *= this.itemSize;
-
-		if ( this.normalized ) {
-
-			x = normalize( x, this.array );
-			y = normalize( y, this.array );
-			z = normalize( z, this.array );
-			w = normalize( w, this.array );
-
-		}
-
-		this.array[ index + 0 ] = x;
-		this.array[ index + 1 ] = y;
-		this.array[ index + 2 ] = z;
-		this.array[ index + 3 ] = w;
-
-		return this;
-
-	}
+	// setXYZW( index, x, y, z, w ) {
+	//
+	// 	index *= this.itemSize;
+	//
+	// 	if ( this.normalized ) {
+	//
+	// 		x = normalize( x, this.array );
+	// 		y = normalize( y, this.array );
+	// 		z = normalize( z, this.array );
+	// 		w = normalize( w, this.array );
+	//
+	// 	}
+	//
+	// 	this.array[ index + 0 ] = x;
+	// 	this.array[ index + 1 ] = y;
+	// 	this.array[ index + 2 ] = z;
+	// 	this.array[ index + 3 ] = w;
+	//
+	// 	return this;
+	//
+	// }
 
 	// onUpload( callback ) {
 	//

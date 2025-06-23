@@ -1,7 +1,7 @@
 import babel from '@rollup/plugin-babel';
-import { terser } from 'rollup-plugin-terser';
+import {terser} from 'rollup-plugin-terser';
 import babelrc from './.babelrc.json';
-import { execSync } from 'child_process';
+import {execSync} from 'child_process';
 
 export function glconstants() {
 
@@ -173,15 +173,15 @@ export function glconstants() {
 
 	return {
 
-		transform( code ) {
+		transform(code) {
 
-			code = code.replace( /_?gl\.([A-Z0-9_]+)/g, function ( match, p1 ) {
+			code = code.replace(/_?gl\.([A-Z0-9_]+)/g, function (match, p1) {
 
-				if ( p1 in constants ) return constants[ p1 ];
-				console.log( '* Unhandled GL Constant:', p1 );
+				if (p1 in constants) return constants[p1];
+				console.log('* Unhandled GL Constant:', p1);
 				return match;
 
-			} );
+			});
 
 			return {
 				code: code,
@@ -198,11 +198,11 @@ function addons() {
 
 	return {
 
-		transform( code, id ) {
+		transform(code, id) {
 
-			if ( /\/examples\/jsm\//.test( id ) === false ) return;
+			if (/\/examples\/jsm\//.test(id) === false) return;
 
-			code = code.replace( 'build/three.module.js', 'src/Three.js' );
+			code = code.replace('build/three.module.js', 'src/Three.js');
 
 			return {
 				code: code,
@@ -219,22 +219,22 @@ export function glsl() {
 
 	return {
 
-		transform( code, id ) {
+		transform(code, id) {
 
-			if ( /\.glsl.js$/.test( id ) === false ) return;
+			if (/\.glsl.js$/.test(id) === false) return;
 
-			code = code.replace( /\/\* glsl \*\/\`(.*?)\`/sg, function ( match, p1 ) {
+			code = code.replace(/\/\* glsl \*\/\`(.*?)\`/sg, function (match, p1) {
 
 				return JSON.stringify(
 					p1
 						.trim()
-						.replace( /\r/g, '' )
-						.replace( /[ \t]*\/\/.*\n/g, '' ) // remove //
-						.replace( /[ \t]*\/\*[\s\S]*?\*\//g, '' ) // remove /* */
-						.replace( /\n{2,}/g, '\n' ) // # \n+ to \n
+						.replace(/\r/g, '')
+						.replace(/[ \t]*\/\/.*\n/g, '') // remove //
+						.replace(/[ \t]*\/\*[\s\S]*?\*\//g, '') // remove /* */
+						.replace(/\n{2,}/g, '\n') // # \n+ to \n
 				);
 
-			} );
+			});
 
 			return {
 				code: code,
@@ -253,9 +253,9 @@ function babelCleanup() {
 
 	return {
 
-		transform( code ) {
+		transform(code) {
 
-			code = code.replace( doubleSpaces, '\t' );
+			code = code.replace(doubleSpaces, '\t');
 
 			return {
 				code: code,
@@ -272,14 +272,14 @@ function header() {
 
 	return {
 
-		renderChunk( code ) {
+		renderChunk(code) {
 
 			return `/**
  * @license
  * Copyright 2010-2022 Three.js Authors
  * SPDX-License-Identifier: MIT
  */
-${ code }`;
+${code}`;
 
 		}
 
@@ -289,9 +289,9 @@ ${ code }`;
 
 function npmRunner(code) {
 	return {
-		buildEnd( code ) {
+		buildEnd(code) {
 			execSync('madge --image graph.svg src/Three.js');
-			console.log( 'Code executed' );
+			console.log('Code executed');
 		}
 	}
 }
@@ -317,15 +317,15 @@ const builds = [
 		plugins: [
 			addons(),
 			glsl(),
-			babel( {
+			babel({
 				babelHelpers: 'bundled',
 				compact: false,
 				babelrc: false,
 				...babelrc
-			} ),
+			}),
 			babelCleanup(),
 			header(),
-			npmRunner()
+			// npmRunner()
 		],
 		output: [
 			{
@@ -348,15 +348,15 @@ const builds = [
 			addons(),
 			glconstants(),
 			glsl(),
-			babel( {
+			babel({
 				babelHelpers: 'bundled',
 				babelrc: false,
 				...babelrc
-			} ),
+			}),
 			babelCleanup(),
 			terser(),
 			header(),
-			npmRunner()
+			// npmRunner()
 		],
 		output: [
 			{
@@ -368,4 +368,4 @@ const builds = [
 	}
 ];
 
-export default ( args ) => args.configOnlyModule ? builds[ 0 ] : builds;
+export default (args) => args.configOnlyModule ? builds[0] : builds;

@@ -57,33 +57,33 @@ class PerspectiveCamera extends Camera {
 	 *
 	 * Values for focal length and film gauge must have the same unit.
 	 */
-	setFocalLength( focalLength ) {
-
-		/** see {@link http://www.bobatkins.com/photography/technical/field_of_view.html} */
-		const vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
-
-		this.fov = MathUtils.RAD2DEG * 2 * Math.atan( vExtentSlope );
-		this.updateProjectionMatrix();
-
-	}
+	// setFocalLength( focalLength ) {
+	//
+	// 	/** see {@link http://www.bobatkins.com/photography/technical/field_of_view.html} */
+	// 	const vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
+	//
+	// 	this.fov = MathUtils.RAD2DEG * 2 * Math.atan( vExtentSlope );
+	// 	this.updateProjectionMatrix();
+	//
+	// }
 
 	/**
 	 * Calculates the focal length from the current .fov and .filmGauge.
 	 */
-	getFocalLength() {
-
-		const vExtentSlope = Math.tan( MathUtils.DEG2RAD * 0.5 * this.fov );
-
-		return 0.5 * this.getFilmHeight() / vExtentSlope;
-
-	}
-
-	getEffectiveFOV() {
-
-		return MathUtils.RAD2DEG * 2 * Math.atan(
-			Math.tan( MathUtils.DEG2RAD * 0.5 * this.fov ) / this.zoom );
-
-	}
+	// getFocalLength() {
+	//
+	// 	const vExtentSlope = Math.tan( MathUtils.DEG2RAD * 0.5 * this.fov );
+	//
+	// 	return 0.5 * this.getFilmHeight() / vExtentSlope;
+	//
+	// }
+	//
+	// getEffectiveFOV() {
+	//
+	// 	return MathUtils.RAD2DEG * 2 * Math.atan(
+	// 		Math.tan( MathUtils.DEG2RAD * 0.5 * this.fov ) / this.zoom );
+	//
+	// }
 
 	getFilmWidth() {
 
@@ -92,12 +92,12 @@ class PerspectiveCamera extends Camera {
 
 	}
 
-	getFilmHeight() {
-
-		// film not completely covered in landscape format (aspect > 1)
-		return this.filmGauge / Math.max( this.aspect, 1 );
-
-	}
+	// getFilmHeight() {
+	//
+	// 	// film not completely covered in landscape format (aspect > 1)
+	// 	return this.filmGauge / Math.max( this.aspect, 1 );
+	//
+	// }
 
 	/**
 	 * Sets an offset in a larger frustum. This is useful for multi-window or
@@ -134,47 +134,47 @@ class PerspectiveCamera extends Camera {
 	 *
 	 *   Note there is no reason monitors have to be the same size or in a grid.
 	 */
-	setViewOffset( fullWidth, fullHeight, x, y, width, height ) {
-
-		this.aspect = fullWidth / fullHeight;
-
-		if ( this.view === null ) {
-
-			this.view = {
-				enabled: true,
-				fullWidth: 1,
-				fullHeight: 1,
-				offsetX: 0,
-				offsetY: 0,
-				width: 1,
-				height: 1
-			};
-
-		}
-
-		this.view.enabled = true;
-		this.view.fullWidth = fullWidth;
-		this.view.fullHeight = fullHeight;
-		this.view.offsetX = x;
-		this.view.offsetY = y;
-		this.view.width = width;
-		this.view.height = height;
-
-		this.updateProjectionMatrix();
-
-	}
-
-	clearViewOffset() {
-
-		if ( this.view !== null ) {
-
-			this.view.enabled = false;
-
-		}
-
-		this.updateProjectionMatrix();
-
-	}
+	// setViewOffset( fullWidth, fullHeight, x, y, width, height ) {
+	//
+	// 	this.aspect = fullWidth / fullHeight;
+	//
+	// 	if ( this.view === null ) {
+	//
+	// 		this.view = {
+	// 			enabled: true,
+	// 			fullWidth: 1,
+	// 			fullHeight: 1,
+	// 			offsetX: 0,
+	// 			offsetY: 0,
+	// 			width: 1,
+	// 			height: 1
+	// 		};
+	//
+	// 	}
+	//
+	// 	this.view.enabled = true;
+	// 	this.view.fullWidth = fullWidth;
+	// 	this.view.fullHeight = fullHeight;
+	// 	this.view.offsetX = x;
+	// 	this.view.offsetY = y;
+	// 	this.view.width = width;
+	// 	this.view.height = height;
+	//
+	// 	this.updateProjectionMatrix();
+	//
+	// }
+	//
+	// clearViewOffset() {
+	//
+	// 	if ( this.view !== null ) {
+	//
+	// 		this.view.enabled = false;
+	//
+	// 	}
+	//
+	// 	this.updateProjectionMatrix();
+	//
+	// }
 
 	updateProjectionMatrix() {
 

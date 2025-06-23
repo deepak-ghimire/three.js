@@ -567,56 +567,56 @@ class Matrix4 {
 
 	}
 
-	makeRotationX( theta ) {
-
-		const c = Math.cos( theta ), s = Math.sin( theta );
-
-		this.set(
-
-			1, 0, 0, 0,
-			0, c, - s, 0,
-			0, s, c, 0,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
-
-	makeRotationY( theta ) {
-
-		const c = Math.cos( theta ), s = Math.sin( theta );
-
-		this.set(
-
-			 c, 0, s, 0,
-			 0, 1, 0, 0,
-			- s, 0, c, 0,
-			 0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
-
-	makeRotationZ( theta ) {
-
-		const c = Math.cos( theta ), s = Math.sin( theta );
-
-		this.set(
-
-			c, - s, 0, 0,
-			s, c, 0, 0,
-			0, 0, 1, 0,
-			0, 0, 0, 1
-
-		);
-
-		return this;
-
-	}
+	// makeRotationX( theta ) {
+	//
+	// 	const c = Math.cos( theta ), s = Math.sin( theta );
+	//
+	// 	this.set(
+	//
+	// 		1, 0, 0, 0,
+	// 		0, c, - s, 0,
+	// 		0, s, c, 0,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// makeRotationY( theta ) {
+	//
+	// 	const c = Math.cos( theta ), s = Math.sin( theta );
+	//
+	// 	this.set(
+	//
+	// 		 c, 0, s, 0,
+	// 		 0, 1, 0, 0,
+	// 		- s, 0, c, 0,
+	// 		 0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// makeRotationZ( theta ) {
+	//
+	// 	const c = Math.cos( theta ), s = Math.sin( theta );
+	//
+	// 	this.set(
+	//
+	// 		c, - s, 0, 0,
+	// 		s, c, 0, 0,
+	// 		0, 0, 1, 0,
+	// 		0, 0, 0, 1
+	//
+	// 	);
+	//
+	// 	return this;
+	//
+	// }
 
 	// makeRotationAxis( axis, angle ) {
 	//

@@ -1,5 +1,5 @@
 // import { clamp, euclideanModulo, lerp } from './MathUtils.js';
-import { clamp,  lerp } from './MathUtils.js';
+import { clamp, lerp } from './MathUtils.js';
 import { ColorManagement, SRGBToLinear, LinearToSRGB } from './ColorManagement.js';
 import { SRGBColorSpace } from '../constants.js';
 
@@ -320,25 +320,25 @@ class Color {
 
 	}
 
-	copySRGBToLinear( color ) {
-
-		this.r = SRGBToLinear( color.r );
-		this.g = SRGBToLinear( color.g );
-		this.b = SRGBToLinear( color.b );
-
-		return this;
-
-	}
-
-	copyLinearToSRGB( color ) {
-
-		this.r = LinearToSRGB( color.r );
-		this.g = LinearToSRGB( color.g );
-		this.b = LinearToSRGB( color.b );
-
-		return this;
-
-	}
+	// copySRGBToLinear( color ) {
+	//
+	// 	this.r = SRGBToLinear( color.r );
+	// 	this.g = SRGBToLinear( color.g );
+	// 	this.b = SRGBToLinear( color.b );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// copyLinearToSRGB( color ) {
+	//
+	// 	this.r = LinearToSRGB( color.r );
+	// 	this.g = LinearToSRGB( color.g );
+	// 	this.b = LinearToSRGB( color.b );
+	//
+	// 	return this;
+	//
+	// }
 
 	// convertSRGBToLinear() {
 	//
@@ -514,15 +514,15 @@ class Color {
 
 	}
 
-	lerp( color, alpha ) {
-
-		this.r += ( color.r - this.r ) * alpha;
-		this.g += ( color.g - this.g ) * alpha;
-		this.b += ( color.b - this.b ) * alpha;
-
-		return this;
-
-	}
+	// lerp( color, alpha ) {
+	//
+	// 	this.r += ( color.r - this.r ) * alpha;
+	// 	this.g += ( color.g - this.g ) * alpha;
+	// 	this.b += ( color.b - this.b ) * alpha;
+	//
+	// 	return this;
+	//
+	// }
 
 	// lerpColors( color1, color2, alpha ) {
 	//

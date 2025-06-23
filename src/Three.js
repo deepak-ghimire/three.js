@@ -138,7 +138,7 @@ export { Color } from './math/Color.js';
 // export { GridHelper } from './helpers/GridHelper.js';
 // export { PolarGridHelper } from './helpers/PolarGridHelper.js';
 // export { DirectionalLightHelper } from './helpers/DirectionalLightHelper.js';
-// export { CameraHelper } from './helpers/CameraHelper.js';
+export { CameraHelper } from './helpers/CameraHelper.js';
 export { BoxHelper } from './helpers/BoxHelper.js'; //used in flipbook
 // export { Box3Helper } from './helpers/Box3Helper.js';
 // export { PlaneHelper } from './helpers/PlaneHelper.js';

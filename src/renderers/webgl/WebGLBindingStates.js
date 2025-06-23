@@ -611,9 +611,9 @@
 		releaseStatesOfGeometry: releaseStatesOfGeometry,
 		releaseStatesOfProgram: releaseStatesOfProgram,
 
-		initAttributes: initAttributes,
-		enableAttribute: enableAttribute,
-		disableUnusedAttributes: disableUnusedAttributes
+		// initAttributes: initAttributes,
+		// enableAttribute: enableAttribute,
+		// disableUnusedAttributes: disableUnusedAttributes
 
 	};
 

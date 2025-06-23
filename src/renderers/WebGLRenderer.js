@@ -376,7 +376,7 @@ function WebGLRenderer( parameters = {} ) {
 	//
 	// };
 	//
-	this.setPixelRatio = function ( value ) {
+	this.setPixelRatio = function ( value ) { //used
 
 		if ( value === undefined ) return;
 

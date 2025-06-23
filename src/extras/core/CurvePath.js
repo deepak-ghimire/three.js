@@ -132,25 +132,25 @@ class CurvePath extends Curve {
 
 	}
 
-	getSpacedPoints( divisions = 40 ) {
-
-		const points = [];
-
-		for ( let i = 0; i <= divisions; i ++ ) {
-
-			points.push( this.getPoint( i / divisions ) );
-
-		}
-
-		if ( this.autoClose ) {
-
-			points.push( points[ 0 ] );
-
-		}
-
-		return points;
-
-	}
+	// getSpacedPoints( divisions = 40 ) {
+	//
+	// 	const points = [];
+	//
+	// 	for ( let i = 0; i <= divisions; i ++ ) {
+	//
+	// 		points.push( this.getPoint( i / divisions ) );
+	//
+	// 	}
+	//
+	// 	if ( this.autoClose ) {
+	//
+	// 		points.push( points[ 0 ] );
+	//
+	// 	}
+	//
+	// 	return points;
+	//
+	// }
 
 	getPoints( divisions = 12 ) {
 

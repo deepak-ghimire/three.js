@@ -13,106 +13,106 @@ class Quaternion {
 
 	}
 
-	static slerpFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t ) {
-
-		// fuzz-free, array-based Quaternion SLERP operation
-
-		let x0 = src0[ srcOffset0 + 0 ],
-			y0 = src0[ srcOffset0 + 1 ],
-			z0 = src0[ srcOffset0 + 2 ],
-			w0 = src0[ srcOffset0 + 3 ];
-
-		const x1 = src1[ srcOffset1 + 0 ],
-			y1 = src1[ srcOffset1 + 1 ],
-			z1 = src1[ srcOffset1 + 2 ],
-			w1 = src1[ srcOffset1 + 3 ];
-
-		if ( t === 0 ) {
-
-			dst[ dstOffset + 0 ] = x0;
-			dst[ dstOffset + 1 ] = y0;
-			dst[ dstOffset + 2 ] = z0;
-			dst[ dstOffset + 3 ] = w0;
-			return;
-
-		}
-
-		if ( t === 1 ) {
-
-			dst[ dstOffset + 0 ] = x1;
-			dst[ dstOffset + 1 ] = y1;
-			dst[ dstOffset + 2 ] = z1;
-			dst[ dstOffset + 3 ] = w1;
-			return;
-
-		}
-
-		if ( w0 !== w1 || x0 !== x1 || y0 !== y1 || z0 !== z1 ) {
-
-			let s = 1 - t;
-			const cos = x0 * x1 + y0 * y1 + z0 * z1 + w0 * w1,
-				dir = ( cos >= 0 ? 1 : - 1 ),
-				sqrSin = 1 - cos * cos;
-
-			// Skip the Slerp for tiny steps to avoid numeric problems:
-			if ( sqrSin > Number.EPSILON ) {
-
-				const sin = Math.sqrt( sqrSin ),
-					len = Math.atan2( sin, cos * dir );
-
-				s = Math.sin( s * len ) / sin;
-				t = Math.sin( t * len ) / sin;
-
-			}
-
-			const tDir = t * dir;
-
-			x0 = x0 * s + x1 * tDir;
-			y0 = y0 * s + y1 * tDir;
-			z0 = z0 * s + z1 * tDir;
-			w0 = w0 * s + w1 * tDir;
-
-			// Normalize in case we just did a lerp:
-			if ( s === 1 - t ) {
-
-				const f = 1 / Math.sqrt( x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0 );
-
-				x0 *= f;
-				y0 *= f;
-				z0 *= f;
-				w0 *= f;
-
-			}
-
-		}
-
-		dst[ dstOffset ] = x0;
-		dst[ dstOffset + 1 ] = y0;
-		dst[ dstOffset + 2 ] = z0;
-		dst[ dstOffset + 3 ] = w0;
-
-	}
-
-	static multiplyQuaternionsFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1 ) {
-
-		const x0 = src0[ srcOffset0 ];
-		const y0 = src0[ srcOffset0 + 1 ];
-		const z0 = src0[ srcOffset0 + 2 ];
-		const w0 = src0[ srcOffset0 + 3 ];
-
-		const x1 = src1[ srcOffset1 ];
-		const y1 = src1[ srcOffset1 + 1 ];
-		const z1 = src1[ srcOffset1 + 2 ];
-		const w1 = src1[ srcOffset1 + 3 ];
-
-		dst[ dstOffset ] = x0 * w1 + w0 * x1 + y0 * z1 - z0 * y1;
-		dst[ dstOffset + 1 ] = y0 * w1 + w0 * y1 + z0 * x1 - x0 * z1;
-		dst[ dstOffset + 2 ] = z0 * w1 + w0 * z1 + x0 * y1 - y0 * x1;
-		dst[ dstOffset + 3 ] = w0 * w1 - x0 * x1 - y0 * y1 - z0 * z1;
-
-		return dst;
-
-	}
+	// static slerpFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1, t ) {
+	//
+	// 	// fuzz-free, array-based Quaternion SLERP operation
+	//
+	// 	let x0 = src0[ srcOffset0 + 0 ],
+	// 		y0 = src0[ srcOffset0 + 1 ],
+	// 		z0 = src0[ srcOffset0 + 2 ],
+	// 		w0 = src0[ srcOffset0 + 3 ];
+	//
+	// 	const x1 = src1[ srcOffset1 + 0 ],
+	// 		y1 = src1[ srcOffset1 + 1 ],
+	// 		z1 = src1[ srcOffset1 + 2 ],
+	// 		w1 = src1[ srcOffset1 + 3 ];
+	//
+	// 	if ( t === 0 ) {
+	//
+	// 		dst[ dstOffset + 0 ] = x0;
+	// 		dst[ dstOffset + 1 ] = y0;
+	// 		dst[ dstOffset + 2 ] = z0;
+	// 		dst[ dstOffset + 3 ] = w0;
+	// 		return;
+	//
+	// 	}
+	//
+	// 	if ( t === 1 ) {
+	//
+	// 		dst[ dstOffset + 0 ] = x1;
+	// 		dst[ dstOffset + 1 ] = y1;
+	// 		dst[ dstOffset + 2 ] = z1;
+	// 		dst[ dstOffset + 3 ] = w1;
+	// 		return;
+	//
+	// 	}
+	//
+	// 	if ( w0 !== w1 || x0 !== x1 || y0 !== y1 || z0 !== z1 ) {
+	//
+	// 		let s = 1 - t;
+	// 		const cos = x0 * x1 + y0 * y1 + z0 * z1 + w0 * w1,
+	// 			dir = ( cos >= 0 ? 1 : - 1 ),
+	// 			sqrSin = 1 - cos * cos;
+	//
+	// 		// Skip the Slerp for tiny steps to avoid numeric problems:
+	// 		if ( sqrSin > Number.EPSILON ) {
+	//
+	// 			const sin = Math.sqrt( sqrSin ),
+	// 				len = Math.atan2( sin, cos * dir );
+	//
+	// 			s = Math.sin( s * len ) / sin;
+	// 			t = Math.sin( t * len ) / sin;
+	//
+	// 		}
+	//
+	// 		const tDir = t * dir;
+	//
+	// 		x0 = x0 * s + x1 * tDir;
+	// 		y0 = y0 * s + y1 * tDir;
+	// 		z0 = z0 * s + z1 * tDir;
+	// 		w0 = w0 * s + w1 * tDir;
+	//
+	// 		// Normalize in case we just did a lerp:
+	// 		if ( s === 1 - t ) {
+	//
+	// 			const f = 1 / Math.sqrt( x0 * x0 + y0 * y0 + z0 * z0 + w0 * w0 );
+	//
+	// 			x0 *= f;
+	// 			y0 *= f;
+	// 			z0 *= f;
+	// 			w0 *= f;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	dst[ dstOffset ] = x0;
+	// 	dst[ dstOffset + 1 ] = y0;
+	// 	dst[ dstOffset + 2 ] = z0;
+	// 	dst[ dstOffset + 3 ] = w0;
+	//
+	// }
+	//
+	// static multiplyQuaternionsFlat( dst, dstOffset, src0, srcOffset0, src1, srcOffset1 ) {
+	//
+	// 	const x0 = src0[ srcOffset0 ];
+	// 	const y0 = src0[ srcOffset0 + 1 ];
+	// 	const z0 = src0[ srcOffset0 + 2 ];
+	// 	const w0 = src0[ srcOffset0 + 3 ];
+	//
+	// 	const x1 = src1[ srcOffset1 ];
+	// 	const y1 = src1[ srcOffset1 + 1 ];
+	// 	const z1 = src1[ srcOffset1 + 2 ];
+	// 	const w1 = src1[ srcOffset1 + 3 ];
+	//
+	// 	dst[ dstOffset ] = x0 * w1 + w0 * x1 + y0 * z1 - z0 * y1;
+	// 	dst[ dstOffset + 1 ] = y0 * w1 + w0 * y1 + z0 * x1 - x0 * z1;
+	// 	dst[ dstOffset + 2 ] = z0 * w1 + w0 * z1 + x0 * y1 - y0 * x1;
+	// 	dst[ dstOffset + 3 ] = w0 * w1 - x0 * x1 - y0 * y1 - z0 * z1;
+	//
+	// 	return dst;
+	//
+	// }
 
 	get x() {
 
@@ -349,74 +349,74 @@ class Quaternion {
 
 	}
 
-	setFromUnitVectors( vFrom, vTo ) {
+	// setFromUnitVectors( vFrom, vTo ) {
+	//
+	// 	// assumes direction vectors vFrom and vTo are normalized
+	//
+	// 	let r = vFrom.dot( vTo ) + 1;
+	//
+	// 	if ( r < Number.EPSILON ) {
+	//
+	// 		// vFrom and vTo point in opposite directions
+	//
+	// 		r = 0;
+	//
+	// 		if ( Math.abs( vFrom.x ) > Math.abs( vFrom.z ) ) {
+	//
+	// 			this._x = - vFrom.y;
+	// 			this._y = vFrom.x;
+	// 			this._z = 0;
+	// 			this._w = r;
+	//
+	// 		} else {
+	//
+	// 			this._x = 0;
+	// 			this._y = - vFrom.z;
+	// 			this._z = vFrom.y;
+	// 			this._w = r;
+	//
+	// 		}
+	//
+	// 	} else {
+	//
+	// 		// crossVectors( vFrom, vTo ); // inlined to avoid cyclic dependency on Vector3
+	//
+	// 		this._x = vFrom.y * vTo.z - vFrom.z * vTo.y;
+	// 		this._y = vFrom.z * vTo.x - vFrom.x * vTo.z;
+	// 		this._z = vFrom.x * vTo.y - vFrom.y * vTo.x;
+	// 		this._w = r;
+	//
+	// 	}
+	//
+	// 	return this.normalize();
+	//
+	// }
 
-		// assumes direction vectors vFrom and vTo are normalized
+	// angleTo( q ) {
+	//
+	// 	return 2 * Math.acos( Math.abs( MathUtils.clamp( this.dot( q ), - 1, 1 ) ) );
+	//
+	// }
 
-		let r = vFrom.dot( vTo ) + 1;
-
-		if ( r < Number.EPSILON ) {
-
-			// vFrom and vTo point in opposite directions
-
-			r = 0;
-
-			if ( Math.abs( vFrom.x ) > Math.abs( vFrom.z ) ) {
-
-				this._x = - vFrom.y;
-				this._y = vFrom.x;
-				this._z = 0;
-				this._w = r;
-
-			} else {
-
-				this._x = 0;
-				this._y = - vFrom.z;
-				this._z = vFrom.y;
-				this._w = r;
-
-			}
-
-		} else {
-
-			// crossVectors( vFrom, vTo ); // inlined to avoid cyclic dependency on Vector3
-
-			this._x = vFrom.y * vTo.z - vFrom.z * vTo.y;
-			this._y = vFrom.z * vTo.x - vFrom.x * vTo.z;
-			this._z = vFrom.x * vTo.y - vFrom.y * vTo.x;
-			this._w = r;
-
-		}
-
-		return this.normalize();
-
-	}
-
-	angleTo( q ) {
-
-		return 2 * Math.acos( Math.abs( MathUtils.clamp( this.dot( q ), - 1, 1 ) ) );
-
-	}
-
-	rotateTowards( q, step ) {
-
-		const angle = this.angleTo( q );
-
-		if ( angle === 0 ) return this;
-
-		const t = Math.min( 1, step / angle );
-
-		this.slerp( q, t );
-
-		return this;
-
-	}
-
-	identity() {
-
-		return this.set( 0, 0, 0, 1 );
-
-	}
+	// rotateTowards( q, step ) {
+	//
+	// 	const angle = this.angleTo( q );
+	//
+	// 	if ( angle === 0 ) return this;
+	//
+	// 	const t = Math.min( 1, step / angle );
+	//
+	// 	this.slerp( q, t );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// identity() {
+	//
+	// 	return this.set( 0, 0, 0, 1 );
+	//
+	// }
 
 	invert() {
 
@@ -514,81 +514,81 @@ class Quaternion {
 
 	}
 
-	slerp( qb, t ) {
+	// slerp( qb, t ) {
+	//
+	// 	if ( t === 0 ) return this;
+	// 	if ( t === 1 ) return this.copy( qb );
+	//
+	// 	const x = this._x, y = this._y, z = this._z, w = this._w;
+	//
+	// 	// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
+	//
+	// 	let cosHalfTheta = w * qb._w + x * qb._x + y * qb._y + z * qb._z;
+	//
+	// 	if ( cosHalfTheta < 0 ) {
+	//
+	// 		this._w = - qb._w;
+	// 		this._x = - qb._x;
+	// 		this._y = - qb._y;
+	// 		this._z = - qb._z;
+	//
+	// 		cosHalfTheta = - cosHalfTheta;
+	//
+	// 	} else {
+	//
+	// 		this.copy( qb );
+	//
+	// 	}
+	//
+	// 	if ( cosHalfTheta >= 1.0 ) {
+	//
+	// 		this._w = w;
+	// 		this._x = x;
+	// 		this._y = y;
+	// 		this._z = z;
+	//
+	// 		return this;
+	//
+	// 	}
+	//
+	// 	const sqrSinHalfTheta = 1.0 - cosHalfTheta * cosHalfTheta;
+	//
+	// 	if ( sqrSinHalfTheta <= Number.EPSILON ) {
+	//
+	// 		const s = 1 - t;
+	// 		this._w = s * w + t * this._w;
+	// 		this._x = s * x + t * this._x;
+	// 		this._y = s * y + t * this._y;
+	// 		this._z = s * z + t * this._z;
+	//
+	// 		this.normalize();
+	// 		this._onChangeCallback();
+	//
+	// 		return this;
+	//
+	// 	}
+	//
+	// 	const sinHalfTheta = Math.sqrt( sqrSinHalfTheta );
+	// 	const halfTheta = Math.atan2( sinHalfTheta, cosHalfTheta );
+	// 	const ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta,
+	// 		ratioB = Math.sin( t * halfTheta ) / sinHalfTheta;
+	//
+	// 	this._w = ( w * ratioA + this._w * ratioB );
+	// 	this._x = ( x * ratioA + this._x * ratioB );
+	// 	this._y = ( y * ratioA + this._y * ratioB );
+	// 	this._z = ( z * ratioA + this._z * ratioB );
+	//
+	// 	this._onChangeCallback();
+	//
+	// 	return this;
+	//
+	// }
 
-		if ( t === 0 ) return this;
-		if ( t === 1 ) return this.copy( qb );
-
-		const x = this._x, y = this._y, z = this._z, w = this._w;
-
-		// http://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/slerp/
-
-		let cosHalfTheta = w * qb._w + x * qb._x + y * qb._y + z * qb._z;
-
-		if ( cosHalfTheta < 0 ) {
-
-			this._w = - qb._w;
-			this._x = - qb._x;
-			this._y = - qb._y;
-			this._z = - qb._z;
-
-			cosHalfTheta = - cosHalfTheta;
-
-		} else {
-
-			this.copy( qb );
-
-		}
-
-		if ( cosHalfTheta >= 1.0 ) {
-
-			this._w = w;
-			this._x = x;
-			this._y = y;
-			this._z = z;
-
-			return this;
-
-		}
-
-		const sqrSinHalfTheta = 1.0 - cosHalfTheta * cosHalfTheta;
-
-		if ( sqrSinHalfTheta <= Number.EPSILON ) {
-
-			const s = 1 - t;
-			this._w = s * w + t * this._w;
-			this._x = s * x + t * this._x;
-			this._y = s * y + t * this._y;
-			this._z = s * z + t * this._z;
-
-			this.normalize();
-			this._onChangeCallback();
-
-			return this;
-
-		}
-
-		const sinHalfTheta = Math.sqrt( sqrSinHalfTheta );
-		const halfTheta = Math.atan2( sinHalfTheta, cosHalfTheta );
-		const ratioA = Math.sin( ( 1 - t ) * halfTheta ) / sinHalfTheta,
-			ratioB = Math.sin( t * halfTheta ) / sinHalfTheta;
-
-		this._w = ( w * ratioA + this._w * ratioB );
-		this._x = ( x * ratioA + this._x * ratioB );
-		this._y = ( y * ratioA + this._y * ratioB );
-		this._z = ( z * ratioA + this._z * ratioB );
-
-		this._onChangeCallback();
-
-		return this;
-
-	}
-
-	slerpQuaternions( qa, qb, t ) {
-
-		return this.copy( qa ).slerp( qb, t );
-
-	}
+	// slerpQuaternions( qa, qb, t ) {
+	//
+	// 	return this.copy( qa ).slerp( qb, t );
+	//
+	// }
 
 	random() {
 

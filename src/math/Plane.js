@@ -9,7 +9,7 @@ class Plane {
 
 	constructor( normal = new Vector3( 1, 0, 0 ), constant = 0 ) {
 
-		this.isPlane = true;
+		// this.isPlane = true;
 
 		// normal is assumed to be normalized
 
@@ -35,36 +35,36 @@ class Plane {
 		return this;
 
 	}
+	//
+	// setFromNormalAndCoplanarPoint( normal, point ) {
+	//
+	// 	this.normal.copy( normal );
+	// 	this.constant = - point.dot( this.normal );
+	//
+	// 	return this;
+	//
+	// }
 
-	setFromNormalAndCoplanarPoint( normal, point ) {
-
-		this.normal.copy( normal );
-		this.constant = - point.dot( this.normal );
-
-		return this;
-
-	}
-
-	setFromCoplanarPoints( a, b, c ) {
-
-		const normal = _vector1.subVectors( c, b ).cross( _vector2.subVectors( a, b ) ).normalize();
-
-		// Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
-
-		this.setFromNormalAndCoplanarPoint( normal, a );
-
-		return this;
-
-	}
-
-	copy( plane ) {
-
-		this.normal.copy( plane.normal );
-		this.constant = plane.constant;
-
-		return this;
-
-	}
+	// setFromCoplanarPoints( a, b, c ) {
+	//
+	// 	const normal = _vector1.subVectors( c, b ).cross( _vector2.subVectors( a, b ) ).normalize();
+	//
+	// 	// Q: should an error be thrown if normal is zero (e.g. degenerate plane)?
+	//
+	// 	this.setFromNormalAndCoplanarPoint( normal, a );
+	//
+	// 	return this;
+	//
+	// }
+	//
+	// copy( plane ) {
+	//
+	// 	this.normal.copy( plane.normal );
+	// 	this.constant = plane.constant;
+	//
+	// 	return this;
+	//
+	// }
 
 	normalize() {
 
@@ -93,72 +93,72 @@ class Plane {
 
 	}
 
-	distanceToSphere( sphere ) {
+	// distanceToSphere( sphere ) {
+	//
+	// 	return this.distanceToPoint( sphere.center ) - sphere.radius;
+	//
+	// }
+	//
+	// projectPoint( point, target ) {
+	//
+	// 	return target.copy( this.normal ).multiplyScalar( - this.distanceToPoint( point ) ).add( point );
+	//
+	// }
+	//
+	// intersectLine( line, target ) {
+	//
+	// 	const direction = line.delta( _vector1 );
+	//
+	// 	const denominator = this.normal.dot( direction );
+	//
+	// 	if ( denominator === 0 ) {
+	//
+	// 		// line is coplanar, return origin
+	// 		if ( this.distanceToPoint( line.start ) === 0 ) {
+	//
+	// 			return target.copy( line.start );
+	//
+	// 		}
+	//
+	// 		// Unsure if this is the correct method to handle this case.
+	// 		return null;
+	//
+	// 	}
+	//
+	// 	const t = - ( line.start.dot( this.normal ) + this.constant ) / denominator;
+	//
+	// 	if ( t < 0 || t > 1 ) {
+	//
+	// 		return null;
+	//
+	// 	}
+	//
+	// 	return target.copy( direction ).multiplyScalar( t ).add( line.start );
+	//
+	// }
+	//
+	// intersectsLine( line ) {
+	//
+	// 	// Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
+	//
+	// 	const startSign = this.distanceToPoint( line.start );
+	// 	const endSign = this.distanceToPoint( line.end );
+	//
+	// 	return ( startSign < 0 && endSign > 0 ) || ( endSign < 0 && startSign > 0 );
+	//
+	// }
+	//
+	// intersectsBox( box ) {
+	//
+	// 	return box.intersectsPlane( this );
+	//
+	// }
 
-		return this.distanceToPoint( sphere.center ) - sphere.radius;
-
-	}
-
-	projectPoint( point, target ) {
-
-		return target.copy( this.normal ).multiplyScalar( - this.distanceToPoint( point ) ).add( point );
-
-	}
-
-	intersectLine( line, target ) {
-
-		const direction = line.delta( _vector1 );
-
-		const denominator = this.normal.dot( direction );
-
-		if ( denominator === 0 ) {
-
-			// line is coplanar, return origin
-			if ( this.distanceToPoint( line.start ) === 0 ) {
-
-				return target.copy( line.start );
-
-			}
-
-			// Unsure if this is the correct method to handle this case.
-			return null;
-
-		}
-
-		const t = - ( line.start.dot( this.normal ) + this.constant ) / denominator;
-
-		if ( t < 0 || t > 1 ) {
-
-			return null;
-
-		}
-
-		return target.copy( direction ).multiplyScalar( t ).add( line.start );
-
-	}
-
-	intersectsLine( line ) {
-
-		// Note: this tests if a line intersects the plane, not whether it (or its end-points) are coplanar with it.
-
-		const startSign = this.distanceToPoint( line.start );
-		const endSign = this.distanceToPoint( line.end );
-
-		return ( startSign < 0 && endSign > 0 ) || ( endSign < 0 && startSign > 0 );
-
-	}
-
-	intersectsBox( box ) {
-
-		return box.intersectsPlane( this );
-
-	}
-
-	intersectsSphere( sphere ) {
-
-		return sphere.intersectsPlane( this );
-
-	}
+	// intersectsSphere( sphere ) {
+	//
+	// 	return sphere.intersectsPlane( this );
+	//
+	// }
 
 	coplanarPoint( target ) {
 
@@ -180,13 +180,13 @@ class Plane {
 
 	}
 
-	translate( offset ) {
-
-		this.constant -= offset.dot( this.normal );
-
-		return this;
-
-	}
+	// translate( offset ) {
+	//
+	// 	this.constant -= offset.dot( this.normal );
+	//
+	// 	return this;
+	//
+	// }
 
 	equals( plane ) {
 

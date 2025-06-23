@@ -157,7 +157,7 @@ class Box3 {
 
 	}
 
-	getSize( target ) {
+	getSize( target ) { //used
 
 		return this.isEmpty() ? target.set( 0, 0, 0 ) : target.subVectors( this.max, this.min );
 
@@ -180,15 +180,15 @@ class Box3 {
 	// 	return this;
 	//
 	// }
-
-	expandByScalar( scalar ) {
-
-		this.min.addScalar( - scalar );
-		this.max.addScalar( scalar );
-
-		return this;
-
-	}
+	//
+	// expandByScalar( scalar ) {
+	//
+	// 	this.min.addScalar( - scalar );
+	// 	this.max.addScalar( scalar );
+	//
+	// 	return this;
+	//
+	// }
 
 	expandByObject( object, precise = false ) {
 
@@ -278,130 +278,130 @@ class Box3 {
 	//
 	// }
 
-	intersectsSphere( sphere ) {
+	// intersectsSphere( sphere ) {
+	//
+	// 	// Find the point on the AABB closest to the sphere center.
+	// 	this.clampPoint( sphere.center, _vector );
+	//
+	// 	// If that point is inside the sphere, the AABB and sphere intersect.
+	// 	return _vector.distanceToSquared( sphere.center ) <= ( sphere.radius * sphere.radius );
+	//
+	// }
 
-		// Find the point on the AABB closest to the sphere center.
-		this.clampPoint( sphere.center, _vector );
+	// intersectsPlane( plane ) {
+	//
+	// 	// We compute the minimum and maximum dot product values. If those values
+	// 	// are on the same side (back or front) of the plane, then there is no intersection.
+	//
+	// 	let min, max;
+	//
+	// 	if ( plane.normal.x > 0 ) {
+	//
+	// 		min = plane.normal.x * this.min.x;
+	// 		max = plane.normal.x * this.max.x;
+	//
+	// 	} else {
+	//
+	// 		min = plane.normal.x * this.max.x;
+	// 		max = plane.normal.x * this.min.x;
+	//
+	// 	}
+	//
+	// 	if ( plane.normal.y > 0 ) {
+	//
+	// 		min += plane.normal.y * this.min.y;
+	// 		max += plane.normal.y * this.max.y;
+	//
+	// 	} else {
+	//
+	// 		min += plane.normal.y * this.max.y;
+	// 		max += plane.normal.y * this.min.y;
+	//
+	// 	}
+	//
+	// 	if ( plane.normal.z > 0 ) {
+	//
+	// 		min += plane.normal.z * this.min.z;
+	// 		max += plane.normal.z * this.max.z;
+	//
+	// 	} else {
+	//
+	// 		min += plane.normal.z * this.max.z;
+	// 		max += plane.normal.z * this.min.z;
+	//
+	// 	}
+	//
+	// 	return ( min <= - plane.constant && max >= - plane.constant );
+	//
+	// }
 
-		// If that point is inside the sphere, the AABB and sphere intersect.
-		return _vector.distanceToSquared( sphere.center ) <= ( sphere.radius * sphere.radius );
-
-	}
-
-	intersectsPlane( plane ) {
-
-		// We compute the minimum and maximum dot product values. If those values
-		// are on the same side (back or front) of the plane, then there is no intersection.
-
-		let min, max;
-
-		if ( plane.normal.x > 0 ) {
-
-			min = plane.normal.x * this.min.x;
-			max = plane.normal.x * this.max.x;
-
-		} else {
-
-			min = plane.normal.x * this.max.x;
-			max = plane.normal.x * this.min.x;
-
-		}
-
-		if ( plane.normal.y > 0 ) {
-
-			min += plane.normal.y * this.min.y;
-			max += plane.normal.y * this.max.y;
-
-		} else {
-
-			min += plane.normal.y * this.max.y;
-			max += plane.normal.y * this.min.y;
-
-		}
-
-		if ( plane.normal.z > 0 ) {
-
-			min += plane.normal.z * this.min.z;
-			max += plane.normal.z * this.max.z;
-
-		} else {
-
-			min += plane.normal.z * this.max.z;
-			max += plane.normal.z * this.min.z;
-
-		}
-
-		return ( min <= - plane.constant && max >= - plane.constant );
-
-	}
-
-	intersectsTriangle( triangle ) {
-
-		if ( this.isEmpty() ) {
-
-			return false;
-
-		}
-
-		// compute box center and extents
-		this.getCenter( _center );
-		_extents.subVectors( this.max, _center );
-
-		// translate triangle to aabb origin
-		_v0.subVectors( triangle.a, _center );
-		_v1.subVectors( triangle.b, _center );
-		_v2.subVectors( triangle.c, _center );
-
-		// compute edge vectors for triangle
-		_f0.subVectors( _v1, _v0 );
-		_f1.subVectors( _v2, _v1 );
-		_f2.subVectors( _v0, _v2 );
-
-		// test against axes that are given by cross product combinations of the edges of the triangle and the edges of the aabb
-		// make an axis testing of each of the 3 sides of the aabb against each of the 3 sides of the triangle = 9 axis of separation
-		// axis_ij = u_i x f_j (u0, u1, u2 = face normals of aabb = x,y,z axes vectors since aabb is axis aligned)
-		let axes = [
-			0, - _f0.z, _f0.y, 0, - _f1.z, _f1.y, 0, - _f2.z, _f2.y,
-			_f0.z, 0, - _f0.x, _f1.z, 0, - _f1.x, _f2.z, 0, - _f2.x,
-			- _f0.y, _f0.x, 0, - _f1.y, _f1.x, 0, - _f2.y, _f2.x, 0
-		];
-		if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
-
-			return false;
-
-		}
-
-		// test 3 face normals from the aabb
-		axes = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
-		if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
-
-			return false;
-
-		}
-
-		// finally testing the face normal of the triangle
-		// use already existing triangle edge vectors here
-		_triangleNormal.crossVectors( _f0, _f1 );
-		axes = [ _triangleNormal.x, _triangleNormal.y, _triangleNormal.z ];
-
-		return satForAxes( axes, _v0, _v1, _v2, _extents );
-
-	}
-
-	clampPoint( point, target ) {
-
-		return target.copy( point ).clamp( this.min, this.max );
-
-	}
-
-	distanceToPoint( point ) {
-
-		const clampedPoint = _vector.copy( point ).clamp( this.min, this.max );
-
-		return clampedPoint.sub( point ).length();
-
-	}
-
+	// intersectsTriangle( triangle ) {
+	//
+	// 	if ( this.isEmpty() ) {
+	//
+	// 		return false;
+	//
+	// 	}
+	//
+	// 	// compute box center and extents
+	// 	this.getCenter( _center );
+	// 	_extents.subVectors( this.max, _center );
+	//
+	// 	// translate triangle to aabb origin
+	// 	_v0.subVectors( triangle.a, _center );
+	// 	_v1.subVectors( triangle.b, _center );
+	// 	_v2.subVectors( triangle.c, _center );
+	//
+	// 	// compute edge vectors for triangle
+	// 	_f0.subVectors( _v1, _v0 );
+	// 	_f1.subVectors( _v2, _v1 );
+	// 	_f2.subVectors( _v0, _v2 );
+	//
+	// 	// test against axes that are given by cross product combinations of the edges of the triangle and the edges of the aabb
+	// 	// make an axis testing of each of the 3 sides of the aabb against each of the 3 sides of the triangle = 9 axis of separation
+	// 	// axis_ij = u_i x f_j (u0, u1, u2 = face normals of aabb = x,y,z axes vectors since aabb is axis aligned)
+	// 	let axes = [
+	// 		0, - _f0.z, _f0.y, 0, - _f1.z, _f1.y, 0, - _f2.z, _f2.y,
+	// 		_f0.z, 0, - _f0.x, _f1.z, 0, - _f1.x, _f2.z, 0, - _f2.x,
+	// 		- _f0.y, _f0.x, 0, - _f1.y, _f1.x, 0, - _f2.y, _f2.x, 0
+	// 	];
+	// 	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
+	//
+	// 		return false;
+	//
+	// 	}
+	//
+	// 	// test 3 face normals from the aabb
+	// 	axes = [ 1, 0, 0, 0, 1, 0, 0, 0, 1 ];
+	// 	if ( ! satForAxes( axes, _v0, _v1, _v2, _extents ) ) {
+	//
+	// 		return false;
+	//
+	// 	}
+	//
+	// 	// finally testing the face normal of the triangle
+	// 	// use already existing triangle edge vectors here
+	// 	_triangleNormal.crossVectors( _f0, _f1 );
+	// 	axes = [ _triangleNormal.x, _triangleNormal.y, _triangleNormal.z ];
+	//
+	// 	return satForAxes( axes, _v0, _v1, _v2, _extents );
+	//
+	// }
+	//
+	// clampPoint( point, target ) {
+	//
+	// 	return target.copy( point ).clamp( this.min, this.max );
+	//
+	// }
+	//
+	// distanceToPoint( point ) {
+	//
+	// 	const clampedPoint = _vector.copy( point ).clamp( this.min, this.max );
+	//
+	// 	return clampedPoint.sub( point ).length();
+	//
+	// }
+	//
 	// getBoundingSphere( target ) {
 	//
 	// 	this.getCenter( target.center );

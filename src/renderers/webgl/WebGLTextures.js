@@ -1990,8 +1990,8 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 	this.setupRenderTarget = setupRenderTarget;
 	this.updateRenderTargetMipmap = updateRenderTargetMipmap;
 	this.updateMultisampleRenderTarget = updateMultisampleRenderTarget;
-	this.setupDepthRenderbuffer = setupDepthRenderbuffer;
-	this.setupFrameBufferTexture = setupFrameBufferTexture;
+	// this.setupDepthRenderbuffer = setupDepthRenderbuffer;
+	// this.setupFrameBufferTexture = setupFrameBufferTexture;
 	this.useMultisampledRTT = useMultisampledRTT;
 
 }

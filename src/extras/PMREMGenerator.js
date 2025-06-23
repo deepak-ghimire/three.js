@@ -100,29 +100,29 @@ class PMREMGenerator {
 	 * and far planes ensure the scene is rendered in its entirety (the cubeCamera
 	 * is placed at the origin).
 	 */
-	fromScene( scene, sigma = 0, near = 0.1, far = 100 ) {
-
-		_oldTarget = this._renderer.getRenderTarget();
-
-		this._setSize( 256 );
-
-		const cubeUVRenderTarget = this._allocateTargets();
-		cubeUVRenderTarget.depthBuffer = true;
-
-		this._sceneToCubeUV( scene, near, far, cubeUVRenderTarget );
-
-		if ( sigma > 0 ) {
-
-			this._blur( cubeUVRenderTarget, 0, 0, sigma );
-
-		}
-
-		this._applyPMREM( cubeUVRenderTarget );
-		this._cleanup( cubeUVRenderTarget );
-
-		return cubeUVRenderTarget;
-
-	}
+	// fromScene( scene, sigma = 0, near = 0.1, far = 100 ) {
+	//
+	// 	_oldTarget = this._renderer.getRenderTarget();
+	//
+	// 	this._setSize( 256 );
+	//
+	// 	const cubeUVRenderTarget = this._allocateTargets();
+	// 	cubeUVRenderTarget.depthBuffer = true;
+	//
+	// 	this._sceneToCubeUV( scene, near, far, cubeUVRenderTarget );
+	//
+	// 	if ( sigma > 0 ) {
+	//
+	// 		this._blur( cubeUVRenderTarget, 0, 0, sigma );
+	//
+	// 	}
+	//
+	// 	this._applyPMREM( cubeUVRenderTarget );
+	// 	this._cleanup( cubeUVRenderTarget );
+	//
+	// 	return cubeUVRenderTarget;
+	//
+	// }
 
 	/**
 	 * Generates a PMREM from an equirectangular texture, which can be either LDR
@@ -150,31 +150,31 @@ class PMREMGenerator {
 	 * Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during
 	 * your texture's network fetch for increased concurrency.
 	 */
-	compileCubemapShader() {
-
-		if ( this._cubemapMaterial === null ) {
-
-			this._cubemapMaterial = _getCubemapMaterial();
-			this._compileMaterial( this._cubemapMaterial );
-
-		}
-
-	}
+	// compileCubemapShader() {
+	//
+	// 	if ( this._cubemapMaterial === null ) {
+	//
+	// 		this._cubemapMaterial = _getCubemapMaterial();
+	// 		this._compileMaterial( this._cubemapMaterial );
+	//
+	// 	}
+	//
+	// }
 
 	/**
 	 * Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during
 	 * your texture's network fetch for increased concurrency.
 	 */
-	compileEquirectangularShader() {
-
-		if ( this._equirectMaterial === null ) {
-
-			this._equirectMaterial = _getEquirectMaterial();
-			this._compileMaterial( this._equirectMaterial );
-
-		}
-
-	}
+	// compileEquirectangularShader() {
+	//
+	// 	if ( this._equirectMaterial === null ) {
+	//
+	// 		this._equirectMaterial = _getEquirectMaterial();
+	// 		this._compileMaterial( this._equirectMaterial );
+	//
+	// 	}
+	//
+	// }
 
 	/**
 	 * Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class,
@@ -289,96 +289,96 @@ class PMREMGenerator {
 
 	}
 
-	_sceneToCubeUV( scene, near, far, cubeUVRenderTarget ) {
-
-		const fov = 90;
-		const aspect = 1;
-		const cubeCamera = new PerspectiveCamera( fov, aspect, near, far );
-		const upSign = [ 1, - 1, 1, 1, 1, 1 ];
-		const forwardSign = [ 1, 1, 1, - 1, - 1, - 1 ];
-		const renderer = this._renderer;
-
-		const originalAutoClear = renderer.autoClear;
-		const toneMapping = renderer.toneMapping;
-		renderer.getClearColor( _clearColor );
-
-		renderer.toneMapping = NoToneMapping;
-		renderer.autoClear = false;
-
-		const backgroundMaterial = new MeshBasicMaterial( {
-			name: 'PMREM.Background',
-			side: BackSide,
-			depthWrite: false,
-			depthTest: false,
-		} );
-
-		const backgroundBox = new Mesh( new BoxGeometry(), backgroundMaterial );
-
-		let useSolidColor = false;
-		const background = scene.background;
-
-		if ( background ) {
-
-			if ( background.isColor ) {
-
-				backgroundMaterial.color.copy( background );
-				scene.background = null;
-				useSolidColor = true;
-
-			}
-
-		} else {
-
-			backgroundMaterial.color.copy( _clearColor );
-			useSolidColor = true;
-
-		}
-
-		for ( let i = 0; i < 6; i ++ ) {
-
-			const col = i % 3;
-
-			if ( col === 0 ) {
-
-				cubeCamera.up.set( 0, upSign[ i ], 0 );
-				cubeCamera.lookAt( forwardSign[ i ], 0, 0 );
-
-			} else if ( col === 1 ) {
-
-				cubeCamera.up.set( 0, 0, upSign[ i ] );
-				cubeCamera.lookAt( 0, forwardSign[ i ], 0 );
-
-			} else {
-
-				cubeCamera.up.set( 0, upSign[ i ], 0 );
-				cubeCamera.lookAt( 0, 0, forwardSign[ i ] );
-
-			}
-
-			const size = this._cubeSize;
-
-			_setViewport( cubeUVRenderTarget, col * size, i > 2 ? size : 0, size, size );
-
-			renderer.setRenderTarget( cubeUVRenderTarget );
-
-			if ( useSolidColor ) {
-
-				renderer.render( backgroundBox, cubeCamera );
-
-			}
-
-			renderer.render( scene, cubeCamera );
-
-		}
-
-		backgroundBox.geometry.dispose();
-		backgroundBox.material.dispose();
-
-		renderer.toneMapping = toneMapping;
-		renderer.autoClear = originalAutoClear;
-		scene.background = background;
-
-	}
+	// _sceneToCubeUV( scene, near, far, cubeUVRenderTarget ) {
+	//
+	// 	const fov = 90;
+	// 	const aspect = 1;
+	// 	const cubeCamera = new PerspectiveCamera( fov, aspect, near, far );
+	// 	const upSign = [ 1, - 1, 1, 1, 1, 1 ];
+	// 	const forwardSign = [ 1, 1, 1, - 1, - 1, - 1 ];
+	// 	const renderer = this._renderer;
+	//
+	// 	const originalAutoClear = renderer.autoClear;
+	// 	const toneMapping = renderer.toneMapping;
+	// 	renderer.getClearColor( _clearColor );
+	//
+	// 	renderer.toneMapping = NoToneMapping;
+	// 	renderer.autoClear = false;
+	//
+	// 	const backgroundMaterial = new MeshBasicMaterial( {
+	// 		name: 'PMREM.Background',
+	// 		side: BackSide,
+	// 		depthWrite: false,
+	// 		depthTest: false,
+	// 	} );
+	//
+	// 	const backgroundBox = new Mesh( new BoxGeometry(), backgroundMaterial );
+	//
+	// 	let useSolidColor = false;
+	// 	const background = scene.background;
+	//
+	// 	if ( background ) {
+	//
+	// 		if ( background.isColor ) {
+	//
+	// 			backgroundMaterial.color.copy( background );
+	// 			scene.background = null;
+	// 			useSolidColor = true;
+	//
+	// 		}
+	//
+	// 	} else {
+	//
+	// 		backgroundMaterial.color.copy( _clearColor );
+	// 		useSolidColor = true;
+	//
+	// 	}
+	//
+	// 	for ( let i = 0; i < 6; i ++ ) {
+	//
+	// 		const col = i % 3;
+	//
+	// 		if ( col === 0 ) {
+	//
+	// 			cubeCamera.up.set( 0, upSign[ i ], 0 );
+	// 			cubeCamera.lookAt( forwardSign[ i ], 0, 0 );
+	//
+	// 		} else if ( col === 1 ) {
+	//
+	// 			cubeCamera.up.set( 0, 0, upSign[ i ] );
+	// 			cubeCamera.lookAt( 0, forwardSign[ i ], 0 );
+	//
+	// 		} else {
+	//
+	// 			cubeCamera.up.set( 0, upSign[ i ], 0 );
+	// 			cubeCamera.lookAt( 0, 0, forwardSign[ i ] );
+	//
+	// 		}
+	//
+	// 		const size = this._cubeSize;
+	//
+	// 		_setViewport( cubeUVRenderTarget, col * size, i > 2 ? size : 0, size, size );
+	//
+	// 		renderer.setRenderTarget( cubeUVRenderTarget );
+	//
+	// 		if ( useSolidColor ) {
+	//
+	// 			renderer.render( backgroundBox, cubeCamera );
+	//
+	// 		}
+	//
+	// 		renderer.render( scene, cubeCamera );
+	//
+	// 	}
+	//
+	// 	backgroundBox.geometry.dispose();
+	// 	backgroundBox.material.dispose();
+	//
+	// 	renderer.toneMapping = toneMapping;
+	// 	renderer.autoClear = originalAutoClear;
+	// 	scene.background = background;
+	//
+	// }
 
 	_textureToCubeUV( texture, cubeUVRenderTarget ) {
 

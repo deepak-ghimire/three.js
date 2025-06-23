@@ -1,9 +1,9 @@
-import { Vector3 } from './Vector3.js';
+// import { Vector3 } from './Vector3.js';
 import { Sphere } from './Sphere.js';
 import { Plane } from './Plane.js';
 
 const _sphere = /*@__PURE__*/ new Sphere();
-const _vector = /*@__PURE__*/ new Vector3();
+// const _vector = /*@__PURE__*/ new Vector3();
 
 class Frustum {
 
@@ -28,19 +28,19 @@ class Frustum {
 
 	}
 
-	copy( frustum ) {
-
-		const planes = this.planes;
-
-		for ( let i = 0; i < 6; i ++ ) {
-
-			planes[ i ].copy( frustum.planes[ i ] );
-
-		}
-
-		return this;
-
-	}
+	// copy( frustum ) {
+	//
+	// 	const planes = this.planes;
+	//
+	// 	for ( let i = 0; i < 6; i ++ ) {
+	//
+	// 		planes[ i ].copy( frustum.planes[ i ] );
+	//
+	// 	}
+	//
+	// 	return this;
+	//
+	// }
 
 	setFromProjectionMatrix( m ) {
 
@@ -150,11 +150,11 @@ class Frustum {
 	//
 	// }
 
-	clone() {
-
-		return new this.constructor().copy( this );
-
-	}
+	// clone() {
+	//
+	// 	return new this.constructor().copy( this );
+	//
+	// }
 
 }
 

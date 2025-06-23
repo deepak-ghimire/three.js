@@ -13,13 +13,13 @@ class Raycaster {
 		this.camera = null;
 		this.layers = new Layers();
 
-		this.params = {
-			Mesh: {},
-			Line: { threshold: 1 },
-			LOD: {},
-			Points: { threshold: 1 },
-			Sprite: {}
-		};
+		// this.params = {
+		// 	Mesh: {},
+		// 	Line: { threshold: 1 },
+		// 	LOD: {},
+		// 	Points: { threshold: 1 },
+		// 	Sprite: {}
+		// };
 
 	}
 
@@ -31,7 +31,7 @@ class Raycaster {
 
 	}
 
-	setFromCamera( coords, camera ) {
+	setFromCamera( coords, camera ) { //used
 
 		if ( camera.isPerspectiveCamera ) {
 
@@ -53,7 +53,7 @@ class Raycaster {
 
 	}
 
-	intersectObject( object, recursive = true, intersects = [] ) {
+	intersectObject( object, recursive = true, intersects = [] ) { //used
 
 		intersectObject( object, this, intersects, recursive );
 
@@ -63,7 +63,7 @@ class Raycaster {
 
 	}
 
-	intersectObjects( objects, recursive = true, intersects = [] ) {
+	intersectObjects( objects, recursive = true, intersects = [] ) { //used
 
 		for ( let i = 0, l = objects.length; i < l; i ++ ) {
 

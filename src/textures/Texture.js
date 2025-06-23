@@ -210,85 +210,85 @@ class Texture extends EventDispatcher {
 
 	}
 
-	transformUv( uv ) {
-
-		if ( this.mapping !== UVMapping ) return uv;
-
-		uv.applyMatrix3( this.matrix );
-
-		if ( uv.x < 0 || uv.x > 1 ) {
-
-			switch ( this.wrapS ) {
-
-				case RepeatWrapping:
-
-					uv.x = uv.x - Math.floor( uv.x );
-					break;
-
-				case ClampToEdgeWrapping:
-
-					uv.x = uv.x < 0 ? 0 : 1;
-					break;
-
-				case MirroredRepeatWrapping:
-
-					if ( Math.abs( Math.floor( uv.x ) % 2 ) === 1 ) {
-
-						uv.x = Math.ceil( uv.x ) - uv.x;
-
-					} else {
-
-						uv.x = uv.x - Math.floor( uv.x );
-
-					}
-
-					break;
-
-			}
-
-		}
-
-		if ( uv.y < 0 || uv.y > 1 ) {
-
-			switch ( this.wrapT ) {
-
-				case RepeatWrapping:
-
-					uv.y = uv.y - Math.floor( uv.y );
-					break;
-
-				case ClampToEdgeWrapping:
-
-					uv.y = uv.y < 0 ? 0 : 1;
-					break;
-
-				case MirroredRepeatWrapping:
-
-					if ( Math.abs( Math.floor( uv.y ) % 2 ) === 1 ) {
-
-						uv.y = Math.ceil( uv.y ) - uv.y;
-
-					} else {
-
-						uv.y = uv.y - Math.floor( uv.y );
-
-					}
-
-					break;
-
-			}
-
-		}
-
-		if ( this.flipY ) {
-
-			uv.y = 1 - uv.y;
-
-		}
-
-		return uv;
-
-	}
+	// transformUv( uv ) {
+	//
+	// 	if ( this.mapping !== UVMapping ) return uv;
+	//
+	// 	uv.applyMatrix3( this.matrix );
+	//
+	// 	if ( uv.x < 0 || uv.x > 1 ) {
+	//
+	// 		switch ( this.wrapS ) {
+	//
+	// 			case RepeatWrapping:
+	//
+	// 				uv.x = uv.x - Math.floor( uv.x );
+	// 				break;
+	//
+	// 			case ClampToEdgeWrapping:
+	//
+	// 				uv.x = uv.x < 0 ? 0 : 1;
+	// 				break;
+	//
+	// 			case MirroredRepeatWrapping:
+	//
+	// 				if ( Math.abs( Math.floor( uv.x ) % 2 ) === 1 ) {
+	//
+	// 					uv.x = Math.ceil( uv.x ) - uv.x;
+	//
+	// 				} else {
+	//
+	// 					uv.x = uv.x - Math.floor( uv.x );
+	//
+	// 				}
+	//
+	// 				break;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	if ( uv.y < 0 || uv.y > 1 ) {
+	//
+	// 		switch ( this.wrapT ) {
+	//
+	// 			case RepeatWrapping:
+	//
+	// 				uv.y = uv.y - Math.floor( uv.y );
+	// 				break;
+	//
+	// 			case ClampToEdgeWrapping:
+	//
+	// 				uv.y = uv.y < 0 ? 0 : 1;
+	// 				break;
+	//
+	// 			case MirroredRepeatWrapping:
+	//
+	// 				if ( Math.abs( Math.floor( uv.y ) % 2 ) === 1 ) {
+	//
+	// 					uv.y = Math.ceil( uv.y ) - uv.y;
+	//
+	// 				} else {
+	//
+	// 					uv.y = uv.y - Math.floor( uv.y );
+	//
+	// 				}
+	//
+	// 				break;
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// 	if ( this.flipY ) {
+	//
+	// 		uv.y = 1 - uv.y;
+	//
+	// 	}
+	//
+	// 	return uv;
+	//
+	// }
 
 	set needsUpdate( value ) {
 
