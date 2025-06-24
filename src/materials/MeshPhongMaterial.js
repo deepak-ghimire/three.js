@@ -19,11 +19,11 @@ class MeshPhongMaterial extends Material {
 
 		this.map = null;
 
-		this.lightMap = null;
-		this.lightMapIntensity = 1.0;
+		// this.lightMap = null;
+		// this.lightMapIntensity = 1.0;
 
-		this.aoMap = null;
-		this.aoMapIntensity = 1.0;
+		// this.aoMap = null;
+		// this.aoMapIntensity = 1.0;
 
 		this.emissive = new Color( 0x000000 );
 		this.emissiveIntensity = 1.0;
@@ -36,15 +36,15 @@ class MeshPhongMaterial extends Material {
 		this.normalMapType = TangentSpaceNormalMap;
 		this.normalScale = new Vector2( 1, 1 );
 
-		this.displacementMap = null;
-		this.displacementScale = 1;
-		this.displacementBias = 0;
+		// this.displacementMap = null;
+		// this.displacementScale = 1;
+		// this.displacementBias = 0;
 
 		this.specularMap = null;
 
-		this.alphaMap = null;
+		// this.alphaMap = null;
 
-		this.envMap = null;
+		// this.envMap = null;
 		this.combine = MultiplyOperation;
 		this.reflectivity = 1;
 		this.refractionRatio = 0.98;
@@ -56,7 +56,7 @@ class MeshPhongMaterial extends Material {
 
 		this.flatShading = false;
 
-		this.fog = true;
+		// this.fog = true;
 
 		this.setValues( parameters );
 

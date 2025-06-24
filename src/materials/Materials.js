@@ -11,7 +11,7 @@ import { MeshPhongMaterial } from './MeshPhongMaterial.js';
 // import { MeshLambertMaterial } from './MeshLambertMaterial.js';
 // import { MeshDepthMaterial } from './MeshDepthMaterial.js';
 // import { MeshDistanceMaterial } from './MeshDistanceMaterial.js';
-import { MeshBasicMaterial } from './MeshBasicMaterial.js';
+// import { MeshBasicMaterial } from './MeshBasicMaterial.js';
 // import { MeshMatcapMaterial } from './MeshMatcapMaterial.js';
 // import { LineDashedMaterial } from './LineDashedMaterial.js';
 // import { LineBasicMaterial } from './LineBasicMaterial.js';
@@ -31,7 +31,7 @@ export {
 	// MeshLambertMaterial,
 	// MeshDepthMaterial,
 	// MeshDistanceMaterial,
-	MeshBasicMaterial,
+	// MeshBasicMaterial,
 	// MeshMatcapMaterial,
 	// LineDashedMaterial,
 	// LineBasicMaterial,

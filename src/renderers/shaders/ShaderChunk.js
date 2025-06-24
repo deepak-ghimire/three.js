@@ -112,7 +112,7 @@ import * as depth from './ShaderLib/depth.glsl.js'; //used by shadow
 // import * as distanceRGBA from './ShaderLib/distanceRGBA.glsl.js';
 // import * as equirect from './ShaderLib/equirect.glsl.js';
 // import * as linedashed from './ShaderLib/linedashed.glsl.js';
-import * as meshbasic from './ShaderLib/meshbasic.glsl.js'; //used by phong
+// import * as meshbasic from './ShaderLib/meshbasic.glsl.js';
 // import * as meshlambert from './ShaderLib/meshlambert.glsl.js';
 // import * as meshmatcap from './ShaderLib/meshmatcap.glsl.js';
 // import * as meshnormal from './ShaderLib/meshnormal.glsl.js';
@@ -245,8 +245,8 @@ export const ShaderChunk = {
 	// equirect_frag: equirect.fragment,
 	// linedashed_vert: linedashed.vertex,
 	// linedashed_frag: linedashed.fragment,
-	meshbasic_vert: meshbasic.vertex,
-	meshbasic_frag: meshbasic.fragment,
+	// meshbasic_vert: meshbasic.vertex,
+	// meshbasic_frag: meshbasic.fragment,
 	// meshlambert_vert: meshlambert.vertex,
 	// meshlambert_frag: meshlambert.fragment,
 	// meshmatcap_vert: meshmatcap.vertex,

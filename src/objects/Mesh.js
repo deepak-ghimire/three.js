@@ -6,7 +6,7 @@ import { Matrix4 } from '../math/Matrix4.js';
 import { Object3D } from '../core/Object3D.js';
 import { Triangle } from '../math/Triangle.js';
 import { BackSide, FrontSide } from '../constants.js';
-import { MeshBasicMaterial } from '../materials/MeshBasicMaterial.js';
+import { MeshPhongMaterial } from '../materials/MeshPhongMaterial.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
 
 const _inverseMatrix = /*@__PURE__*/ new Matrix4();
@@ -17,8 +17,8 @@ const _vA = /*@__PURE__*/ new Vector3();
 const _vB = /*@__PURE__*/ new Vector3();
 const _vC = /*@__PURE__*/ new Vector3();
 
-const _tempA = /*@__PURE__*/ new Vector3();
-const _morphA = /*@__PURE__*/ new Vector3();
+// const _tempA = /*@__PURE__*/ new Vector3();
+// const _morphA = /*@__PURE__*/ new Vector3();
 
 const _uvA = /*@__PURE__*/ new Vector2();
 const _uvB = /*@__PURE__*/ new Vector2();
@@ -29,7 +29,7 @@ const _intersectionPointWorld = /*@__PURE__*/ new Vector3();
 
 class Mesh extends Object3D {
 
-	constructor( geometry = new BufferGeometry(), material = new MeshBasicMaterial() ) {
+	constructor( geometry = new BufferGeometry(), material = new MeshPhongMaterial() ) {
 
 		super();
 
@@ -40,7 +40,7 @@ class Mesh extends Object3D {
 		this.geometry = geometry;
 		this.material = material;
 
-		this.updateMorphTargets();
+		// this.updateMorphTargets();
 
 	}
 
@@ -48,17 +48,17 @@ class Mesh extends Object3D {
 
 		super.copy( source, recursive );
 
-		if ( source.morphTargetInfluences !== undefined ) {
-
-			this.morphTargetInfluences = source.morphTargetInfluences.slice();
-
-		}
-
-		if ( source.morphTargetDictionary !== undefined ) {
-
-			this.morphTargetDictionary = Object.assign( {}, source.morphTargetDictionary );
-
-		}
+		// if ( source.morphTargetInfluences !== undefined ) {
+		//
+		// 	this.morphTargetInfluences = source.morphTargetInfluences.slice();
+		//
+		// }
+		//
+		// if ( source.morphTargetDictionary !== undefined ) {
+		//
+		// 	this.morphTargetDictionary = Object.assign( {}, source.morphTargetDictionary );
+		//
+		// }
 
 		this.material = source.material;
 		this.geometry = source.geometry;
@@ -67,82 +67,82 @@ class Mesh extends Object3D {
 
 	}
 
-	updateMorphTargets() {
-
-		const geometry = this.geometry;
-
-		const morphAttributes = geometry.morphAttributes;
-		const keys = Object.keys( morphAttributes );
-
-		if ( keys.length > 0 ) {
-
-			const morphAttribute = morphAttributes[ keys[ 0 ] ];
-
-			if ( morphAttribute !== undefined ) {
-
-				this.morphTargetInfluences = [];
-				this.morphTargetDictionary = {};
-
-				for ( let m = 0, ml = morphAttribute.length; m < ml; m ++ ) {
-
-					const name = morphAttribute[ m ].name || String( m );
-
-					this.morphTargetInfluences.push( 0 );
-					this.morphTargetDictionary[ name ] = m;
-
-				}
-
-			}
-
-		}
-
-	}
+	// updateMorphTargets() {
+	//
+	// 	const geometry = this.geometry;
+	//
+	// 	const morphAttributes = geometry.morphAttributes;
+	// 	const keys = Object.keys( morphAttributes );
+	//
+	// 	if ( keys.length > 0 ) {
+	//
+	// 		const morphAttribute = morphAttributes[ keys[ 0 ] ];
+	//
+	// 		if ( morphAttribute !== undefined ) {
+	//
+	// 			this.morphTargetInfluences = [];
+	// 			this.morphTargetDictionary = {};
+	//
+	// 			for ( let m = 0, ml = morphAttribute.length; m < ml; m ++ ) {
+	//
+	// 				const name = morphAttribute[ m ].name || String( m );
+	//
+	// 				this.morphTargetInfluences.push( 0 );
+	// 				this.morphTargetDictionary[ name ] = m;
+	//
+	// 			}
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// }
 
 	getVertexPosition( vert, target ) {
 
 		const geometry = this.geometry;
 		const position = geometry.attributes.position;
-		const morphPosition = geometry.morphAttributes.position;
-		const morphTargetsRelative = geometry.morphTargetsRelative;
+		// const morphPosition = geometry.morphAttributes.position;
+		// const morphTargetsRelative = geometry.morphTargetsRelative;
 
 		target.fromBufferAttribute( position, vert );
 
-		const morphInfluences = this.morphTargetInfluences;
-
-		if ( morphPosition && morphInfluences ) {
-
-			_morphA.set( 0, 0, 0 );
-
-			for ( let i = 0, il = morphPosition.length; i < il; i ++ ) {
-
-				const influence = morphInfluences[ i ];
-				const morphAttribute = morphPosition[ i ];
-
-				if ( influence === 0 ) continue;
-
-				_tempA.fromBufferAttribute( morphAttribute, vert );
-
-				if ( morphTargetsRelative ) {
-
-					_morphA.addScaledVector( _tempA, influence );
-
-				} else {
-
-					_morphA.addScaledVector( _tempA.sub( target ), influence );
-
-				}
-
-			}
-
-			target.add( _morphA );
-
-		}
-
-		if ( this.isSkinnedMesh ) {
-
-			this.boneTransform( vert, target );
-
-		}
+		// const morphInfluences = this.morphTargetInfluences;
+		//
+		// if ( morphPosition && morphInfluences ) {
+		//
+		// 	_morphA.set( 0, 0, 0 );
+		//
+		// 	for ( let i = 0, il = morphPosition.length; i < il; i ++ ) {
+		//
+		// 		const influence = morphInfluences[ i ];
+		// 		const morphAttribute = morphPosition[ i ];
+		//
+		// 		if ( influence === 0 ) continue;
+		//
+		// 		_tempA.fromBufferAttribute( morphAttribute, vert );
+		//
+		// 		if ( morphTargetsRelative ) {
+		//
+		// 			_morphA.addScaledVector( _tempA, influence );
+		//
+		// 		} else {
+		//
+		// 			_morphA.addScaledVector( _tempA.sub( target ), influence );
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	target.add( _morphA );
+		//
+		// }
+		//
+		// if ( this.isSkinnedMesh ) {
+		//
+		// 	this.boneTransform( vert, target );
+		//
+		// }
 
 		return target;
 
@@ -245,65 +245,66 @@ class Mesh extends Object3D {
 
 			}
 
-		} else if ( position !== undefined ) {
-
-			// non-indexed buffer geometry
-
-			if ( Array.isArray( material ) ) {
-
-				for ( let i = 0, il = groups.length; i < il; i ++ ) {
-
-					const group = groups[ i ];
-					const groupMaterial = material[ group.materialIndex ];
-
-					const start = Math.max( group.start, drawRange.start );
-					const end = Math.min( position.count, Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) ) );
-
-					for ( let j = start, jl = end; j < jl; j += 3 ) {
-
-						const a = j;
-						const b = j + 1;
-						const c = j + 2;
-
-						intersection = checkBufferGeometryIntersection( this, groupMaterial, raycaster, _ray, uv, uv2, a, b, c );
-
-						if ( intersection ) {
-
-							intersection.faceIndex = Math.floor( j / 3 ); // triangle number in non-indexed buffer semantics
-							intersection.face.materialIndex = group.materialIndex;
-							intersects.push( intersection );
-
-						}
-
-					}
-
-				}
-
-			} else {
-
-				const start = Math.max( 0, drawRange.start );
-				const end = Math.min( position.count, ( drawRange.start + drawRange.count ) );
-
-				for ( let i = start, il = end; i < il; i += 3 ) {
-
-					const a = i;
-					const b = i + 1;
-					const c = i + 2;
-
-					intersection = checkBufferGeometryIntersection( this, material, raycaster, _ray, uv, uv2, a, b, c );
-
-					if ( intersection ) {
-
-						intersection.faceIndex = Math.floor( i / 3 ); // triangle number in non-indexed buffer semantics
-						intersects.push( intersection );
-
-					}
-
-				}
-
-			}
-
 		}
+		// else if ( position !== undefined ) {
+		//
+		// 	// non-indexed buffer geometry
+		//
+		// 	if ( Array.isArray( material ) ) {
+		//
+		// 		for ( let i = 0, il = groups.length; i < il; i ++ ) {
+		//
+		// 			const group = groups[ i ];
+		// 			const groupMaterial = material[ group.materialIndex ];
+		//
+		// 			const start = Math.max( group.start, drawRange.start );
+		// 			const end = Math.min( position.count, Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) ) );
+		//
+		// 			for ( let j = start, jl = end; j < jl; j += 3 ) {
+		//
+		// 				const a = j;
+		// 				const b = j + 1;
+		// 				const c = j + 2;
+		//
+		// 				intersection = checkBufferGeometryIntersection( this, groupMaterial, raycaster, _ray, uv, uv2, a, b, c );
+		//
+		// 				if ( intersection ) {
+		//
+		// 					intersection.faceIndex = Math.floor( j / 3 ); // triangle number in non-indexed buffer semantics
+		// 					intersection.face.materialIndex = group.materialIndex;
+		// 					intersects.push( intersection );
+		//
+		// 				}
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 	} else {
+		//
+		// 		const start = Math.max( 0, drawRange.start );
+		// 		const end = Math.min( position.count, ( drawRange.start + drawRange.count ) );
+		//
+		// 		for ( let i = start, il = end; i < il; i += 3 ) {
+		//
+		// 			const a = i;
+		// 			const b = i + 1;
+		// 			const c = i + 2;
+		//
+		// 			intersection = checkBufferGeometryIntersection( this, material, raycaster, _ray, uv, uv2, a, b, c );
+		//
+		// 			if ( intersection ) {
+		//
+		// 				intersection.faceIndex = Math.floor( i / 3 ); // triangle number in non-indexed buffer semantics
+		// 				intersects.push( intersection );
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// }
 
 	}
 

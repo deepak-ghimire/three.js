@@ -6702,11 +6702,8 @@
 
 	var worldpos_vertex = "#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP ) || defined ( USE_TRANSMISSION ) || NUM_SPOT_LIGHT_COORDS > 0\n\tvec4 worldPosition = vec4( transformed, 1.0 );\n\t#ifdef USE_INSTANCING\n\t\tworldPosition = instanceMatrix * worldPosition;\n\t#endif\n\tworldPosition = modelMatrix * worldPosition;\n#endif";
 
-	const vertex$3 = "#include <common>\n#include <uv_pars_vertex>\n#include <logdepthbuf_pars_vertex>\nvarying vec2 vHighPrecisionZW;\nvoid main() {\n\t#include <uv_vertex>\n\t#ifdef USE_DISPLACEMENTMAP\n\t\t#include <beginnormal_vertex>\n\t#endif\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\tvHighPrecisionZW = gl_Position.zw;\n}";
-	const fragment$3 = "#if DEPTH_PACKING == 3200\n\tuniform float opacity;\n#endif\n#include <common>\n#include <packing>\n#include <uv_pars_fragment>\n#include <map_pars_fragment>\n#include <logdepthbuf_pars_fragment>\nvarying vec2 vHighPrecisionZW;\nvoid main() {\n\tvec4 diffuseColor = vec4( 1.0 );\n\t#if DEPTH_PACKING == 3200\n\t\tdiffuseColor.a = opacity;\n\t#endif\n\t#include <map_fragment>\n\t#include <logdepthbuf_fragment>\n\tfloat fragCoordZ = 0.5 * vHighPrecisionZW[0] / vHighPrecisionZW[1] + 0.5;\n\t#if DEPTH_PACKING == 3200\n\t\tgl_FragColor = vec4( vec3( 1.0 - fragCoordZ ), opacity );\n\t#elif DEPTH_PACKING == 3201\n\t\tgl_FragColor = packDepthToRGBA( fragCoordZ );\n\t#endif\n}";
-
-	const vertex$2 = "#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <color_pars_vertex>\n#include <logdepthbuf_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <worldpos_vertex>\n}";
-	const fragment$2 = "uniform vec3 diffuse;\nuniform float opacity;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\nvoid main() {\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <specularmap_fragment>\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel = texture2D( lightMap, vUv2 );\n\t\treflectedLight.indirectDiffuse += lightMapTexel.rgb * lightMapIntensity * RECIPROCAL_PI;\n\t#else\n\t\treflectedLight.indirectDiffuse += vec3( 1.0 );\n\t#endif\n\treflectedLight.indirectDiffuse *= diffuseColor.rgb;\n\tvec3 outgoingLight = reflectedLight.indirectDiffuse;\n\t#include <output_fragment>\n}";
+	const vertex$2 = "#include <common>\n#include <uv_pars_vertex>\n#include <logdepthbuf_pars_vertex>\nvarying vec2 vHighPrecisionZW;\nvoid main() {\n\t#include <uv_vertex>\n\t#ifdef USE_DISPLACEMENTMAP\n\t\t#include <beginnormal_vertex>\n\t#endif\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\tvHighPrecisionZW = gl_Position.zw;\n}";
+	const fragment$2 = "#if DEPTH_PACKING == 3200\n\tuniform float opacity;\n#endif\n#include <common>\n#include <packing>\n#include <uv_pars_fragment>\n#include <map_pars_fragment>\n#include <logdepthbuf_pars_fragment>\nvarying vec2 vHighPrecisionZW;\nvoid main() {\n\tvec4 diffuseColor = vec4( 1.0 );\n\t#if DEPTH_PACKING == 3200\n\t\tdiffuseColor.a = opacity;\n\t#endif\n\t#include <map_fragment>\n\t#include <logdepthbuf_fragment>\n\tfloat fragCoordZ = 0.5 * vHighPrecisionZW[0] / vHighPrecisionZW[1] + 0.5;\n\t#if DEPTH_PACKING == 3200\n\t\tgl_FragColor = vec4( vec3( 1.0 - fragCoordZ ), opacity );\n\t#elif DEPTH_PACKING == 3201\n\t\tgl_FragColor = packDepthToRGBA( fragCoordZ );\n\t#endif\n}";
 
 	const vertex$1 = "#define PHONG\nvarying vec3 vViewPosition;\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <color_pars_vertex>\n#include <normal_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <beginnormal_vertex>\n\t#include <defaultnormal_vertex>\n\t#include <normal_vertex>\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\tvViewPosition = - mvPosition.xyz;\n\t#include <worldpos_vertex>\n\t#include <shadowmap_vertex>\n}";
 	const fragment$1 = "#define PHONG\nuniform vec3 diffuse;\nuniform vec3 emissive;\nuniform vec3 specular;\nuniform float shininess;\nuniform float opacity;\n#include <common>\n#include <packing>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <bsdfs>\n#include <lights_pars_begin>\n#include <normal_pars_fragment>\n#include <lights_phong_pars_fragment>\n#include <shadowmap_pars_fragment>\n#include <normalmap_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\nvoid main() {\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\tvec3 totalEmissiveRadiance = emissive;\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <specularmap_fragment>\n\t#include <normal_fragment_begin>\n\t#include <normal_fragment_maps>\n\t#include <lights_phong_fragment>\n\t#include <lights_fragment_begin>\n\t#include <lights_fragment_maps>\n\t#include <lights_fragment_end>\n\tvec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;\n\t#include <output_fragment>\n}";
@@ -6830,16 +6827,16 @@
 		// backgroundCube_frag: backgroundCube.fragment,
 		// cube_vert: cube.vertex,
 		// cube_frag: cube.fragment,
-		depth_vert: vertex$3,
-		depth_frag: fragment$3,
+		depth_vert: vertex$2,
+		depth_frag: fragment$2,
 		// distanceRGBA_vert: distanceRGBA.vertex,
 		// distanceRGBA_frag: distanceRGBA.fragment,
 		// equirect_vert: equirect.vertex,
 		// equirect_frag: equirect.fragment,
 		// linedashed_vert: linedashed.vertex,
 		// linedashed_frag: linedashed.fragment,
-		meshbasic_vert: vertex$2,
-		meshbasic_frag: fragment$2,
+		// meshbasic_vert: meshbasic.vertex,
+		// meshbasic_frag: meshbasic.fragment,
 		// meshlambert_vert: meshlambert.vertex,
 		// meshlambert_frag: meshlambert.fragment,
 		// meshmatcap_vert: meshmatcap.vertex,
@@ -7467,28 +7464,6 @@
 			}
 		}
 		return merged;
-	}
-	//
-	// export function cloneUniformsGroups( src ) {
-	//
-	// 	const dst = [];
-	//
-	// 	for ( let u = 0; u < src.length; u ++ ) {
-	//
-	// 		dst.push( src[ u ].clone() );
-	//
-	// 	}
-	//
-	// 	return dst;
-	//
-	// }
-
-	function getUnlitUniformColorSpace(renderer) {
-		if (renderer.getRenderTarget() === null) {
-			// https://github.com/mrdoob/three.js/pull/23937#issuecomment-1111067398
-			return renderer.outputEncoding === sRGBEncoding ? SRGBColorSpace : LinearSRGBColorSpace;
-		}
-		return LinearSRGBColorSpace;
 	}
 
 	// Legacy
@@ -8701,7 +8676,7 @@
 			SpriteMaterial: 'sprite'
 		};
 		function getParameters(material, lights, shadows, scene, object) {
-			const fog = scene.fog;
+			// const fog = scene.fog;
 			const geometry = object.geometry;
 			// const environment = material.isMeshStandardMaterial ? scene.environment : null;
 			//
@@ -8722,12 +8697,14 @@
 
 			//
 
-			const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
-			const morphTargetsCount = morphAttribute !== undefined ? morphAttribute.length : 0;
-			let morphTextureStride = 0;
-			if (geometry.morphAttributes.position !== undefined) morphTextureStride = 1;
-			if (geometry.morphAttributes.normal !== undefined) morphTextureStride = 2;
-			if (geometry.morphAttributes.color !== undefined) morphTextureStride = 3;
+			// const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
+			// const morphTargetsCount = ( morphAttribute !== undefined ) ? morphAttribute.length : 0;
+
+			// let morphTextureStride = 0;
+
+			// if ( geometry.morphAttributes.position !== undefined ) morphTextureStride = 1;
+			// if ( geometry.morphAttributes.normal !== undefined ) morphTextureStride = 2;
+			// if ( geometry.morphAttributes.color !== undefined ) morphTextureStride = 3;
 
 			//
 
@@ -8745,9 +8722,11 @@
 				customFragmentShaderID = _customShaders.getFragmentShaderID(material);
 			}
 			const currentRenderTarget = renderer.getRenderTarget();
-			const useAlphaTest = material.alphaTest > 0;
-			const useClearcoat = material.clearcoat > 0;
-			const useIridescence = material.iridescence > 0;
+
+			// const useAlphaTest = material.alphaTest > 0;
+			// const useClearcoat = material.clearcoat > 0;
+			// const useIridescence = material.iridescence > 0;
+
 			const parameters = {
 				isWebGL2: isWebGL2,
 				shaderID: shaderID,
@@ -8760,8 +8739,9 @@
 				isRawShaderMaterial: material.isRawShaderMaterial === true,
 				glslVersion: material.glslVersion,
 				precision: precision,
-				instancing: object.isInstancedMesh === true,
-				instancingColor: object.isInstancedMesh === true && object.instanceColor !== null,
+				// instancing: object.isInstancedMesh === true,
+				// instancingColor: object.isInstancedMesh === true && object.instanceColor !== null,
+
 				supportsVertexTextures: vertexTextures,
 				outputEncoding: currentRenderTarget === null ? renderer.outputEncoding : currentRenderTarget.isXRRenderTarget === true ? currentRenderTarget.texture.encoding : LinearEncoding,
 				map: !!material.map,
@@ -8770,54 +8750,62 @@
 				// envMapMode: envMap && envMap.mapping,
 				// envMapCubeUVHeight: envMapCubeUVHeight,
 				lightMap: !!material.lightMap,
-				aoMap: !!material.aoMap,
-				emissiveMap: !!material.emissiveMap,
-				bumpMap: !!material.bumpMap,
-				normalMap: !!material.normalMap,
+				// aoMap: !! material.aoMap,
+				// emissiveMap: !! material.emissiveMap,
+				// bumpMap: !! material.bumpMap,
+				// normalMap: !! material.normalMap,
 				objectSpaceNormalMap: material.normalMapType === ObjectSpaceNormalMap,
 				tangentSpaceNormalMap: material.normalMapType === TangentSpaceNormalMap,
 				decodeVideoTexture: !!material.map && material.map.isVideoTexture === true && material.map.encoding === sRGBEncoding,
-				clearcoat: useClearcoat,
-				clearcoatMap: useClearcoat && !!material.clearcoatMap,
-				clearcoatRoughnessMap: useClearcoat && !!material.clearcoatRoughnessMap,
-				clearcoatNormalMap: useClearcoat && !!material.clearcoatNormalMap,
-				iridescence: useIridescence,
-				iridescenceMap: useIridescence && !!material.iridescenceMap,
-				iridescenceThicknessMap: useIridescence && !!material.iridescenceThicknessMap,
-				displacementMap: !!material.displacementMap,
-				roughnessMap: !!material.roughnessMap,
-				metalnessMap: !!material.metalnessMap,
+				// clearcoat: useClearcoat,
+				// clearcoatMap: useClearcoat && !! material.clearcoatMap,
+				// clearcoatRoughnessMap: useClearcoat && !! material.clearcoatRoughnessMap,
+				// clearcoatNormalMap: useClearcoat && !! material.clearcoatNormalMap,
+				//
+				// iridescence: useIridescence,
+				// iridescenceMap: useIridescence && !! material.iridescenceMap,
+				// iridescenceThicknessMap: useIridescence && !! material.iridescenceThicknessMap,
+
+				// displacementMap: !! material.displacementMap,
+				// roughnessMap: !! material.roughnessMap,
+				// metalnessMap: !! material.metalnessMap,
 				specularMap: !!material.specularMap,
 				specularIntensityMap: !!material.specularIntensityMap,
 				specularColorMap: !!material.specularColorMap,
 				opaque: material.transparent === false && material.blending === NormalBlending,
-				alphaMap: !!material.alphaMap,
-				alphaTest: useAlphaTest,
+				// alphaMap: !! material.alphaMap,
+				// alphaTest: useAlphaTest,
+
 				gradientMap: !!material.gradientMap,
-				sheen: material.sheen > 0,
-				sheenColorMap: !!material.sheenColorMap,
-				sheenRoughnessMap: !!material.sheenRoughnessMap,
-				transmission: material.transmission > 0,
-				transmissionMap: !!material.transmissionMap,
-				thicknessMap: !!material.thicknessMap,
+				// sheen: material.sheen > 0,
+				// sheenColorMap: !! material.sheenColorMap,
+				// sheenRoughnessMap: !! material.sheenRoughnessMap,
+
+				// transmission: material.transmission > 0,
+				// transmissionMap: !! material.transmissionMap,
+				// thicknessMap: !! material.thicknessMap,
+
 				combine: material.combine,
 				vertexTangents: !!material.normalMap && !!geometry.attributes.tangent,
 				vertexColors: material.vertexColors,
 				vertexAlphas: material.vertexColors === true && !!geometry.attributes.color && geometry.attributes.color.itemSize === 4,
 				vertexUvs: !!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatMap || !!material.clearcoatRoughnessMap || !!material.clearcoatNormalMap || !!material.iridescenceMap || !!material.iridescenceThicknessMap || !!material.displacementMap || !!material.transmissionMap || !!material.thicknessMap || !!material.specularIntensityMap || !!material.specularColorMap || !!material.sheenColorMap || !!material.sheenRoughnessMap,
 				uvsVertexOnly: !(!!material.map || !!material.bumpMap || !!material.normalMap || !!material.specularMap || !!material.alphaMap || !!material.emissiveMap || !!material.roughnessMap || !!material.metalnessMap || !!material.clearcoatNormalMap || !!material.iridescenceMap || !!material.iridescenceThicknessMap || material.transmission > 0 || !!material.transmissionMap || !!material.thicknessMap || !!material.specularIntensityMap || !!material.specularColorMap || material.sheen > 0 || !!material.sheenColorMap || !!material.sheenRoughnessMap) && !!material.displacementMap,
-				fog: !!fog,
-				useFog: material.fog === true,
-				fogExp2: fog && fog.isFogExp2,
+				// fog: !! fog,
+				// useFog: material.fog === true,
+				// fogExp2: ( fog && fog.isFogExp2 ),
+
 				flatShading: !!material.flatShading,
 				sizeAttenuation: material.sizeAttenuation,
 				logarithmicDepthBuffer: logarithmicDepthBuffer,
-				skinning: object.isSkinnedMesh === true,
-				morphTargets: geometry.morphAttributes.position !== undefined,
-				morphNormals: geometry.morphAttributes.normal !== undefined,
-				morphColors: geometry.morphAttributes.color !== undefined,
-				morphTargetsCount: morphTargetsCount,
-				morphTextureStride: morphTextureStride,
+				// skinning: object.isSkinnedMesh === true,
+
+				// morphTargets: geometry.morphAttributes.position !== undefined,
+				// morphNormals: geometry.morphAttributes.normal !== undefined,
+				// morphColors: geometry.morphAttributes.color !== undefined,
+				// morphTargetsCount: morphTargetsCount,
+				// morphTextureStride: morphTextureStride,
+
 				numDirLights: lights.directional.length,
 				numPointLights: lights.point.length,
 				numSpotLights: lights.spot.length,
@@ -8828,12 +8816,13 @@
 				numPointLightShadows: lights.pointShadowMap.length,
 				numSpotLightShadows: lights.spotShadowMap.length,
 				numSpotLightShadowsWithMaps: lights.numSpotLightShadowsWithMaps,
-				numClippingPlanes: clipping.numPlanes,
-				numClipIntersection: clipping.numIntersection,
+				// numClippingPlanes: clipping.numPlanes,
+				// numClipIntersection: clipping.numIntersection,
+
 				dithering: material.dithering,
 				shadowMapEnabled: renderer.shadowMap.enabled && shadows.length > 0,
 				shadowMapType: renderer.shadowMap.type,
-				toneMapping: material.toneMapped ? renderer.toneMapping : NoToneMapping,
+				// toneMapping: material.toneMapped ? renderer.toneMapping : NoToneMapping,
 				physicallyCorrectLights: renderer.physicallyCorrectLights,
 				premultipliedAlpha: material.premultipliedAlpha,
 				doubleSided: material.side === DoubleSide,
@@ -8881,10 +8870,10 @@
 			// array.push( parameters.envMapCubeUVHeight );
 			array.push(parameters.combine);
 			array.push(parameters.vertexUvs);
-			array.push(parameters.fogExp2);
+			// array.push( parameters.fogExp2 );
 			array.push(parameters.sizeAttenuation);
-			array.push(parameters.morphTargetsCount);
-			array.push(parameters.morphAttributeCount);
+			// array.push( parameters.morphTargetsCount );
+			// array.push( parameters.morphAttributeCount );
 			array.push(parameters.numDirLights);
 			array.push(parameters.numPointLights);
 			array.push(parameters.numSpotLights);
@@ -8896,9 +8885,9 @@
 			array.push(parameters.numSpotLightShadows);
 			array.push(parameters.numSpotLightShadowsWithMaps);
 			array.push(parameters.shadowMapType);
-			array.push(parameters.toneMapping);
-			array.push(parameters.numClippingPlanes);
-			array.push(parameters.numClipIntersection);
+			// array.push( parameters.toneMapping );
+			// array.push( parameters.numClippingPlanes );
+			// array.push( parameters.numClipIntersection );
 			array.push(parameters.depthPacking);
 		}
 		function getProgramCacheKeyBooleans(array, parameters) {
@@ -8906,32 +8895,49 @@
 			if (parameters.isWebGL2) _programLayers.enable(0);
 			if (parameters.supportsVertexTextures) _programLayers.enable(1);
 			if (parameters.instancing) _programLayers.enable(2);
-			if (parameters.instancingColor) _programLayers.enable(3);
+			// if ( parameters.instancingColor )
+			// 	_programLayers.enable( 3 );
 			if (parameters.map) _programLayers.enable(4);
-			if (parameters.matcap) _programLayers.enable(5);
+			// if ( parameters.matcap )
+			// 	_programLayers.enable( 5 );
 			// if ( parameters.envMap )
 			// 	_programLayers.enable( 6 );
 			if (parameters.lightMap) _programLayers.enable(7);
-			if (parameters.aoMap) _programLayers.enable(8);
+			// if ( parameters.aoMap )
+			// 	_programLayers.enable( 8 );
 			if (parameters.emissiveMap) _programLayers.enable(9);
-			if (parameters.bumpMap) _programLayers.enable(10);
+			// if ( parameters.bumpMap )
+			// 	_programLayers.enable( 10 );
 			if (parameters.normalMap) _programLayers.enable(11);
 			if (parameters.objectSpaceNormalMap) _programLayers.enable(12);
 			if (parameters.tangentSpaceNormalMap) _programLayers.enable(13);
-			if (parameters.clearcoat) _programLayers.enable(14);
-			if (parameters.clearcoatMap) _programLayers.enable(15);
-			if (parameters.clearcoatRoughnessMap) _programLayers.enable(16);
-			if (parameters.clearcoatNormalMap) _programLayers.enable(17);
-			if (parameters.iridescence) _programLayers.enable(18);
-			if (parameters.iridescenceMap) _programLayers.enable(19);
-			if (parameters.iridescenceThicknessMap) _programLayers.enable(20);
-			if (parameters.displacementMap) _programLayers.enable(21);
+			// if ( parameters.clearcoat )
+			// 	_programLayers.enable( 14 );
+			// if ( parameters.clearcoatMap )
+			// 	_programLayers.enable( 15 );
+			// if ( parameters.clearcoatRoughnessMap )
+			// 	_programLayers.enable( 16 );
+			// if ( parameters.clearcoatNormalMap )
+			// 	_programLayers.enable( 17 );
+			// if ( parameters.iridescence )
+			// 	_programLayers.enable( 18 );
+			// if ( parameters.iridescenceMap )
+			// 	_programLayers.enable( 19 );
+			// if ( parameters.iridescenceThicknessMap )
+			// 	_programLayers.enable( 20 );
+			// if ( parameters.displacementMap )
+			// 	_programLayers.enable( 21 );
 			if (parameters.specularMap) _programLayers.enable(22);
-			if (parameters.roughnessMap) _programLayers.enable(23);
-			if (parameters.metalnessMap) _programLayers.enable(24);
-			if (parameters.gradientMap) _programLayers.enable(25);
-			if (parameters.alphaMap) _programLayers.enable(26);
-			if (parameters.alphaTest) _programLayers.enable(27);
+			// if ( parameters.roughnessMap )
+			// 	_programLayers.enable( 23 );
+			// if ( parameters.metalnessMap )
+			// 	_programLayers.enable( 24 );
+			// if ( parameters.gradientMap )
+			// 	_programLayers.enable( 25 );
+			// if ( parameters.alphaMap )
+			// 	_programLayers.enable( 26 );
+			// if ( parameters.alphaTest )
+			// 	_programLayers.enable( 27 );
 			if (parameters.vertexColors) _programLayers.enable(28);
 			if (parameters.vertexAlphas) _programLayers.enable(29);
 			if (parameters.vertexUvs) _programLayers.enable(30);
@@ -8939,14 +8945,21 @@
 			if (parameters.uvsVertexOnly) _programLayers.enable(32);
 			array.push(_programLayers.mask);
 			_programLayers.disableAll();
-			if (parameters.fog) _programLayers.enable(0);
-			if (parameters.useFog) _programLayers.enable(1);
+
+			// if ( parameters.fog )
+			// 	_programLayers.enable( 0 );
+			// if ( parameters.useFog )
+			// 	_programLayers.enable( 1 );
 			if (parameters.flatShading) _programLayers.enable(2);
 			if (parameters.logarithmicDepthBuffer) _programLayers.enable(3);
-			if (parameters.skinning) _programLayers.enable(4);
-			if (parameters.morphTargets) _programLayers.enable(5);
-			if (parameters.morphNormals) _programLayers.enable(6);
-			if (parameters.morphColors) _programLayers.enable(7);
+			// if ( parameters.skinning )
+			// 	_programLayers.enable( 4 );
+			// if ( parameters.morphTargets )
+			// 	_programLayers.enable( 5 );
+			// if ( parameters.morphNormals )
+			// 	_programLayers.enable( 6 );
+			// if ( parameters.morphColors )
+			// 	_programLayers.enable( 7 );
 			if (parameters.premultipliedAlpha) _programLayers.enable(8);
 			if (parameters.shadowMapEnabled) _programLayers.enable(9);
 			if (parameters.physicallyCorrectLights) _programLayers.enable(10);
@@ -8956,12 +8969,18 @@
 			if (parameters.dithering) _programLayers.enable(14);
 			if (parameters.specularIntensityMap) _programLayers.enable(15);
 			if (parameters.specularColorMap) _programLayers.enable(16);
-			if (parameters.transmission) _programLayers.enable(17);
-			if (parameters.transmissionMap) _programLayers.enable(18);
-			if (parameters.thicknessMap) _programLayers.enable(19);
-			if (parameters.sheen) _programLayers.enable(20);
-			if (parameters.sheenColorMap) _programLayers.enable(21);
-			if (parameters.sheenRoughnessMap) _programLayers.enable(22);
+			// if ( parameters.transmission )
+			// 	_programLayers.enable( 17 );
+			// if ( parameters.transmissionMap )
+			// 	_programLayers.enable( 18 );
+			// if ( parameters.thicknessMap )
+			// 	_programLayers.enable( 19 );
+			// if ( parameters.sheen )
+			// 	_programLayers.enable( 20 );
+			// if ( parameters.sheenColorMap )
+			// 	_programLayers.enable( 21 );
+			// if ( parameters.sheenRoughnessMap )
+			// 	_programLayers.enable( 22 );
 			if (parameters.decodeVideoTexture) _programLayers.enable(23);
 			if (parameters.opaque) _programLayers.enable(24);
 			array.push(_programLayers.mask);
@@ -9880,17 +9899,28 @@
 			this.toneMapped = true;
 			this.userData = {};
 			this.version = 0;
-			this._alphaTest = 0;
+
+			// this._alphaTest = 0;
 		}
-		get alphaTest() {
-			return this._alphaTest;
-		}
-		set alphaTest(value) {
-			if (this._alphaTest > 0 !== value > 0) {
-				this.version++;
-			}
-			this._alphaTest = value;
-		}
+		//
+		// get alphaTest() {
+		//
+		// 	return this._alphaTest;
+		//
+		// }
+		//
+		// set alphaTest( value ) {
+		//
+		// 	if ( this._alphaTest > 0 !== value > 0 ) {
+		//
+		// 		this.version ++;
+		//
+		// 	}
+		//
+		// 	this._alphaTest = value;
+		//
+		// }
+
 		onBuild( /* shaderobject, renderer */) {}
 		onBeforeRender( /* renderer, scene, camera, geometry, object, group */) {}
 		onBeforeCompile( /* shaderobject, renderer */) {}
@@ -11717,7 +11747,6 @@
 				depthPacking: RGBADepthPacking
 			}),
 			_distanceMaterial = new MeshDistanceMaterial(),
-			_materialCache = {},
 			_maxTextureSize = _capabilities.maxTextureSize;
 		const shadowSide = {
 			0: BackSide,
@@ -11876,48 +11905,69 @@
 				result = customMaterial;
 			} else {
 				result = light.isPointLight === true ? _distanceMaterial : _depthMaterial;
-				if (_renderer.localClippingEnabled && material.clipShadows === true && Array.isArray(material.clippingPlanes) && material.clippingPlanes.length !== 0 || material.displacementMap && material.displacementScale !== 0 || material.alphaMap && material.alphaTest > 0 || material.map && material.alphaTest > 0) {
-					// in this case we need a unique material instance reflecting the
-					// appropriate state
 
-					const keyA = result.uuid,
-						keyB = material.uuid;
-					let materialsForVariant = _materialCache[keyA];
-					if (materialsForVariant === undefined) {
-						materialsForVariant = {};
-						_materialCache[keyA] = materialsForVariant;
-					}
-					let cachedMaterial = materialsForVariant[keyB];
-					if (cachedMaterial === undefined) {
-						cachedMaterial = result.clone();
-						materialsForVariant[keyB] = cachedMaterial;
-					}
-					result = cachedMaterial;
-				}
+				// if ( ( _renderer.localClippingEnabled && material.clipShadows === true && Array.isArray( material.clippingPlanes ) && material.clippingPlanes.length !== 0 ) ||
+				// 	( material.displacementMap && material.displacementScale !== 0 ) ||
+				// 	( material.alphaMap && material.alphaTest > 0 ) ||
+				// 	( material.map && material.alphaTest > 0 ) ) {
+				//
+				// 	// in this case we need a unique material instance reflecting the
+				// 	// appropriate state
+				//
+				// 	const keyA = result.uuid, keyB = material.uuid;
+				//
+				// 	let materialsForVariant = _materialCache[ keyA ];
+				//
+				// 	if ( materialsForVariant === undefined ) {
+				//
+				// 		materialsForVariant = {};
+				// 		_materialCache[ keyA ] = materialsForVariant;
+				//
+				// 	}
+				//
+				// 	let cachedMaterial = materialsForVariant[ keyB ];
+				//
+				// 	if ( cachedMaterial === undefined ) {
+				//
+				// 		cachedMaterial = result.clone();
+				// 		materialsForVariant[ keyB ] = cachedMaterial;
+				//
+				// 	}
+				//
+				// 	result = cachedMaterial;
+				//
+				// }
 			}
+
 			result.visible = material.visible;
 			result.wireframe = material.wireframe;
-			if (type === VSMShadowMap) {
-				result.side = material.shadowSide !== null ? material.shadowSide : material.side;
-			} else {
+			if (type === VSMShadowMap) ; else {
 				result.side = material.shadowSide !== null ? material.shadowSide : shadowSide[material.side];
 			}
-			result.alphaMap = material.alphaMap;
-			result.alphaTest = material.alphaTest;
+
+			// result.alphaMap = material.alphaMap;
+			// result.alphaTest = material.alphaTest;
 			result.map = material.map;
-			result.clipShadows = material.clipShadows;
-			result.clippingPlanes = material.clippingPlanes;
-			result.clipIntersection = material.clipIntersection;
-			result.displacementMap = material.displacementMap;
-			result.displacementScale = material.displacementScale;
-			result.displacementBias = material.displacementBias;
+
+			// result.clipShadows = material.clipShadows;
+			// result.clippingPlanes = material.clippingPlanes;
+			// result.clipIntersection = material.clipIntersection;
+			//
+			// result.displacementMap = material.displacementMap;
+			// result.displacementScale = material.displacementScale;
+			// result.displacementBias = material.displacementBias;
+
 			result.wireframeLinewidth = material.wireframeLinewidth;
 			result.linewidth = material.linewidth;
-			if (light.isPointLight === true && result.isMeshDistanceMaterial === true) {
-				result.referencePosition.setFromMatrixPosition(light.matrixWorld);
-				result.nearDistance = shadowCameraNear;
-				result.farDistance = shadowCameraFar;
-			}
+
+			// if ( light.isPointLight === true && result.isMeshDistanceMaterial === true ) {
+			//
+			// 	result.referencePosition.setFromMatrixPosition( light.matrixWorld );
+			// 	result.nearDistance = shadowCameraNear;
+			// 	result.farDistance = shadowCameraFar;
+			//
+			// }
+
 			return result;
 		}
 		function renderObject(object, camera, shadowCamera, light, type) {
@@ -14142,56 +14192,92 @@
 	}
 
 	function WebGLMaterials(renderer, properties) {
-		function refreshFogUniforms(uniforms, fog) {
-			fog.color.getRGB(uniforms.fogColor.value, getUnlitUniformColorSpace(renderer));
-			if (fog.isFog) {
-				uniforms.fogNear.value = fog.near;
-				uniforms.fogFar.value = fog.far;
-			} else if (fog.isFogExp2) {
-				uniforms.fogDensity.value = fog.density;
-			}
-		}
+		// function refreshFogUniforms( uniforms, fog ) {
+		//
+		// 	fog.color.getRGB( uniforms.fogColor.value, getUnlitUniformColorSpace( renderer ) );
+		//
+		// 	if ( fog.isFog ) {
+		//
+		// 		uniforms.fogNear.value = fog.near;
+		// 		uniforms.fogFar.value = fog.far;
+		//
+		// 	} else if ( fog.isFogExp2 ) {
+		//
+		// 		uniforms.fogDensity.value = fog.density;
+		//
+		// 	}
+		//
+		// }
+
 		function refreshMaterialUniforms(uniforms, material, pixelRatio, height, transmissionRenderTarget) {
 			if (material.isMeshBasicMaterial) {
 				refreshUniformsCommon(uniforms, material);
-			} else if (material.isMeshLambertMaterial) {
-				refreshUniformsCommon(uniforms, material);
-			} else if (material.isMeshToonMaterial) {
-				refreshUniformsCommon(uniforms, material);
-				refreshUniformsToon(uniforms, material);
+
+				// } else if ( material.isMeshLambertMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				//
+				// } else if ( material.isMeshToonMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				// 	refreshUniformsToon( uniforms, material );
 			} else if (material.isMeshPhongMaterial) {
 				refreshUniformsCommon(uniforms, material);
 				refreshUniformsPhong(uniforms, material);
-			} else if (material.isMeshStandardMaterial) {
-				refreshUniformsCommon(uniforms, material);
-				refreshUniformsStandard(uniforms, material);
-				if (material.isMeshPhysicalMaterial) {
-					refreshUniformsPhysical(uniforms, material, transmissionRenderTarget);
-				}
-			} else if (material.isMeshMatcapMaterial) {
-				refreshUniformsCommon(uniforms, material);
-				refreshUniformsMatcap(uniforms, material);
-			} else if (material.isMeshDepthMaterial) {
-				refreshUniformsCommon(uniforms, material);
-			} else if (material.isMeshDistanceMaterial) {
-				refreshUniformsCommon(uniforms, material);
-				refreshUniformsDistance(uniforms, material);
-			} else if (material.isMeshNormalMaterial) {
-				refreshUniformsCommon(uniforms, material);
-			} else if (material.isLineBasicMaterial) {
-				refreshUniformsLine(uniforms, material);
-				if (material.isLineDashedMaterial) {
-					refreshUniformsDash(uniforms, material);
-				}
-			} else if (material.isPointsMaterial) {
-				refreshUniformsPoints(uniforms, material, pixelRatio, height);
-			} else if (material.isSpriteMaterial) {
-				refreshUniformsSprites(uniforms, material);
+
+				// } else if ( material.isMeshStandardMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				// 	refreshUniformsStandard( uniforms, material );
+				//
+				// 	if ( material.isMeshPhysicalMaterial ) {
+				//
+				// 		refreshUniformsPhysical( uniforms, material, transmissionRenderTarget );
+				//
+				// 	}
+				//
+				// } else if ( material.isMeshMatcapMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				// 	refreshUniformsMatcap( uniforms, material );
+				//
+				// } else if ( material.isMeshDepthMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				//
+				// } else if ( material.isMeshDistanceMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				// 	refreshUniformsDistance( uniforms, material );
+				//
+				// } else if ( material.isMeshNormalMaterial ) {
+				//
+				// 	refreshUniformsCommon( uniforms, material );
+				//
+				// } else if ( material.isLineBasicMaterial ) {
+				//
+				// 	refreshUniformsLine( uniforms, material );
+				//
+				// 	if ( material.isLineDashedMaterial ) {
+				//
+				// 		refreshUniformsDash( uniforms, material );
+				//
+				// 	}
+				//
+				// } else if ( material.isPointsMaterial ) {
+				//
+				// 	refreshUniformsPoints( uniforms, material, pixelRatio, height );
+				//
+				// } else if ( material.isSpriteMaterial ) {
+				//
+				// 	refreshUniformsSprites( uniforms, material );
 			} else if (material.isShadowMaterial) {
 				uniforms.color.value.copy(material.color);
 				uniforms.opacity.value = material.opacity;
-			} else if (material.isShaderMaterial) {
-				material.uniformsNeedUpdate = false; // #15581
+
+				// } else if ( material.isShaderMaterial ) {
+				//
+				// 	material.uniformsNeedUpdate = false; // #15581
 			}
 		}
 
@@ -14206,19 +14292,29 @@
 			if (material.map) {
 				uniforms.map.value = material.map;
 			}
-			if (material.alphaMap) {
-				uniforms.alphaMap.value = material.alphaMap;
-			}
-			if (material.bumpMap) {
-				uniforms.bumpMap.value = material.bumpMap;
-				uniforms.bumpScale.value = material.bumpScale;
-				if (material.side === BackSide) uniforms.bumpScale.value *= -1;
-			}
-			if (material.displacementMap) {
-				uniforms.displacementMap.value = material.displacementMap;
-				uniforms.displacementScale.value = material.displacementScale;
-				uniforms.displacementBias.value = material.displacementBias;
-			}
+
+			// if ( material.alphaMap ) {
+			//
+			// 	uniforms.alphaMap.value = material.alphaMap;
+			//
+			// }
+			//
+			// if ( material.bumpMap ) {
+			//
+			// 	uniforms.bumpMap.value = material.bumpMap;
+			// 	uniforms.bumpScale.value = material.bumpScale;
+			// 	if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
+			//
+			// }
+			//
+			// if ( material.displacementMap ) {
+			//
+			// 	uniforms.displacementMap.value = material.displacementMap;
+			// 	uniforms.displacementScale.value = material.displacementScale;
+			// 	uniforms.displacementBias.value = material.displacementBias;
+			//
+			// }
+
 			if (material.emissiveMap) {
 				uniforms.emissiveMap.value = material.emissiveMap;
 			}
@@ -14230,297 +14326,437 @@
 			if (material.specularMap) {
 				uniforms.specularMap.value = material.specularMap;
 			}
-			if (material.alphaTest > 0) {
-				uniforms.alphaTest.value = material.alphaTest;
-			}
-			const envMap = properties.get(material).envMap;
-			if (envMap) {
-				uniforms.envMap.value = envMap;
-				uniforms.flipEnvMap.value = envMap.isCubeTexture && envMap.isRenderTargetTexture === false ? -1 : 1;
-				uniforms.reflectivity.value = material.reflectivity;
-				uniforms.ior.value = material.ior;
-				uniforms.refractionRatio.value = material.refractionRatio;
-			}
-			if (material.lightMap) {
-				uniforms.lightMap.value = material.lightMap;
-
-				// artist-friendly light intensity scaling factor
-				const scaleFactor = renderer.physicallyCorrectLights !== true ? Math.PI : 1;
-				uniforms.lightMapIntensity.value = material.lightMapIntensity * scaleFactor;
-			}
-			if (material.aoMap) {
-				uniforms.aoMap.value = material.aoMap;
-				uniforms.aoMapIntensity.value = material.aoMapIntensity;
-			}
-
-			// uv repeat and offset setting priorities
-			// 1. color map
-			// 2. specular map
-			// 3. displacementMap map
-			// 4. normal map
-			// 5. bump map
-			// 6. roughnessMap map
-			// 7. metalnessMap map
-			// 8. alphaMap map
-			// 9. emissiveMap map
-			// 10. clearcoat map
-			// 11. clearcoat normal map
-			// 12. clearcoat roughnessMap map
-			// 13. iridescence map
-			// 14. iridescence thickness map
-			// 15. specular intensity map
-			// 16. specular tint map
-			// 17. transmission map
-			// 18. thickness map
-
-			let uvScaleMap;
 			if (material.map) {
-				uvScaleMap = material.map;
+				material.map;
 			} else if (material.specularMap) {
-				uvScaleMap = material.specularMap;
-			} else if (material.displacementMap) {
-				uvScaleMap = material.displacementMap;
+				material.specularMap;
+
+				// } else if ( material.displacementMap ) {
+				//
+				// 	uvScaleMap = material.displacementMap;
 			} else if (material.normalMap) {
-				uvScaleMap = material.normalMap;
-			} else if (material.bumpMap) {
-				uvScaleMap = material.bumpMap;
-			} else if (material.roughnessMap) {
-				uvScaleMap = material.roughnessMap;
-			} else if (material.metalnessMap) {
-				uvScaleMap = material.metalnessMap;
-			} else if (material.alphaMap) {
-				uvScaleMap = material.alphaMap;
+				material.normalMap;
+
+				// } else if ( material.bumpMap ) {
+				//
+				// 	uvScaleMap = material.bumpMap;
+				//
+				// } else if ( material.roughnessMap ) {
+				//
+				// 	uvScaleMap = material.roughnessMap;
+				//
+				// } else if ( material.metalnessMap ) {
+				//
+				// 	uvScaleMap = material.metalnessMap;
+				//
+				// } else if ( material.alphaMap ) {
+				//
+				// 	uvScaleMap = material.alphaMap;
 			} else if (material.emissiveMap) {
-				uvScaleMap = material.emissiveMap;
-			} else if (material.clearcoatMap) {
-				uvScaleMap = material.clearcoatMap;
-			} else if (material.clearcoatNormalMap) {
-				uvScaleMap = material.clearcoatNormalMap;
-			} else if (material.clearcoatRoughnessMap) {
-				uvScaleMap = material.clearcoatRoughnessMap;
-			} else if (material.iridescenceMap) {
-				uvScaleMap = material.iridescenceMap;
-			} else if (material.iridescenceThicknessMap) {
-				uvScaleMap = material.iridescenceThicknessMap;
+				material.emissiveMap;
+
+				// } else if ( material.clearcoatMap ) {
+				//
+				// 	uvScaleMap = material.clearcoatMap;
+				//
+				// } else if ( material.clearcoatNormalMap ) {
+				//
+				// 	uvScaleMap = material.clearcoatNormalMap;
+				//
+				// } else if ( material.clearcoatRoughnessMap ) {
+				//
+				// 	uvScaleMap = material.clearcoatRoughnessMap;
+				//
+				// } else if ( material.iridescenceMap ) {
+				//
+				// 	uvScaleMap = material.iridescenceMap;
+				//
+				// } else if ( material.iridescenceThicknessMap ) {
+				//
+				// 	uvScaleMap = material.iridescenceThicknessMap;
 			} else if (material.specularIntensityMap) {
-				uvScaleMap = material.specularIntensityMap;
+				material.specularIntensityMap;
 			} else if (material.specularColorMap) {
-				uvScaleMap = material.specularColorMap;
-			} else if (material.transmissionMap) {
-				uvScaleMap = material.transmissionMap;
-			} else if (material.thicknessMap) {
-				uvScaleMap = material.thicknessMap;
-			} else if (material.sheenColorMap) {
-				uvScaleMap = material.sheenColorMap;
-			} else if (material.sheenRoughnessMap) {
-				uvScaleMap = material.sheenRoughnessMap;
+				material.specularColorMap;
+
+				// } else if ( material.transmissionMap ) {
+				//
+				// 	uvScaleMap = material.transmissionMap;
+				//
+				// } else if ( material.thicknessMap ) {
+				//
+				// 	uvScaleMap = material.thicknessMap;
+				//
+				// } else if ( material.sheenColorMap ) {
+				//
+				// 	uvScaleMap = material.sheenColorMap;
+				//
+				// } else if ( material.sheenRoughnessMap ) {
+				//
+				// 	uvScaleMap = material.sheenRoughnessMap;
 			}
-			if (uvScaleMap !== undefined) {
-				// backwards compatibility
-				if (uvScaleMap.isWebGLRenderTarget) {
-					uvScaleMap = uvScaleMap.texture;
-				}
-				if (uvScaleMap.matrixAutoUpdate === true) {
-					uvScaleMap.updateMatrix();
-				}
-				uniforms.uvTransform.value.copy(uvScaleMap.matrix);
-			}
+
+			// if ( uvScaleMap !== undefined ) {
+			//
+			// 	// backwards compatibility
+			// 	if ( uvScaleMap.isWebGLRenderTarget ) {
+			//
+			// 		uvScaleMap = uvScaleMap.texture;
+			//
+			// 	}
+			//
+			// 	if ( uvScaleMap.matrixAutoUpdate === true ) {
+			//
+			// 		uvScaleMap.updateMatrix();
+			//
+			// 	}
+			//
+			// 	uniforms.uvTransform.value.copy( uvScaleMap.matrix );
+			//
+			// }
 
 			// uv repeat and offset setting priorities for uv2
 			// 1. ao map
 			// 2. light map
 
-			let uv2ScaleMap;
-			if (material.aoMap) {
-				uv2ScaleMap = material.aoMap;
-			} else if (material.lightMap) {
-				uv2ScaleMap = material.lightMap;
-			}
-			if (uv2ScaleMap !== undefined) {
-				// backwards compatibility
-				if (uv2ScaleMap.isWebGLRenderTarget) {
-					uv2ScaleMap = uv2ScaleMap.texture;
-				}
-				if (uv2ScaleMap.matrixAutoUpdate === true) {
-					uv2ScaleMap.updateMatrix();
-				}
-				uniforms.uv2Transform.value.copy(uv2ScaleMap.matrix);
-			}
+			// let uv2ScaleMap;
+			//
+			// if ( material.aoMap ) {
+			//
+			// 	uv2ScaleMap = material.aoMap;
+			//
+			// } else if ( material.lightMap ) {
+			//
+			// 	uv2ScaleMap = material.lightMap;
+			//
+			// }
+			//
+			// if ( uv2ScaleMap !== undefined ) {
+			//
+			// 	// backwards compatibility
+			// 	if ( uv2ScaleMap.isWebGLRenderTarget ) {
+			//
+			// 		uv2ScaleMap = uv2ScaleMap.texture;
+			//
+			// 	}
+			//
+			// 	if ( uv2ScaleMap.matrixAutoUpdate === true ) {
+			//
+			// 		uv2ScaleMap.updateMatrix();
+			//
+			// 	}
+			//
+			// 	uniforms.uv2Transform.value.copy( uv2ScaleMap.matrix );
+			//
+			// }
 		}
-		function refreshUniformsLine(uniforms, material) {
-			uniforms.diffuse.value.copy(material.color);
-			uniforms.opacity.value = material.opacity;
-		}
-		function refreshUniformsDash(uniforms, material) {
-			uniforms.dashSize.value = material.dashSize;
-			uniforms.totalSize.value = material.dashSize + material.gapSize;
-			uniforms.scale.value = material.scale;
-		}
-		function refreshUniformsPoints(uniforms, material, pixelRatio, height) {
-			uniforms.diffuse.value.copy(material.color);
-			uniforms.opacity.value = material.opacity;
-			uniforms.size.value = material.size * pixelRatio;
-			uniforms.scale.value = height * 0.5;
-			if (material.map) {
-				uniforms.map.value = material.map;
-			}
-			if (material.alphaMap) {
-				uniforms.alphaMap.value = material.alphaMap;
-			}
-			if (material.alphaTest > 0) {
-				uniforms.alphaTest.value = material.alphaTest;
-			}
+		//
+		// function refreshUniformsLine( uniforms, material ) {
+		//
+		// 	uniforms.diffuse.value.copy( material.color );
+		// 	uniforms.opacity.value = material.opacity;
+		//
+		// }
+		//
+		// function refreshUniformsDash( uniforms, material ) {
+		//
+		// 	uniforms.dashSize.value = material.dashSize;
+		// 	uniforms.totalSize.value = material.dashSize + material.gapSize;
+		// 	uniforms.scale.value = material.scale;
+		//
+		// }
+		//
+		// function refreshUniformsPoints( uniforms, material, pixelRatio, height ) {
 
-			// uv repeat and offset setting priorities
-			// 1. color map
-			// 2. alpha map
+		// uniforms.diffuse.value.copy( material.color );
+		// uniforms.opacity.value = material.opacity;
+		// uniforms.size.value = material.size * pixelRatio;
+		// uniforms.scale.value = height * 0.5;
+		//
+		// if ( material.map ) {
+		//
+		// 	uniforms.map.value = material.map;
+		//
+		// }
 
-			let uvScaleMap;
-			if (material.map) {
-				uvScaleMap = material.map;
-			} else if (material.alphaMap) {
-				uvScaleMap = material.alphaMap;
-			}
-			if (uvScaleMap !== undefined) {
-				if (uvScaleMap.matrixAutoUpdate === true) {
-					uvScaleMap.updateMatrix();
-				}
-				uniforms.uvTransform.value.copy(uvScaleMap.matrix);
-			}
-		}
-		function refreshUniformsSprites(uniforms, material) {
-			uniforms.diffuse.value.copy(material.color);
-			uniforms.opacity.value = material.opacity;
-			uniforms.rotation.value = material.rotation;
-			if (material.map) {
-				uniforms.map.value = material.map;
-			}
-			if (material.alphaMap) {
-				uniforms.alphaMap.value = material.alphaMap;
-			}
-			if (material.alphaTest > 0) {
-				uniforms.alphaTest.value = material.alphaTest;
-			}
+		// if ( material.alphaMap ) {
+		//
+		// 	uniforms.alphaMap.value = material.alphaMap;
+		//
+		// }
+		//
+		// if ( material.alphaTest > 0 ) {
+		//
+		// 	uniforms.alphaTest.value = material.alphaTest;
+		//
+		// }
 
-			// uv repeat and offset setting priorities
-			// 1. color map
-			// 2. alpha map
+		// uv repeat and offset setting priorities
+		// 1. color map
+		// 2. alpha map
 
-			let uvScaleMap;
-			if (material.map) {
-				uvScaleMap = material.map;
-			} else if (material.alphaMap) {
-				uvScaleMap = material.alphaMap;
-			}
-			if (uvScaleMap !== undefined) {
-				if (uvScaleMap.matrixAutoUpdate === true) {
-					uvScaleMap.updateMatrix();
-				}
-				uniforms.uvTransform.value.copy(uvScaleMap.matrix);
-			}
-		}
+		// let uvScaleMap;
+		//
+		// if ( material.map ) {
+		//
+		// 	uvScaleMap = material.map;
+		//
+		// } else if ( material.alphaMap ) {
+		//
+		// 	uvScaleMap = material.alphaMap;
+		//
+		// }
+		//
+		// if ( uvScaleMap !== undefined ) {
+		//
+		// 	if ( uvScaleMap.matrixAutoUpdate === true ) {
+		//
+		// 		uvScaleMap.updateMatrix();
+		//
+		// 	}
+		//
+		// 	uniforms.uvTransform.value.copy( uvScaleMap.matrix );
+		//
+		// }
+
+		// }
+
+		// function refreshUniformsSprites( uniforms, material ) {
+		//
+		// 	uniforms.diffuse.value.copy( material.color );
+		// 	uniforms.opacity.value = material.opacity;
+		// 	uniforms.rotation.value = material.rotation;
+		//
+		// 	if ( material.map ) {
+		//
+		// 		uniforms.map.value = material.map;
+		//
+		// 	}
+
+		// if ( material.alphaMap ) {
+		//
+		// 	uniforms.alphaMap.value = material.alphaMap;
+		//
+		// }
+		//
+		// if ( material.alphaTest > 0 ) {
+		//
+		// 	uniforms.alphaTest.value = material.alphaTest;
+		//
+		// }
+
+		// uv repeat and offset setting priorities
+		// 1. color map
+		// 2. alpha map
+
+		// let uvScaleMap;
+		//
+		// if ( material.map ) {
+		//
+		// 	uvScaleMap = material.map;
+		//
+		// } else if ( material.alphaMap ) {
+		//
+		// 	uvScaleMap = material.alphaMap;
+		//
+		// }
+		//
+		// if ( uvScaleMap !== undefined ) {
+		//
+		// 	if ( uvScaleMap.matrixAutoUpdate === true ) {
+		//
+		// 		uvScaleMap.updateMatrix();
+		//
+		// 	}
+		//
+		// 	uniforms.uvTransform.value.copy( uvScaleMap.matrix );
+		//
+		// }
+
+		// }
+
 		function refreshUniformsPhong(uniforms, material) {
 			uniforms.specular.value.copy(material.specular);
 			uniforms.shininess.value = Math.max(material.shininess, 1e-4); // to prevent pow( 0.0, 0.0 )
 		}
 
-		function refreshUniformsToon(uniforms, material) {
-			if (material.gradientMap) {
-				uniforms.gradientMap.value = material.gradientMap;
-			}
-		}
-		function refreshUniformsStandard(uniforms, material) {
-			uniforms.roughness.value = material.roughness;
-			uniforms.metalness.value = material.metalness;
-			if (material.roughnessMap) {
-				uniforms.roughnessMap.value = material.roughnessMap;
-			}
-			if (material.metalnessMap) {
-				uniforms.metalnessMap.value = material.metalnessMap;
-			}
-			const envMap = properties.get(material).envMap;
-			if (envMap) {
-				//uniforms.envMap.value = material.envMap; // part of uniforms common
-				uniforms.envMapIntensity.value = material.envMapIntensity;
-			}
-		}
-		function refreshUniformsPhysical(uniforms, material, transmissionRenderTarget) {
-			uniforms.ior.value = material.ior; // also part of uniforms common
+		// function refreshUniformsToon( uniforms, material ) {
+		//
+		// 	if ( material.gradientMap ) {
+		//
+		// 		uniforms.gradientMap.value = material.gradientMap;
+		//
+		// 	}
+		//
+		// }
 
-			if (material.sheen > 0) {
-				uniforms.sheenColor.value.copy(material.sheenColor).multiplyScalar(material.sheen);
-				uniforms.sheenRoughness.value = material.sheenRoughness;
-				if (material.sheenColorMap) {
-					uniforms.sheenColorMap.value = material.sheenColorMap;
-				}
-				if (material.sheenRoughnessMap) {
-					uniforms.sheenRoughnessMap.value = material.sheenRoughnessMap;
-				}
-			}
-			if (material.clearcoat > 0) {
-				uniforms.clearcoat.value = material.clearcoat;
-				uniforms.clearcoatRoughness.value = material.clearcoatRoughness;
-				if (material.clearcoatMap) {
-					uniforms.clearcoatMap.value = material.clearcoatMap;
-				}
-				if (material.clearcoatRoughnessMap) {
-					uniforms.clearcoatRoughnessMap.value = material.clearcoatRoughnessMap;
-				}
-				if (material.clearcoatNormalMap) {
-					uniforms.clearcoatNormalScale.value.copy(material.clearcoatNormalScale);
-					uniforms.clearcoatNormalMap.value = material.clearcoatNormalMap;
-					if (material.side === BackSide) {
-						uniforms.clearcoatNormalScale.value.negate();
-					}
-				}
-			}
-			if (material.iridescence > 0) {
-				uniforms.iridescence.value = material.iridescence;
-				uniforms.iridescenceIOR.value = material.iridescenceIOR;
-				uniforms.iridescenceThicknessMinimum.value = material.iridescenceThicknessRange[0];
-				uniforms.iridescenceThicknessMaximum.value = material.iridescenceThicknessRange[1];
-				if (material.iridescenceMap) {
-					uniforms.iridescenceMap.value = material.iridescenceMap;
-				}
-				if (material.iridescenceThicknessMap) {
-					uniforms.iridescenceThicknessMap.value = material.iridescenceThicknessMap;
-				}
-			}
-			if (material.transmission > 0) {
-				uniforms.transmission.value = material.transmission;
-				uniforms.transmissionSamplerMap.value = transmissionRenderTarget.texture;
-				uniforms.transmissionSamplerSize.value.set(transmissionRenderTarget.width, transmissionRenderTarget.height);
-				if (material.transmissionMap) {
-					uniforms.transmissionMap.value = material.transmissionMap;
-				}
-				uniforms.thickness.value = material.thickness;
-				if (material.thicknessMap) {
-					uniforms.thicknessMap.value = material.thicknessMap;
-				}
-				uniforms.attenuationDistance.value = material.attenuationDistance;
-				uniforms.attenuationColor.value.copy(material.attenuationColor);
-			}
-			uniforms.specularIntensity.value = material.specularIntensity;
-			uniforms.specularColor.value.copy(material.specularColor);
-			if (material.specularIntensityMap) {
-				uniforms.specularIntensityMap.value = material.specularIntensityMap;
-			}
-			if (material.specularColorMap) {
-				uniforms.specularColorMap.value = material.specularColorMap;
-			}
-		}
-		function refreshUniformsMatcap(uniforms, material) {
-			if (material.matcap) {
-				uniforms.matcap.value = material.matcap;
-			}
-		}
-		function refreshUniformsDistance(uniforms, material) {
-			uniforms.referencePosition.value.copy(material.referencePosition);
-			uniforms.nearDistance.value = material.nearDistance;
-			uniforms.farDistance.value = material.farDistance;
-		}
+		// function refreshUniformsStandard( uniforms, material ) {
+		//
+		// 	uniforms.roughness.value = material.roughness;
+		// 	uniforms.metalness.value = material.metalness;
+		//
+		// 	if ( material.roughnessMap ) {
+		//
+		// 		uniforms.roughnessMap.value = material.roughnessMap;
+		//
+		// 	}
+		//
+		// 	if ( material.metalnessMap ) {
+		//
+		// 		uniforms.metalnessMap.value = material.metalnessMap;
+		//
+		// 	}
+		//
+		// 	const envMap = properties.get( material ).envMap;
+		//
+		// 	if ( envMap ) {
+		//
+		// 		//uniforms.envMap.value = material.envMap; // part of uniforms common
+		// 		uniforms.envMapIntensity.value = material.envMapIntensity;
+		//
+		// 	}
+		//
+		// }
+		//
+		// function refreshUniformsPhysical( uniforms, material, transmissionRenderTarget ) {
+		//
+		// 	uniforms.ior.value = material.ior; // also part of uniforms common
+		//
+		// 	if ( material.sheen > 0 ) {
+		//
+		// 		uniforms.sheenColor.value.copy( material.sheenColor ).multiplyScalar( material.sheen );
+		//
+		// 		uniforms.sheenRoughness.value = material.sheenRoughness;
+		//
+		// 		if ( material.sheenColorMap ) {
+		//
+		// 			uniforms.sheenColorMap.value = material.sheenColorMap;
+		//
+		// 		}
+		//
+		// 		if ( material.sheenRoughnessMap ) {
+		//
+		// 			uniforms.sheenRoughnessMap.value = material.sheenRoughnessMap;
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	if ( material.clearcoat > 0 ) {
+		//
+		// 		uniforms.clearcoat.value = material.clearcoat;
+		// 		uniforms.clearcoatRoughness.value = material.clearcoatRoughness;
+		//
+		// 		if ( material.clearcoatMap ) {
+		//
+		// 			uniforms.clearcoatMap.value = material.clearcoatMap;
+		//
+		// 		}
+		//
+		// 		if ( material.clearcoatRoughnessMap ) {
+		//
+		// 			uniforms.clearcoatRoughnessMap.value = material.clearcoatRoughnessMap;
+		//
+		// 		}
+		//
+		// 		if ( material.clearcoatNormalMap ) {
+		//
+		// 			uniforms.clearcoatNormalScale.value.copy( material.clearcoatNormalScale );
+		// 			uniforms.clearcoatNormalMap.value = material.clearcoatNormalMap;
+		//
+		// 			if ( material.side === BackSide ) {
+		//
+		// 				uniforms.clearcoatNormalScale.value.negate();
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	if ( material.iridescence > 0 ) {
+		//
+		// 		uniforms.iridescence.value = material.iridescence;
+		// 		uniforms.iridescenceIOR.value = material.iridescenceIOR;
+		// 		uniforms.iridescenceThicknessMinimum.value = material.iridescenceThicknessRange[ 0 ];
+		// 		uniforms.iridescenceThicknessMaximum.value = material.iridescenceThicknessRange[ 1 ];
+		//
+		// 		if ( material.iridescenceMap ) {
+		//
+		// 			uniforms.iridescenceMap.value = material.iridescenceMap;
+		//
+		// 		}
+		//
+		// 		if ( material.iridescenceThicknessMap ) {
+		//
+		// 			uniforms.iridescenceThicknessMap.value = material.iridescenceThicknessMap;
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	if ( material.transmission > 0 ) {
+		//
+		// 		uniforms.transmission.value = material.transmission;
+		// 		uniforms.transmissionSamplerMap.value = transmissionRenderTarget.texture;
+		// 		uniforms.transmissionSamplerSize.value.set( transmissionRenderTarget.width, transmissionRenderTarget.height );
+		//
+		// 		if ( material.transmissionMap ) {
+		//
+		// 			uniforms.transmissionMap.value = material.transmissionMap;
+		//
+		// 		}
+		//
+		// 		uniforms.thickness.value = material.thickness;
+		//
+		// 		if ( material.thicknessMap ) {
+		//
+		// 			uniforms.thicknessMap.value = material.thicknessMap;
+		//
+		// 		}
+		//
+		// 		uniforms.attenuationDistance.value = material.attenuationDistance;
+		// 		uniforms.attenuationColor.value.copy( material.attenuationColor );
+		//
+		// 	}
+		//
+		// 	uniforms.specularIntensity.value = material.specularIntensity;
+		// 	uniforms.specularColor.value.copy( material.specularColor );
+		//
+		// 	if ( material.specularIntensityMap ) {
+		//
+		// 		uniforms.specularIntensityMap.value = material.specularIntensityMap;
+		//
+		// 	}
+		//
+		// 	if ( material.specularColorMap ) {
+		//
+		// 		uniforms.specularColorMap.value = material.specularColorMap;
+		//
+		// 	}
+		//
+		// }
+		//
+		// function refreshUniformsMatcap( uniforms, material ) {
+		//
+		// 	if ( material.matcap ) {
+		//
+		// 		uniforms.matcap.value = material.matcap;
+		//
+		// 	}
+		//
+		// }
+		//
+		// function refreshUniformsDistance( uniforms, material ) {
+		//
+		// 	uniforms.referencePosition.value.copy( material.referencePosition );
+		// 	uniforms.nearDistance.value = material.nearDistance;
+		// 	uniforms.farDistance.value = material.farDistance;
+		//
+		// }
+
 		return {
-			refreshFogUniforms: refreshFogUniforms,
+			// refreshFogUniforms: refreshFogUniforms,
 			refreshMaterialUniforms: refreshMaterialUniforms
 		};
 	}
@@ -14747,8 +14983,8 @@
 			objects = new WebGLObjects(_gl, geometries, attributes, info);
 			// morphtargets = new WebGLMorphtargets( _gl, capabilities, textures );
 			clipping = new WebGLClipping(properties);
-			programCache = new WebGLPrograms(_this, cubemaps, cubeuvmaps, extensions, capabilities, bindingStates, clipping);
-			materials = new WebGLMaterials(_this, properties);
+			programCache = new WebGLPrograms(_this, cubemaps, cubeuvmaps, extensions, capabilities, bindingStates);
+			materials = new WebGLMaterials();
 			renderLists = new WebGLRenderLists();
 			renderStates = new WebGLRenderStates();
 			// background = new WebGLBackground( _this, cubemaps, cubeuvmaps, state, objects, _alpha, _premultipliedAlpha );
@@ -15101,16 +15337,13 @@
 				}
 			} else if (object.isPoints) {
 				renderer.setMode(_gl.POINTS);
-			} else if (object.isSprite) {
-				renderer.setMode(_gl.TRIANGLES);
+
+				// } else if ( object.isSprite ) {
+				//
+				// 	renderer.setMode( _gl.TRIANGLES );
 			}
-			if (object.isInstancedMesh) {
-				renderer.renderInstances(drawStart, drawCount, object.count);
-			} else if (geometry.isInstancedBufferGeometry) {
-				const maxInstanceCount = geometry._maxInstanceCount !== undefined ? geometry._maxInstanceCount : Infinity;
-				const instanceCount = Math.min(geometry.instanceCount, maxInstanceCount);
-				renderer.renderInstances(drawStart, drawCount, instanceCount);
-			} else {
+
+			if (object.isInstancedMesh) ; else {
 				renderer.render(drawStart, drawCount);
 			}
 		};
@@ -15568,34 +15801,37 @@
 		}
 		function updateCommonMaterialProperties(material, parameters) {
 			const materialProperties = properties.get(material);
-			materialProperties.outputEncoding = parameters.outputEncoding;
+
+			// materialProperties.outputEncoding = parameters.outputEncoding;
 			materialProperties.instancing = parameters.instancing;
 			// materialProperties.skinning = parameters.skinning;
 			// materialProperties.morphTargets = parameters.morphTargets;
 			// materialProperties.morphNormals = parameters.morphNormals;
 			// materialProperties.morphColors = parameters.morphColors;
 			// materialProperties.morphTargetsCount = parameters.morphTargetsCount;
-			materialProperties.numClippingPlanes = parameters.numClippingPlanes;
+			// materialProperties.numClippingPlanes = parameters.numClippingPlanes;
 			materialProperties.numIntersection = parameters.numClipIntersection;
 			materialProperties.vertexAlphas = parameters.vertexAlphas;
 			materialProperties.vertexTangents = parameters.vertexTangents;
-			materialProperties.toneMapping = parameters.toneMapping;
+			// materialProperties.toneMapping = parameters.toneMapping;
 		}
+
 		function setProgram(camera, scene, geometry, material, object) {
 			if (scene.isScene !== true) scene = _emptyScene; // scene could be a Mesh, Line, Points, ...
 
 			textures.resetTextureUnits();
-			const fog = scene.fog;
+
+			// const fog = scene.fog;
 			// const environment = material.isMeshStandardMaterial ? scene.environment : null;
-			const encoding = _currentRenderTarget === null ? _this.outputEncoding : _currentRenderTarget.isXRRenderTarget === true ? _currentRenderTarget.texture.encoding : LinearEncoding;
+			// const encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : ( _currentRenderTarget.isXRRenderTarget === true ? _currentRenderTarget.texture.encoding : LinearEncoding );
 			// const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
-			const envMap = null; //( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
+			// const envMap = null;//( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
 			const vertexAlphas = material.vertexColors === true && !!geometry.attributes.color && geometry.attributes.color.itemSize === 4;
 			const vertexTangents = !!material.normalMap && !!geometry.attributes.tangent;
 			// const morphTargets = !! geometry.morphAttributes.position;
 			// const morphNormals = !! geometry.morphAttributes.normal;
 			// const morphColors = !! geometry.morphAttributes.color;
-			const toneMapping = material.toneMapped ? _this.toneMapping : NoToneMapping;
+			// const toneMapping = material.toneMapped ? _this.toneMapping : NoToneMapping;
 
 			// const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
 			// const morphTargetsCount = ( morphAttribute !== undefined ) ? morphAttribute.length : 0;
@@ -15619,8 +15855,10 @@
 			if (material.version === materialProperties.__version) {
 				if (materialProperties.needsLights && materialProperties.lightsStateVersion !== lights.state.version) {
 					needsProgramChange = true;
-				} else if (materialProperties.outputEncoding !== encoding) {
-					needsProgramChange = true;
+					//
+					// } else if ( materialProperties.outputEncoding !== encoding ) {
+					//
+					// 	needsProgramChange = true;
 				} else if (object.isInstancedMesh && materialProperties.instancing === false) {
 					needsProgramChange = true;
 				} else if (!object.isInstancedMesh && materialProperties.instancing === true) {
@@ -15633,12 +15871,20 @@
 					// } else if ( ! object.isSkinnedMesh && materialProperties.skinning === true ) {
 					//
 					// 	needsProgramChange = true;
-				} else if (materialProperties.envMap !== envMap) {
-					needsProgramChange = true;
-				} else if (material.fog === true && materialProperties.fog !== fog) {
-					needsProgramChange = true;
-				} else if (materialProperties.numClippingPlanes !== undefined && (materialProperties.numClippingPlanes !== clipping.numPlanes || materialProperties.numIntersection !== clipping.numIntersection)) {
-					needsProgramChange = true;
+					//
+					// } else if ( materialProperties.envMap !== envMap ) {
+					//
+					// 	needsProgramChange = true;
+					//
+					// } else if ( material.fog === true && materialProperties.fog !== fog ) {
+					//
+					// 	needsProgramChange = true;
+					//
+					// } else if ( materialProperties.numClippingPlanes !== undefined &&
+					// 	( materialProperties.numClippingPlanes !== clipping.numPlanes ||
+					// 	materialProperties.numIntersection !== clipping.numIntersection ) ) {
+					//
+					// 	needsProgramChange = true;
 				} else if (materialProperties.vertexAlphas !== vertexAlphas) {
 					needsProgramChange = true;
 				} else if (materialProperties.vertexTangents !== vertexTangents) {
@@ -15647,13 +15893,19 @@
 					// } else if ( materialProperties.morphTargets !== morphTargets ) {
 					//
 					// 	needsProgramChange = true;
-				} else if (materialProperties.morphNormals !== morphNormals) {
-					needsProgramChange = true;
-				} else if (materialProperties.morphColors !== morphColors) {
-					needsProgramChange = true;
-				} else if (materialProperties.toneMapping !== toneMapping) {
-					needsProgramChange = true;
-
+					//
+					// } else if ( materialProperties.morphNormals !== morphNormals ) {
+					//
+					// 	needsProgramChange = true;
+					//
+					// } else if ( materialProperties.morphColors !== morphColors ) {
+					//
+					// 	needsProgramChange = true;
+					//
+					// } else if ( materialProperties.toneMapping !== toneMapping ) {
+					//
+					// 	needsProgramChange = true;
+					//
 					// } else if ( capabilities.isWebGL2 === true && materialProperties.morphTargetsCount !== morphTargetsCount ) {
 					//
 					// 	needsProgramChange = true;
@@ -15778,10 +16030,14 @@
 
 			// https://github.com/mrdoob/three.js/pull/24467#issuecomment-1209031512
 
-			if (material.isMeshGouraudMaterial && material.envMap !== null) {
-				m_uniforms.envMap.value = envMap;
-				m_uniforms.flipEnvMap.value = envMap.isCubeTexture && envMap.isRenderTargetTexture === false ? -1 : 1;
-			}
+			// if ( material.isMeshGouraudMaterial && material.envMap !== null ) {
+			//
+			// 	m_uniforms.envMap.value = envMap;
+			//
+			// 	m_uniforms.flipEnvMap.value = ( envMap.isCubeTexture && envMap.isRenderTargetTexture === false ) ? - 1 : 1;
+			//
+			// }
+
 			if (refreshMaterial) {
 				p_uniforms.setValue(_gl, 'toneMappingExposure', _this.toneMappingExposure);
 				if (materialProperties.needsLights) {
@@ -15799,19 +16055,28 @@
 
 				// refresh uniforms common to several materials
 
-				if (fog && material.fog === true) {
-					materials.refreshFogUniforms(m_uniforms, fog);
-				}
+				// if ( fog && material.fog === true ) {
+				//
+				// 	materials.refreshFogUniforms( m_uniforms, fog );
+				//
+				// }
+
 				materials.refreshMaterialUniforms(m_uniforms, material, _pixelRatio, _height, _transmissionRenderTarget);
 				WebGLUniforms.upload(_gl, materialProperties.uniformsList, m_uniforms, textures);
 			}
-			if (material.isShaderMaterial && material.uniformsNeedUpdate === true) {
-				WebGLUniforms.upload(_gl, materialProperties.uniformsList, m_uniforms, textures);
-				material.uniformsNeedUpdate = false;
-			}
-			if (material.isSpriteMaterial) {
-				p_uniforms.setValue(_gl, 'center', object.center);
-			}
+
+			// if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
+			//
+			// 	WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
+			// 	material.uniformsNeedUpdate = false;
+			//
+			// }
+
+			// if ( material.isSpriteMaterial ) {
+			//
+			// 	p_uniforms.setValue( _gl, 'center', object.center );
+			//
+			// }
 
 			// common matrices
 
@@ -18645,21 +18910,40 @@
 		// }
 	}
 
-	class MeshBasicMaterial extends Material {
+	class MeshPhongMaterial extends Material {
 		constructor(parameters) {
 			super();
-			this.isMeshBasicMaterial = true;
-			this.type = 'MeshBasicMaterial';
-			this.color = new Color(0xffffff); // emissive
-
+			this.isMeshPhongMaterial = true;
+			this.type = 'MeshPhongMaterial';
+			this.color = new Color(0xffffff); // diffuse
+			this.specular = new Color(0x111111);
+			this.shininess = 30;
 			this.map = null;
-			this.lightMap = null;
-			this.lightMapIntensity = 1.0;
-			this.aoMap = null;
-			this.aoMapIntensity = 1.0;
+
+			// this.lightMap = null;
+			// this.lightMapIntensity = 1.0;
+
+			// this.aoMap = null;
+			// this.aoMapIntensity = 1.0;
+
+			this.emissive = new Color(0x000000);
+			this.emissiveIntensity = 1.0;
+			this.emissiveMap = null;
+			this.bumpMap = null;
+			this.bumpScale = 1;
+			this.normalMap = null;
+			this.normalMapType = TangentSpaceNormalMap;
+			this.normalScale = new Vector2(1, 1);
+
+			// this.displacementMap = null;
+			// this.displacementScale = 1;
+			// this.displacementBias = 0;
+
 			this.specularMap = null;
-			this.alphaMap = null;
-			this.envMap = null;
+
+			// this.alphaMap = null;
+
+			// this.envMap = null;
 			this.combine = MultiplyOperation;
 			this.reflectivity = 1;
 			this.refractionRatio = 0.98;
@@ -18667,30 +18951,65 @@
 			this.wireframeLinewidth = 1;
 			this.wireframeLinecap = 'round';
 			this.wireframeLinejoin = 'round';
-			this.fog = true;
+			this.flatShading = false;
+
+			// this.fog = true;
+
 			this.setValues(parameters);
 		}
-		copy(source) {
-			super.copy(source);
-			this.color.copy(source.color);
-			this.map = source.map;
-			this.lightMap = source.lightMap;
-			this.lightMapIntensity = source.lightMapIntensity;
-			this.aoMap = source.aoMap;
-			this.aoMapIntensity = source.aoMapIntensity;
-			this.specularMap = source.specularMap;
-			this.alphaMap = source.alphaMap;
-			this.envMap = source.envMap;
-			this.combine = source.combine;
-			this.reflectivity = source.reflectivity;
-			this.refractionRatio = source.refractionRatio;
-			this.wireframe = source.wireframe;
-			this.wireframeLinewidth = source.wireframeLinewidth;
-			this.wireframeLinecap = source.wireframeLinecap;
-			this.wireframeLinejoin = source.wireframeLinejoin;
-			this.fog = source.fog;
-			return this;
-		}
+
+		// copy( source ) {
+
+		// 	super.copy( source );
+
+		// 	this.color.copy( source.color );
+		// 	this.specular.copy( source.specular );
+		// 	this.shininess = source.shininess;
+
+		// 	this.map = source.map;
+
+		// 	this.lightMap = source.lightMap;
+		// 	this.lightMapIntensity = source.lightMapIntensity;
+
+		// 	this.aoMap = source.aoMap;
+		// 	this.aoMapIntensity = source.aoMapIntensity;
+
+		// 	this.emissive.copy( source.emissive );
+		// 	this.emissiveMap = source.emissiveMap;
+		// 	this.emissiveIntensity = source.emissiveIntensity;
+
+		// 	this.bumpMap = source.bumpMap;
+		// 	this.bumpScale = source.bumpScale;
+
+		// 	this.normalMap = source.normalMap;
+		// 	this.normalMapType = source.normalMapType;
+		// 	this.normalScale.copy( source.normalScale );
+
+		// 	this.displacementMap = source.displacementMap;
+		// 	this.displacementScale = source.displacementScale;
+		// 	this.displacementBias = source.displacementBias;
+
+		// 	this.specularMap = source.specularMap;
+
+		// 	this.alphaMap = source.alphaMap;
+
+		// 	this.envMap = source.envMap;
+		// 	this.combine = source.combine;
+		// 	this.reflectivity = source.reflectivity;
+		// 	this.refractionRatio = source.refractionRatio;
+
+		// 	this.wireframe = source.wireframe;
+		// 	this.wireframeLinewidth = source.wireframeLinewidth;
+		// 	this.wireframeLinecap = source.wireframeLinecap;
+		// 	this.wireframeLinejoin = source.wireframeLinejoin;
+
+		// 	this.flatShading = source.flatShading;
+
+		// 	this.fog = source.fog;
+
+		// 	return this;
+
+		// }
 	}
 
 	const _inverseMatrix = /*@__PURE__*/new Matrix4();
@@ -18699,76 +19018,122 @@
 	const _vA = /*@__PURE__*/new Vector3();
 	const _vB = /*@__PURE__*/new Vector3();
 	const _vC = /*@__PURE__*/new Vector3();
-	const _tempA = /*@__PURE__*/new Vector3();
-	const _morphA = /*@__PURE__*/new Vector3();
+
+
+
+
 	const _uvA = /*@__PURE__*/new Vector2();
 	const _uvB = /*@__PURE__*/new Vector2();
 	const _uvC = /*@__PURE__*/new Vector2();
 	const _intersectionPoint = /*@__PURE__*/new Vector3();
 	const _intersectionPointWorld = /*@__PURE__*/new Vector3();
 	class Mesh extends Object3D {
-		constructor(geometry = new BufferGeometry(), material = new MeshBasicMaterial()) {
+		constructor(geometry = new BufferGeometry(), material = new MeshPhongMaterial()) {
 			super();
 			this.isMesh = true;
 			this.type = 'Mesh';
 			this.geometry = geometry;
 			this.material = material;
-			this.updateMorphTargets();
+
+			// this.updateMorphTargets();
 		}
+
 		copy(source, recursive) {
 			super.copy(source, recursive);
-			if (source.morphTargetInfluences !== undefined) {
-				this.morphTargetInfluences = source.morphTargetInfluences.slice();
-			}
-			if (source.morphTargetDictionary !== undefined) {
-				this.morphTargetDictionary = Object.assign({}, source.morphTargetDictionary);
-			}
+
+			// if ( source.morphTargetInfluences !== undefined ) {
+			//
+			// 	this.morphTargetInfluences = source.morphTargetInfluences.slice();
+			//
+			// }
+			//
+			// if ( source.morphTargetDictionary !== undefined ) {
+			//
+			// 	this.morphTargetDictionary = Object.assign( {}, source.morphTargetDictionary );
+			//
+			// }
+
 			this.material = source.material;
 			this.geometry = source.geometry;
 			return this;
 		}
-		updateMorphTargets() {
-			const geometry = this.geometry;
-			const morphAttributes = geometry.morphAttributes;
-			const keys = Object.keys(morphAttributes);
-			if (keys.length > 0) {
-				const morphAttribute = morphAttributes[keys[0]];
-				if (morphAttribute !== undefined) {
-					this.morphTargetInfluences = [];
-					this.morphTargetDictionary = {};
-					for (let m = 0, ml = morphAttribute.length; m < ml; m++) {
-						const name = morphAttribute[m].name || String(m);
-						this.morphTargetInfluences.push(0);
-						this.morphTargetDictionary[name] = m;
-					}
-				}
-			}
-		}
+
+		// updateMorphTargets() {
+		//
+		// 	const geometry = this.geometry;
+		//
+		// 	const morphAttributes = geometry.morphAttributes;
+		// 	const keys = Object.keys( morphAttributes );
+		//
+		// 	if ( keys.length > 0 ) {
+		//
+		// 		const morphAttribute = morphAttributes[ keys[ 0 ] ];
+		//
+		// 		if ( morphAttribute !== undefined ) {
+		//
+		// 			this.morphTargetInfluences = [];
+		// 			this.morphTargetDictionary = {};
+		//
+		// 			for ( let m = 0, ml = morphAttribute.length; m < ml; m ++ ) {
+		//
+		// 				const name = morphAttribute[ m ].name || String( m );
+		//
+		// 				this.morphTargetInfluences.push( 0 );
+		// 				this.morphTargetDictionary[ name ] = m;
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// }
+
 		getVertexPosition(vert, target) {
 			const geometry = this.geometry;
 			const position = geometry.attributes.position;
-			const morphPosition = geometry.morphAttributes.position;
-			const morphTargetsRelative = geometry.morphTargetsRelative;
+			// const morphPosition = geometry.morphAttributes.position;
+			// const morphTargetsRelative = geometry.morphTargetsRelative;
+
 			target.fromBufferAttribute(position, vert);
-			const morphInfluences = this.morphTargetInfluences;
-			if (morphPosition && morphInfluences) {
-				_morphA.set(0, 0, 0);
-				for (let i = 0, il = morphPosition.length; i < il; i++) {
-					const influence = morphInfluences[i];
-					const morphAttribute = morphPosition[i];
-					if (influence === 0) continue;
-					_tempA.fromBufferAttribute(morphAttribute, vert);
-					if (morphTargetsRelative) {
-						_morphA.addScaledVector(_tempA, influence);
-					} else {
-						_morphA.addScaledVector(_tempA.sub(target), influence);
-					}
-				}
-				target.add(_morphA);
-			}
-			if (this.isSkinnedMesh) {
-				this.boneTransform(vert, target);
-			}
+
+			// const morphInfluences = this.morphTargetInfluences;
+			//
+			// if ( morphPosition && morphInfluences ) {
+			//
+			// 	_morphA.set( 0, 0, 0 );
+			//
+			// 	for ( let i = 0, il = morphPosition.length; i < il; i ++ ) {
+			//
+			// 		const influence = morphInfluences[ i ];
+			// 		const morphAttribute = morphPosition[ i ];
+			//
+			// 		if ( influence === 0 ) continue;
+			//
+			// 		_tempA.fromBufferAttribute( morphAttribute, vert );
+			//
+			// 		if ( morphTargetsRelative ) {
+			//
+			// 			_morphA.addScaledVector( _tempA, influence );
+			//
+			// 		} else {
+			//
+			// 			_morphA.addScaledVector( _tempA.sub( target ), influence );
+			//
+			// 		}
+			//
+			// 	}
+			//
+			// 	target.add( _morphA );
+			//
+			// }
+			//
+			// if ( this.isSkinnedMesh ) {
+			//
+			// 	this.boneTransform( vert, target );
+			//
+			// }
+
 			return target;
 		}
 		raycast(raycaster, intersects) {
@@ -18796,7 +19161,7 @@
 			}
 			let intersection;
 			const index = geometry.index;
-			const position = geometry.attributes.position;
+			geometry.attributes.position;
 			const uv = geometry.attributes.uv;
 			const uv2 = geometry.attributes.uv2;
 			const groups = geometry.groups;
@@ -18836,44 +19201,69 @@
 						}
 					}
 				}
-			} else if (position !== undefined) {
-				// non-indexed buffer geometry
-
-				if (Array.isArray(material)) {
-					for (let i = 0, il = groups.length; i < il; i++) {
-						const group = groups[i];
-						const groupMaterial = material[group.materialIndex];
-						const start = Math.max(group.start, drawRange.start);
-						const end = Math.min(position.count, Math.min(group.start + group.count, drawRange.start + drawRange.count));
-						for (let j = start, jl = end; j < jl; j += 3) {
-							const a = j;
-							const b = j + 1;
-							const c = j + 2;
-							intersection = checkBufferGeometryIntersection(this, groupMaterial, raycaster, _ray, uv, uv2, a, b, c);
-							if (intersection) {
-								intersection.faceIndex = Math.floor(j / 3); // triangle number in non-indexed buffer semantics
-								intersection.face.materialIndex = group.materialIndex;
-								intersects.push(intersection);
-							}
-						}
-					}
-				} else {
-					const start = Math.max(0, drawRange.start);
-					const end = Math.min(position.count, drawRange.start + drawRange.count);
-					for (let i = start, il = end; i < il; i += 3) {
-						const a = i;
-						const b = i + 1;
-						const c = i + 2;
-						intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray, uv, uv2, a, b, c);
-						if (intersection) {
-							intersection.faceIndex = Math.floor(i / 3); // triangle number in non-indexed buffer semantics
-							intersects.push(intersection);
-						}
-					}
-				}
 			}
+			// else if ( position !== undefined ) {
+			//
+			// 	// non-indexed buffer geometry
+			//
+			// 	if ( Array.isArray( material ) ) {
+			//
+			// 		for ( let i = 0, il = groups.length; i < il; i ++ ) {
+			//
+			// 			const group = groups[ i ];
+			// 			const groupMaterial = material[ group.materialIndex ];
+			//
+			// 			const start = Math.max( group.start, drawRange.start );
+			// 			const end = Math.min( position.count, Math.min( ( group.start + group.count ), ( drawRange.start + drawRange.count ) ) );
+			//
+			// 			for ( let j = start, jl = end; j < jl; j += 3 ) {
+			//
+			// 				const a = j;
+			// 				const b = j + 1;
+			// 				const c = j + 2;
+			//
+			// 				intersection = checkBufferGeometryIntersection( this, groupMaterial, raycaster, _ray, uv, uv2, a, b, c );
+			//
+			// 				if ( intersection ) {
+			//
+			// 					intersection.faceIndex = Math.floor( j / 3 ); // triangle number in non-indexed buffer semantics
+			// 					intersection.face.materialIndex = group.materialIndex;
+			// 					intersects.push( intersection );
+			//
+			// 				}
+			//
+			// 			}
+			//
+			// 		}
+			//
+			// 	} else {
+			//
+			// 		const start = Math.max( 0, drawRange.start );
+			// 		const end = Math.min( position.count, ( drawRange.start + drawRange.count ) );
+			//
+			// 		for ( let i = start, il = end; i < il; i += 3 ) {
+			//
+			// 			const a = i;
+			// 			const b = i + 1;
+			// 			const c = i + 2;
+			//
+			// 			intersection = checkBufferGeometryIntersection( this, material, raycaster, _ray, uv, uv2, a, b, c );
+			//
+			// 			if ( intersection ) {
+			//
+			// 				intersection.faceIndex = Math.floor( i / 3 ); // triangle number in non-indexed buffer semantics
+			// 				intersects.push( intersection );
+			//
+			// 			}
+			//
+			// 		}
+			//
+			// 	}
+			//
+			// }
 		}
 	}
+
 	function checkIntersection(object, material, raycaster, ray, pA, pB, pC, point) {
 		let intersect;
 		if (material.side === BackSide) {
@@ -19179,99 +19569,6 @@
 		// 	super.copy( source );
 
 		// 	this.color.copy( source.color );
-
-		// 	this.fog = source.fog;
-
-		// 	return this;
-
-		// }
-	}
-
-	class MeshPhongMaterial extends Material {
-		constructor(parameters) {
-			super();
-			this.isMeshPhongMaterial = true;
-			this.type = 'MeshPhongMaterial';
-			this.color = new Color(0xffffff); // diffuse
-			this.specular = new Color(0x111111);
-			this.shininess = 30;
-			this.map = null;
-			this.lightMap = null;
-			this.lightMapIntensity = 1.0;
-			this.aoMap = null;
-			this.aoMapIntensity = 1.0;
-			this.emissive = new Color(0x000000);
-			this.emissiveIntensity = 1.0;
-			this.emissiveMap = null;
-			this.bumpMap = null;
-			this.bumpScale = 1;
-			this.normalMap = null;
-			this.normalMapType = TangentSpaceNormalMap;
-			this.normalScale = new Vector2(1, 1);
-			this.displacementMap = null;
-			this.displacementScale = 1;
-			this.displacementBias = 0;
-			this.specularMap = null;
-			this.alphaMap = null;
-			this.envMap = null;
-			this.combine = MultiplyOperation;
-			this.reflectivity = 1;
-			this.refractionRatio = 0.98;
-			this.wireframe = false;
-			this.wireframeLinewidth = 1;
-			this.wireframeLinecap = 'round';
-			this.wireframeLinejoin = 'round';
-			this.flatShading = false;
-			this.fog = true;
-			this.setValues(parameters);
-		}
-
-		// copy( source ) {
-
-		// 	super.copy( source );
-
-		// 	this.color.copy( source.color );
-		// 	this.specular.copy( source.specular );
-		// 	this.shininess = source.shininess;
-
-		// 	this.map = source.map;
-
-		// 	this.lightMap = source.lightMap;
-		// 	this.lightMapIntensity = source.lightMapIntensity;
-
-		// 	this.aoMap = source.aoMap;
-		// 	this.aoMapIntensity = source.aoMapIntensity;
-
-		// 	this.emissive.copy( source.emissive );
-		// 	this.emissiveMap = source.emissiveMap;
-		// 	this.emissiveIntensity = source.emissiveIntensity;
-
-		// 	this.bumpMap = source.bumpMap;
-		// 	this.bumpScale = source.bumpScale;
-
-		// 	this.normalMap = source.normalMap;
-		// 	this.normalMapType = source.normalMapType;
-		// 	this.normalScale.copy( source.normalScale );
-
-		// 	this.displacementMap = source.displacementMap;
-		// 	this.displacementScale = source.displacementScale;
-		// 	this.displacementBias = source.displacementBias;
-
-		// 	this.specularMap = source.specularMap;
-
-		// 	this.alphaMap = source.alphaMap;
-
-		// 	this.envMap = source.envMap;
-		// 	this.combine = source.combine;
-		// 	this.reflectivity = source.reflectivity;
-		// 	this.refractionRatio = source.refractionRatio;
-
-		// 	this.wireframe = source.wireframe;
-		// 	this.wireframeLinewidth = source.wireframeLinewidth;
-		// 	this.wireframeLinecap = source.wireframeLinecap;
-		// 	this.wireframeLinejoin = source.wireframeLinejoin;
-
-		// 	this.flatShading = source.flatShading;
 
 		// 	this.fog = source.fog;
 
@@ -21347,7 +21644,6 @@
 	exports.Matrix4 = Matrix4;
 	exports.MaxEquation = MaxEquation;
 	exports.Mesh = Mesh;
-	exports.MeshBasicMaterial = MeshBasicMaterial;
 	exports.MeshPhongMaterial = MeshPhongMaterial;
 	exports.MinEquation = MinEquation;
 	exports.MirroredRepeatWrapping = MirroredRepeatWrapping;

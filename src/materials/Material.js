@@ -73,27 +73,27 @@ class Material extends EventDispatcher {
 
 		this.version = 0;
 
-		this._alphaTest = 0;
+		// this._alphaTest = 0;
 
 	}
-
-	get alphaTest() {
-
-		return this._alphaTest;
-
-	}
-
-	set alphaTest( value ) {
-
-		if ( this._alphaTest > 0 !== value > 0 ) {
-
-			this.version ++;
-
-		}
-
-		this._alphaTest = value;
-
-	}
+	//
+	// get alphaTest() {
+	//
+	// 	return this._alphaTest;
+	//
+	// }
+	//
+	// set alphaTest( value ) {
+	//
+	// 	if ( this._alphaTest > 0 !== value > 0 ) {
+	//
+	// 		this.version ++;
+	//
+	// 	}
+	//
+	// 	this._alphaTest = value;
+	//
+	// }
 
 	onBuild( /* shaderobject, renderer */ ) {}
 

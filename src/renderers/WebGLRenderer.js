@@ -799,22 +799,22 @@ function WebGLRenderer( parameters = {} ) {
 
 			renderer.setMode( _gl.POINTS );
 
-		} else if ( object.isSprite ) {
-
-			renderer.setMode( _gl.TRIANGLES );
+		// } else if ( object.isSprite ) {
+		//
+		// 	renderer.setMode( _gl.TRIANGLES );
 
 		}
 
 		if ( object.isInstancedMesh ) {
 
-			renderer.renderInstances( drawStart, drawCount, object.count );
-
-		} else if ( geometry.isInstancedBufferGeometry ) {
-
-			const maxInstanceCount = geometry._maxInstanceCount !== undefined ? geometry._maxInstanceCount : Infinity;
-			const instanceCount = Math.min( geometry.instanceCount, maxInstanceCount );
-
-			renderer.renderInstances( drawStart, drawCount, instanceCount );
+		// 	renderer.renderInstances( drawStart, drawCount, object.count );
+		//
+		// } else if ( geometry.isInstancedBufferGeometry ) {
+		//
+		// 	const maxInstanceCount = geometry._maxInstanceCount !== undefined ? geometry._maxInstanceCount : Infinity;
+		// 	const instanceCount = Math.min( geometry.instanceCount, maxInstanceCount );
+		//
+		// 	renderer.renderInstances( drawStart, drawCount, instanceCount );
 
 		} else {
 
@@ -1453,18 +1453,18 @@ function WebGLRenderer( parameters = {} ) {
 
 		const materialProperties = properties.get( material );
 
-		materialProperties.outputEncoding = parameters.outputEncoding;
+		// materialProperties.outputEncoding = parameters.outputEncoding;
 		materialProperties.instancing = parameters.instancing;
 		// materialProperties.skinning = parameters.skinning;
 		// materialProperties.morphTargets = parameters.morphTargets;
 		// materialProperties.morphNormals = parameters.morphNormals;
 		// materialProperties.morphColors = parameters.morphColors;
 		// materialProperties.morphTargetsCount = parameters.morphTargetsCount;
-		materialProperties.numClippingPlanes = parameters.numClippingPlanes;
+		// materialProperties.numClippingPlanes = parameters.numClippingPlanes;
 		materialProperties.numIntersection = parameters.numClipIntersection;
 		materialProperties.vertexAlphas = parameters.vertexAlphas;
 		materialProperties.vertexTangents = parameters.vertexTangents;
-		materialProperties.toneMapping = parameters.toneMapping;
+		// materialProperties.toneMapping = parameters.toneMapping;
 
 	}
 
@@ -1474,17 +1474,17 @@ function WebGLRenderer( parameters = {} ) {
 
 		textures.resetTextureUnits();
 
-		const fog = scene.fog;
+		// const fog = scene.fog;
 		// const environment = material.isMeshStandardMaterial ? scene.environment : null;
-		const encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : ( _currentRenderTarget.isXRRenderTarget === true ? _currentRenderTarget.texture.encoding : LinearEncoding );
+		// const encoding = ( _currentRenderTarget === null ) ? _this.outputEncoding : ( _currentRenderTarget.isXRRenderTarget === true ? _currentRenderTarget.texture.encoding : LinearEncoding );
 		// const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
-		const envMap = null;//( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
+		// const envMap = null;//( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
 		const vertexAlphas = material.vertexColors === true && !! geometry.attributes.color && geometry.attributes.color.itemSize === 4;
 		const vertexTangents = !! material.normalMap && !! geometry.attributes.tangent;
 		// const morphTargets = !! geometry.morphAttributes.position;
 		// const morphNormals = !! geometry.morphAttributes.normal;
 		// const morphColors = !! geometry.morphAttributes.color;
-		const toneMapping = material.toneMapped ? _this.toneMapping : NoToneMapping;
+		// const toneMapping = material.toneMapped ? _this.toneMapping : NoToneMapping;
 
 		// const morphAttribute = geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color;
 		// const morphTargetsCount = ( morphAttribute !== undefined ) ? morphAttribute.length : 0;
@@ -1518,10 +1518,10 @@ function WebGLRenderer( parameters = {} ) {
 			if ( materialProperties.needsLights && ( materialProperties.lightsStateVersion !== lights.state.version ) ) {
 
 				needsProgramChange = true;
-
-			} else if ( materialProperties.outputEncoding !== encoding ) {
-
-				needsProgramChange = true;
+			//
+			// } else if ( materialProperties.outputEncoding !== encoding ) {
+			//
+			// 	needsProgramChange = true;
 
 			} else if ( object.isInstancedMesh && materialProperties.instancing === false ) {
 
@@ -1538,20 +1538,20 @@ function WebGLRenderer( parameters = {} ) {
 			// } else if ( ! object.isSkinnedMesh && materialProperties.skinning === true ) {
 			//
 			// 	needsProgramChange = true;
-
-			} else if ( materialProperties.envMap !== envMap ) {
-
-				needsProgramChange = true;
-
-			} else if ( material.fog === true && materialProperties.fog !== fog ) {
-
-				needsProgramChange = true;
-
-			} else if ( materialProperties.numClippingPlanes !== undefined &&
-				( materialProperties.numClippingPlanes !== clipping.numPlanes ||
-				materialProperties.numIntersection !== clipping.numIntersection ) ) {
-
-				needsProgramChange = true;
+			//
+			// } else if ( materialProperties.envMap !== envMap ) {
+			//
+			// 	needsProgramChange = true;
+			//
+			// } else if ( material.fog === true && materialProperties.fog !== fog ) {
+			//
+			// 	needsProgramChange = true;
+			//
+			// } else if ( materialProperties.numClippingPlanes !== undefined &&
+			// 	( materialProperties.numClippingPlanes !== clipping.numPlanes ||
+			// 	materialProperties.numIntersection !== clipping.numIntersection ) ) {
+			//
+			// 	needsProgramChange = true;
 
 			} else if ( materialProperties.vertexAlphas !== vertexAlphas ) {
 
@@ -1564,19 +1564,19 @@ function WebGLRenderer( parameters = {} ) {
 			// } else if ( materialProperties.morphTargets !== morphTargets ) {
 			//
 			// 	needsProgramChange = true;
-
-			} else if ( materialProperties.morphNormals !== morphNormals ) {
-
-				needsProgramChange = true;
-
-			} else if ( materialProperties.morphColors !== morphColors ) {
-
-				needsProgramChange = true;
-
-			} else if ( materialProperties.toneMapping !== toneMapping ) {
-
-				needsProgramChange = true;
-
+			//
+			// } else if ( materialProperties.morphNormals !== morphNormals ) {
+			//
+			// 	needsProgramChange = true;
+			//
+			// } else if ( materialProperties.morphColors !== morphColors ) {
+			//
+			// 	needsProgramChange = true;
+			//
+			// } else if ( materialProperties.toneMapping !== toneMapping ) {
+			//
+			// 	needsProgramChange = true;
+			//
 			// } else if ( capabilities.isWebGL2 === true && materialProperties.morphTargetsCount !== morphTargetsCount ) {
 			//
 			// 	needsProgramChange = true;
@@ -1741,13 +1741,13 @@ function WebGLRenderer( parameters = {} ) {
 
 		// https://github.com/mrdoob/three.js/pull/24467#issuecomment-1209031512
 
-		if ( material.isMeshGouraudMaterial && material.envMap !== null ) {
-
-			m_uniforms.envMap.value = envMap;
-
-			m_uniforms.flipEnvMap.value = ( envMap.isCubeTexture && envMap.isRenderTargetTexture === false ) ? - 1 : 1;
-
-		}
+		// if ( material.isMeshGouraudMaterial && material.envMap !== null ) {
+		//
+		// 	m_uniforms.envMap.value = envMap;
+		//
+		// 	m_uniforms.flipEnvMap.value = ( envMap.isCubeTexture && envMap.isRenderTargetTexture === false ) ? - 1 : 1;
+		//
+		// }
 
 		if ( refreshMaterial ) {
 
@@ -1770,11 +1770,11 @@ function WebGLRenderer( parameters = {} ) {
 
 			// refresh uniforms common to several materials
 
-			if ( fog && material.fog === true ) {
-
-				materials.refreshFogUniforms( m_uniforms, fog );
-
-			}
+			// if ( fog && material.fog === true ) {
+			//
+			// 	materials.refreshFogUniforms( m_uniforms, fog );
+			//
+			// }
 
 			materials.refreshMaterialUniforms( m_uniforms, material, _pixelRatio, _height, _transmissionRenderTarget );
 
@@ -1782,18 +1782,18 @@ function WebGLRenderer( parameters = {} ) {
 
 		}
 
-		if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
+		// if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
+		//
+		// 	WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
+		// 	material.uniformsNeedUpdate = false;
+		//
+		// }
 
-			WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
-			material.uniformsNeedUpdate = false;
-
-		}
-
-		if ( material.isSpriteMaterial ) {
-
-			p_uniforms.setValue( _gl, 'center', object.center );
-
-		}
+		// if ( material.isSpriteMaterial ) {
+		//
+		// 	p_uniforms.setValue( _gl, 'center', object.center );
+		//
+		// }
 
 		// common matrices
 

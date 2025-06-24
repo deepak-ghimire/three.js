@@ -240,37 +240,37 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 			result = ( light.isPointLight === true ) ? _distanceMaterial : _depthMaterial;
 
-			if ( ( _renderer.localClippingEnabled && material.clipShadows === true && Array.isArray( material.clippingPlanes ) && material.clippingPlanes.length !== 0 ) ||
-				( material.displacementMap && material.displacementScale !== 0 ) ||
-				( material.alphaMap && material.alphaTest > 0 ) ||
-				( material.map && material.alphaTest > 0 ) ) {
-
-				// in this case we need a unique material instance reflecting the
-				// appropriate state
-
-				const keyA = result.uuid, keyB = material.uuid;
-
-				let materialsForVariant = _materialCache[ keyA ];
-
-				if ( materialsForVariant === undefined ) {
-
-					materialsForVariant = {};
-					_materialCache[ keyA ] = materialsForVariant;
-
-				}
-
-				let cachedMaterial = materialsForVariant[ keyB ];
-
-				if ( cachedMaterial === undefined ) {
-
-					cachedMaterial = result.clone();
-					materialsForVariant[ keyB ] = cachedMaterial;
-
-				}
-
-				result = cachedMaterial;
-
-			}
+			// if ( ( _renderer.localClippingEnabled && material.clipShadows === true && Array.isArray( material.clippingPlanes ) && material.clippingPlanes.length !== 0 ) ||
+			// 	( material.displacementMap && material.displacementScale !== 0 ) ||
+			// 	( material.alphaMap && material.alphaTest > 0 ) ||
+			// 	( material.map && material.alphaTest > 0 ) ) {
+			//
+			// 	// in this case we need a unique material instance reflecting the
+			// 	// appropriate state
+			//
+			// 	const keyA = result.uuid, keyB = material.uuid;
+			//
+			// 	let materialsForVariant = _materialCache[ keyA ];
+			//
+			// 	if ( materialsForVariant === undefined ) {
+			//
+			// 		materialsForVariant = {};
+			// 		_materialCache[ keyA ] = materialsForVariant;
+			//
+			// 	}
+			//
+			// 	let cachedMaterial = materialsForVariant[ keyB ];
+			//
+			// 	if ( cachedMaterial === undefined ) {
+			//
+			// 		cachedMaterial = result.clone();
+			// 		materialsForVariant[ keyB ] = cachedMaterial;
+			//
+			// 	}
+			//
+			// 	result = cachedMaterial;
+			//
+			// }
 
 		}
 
@@ -279,7 +279,7 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 		if ( type === VSMShadowMap ) {
 
-			result.side = ( material.shadowSide !== null ) ? material.shadowSide : material.side;
+			// result.side = ( material.shadowSide !== null ) ? material.shadowSide : material.side;
 
 		} else {
 
@@ -287,28 +287,28 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 		}
 
-		result.alphaMap = material.alphaMap;
-		result.alphaTest = material.alphaTest;
+		// result.alphaMap = material.alphaMap;
+		// result.alphaTest = material.alphaTest;
 		result.map = material.map;
 
-		result.clipShadows = material.clipShadows;
-		result.clippingPlanes = material.clippingPlanes;
-		result.clipIntersection = material.clipIntersection;
-
-		result.displacementMap = material.displacementMap;
-		result.displacementScale = material.displacementScale;
-		result.displacementBias = material.displacementBias;
+		// result.clipShadows = material.clipShadows;
+		// result.clippingPlanes = material.clippingPlanes;
+		// result.clipIntersection = material.clipIntersection;
+		//
+		// result.displacementMap = material.displacementMap;
+		// result.displacementScale = material.displacementScale;
+		// result.displacementBias = material.displacementBias;
 
 		result.wireframeLinewidth = material.wireframeLinewidth;
 		result.linewidth = material.linewidth;
 
-		if ( light.isPointLight === true && result.isMeshDistanceMaterial === true ) {
-
-			result.referencePosition.setFromMatrixPosition( light.matrixWorld );
-			result.nearDistance = shadowCameraNear;
-			result.farDistance = shadowCameraFar;
-
-		}
+		// if ( light.isPointLight === true && result.isMeshDistanceMaterial === true ) {
+		//
+		// 	result.referencePosition.setFromMatrixPosition( light.matrixWorld );
+		// 	result.nearDistance = shadowCameraNear;
+		// 	result.farDistance = shadowCameraFar;
+		//
+		// }
 
 		return result;
 
