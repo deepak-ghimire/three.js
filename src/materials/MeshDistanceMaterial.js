@@ -17,35 +17,35 @@ class MeshDistanceMaterial extends Material {
 
 		this.map = null;
 
-		this.alphaMap = null;
-
-		this.displacementMap = null;
-		this.displacementScale = 1;
-		this.displacementBias = 0;
+		// this.alphaMap = null;
+		//
+		// this.displacementMap = null;
+		// this.displacementScale = 1;
+		// this.displacementBias = 0;
 
 		this.setValues( parameters );
 
 	}
 
-	copy( source ) {
-
-		super.copy( source );
-
-		this.referencePosition.copy( source.referencePosition );
-		this.nearDistance = source.nearDistance;
-		this.farDistance = source.farDistance;
-
-		this.map = source.map;
-
-		this.alphaMap = source.alphaMap;
-
-		this.displacementMap = source.displacementMap;
-		this.displacementScale = source.displacementScale;
-		this.displacementBias = source.displacementBias;
-
-		return this;
-
-	}
+	// copy( source ) {
+	//
+	// 	super.copy( source );
+	//
+	// 	this.referencePosition.copy( source.referencePosition );
+	// 	this.nearDistance = source.nearDistance;
+	// 	this.farDistance = source.farDistance;
+	//
+	// 	this.map = source.map;
+	//
+	// 	this.alphaMap = source.alphaMap;
+	//
+	// 	this.displacementMap = source.displacementMap;
+	// 	this.displacementScale = source.displacementScale;
+	// 	this.displacementBias = source.displacementBias;
+	//
+	// 	return this;
+	//
+	// }
 
 }
 

@@ -2,7 +2,7 @@ import { Camera } from '../cameras/Camera.js';
 import { Vector3 } from '../math/Vector3.js';
 import { LineSegments } from '../objects/LineSegments.js';
 import { Color } from '../math/Color.js';
-import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
+import { MeshPhongMaterial } from '../materials/MeshPhongMaterial.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
 import { Float32BufferAttribute } from '../core/BufferAttribute.js';
 
@@ -21,7 +21,7 @@ class CameraHelper extends LineSegments {
 	constructor( camera ) {
 
 		const geometry = new BufferGeometry();
-		const material = new LineBasicMaterial( { color: 0xffffff, vertexColors: true, toneMapped: false } );
+		const material = new MeshPhongMaterial( { color: 0xffffff, vertexColors: true, toneMapped: false } );
 
 		const vertices = [];
 		const colors = [];

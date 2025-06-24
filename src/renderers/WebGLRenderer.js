@@ -23,7 +23,7 @@ import { WebGLAttributes } from './webgl/WebGLAttributes.js';
 import { WebGLBindingStates } from './webgl/WebGLBindingStates.js';
 import { WebGLBufferRenderer } from './webgl/WebGLBufferRenderer.js';
 import { WebGLCapabilities } from './webgl/WebGLCapabilities.js';
-import { WebGLClipping } from './webgl/WebGLClipping.js';
+// import { WebGLClipping } from './webgl/WebGLClipping.js';
 // import { WebGLCubeMaps } from './webgl/WebGLCubeMaps.js';
 // import { WebGLCubeUVMaps } from './webgl/WebGLCubeUVMaps.js';
 import { WebGLExtensions } from './webgl/WebGLExtensions.js';
@@ -118,8 +118,8 @@ function WebGLRenderer( parameters = {} ) {
 
 	// user-defined clipping
 
-	this.clippingPlanes = [];
-	this.localClippingEnabled = false;
+	// this.clippingPlanes = [];
+	// this.localClippingEnabled = false;
 
 	// physically based shading
 
@@ -172,8 +172,8 @@ function WebGLRenderer( parameters = {} ) {
 
 	// clipping
 
-	let _clippingEnabled = false;
-	let _localClippingEnabled = false;
+	// let _clippingEnabled = false;
+	// let _localClippingEnabled = false;
 
 	// transmission
 
@@ -312,7 +312,7 @@ function WebGLRenderer( parameters = {} ) {
 		geometries = new WebGLGeometries( _gl, attributes, info, bindingStates );
 		objects = new WebGLObjects( _gl, geometries, attributes, info );
 		// morphtargets = new WebGLMorphtargets( _gl, capabilities, textures );
-		clipping = new WebGLClipping( properties );
+		// clipping = new WebGLClipping( properties );
 		programCache = new WebGLPrograms( _this, cubemaps, cubeuvmaps, extensions, capabilities, bindingStates, clipping );
 		materials = new WebGLMaterials( _this, properties );
 		renderLists = new WebGLRenderLists();
@@ -983,8 +983,8 @@ function WebGLRenderer( parameters = {} ) {
 		_projScreenMatrix.multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse );
 		_frustum.setFromProjectionMatrix( _projScreenMatrix );
 
-		_localClippingEnabled = this.localClippingEnabled;
-		_clippingEnabled = clipping.init( this.clippingPlanes, _localClippingEnabled, camera );
+		// _localClippingEnabled = this.localClippingEnabled;
+		// _clippingEnabled = clipping.init( this.clippingPlanes, _localClippingEnabled, camera );
 
 		currentRenderList = renderLists.get( scene, renderListStack.length );
 		currentRenderList.init();
@@ -1003,13 +1003,13 @@ function WebGLRenderer( parameters = {} ) {
 
 		//
 
-		if ( _clippingEnabled === true ) clipping.beginShadows();
+		// if ( _clippingEnabled === true ) clipping.beginShadows();
 
 		const shadowsArray = currentRenderState.state.shadowsArray;
 
 		shadowMap.render( shadowsArray, scene, camera );
 
-		if ( _clippingEnabled === true ) clipping.endShadows();
+		// if ( _clippingEnabled === true ) clipping.endShadows();
 
 		//
 
@@ -1398,11 +1398,11 @@ function WebGLRenderer( parameters = {} ) {
 
 		const uniforms = materialProperties.uniforms;
 
-		if ( ( ! material.isShaderMaterial && ! material.isRawShaderMaterial ) || material.clipping === true ) {
-
-			uniforms.clippingPlanes = clipping.uniform;
-
-		}
+		// if ( ( ! material.isShaderMaterial && ! material.isRawShaderMaterial ) || material.clipping === true ) {
+		//
+		// 	uniforms.clippingPlanes = clipping.uniform;
+		//
+		// }
 
 		updateCommonMaterialProperties( material, parameters );
 
@@ -1492,22 +1492,22 @@ function WebGLRenderer( parameters = {} ) {
 		const materialProperties = properties.get( material );
 		const lights = currentRenderState.state.lights;
 
-		if ( _clippingEnabled === true ) {
-
-			if ( _localClippingEnabled === true || camera !== _currentCamera ) {
-
-				const useCache =
-					camera === _currentCamera &&
-					material.id === _currentMaterialId;
-
-				// we might want to call this function with some ClippingGroup
-				// object instead of the material, once it becomes feasible
-				// (#8465, #8379)
-				clipping.setState( material, camera, useCache );
-
-			}
-
-		}
+		// if ( _clippingEnabled === true ) {
+		//
+		// 	if ( _localClippingEnabled === true || camera !== _currentCamera ) {
+		//
+		// 		const useCache =
+		// 			camera === _currentCamera &&
+		// 			material.id === _currentMaterialId;
+		//
+		// 		// we might want to call this function with some ClippingGroup
+		// 		// object instead of the material, once it becomes feasible
+		// 		// (#8465, #8379)
+		// 		clipping.setState( material, camera, useCache );
+		//
+		// 	}
+		//
+		// }
 
 		//
 

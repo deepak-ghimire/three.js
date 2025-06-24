@@ -1,8 +1,9 @@
 import { Box3 } from '../math/Box3.js';
 import { LineSegments } from '../objects/LineSegments.js';
-import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
+// import { MeshPhongMaterial } from '../materials/LineBasicMaterial.js';
 import { BufferAttribute } from '../core/BufferAttribute.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
+import {MeshPhongMaterial} from "../materials/MeshPhongMaterial.js";
 
 const _box = /*@__PURE__*/ new Box3();
 
@@ -17,7 +18,7 @@ class BoxHelper extends LineSegments {
 		geometry.setIndex( new BufferAttribute( indices, 1 ) );
 		geometry.setAttribute( 'position', new BufferAttribute( positions, 3 ) );
 
-		super( geometry, new LineBasicMaterial( { color: color, toneMapped: false } ) );
+		super( geometry, new MeshPhongMaterial( { color: color, toneMapped: false } ) );
 
 		this.object = object;
 		this.type = 'BoxHelper';

@@ -7,7 +7,7 @@ class MeshDepthMaterial extends Material {
 
 		super();
 
-		this.isMeshDepthMaterial = true;
+		// this.isMeshDepthMaterial = true;
 
 		this.type = 'MeshDepthMaterial';
 
@@ -15,11 +15,11 @@ class MeshDepthMaterial extends Material {
 
 		this.map = null;
 
-		this.alphaMap = null;
+		// this.alphaMap = null;
 
-		this.displacementMap = null;
-		this.displacementScale = 1;
-		this.displacementBias = 0;
+		// this.displacementMap = null;
+		// this.displacementScale = 1;
+		// this.displacementBias = 0;
 
 		this.wireframe = false;
 		this.wireframeLinewidth = 1;
@@ -28,26 +28,26 @@ class MeshDepthMaterial extends Material {
 
 	}
 
-	copy( source ) {
-
-		super.copy( source );
-
-		this.depthPacking = source.depthPacking;
-
-		this.map = source.map;
-
-		this.alphaMap = source.alphaMap;
-
-		this.displacementMap = source.displacementMap;
-		this.displacementScale = source.displacementScale;
-		this.displacementBias = source.displacementBias;
-
-		this.wireframe = source.wireframe;
-		this.wireframeLinewidth = source.wireframeLinewidth;
-
-		return this;
-
-	}
+	// copy( source ) {
+	//
+	// 	super.copy( source );
+	//
+	// 	this.depthPacking = source.depthPacking;
+	//
+	// 	this.map = source.map;
+	//
+	// 	this.alphaMap = source.alphaMap;
+	//
+	// 	this.displacementMap = source.displacementMap;
+	// 	this.displacementScale = source.displacementScale;
+	// 	this.displacementBias = source.displacementBias;
+	//
+	// 	this.wireframe = source.wireframe;
+	// 	this.wireframeLinewidth = source.wireframeLinewidth;
+	//
+	// 	return this;
+	//
+	// }
 
 }
 

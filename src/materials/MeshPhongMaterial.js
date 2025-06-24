@@ -29,8 +29,8 @@ class MeshPhongMaterial extends Material {
 		this.emissiveIntensity = 1.0;
 		this.emissiveMap = null;
 
-		this.bumpMap = null;
-		this.bumpScale = 1;
+		// this.bumpMap = null;
+		// this.bumpScale = 1;
 
 		this.normalMap = null;
 		this.normalMapType = TangentSpaceNormalMap;

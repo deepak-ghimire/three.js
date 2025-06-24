@@ -46,9 +46,9 @@ class Material extends EventDispatcher {
 		this.stencilZPass = KeepStencilOp;
 		this.stencilWrite = false;
 
-		this.clippingPlanes = null;
-		this.clipIntersection = false;
-		this.clipShadows = false;
+		// this.clippingPlanes = null;
+		// this.clipIntersection = false;
+		// this.clipShadows = false;
 
 		this.shadowSide = null;
 

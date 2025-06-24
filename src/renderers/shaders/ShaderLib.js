@@ -53,14 +53,14 @@ const ShaderLib = {
 		uniforms: /*@__PURE__*/ mergeUniforms( [
 			UniformsLib.common,
 			UniformsLib.specularmap,
-			UniformsLib.envmap,
-			UniformsLib.aomap,
-			UniformsLib.lightmap,
+			// UniformsLib.envmap,
+			// UniformsLib.aomap,
+			// UniformsLib.lightmap,
 			UniformsLib.emissivemap,
-			UniformsLib.bumpmap,
+			// UniformsLib.bumpmap,
 			UniformsLib.normalmap,
-			UniformsLib.displacementmap,
-			UniformsLib.fog,
+			// UniformsLib.displacementmap,
+			// UniformsLib.fog,
 			UniformsLib.lights,
 			{
 				emissive: { value: /*@__PURE__*/ new Color( 0x000000 ) },
@@ -176,7 +176,7 @@ const ShaderLib = {
 
 		uniforms: /*@__PURE__*/ mergeUniforms( [
 			UniformsLib.common,
-			UniformsLib.displacementmap
+			// UniformsLib.displacementmap
 		] ),
 
 		vertexShader: ShaderChunk.depth_vert,

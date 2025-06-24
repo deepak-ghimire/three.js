@@ -89,11 +89,11 @@ class Texture extends EventDispatcher {
 
 	}
 
-	updateMatrix() {
-
-		this.matrix.setUvTransform( this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y );
-
-	}
+	// updateMatrix() {
+	//
+	// 	this.matrix.setUvTransform( this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y );
+	//
+	// }
 
 	// clone() {
 

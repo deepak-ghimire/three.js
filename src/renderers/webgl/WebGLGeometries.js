@@ -77,19 +77,19 @@ function WebGLGeometries( gl, attributes, info, bindingStates ) {
 
 		// morph targets
 
-		const morphAttributes = geometry.morphAttributes;
-
-		for ( const name in morphAttributes ) {
-
-			const array = morphAttributes[ name ];
-
-			for ( let i = 0, l = array.length; i < l; i ++ ) {
-
-				attributes.update( array[ i ], gl.ARRAY_BUFFER );
-
-			}
-
-		}
+		// const morphAttributes = geometry.morphAttributes;
+		//
+		// for ( const name in morphAttributes ) {
+		//
+		// 	const array = morphAttributes[ name ];
+		//
+		// 	for ( let i = 0, l = array.length; i < l; i ++ ) {
+		//
+		// 		attributes.update( array[ i ], gl.ARRAY_BUFFER );
+		//
+		// 	}
+		//
+		// }
 
 	}
 

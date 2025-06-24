@@ -193,14 +193,14 @@ function replaceLightNums( string, parameters ) {
 		.replace( /NUM_POINT_LIGHT_SHADOWS/g, parameters.numPointLightShadows );
 
 }
-
-function replaceClippingPlaneNums( string, parameters ) {
-
-	return string
-		.replace( /NUM_CLIPPING_PLANES/g, parameters.numClippingPlanes )
-		.replace( /UNION_CLIPPING_PLANES/g, ( parameters.numClippingPlanes - parameters.numClipIntersection ) );
-
-}
+//
+// function replaceClippingPlaneNums( string, parameters ) {
+//
+// 	return string
+// 		.replace( /NUM_CLIPPING_PLANES/g, parameters.numClippingPlanes )
+// 		.replace( /UNION_CLIPPING_PLANES/g, ( parameters.numClippingPlanes - parameters.numClipIntersection ) );
+//
+// }
 
 // Resolve Includes
 
@@ -703,11 +703,11 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 	vertexShader = resolveIncludes( vertexShader );
 	vertexShader = replaceLightNums( vertexShader, parameters );
-	vertexShader = replaceClippingPlaneNums( vertexShader, parameters );
+	// vertexShader = replaceClippingPlaneNums( vertexShader, parameters );
 
 	fragmentShader = resolveIncludes( fragmentShader );
 	fragmentShader = replaceLightNums( fragmentShader, parameters );
-	fragmentShader = replaceClippingPlaneNums( fragmentShader, parameters );
+	// fragmentShader = replaceClippingPlaneNums( fragmentShader, parameters );
 
 	vertexShader = unrollLoops( vertexShader );
 	fragmentShader = unrollLoops( fragmentShader );
@@ -761,10 +761,10 @@ function WebGLProgram( renderer, cacheKey, parameters, bindingStates ) {
 
 		gl.bindAttribLocation( program, 0, parameters.index0AttributeName );
 
-	} else if ( parameters.morphTargets === true ) {
-
+	// } else if ( parameters.morphTargets === true ) {
+	//
 		// programs with morphTargets displace position out of attribute 0
-		gl.bindAttribLocation( program, 0, 'position' );
+		// gl.bindAttribLocation( program, 0, 'position' );
 
 	}
 

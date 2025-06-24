@@ -39,8 +39,8 @@ class BufferGeometry extends EventDispatcher {
 		this.index = null;
 		this.attributes = {};
 
-		this.morphAttributes = {};
-		this.morphTargetsRelative = false;
+		// this.morphAttributes = {};
+		// this.morphTargetsRelative = false;
 
 		this.groups = [];
 

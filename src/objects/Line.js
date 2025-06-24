@@ -3,8 +3,9 @@
 // import { Matrix4 } from '../math/Matrix4.js';
 import { Object3D } from '../core/Object3D.js';
 // import { Vector3 } from '../math/Vector3.js';
-import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
+// import { LineBasicMaterial } from '../materials/LineBasicMaterial.js';
 import { BufferGeometry } from '../core/BufferGeometry.js';
+import {MeshPhongMaterial} from "../materials/MeshPhongMaterial.js";
 // import { Float32BufferAttribute } from '../core/BufferAttribute.js';
 
 // const _start = /*@__PURE__*/ new Vector3();
@@ -15,7 +16,7 @@ import { BufferGeometry } from '../core/BufferGeometry.js';
 
 class Line extends Object3D {
 
-	constructor( geometry = new BufferGeometry(), material = new LineBasicMaterial() ) {
+	constructor( geometry = new BufferGeometry(), material = new MeshPhongMaterial() ) {
 
 		super();
 
@@ -26,7 +27,7 @@ class Line extends Object3D {
 		this.geometry = geometry;
 		this.material = material;
 
-		this.updateMorphTargets();
+		// this.updateMorphTargets();
 
 	}
 
@@ -186,36 +187,36 @@ class Line extends Object3D {
 
 	// }
 
-	updateMorphTargets() {
-
-		const geometry = this.geometry;
-
-		const morphAttributes = geometry.morphAttributes;
-		const keys = Object.keys( morphAttributes );
-
-		if ( keys.length > 0 ) {
-
-			const morphAttribute = morphAttributes[ keys[ 0 ] ];
-
-			if ( morphAttribute !== undefined ) {
-
-				this.morphTargetInfluences = [];
-				this.morphTargetDictionary = {};
-
-				for ( let m = 0, ml = morphAttribute.length; m < ml; m ++ ) {
-
-					const name = morphAttribute[ m ].name || String( m );
-
-					this.morphTargetInfluences.push( 0 );
-					this.morphTargetDictionary[ name ] = m;
-
-				}
-
-			}
-
-		}
-
-	}
+	// updateMorphTargets() {
+	//
+	// 	const geometry = this.geometry;
+	//
+	// 	const morphAttributes = geometry.morphAttributes;
+	// 	const keys = Object.keys( morphAttributes );
+	//
+	// 	if ( keys.length > 0 ) {
+	//
+	// 		const morphAttribute = morphAttributes[ keys[ 0 ] ];
+	//
+	// 		if ( morphAttribute !== undefined ) {
+	//
+	// 			this.morphTargetInfluences = [];
+	// 			this.morphTargetDictionary = {};
+	//
+	// 			for ( let m = 0, ml = morphAttribute.length; m < ml; m ++ ) {
+	//
+	// 				const name = morphAttribute[ m ].name || String( m );
+	//
+	// 				this.morphTargetInfluences.push( 0 );
+	// 				this.morphTargetDictionary[ name ] = m;
+	//
+	// 			}
+	//
+	// 		}
+	//
+	// 	}
+	//
+	// }
 
 }
 

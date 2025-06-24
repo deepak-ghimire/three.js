@@ -69,7 +69,7 @@
 	// export const CubeRefractionMapping = 302;
 	// export const EquirectangularReflectionMapping = 303;
 	// export const EquirectangularRefractionMapping = 304;
-	const CubeUVReflectionMapping = 306;
+	// export const CubeUVReflectionMapping = 306;
 	const RepeatWrapping = 1000;
 	const ClampToEdgeWrapping = 1001;
 	const MirroredRepeatWrapping = 1002;
@@ -93,14 +93,14 @@
 	const HalfFloatType = 1016;
 	const UnsignedShort4444Type = 1017;
 	const UnsignedShort5551Type = 1018;
-	const UnsignedInt248Type = 1020;
+	// export const UnsignedInt248Type = 1020;
 	// export const AlphaFormat = 1021;
 	// export const RGBFormat = 1022; // @deprecated since r137
 	const RGBAFormat = 1023;
 	// export const LuminanceFormat = 1024;
 	// export const LuminanceAlphaFormat = 1025;
-	const DepthFormat = 1026;
-	const DepthStencilFormat = 1027;
+	// export const DepthFormat = 1026;
+	// export const DepthStencilFormat = 1027;
 	// export const RedFormat = 1028;
 	// export const RedIntegerFormat = 1029;
 	// export const RGFormat = 1030;
@@ -4002,429 +4002,6 @@
 		};
 	}
 
-	class Matrix3 {
-		constructor() {
-			Matrix3.prototype.isMatrix3 = true;
-			this.elements = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-		}
-		set(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
-			const te = this.elements;
-			te[0] = n11;
-			te[1] = n21;
-			te[2] = n31;
-			te[3] = n12;
-			te[4] = n22;
-			te[5] = n32;
-			te[6] = n13;
-			te[7] = n23;
-			te[8] = n33;
-			return this;
-		}
-
-		// identity() {
-		//
-		// 	this.set(
-		//
-		// 		1, 0, 0,
-		// 		0, 1, 0,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
-
-		copy(m) {
-			const te = this.elements;
-			const me = m.elements;
-			te[0] = me[0];
-			te[1] = me[1];
-			te[2] = me[2];
-			te[3] = me[3];
-			te[4] = me[4];
-			te[5] = me[5];
-			te[6] = me[6];
-			te[7] = me[7];
-			te[8] = me[8];
-			return this;
-		}
-
-		// extractBasis( xAxis, yAxis, zAxis ) {
-		//
-		// 	xAxis.setFromMatrix3Column( this, 0 );
-		// 	yAxis.setFromMatrix3Column( this, 1 );
-		// 	zAxis.setFromMatrix3Column( this, 2 );
-		//
-		// 	return this;
-		//
-		// }
-
-		setFromMatrix4(m) {
-			const me = m.elements;
-			this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10]);
-			return this;
-		}
-		//
-		// multiply( m ) {
-		//
-		// 	return this.multiplyMatrices( this, m );
-		//
-		// }
-		//
-		// premultiply( m ) {
-		//
-		// 	return this.multiplyMatrices( m, this );
-		//
-		// }
-		//
-		// multiplyMatrices( a, b ) {
-		//
-		// 	const ae = a.elements;
-		// 	const be = b.elements;
-		// 	const te = this.elements;
-		//
-		// 	const a11 = ae[ 0 ], a12 = ae[ 3 ], a13 = ae[ 6 ];
-		// 	const a21 = ae[ 1 ], a22 = ae[ 4 ], a23 = ae[ 7 ];
-		// 	const a31 = ae[ 2 ], a32 = ae[ 5 ], a33 = ae[ 8 ];
-		//
-		// 	const b11 = be[ 0 ], b12 = be[ 3 ], b13 = be[ 6 ];
-		// 	const b21 = be[ 1 ], b22 = be[ 4 ], b23 = be[ 7 ];
-		// 	const b31 = be[ 2 ], b32 = be[ 5 ], b33 = be[ 8 ];
-		//
-		// 	te[ 0 ] = a11 * b11 + a12 * b21 + a13 * b31;
-		// 	te[ 3 ] = a11 * b12 + a12 * b22 + a13 * b32;
-		// 	te[ 6 ] = a11 * b13 + a12 * b23 + a13 * b33;
-		//
-		// 	te[ 1 ] = a21 * b11 + a22 * b21 + a23 * b31;
-		// 	te[ 4 ] = a21 * b12 + a22 * b22 + a23 * b32;
-		// 	te[ 7 ] = a21 * b13 + a22 * b23 + a23 * b33;
-		//
-		// 	te[ 2 ] = a31 * b11 + a32 * b21 + a33 * b31;
-		// 	te[ 5 ] = a31 * b12 + a32 * b22 + a33 * b32;
-		// 	te[ 8 ] = a31 * b13 + a32 * b23 + a33 * b33;
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// multiplyScalar( s ) {
-		//
-		// 	const te = this.elements;
-		//
-		// 	te[ 0 ] *= s; te[ 3 ] *= s; te[ 6 ] *= s;
-		// 	te[ 1 ] *= s; te[ 4 ] *= s; te[ 7 ] *= s;
-		// 	te[ 2 ] *= s; te[ 5 ] *= s; te[ 8 ] *= s;
-		//
-		// 	return this;
-		//
-		// }
-
-		// determinant() {
-		//
-		// 	const te = this.elements;
-		//
-		// 	const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
-		// 		d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
-		// 		g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
-		//
-		// 	return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
-		//
-		// }
-
-		invert() {
-			const te = this.elements,
-				n11 = te[0],
-				n21 = te[1],
-				n31 = te[2],
-				n12 = te[3],
-				n22 = te[4],
-				n32 = te[5],
-				n13 = te[6],
-				n23 = te[7],
-				n33 = te[8],
-				t11 = n33 * n22 - n32 * n23,
-				t12 = n32 * n13 - n33 * n12,
-				t13 = n23 * n12 - n22 * n13,
-				det = n11 * t11 + n21 * t12 + n31 * t13;
-			if (det === 0) return this.set(0, 0, 0, 0, 0, 0, 0, 0, 0);
-			const detInv = 1 / det;
-			te[0] = t11 * detInv;
-			te[1] = (n31 * n23 - n33 * n21) * detInv;
-			te[2] = (n32 * n21 - n31 * n22) * detInv;
-			te[3] = t12 * detInv;
-			te[4] = (n33 * n11 - n31 * n13) * detInv;
-			te[5] = (n31 * n12 - n32 * n11) * detInv;
-			te[6] = t13 * detInv;
-			te[7] = (n21 * n13 - n23 * n11) * detInv;
-			te[8] = (n22 * n11 - n21 * n12) * detInv;
-			return this;
-		}
-		transpose() {
-			let tmp;
-			const m = this.elements;
-			tmp = m[1];
-			m[1] = m[3];
-			m[3] = tmp;
-			tmp = m[2];
-			m[2] = m[6];
-			m[6] = tmp;
-			tmp = m[5];
-			m[5] = m[7];
-			m[7] = tmp;
-			return this;
-		}
-		getNormalMatrix(matrix4) {
-			return this.setFromMatrix4(matrix4).invert().transpose();
-		}
-
-		// transposeIntoArray( r ) {
-		//
-		// 	const m = this.elements;
-		//
-		// 	r[ 0 ] = m[ 0 ];
-		// 	r[ 1 ] = m[ 3 ];
-		// 	r[ 2 ] = m[ 6 ];
-		// 	r[ 3 ] = m[ 1 ];
-		// 	r[ 4 ] = m[ 4 ];
-		// 	r[ 5 ] = m[ 7 ];
-		// 	r[ 6 ] = m[ 2 ];
-		// 	r[ 7 ] = m[ 5 ];
-		// 	r[ 8 ] = m[ 8 ];
-		//
-		// 	return this;
-		//
-		// }
-
-		setUvTransform(tx, ty, sx, sy, rotation, cx, cy) {
-			const c = Math.cos(rotation);
-			const s = Math.sin(rotation);
-			this.set(sx * c, sx * s, -sx * (c * cx + s * cy) + cx + tx, -sy * s, sy * c, -sy * (-s * cx + c * cy) + cy + ty, 0, 0, 1);
-			return this;
-		}
-
-		//
-		//
-		// scale( sx, sy ) {
-		//
-		// 	this.premultiply( _m3.makeScale( sx, sy ) );
-		//
-		// 	return this;
-		//
-		// }
-
-		// rotate( theta ) {
-		//
-		// 	this.premultiply( _m3.makeRotation( - theta ) );
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// translate( tx, ty ) {
-		//
-		// 	this.premultiply( _m3.makeTranslation( tx, ty ) );
-		//
-		// 	return this;
-		//
-		// }
-
-		// for 2D Transforms
-
-		// makeTranslation( x, y ) {
-		//
-		// 	this.set(
-		//
-		// 		1, 0, x,
-		// 		0, 1, y,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// makeRotation( theta ) {
-		//
-		// 	// counterclockwise
-		//
-		// 	const c = Math.cos( theta );
-		// 	const s = Math.sin( theta );
-		//
-		// 	this.set(
-		//
-		// 		c, - s, 0,
-		// 		s, c, 0,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// makeScale( x, y ) {
-		//
-		// 	this.set(
-		//
-		// 		x, 0, 0,
-		// 		0, y, 0,
-		// 		0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
-		//
-		//
-		//
-		// equals( matrix ) {
-		//
-		// 	const te = this.elements;
-		// 	const me = matrix.elements;
-		//
-		// 	for ( let i = 0; i < 9; i ++ ) {
-		//
-		// 		if ( te[ i ] !== me[ i ] ) return false;
-		//
-		// 	}
-		//
-		// 	return true;
-		//
-		// }
-
-		fromArray(array, offset = 0) {
-			for (let i = 0; i < 9; i++) {
-				this.elements[i] = array[i + offset];
-			}
-			return this;
-		}
-
-		// toArray( array = [], offset = 0 ) {
-		//
-		// 	const te = this.elements;
-		//
-		// 	array[ offset ] = te[ 0 ];
-		// 	array[ offset + 1 ] = te[ 1 ];
-		// 	array[ offset + 2 ] = te[ 2 ];
-		//
-		// 	array[ offset + 3 ] = te[ 3 ];
-		// 	array[ offset + 4 ] = te[ 4 ];
-		// 	array[ offset + 5 ] = te[ 5 ];
-		//
-		// 	array[ offset + 6 ] = te[ 6 ];
-		// 	array[ offset + 7 ] = te[ 7 ];
-		// 	array[ offset + 8 ] = te[ 8 ];
-		//
-		// 	return array;
-		//
-		// }
-
-		clone() {
-			return new this.constructor().fromArray(this.elements);
-		}
-	}
-
-	function WebGLClipping(properties) {
-		const scope = this;
-		let globalState = null,
-			numGlobalPlanes = 0,
-			localClippingEnabled = false,
-			renderingShadows = false;
-		const plane = new Plane(),
-			viewNormalMatrix = new Matrix3(),
-			uniform = {
-				value: null,
-				needsUpdate: false
-			};
-		this.uniform = uniform;
-		this.numPlanes = 0;
-		this.numIntersection = 0;
-		this.init = function (planes, enableLocalClipping, camera) {
-			const enabled = planes.length !== 0 || enableLocalClipping ||
-			// enable state of previous frame - the clipping code has to
-			// run another frame in order to reset the state:
-			numGlobalPlanes !== 0 || localClippingEnabled;
-			localClippingEnabled = enableLocalClipping;
-			globalState = projectPlanes(planes, camera, 0);
-			numGlobalPlanes = planes.length;
-			return enabled;
-		};
-		this.beginShadows = function () {
-			renderingShadows = true;
-			projectPlanes(null);
-		};
-		this.endShadows = function () {
-			renderingShadows = false;
-			resetGlobalState();
-		};
-		this.setState = function (material, camera, useCache) {
-			const planes = material.clippingPlanes,
-				clipIntersection = material.clipIntersection,
-				clipShadows = material.clipShadows;
-			const materialProperties = properties.get(material);
-			if (!localClippingEnabled || planes === null || planes.length === 0 || renderingShadows && !clipShadows) {
-				// there's no local clipping
-
-				if (renderingShadows) {
-					// there's no global clipping
-
-					projectPlanes(null);
-				} else {
-					resetGlobalState();
-				}
-			} else {
-				const nGlobal = renderingShadows ? 0 : numGlobalPlanes,
-					lGlobal = nGlobal * 4;
-				let dstArray = materialProperties.clippingState || null;
-				uniform.value = dstArray; // ensure unique state
-
-				dstArray = projectPlanes(planes, camera, lGlobal, useCache);
-				for (let i = 0; i !== lGlobal; ++i) {
-					dstArray[i] = globalState[i];
-				}
-				materialProperties.clippingState = dstArray;
-				this.numIntersection = clipIntersection ? this.numPlanes : 0;
-				this.numPlanes += nGlobal;
-			}
-		};
-		function resetGlobalState() {
-			if (uniform.value !== globalState) {
-				uniform.value = globalState;
-				uniform.needsUpdate = numGlobalPlanes > 0;
-			}
-			scope.numPlanes = numGlobalPlanes;
-			scope.numIntersection = 0;
-		}
-		function projectPlanes(planes, camera, dstOffset, skipTransform) {
-			const nPlanes = planes !== null ? planes.length : 0;
-			let dstArray = null;
-			if (nPlanes !== 0) {
-				dstArray = uniform.value;
-				if (skipTransform !== true || dstArray === null) {
-					const flatSize = dstOffset + nPlanes * 4,
-						viewMatrix = camera.matrixWorldInverse;
-					viewNormalMatrix.getNormalMatrix(viewMatrix);
-					if (dstArray === null || dstArray.length < flatSize) {
-						dstArray = new Float32Array(flatSize);
-					}
-					for (let i = 0, i4 = dstOffset; i !== nPlanes; ++i, i4 += 4) {
-						plane.copy(planes[i]).applyMatrix4(viewMatrix, viewNormalMatrix);
-						plane.normal.toArray(dstArray, i4);
-						dstArray[i4 + 3] = plane.constant;
-					}
-				}
-				uniform.value = dstArray;
-				uniform.needsUpdate = true;
-			}
-			scope.numPlanes = nPlanes;
-			scope.numIntersection = 0;
-			return dstArray;
-		}
-	}
-
 	function WebGLExtensions(gl) {
 		const extensions = {};
 		function getExtension(name) {
@@ -5007,14 +4584,21 @@
 
 			// morph targets
 
-			const morphAttributes = geometry.morphAttributes;
-			for (const name in morphAttributes) {
-				const array = morphAttributes[name];
-				for (let i = 0, l = array.length; i < l; i++) {
-					attributes.update(array[i], gl.ARRAY_BUFFER);
-				}
-			}
+			// const morphAttributes = geometry.morphAttributes;
+			//
+			// for ( const name in morphAttributes ) {
+			//
+			// 	const array = morphAttributes[ name ];
+			//
+			// 	for ( let i = 0, l = array.length; i < l; i ++ ) {
+			//
+			// 		attributes.update( array[ i ], gl.ARRAY_BUFFER );
+			//
+			// 	}
+			//
+			// }
 		}
+
 		function updateWireframeAttribute(geometry) {
 			const indices = [];
 			const geometryIndex = geometry.index;
@@ -5303,101 +4887,335 @@
 		}
 	}
 
-	// import { SRGBToLinear } from '../math/Color.js';
-
-	let _canvas;
-	class ImageUtils {
-		static getDataURL(image) {
-			if (/^data:/i.test(image.src)) {
-				return image.src;
-			}
-			if (typeof HTMLCanvasElement == 'undefined') {
-				return image.src;
-			}
-			let canvas;
-			if (image instanceof HTMLCanvasElement) {
-				canvas = image;
-			} else {
-				if (_canvas === undefined) _canvas = createElementNS('canvas');
-				_canvas.width = image.width;
-				_canvas.height = image.height;
-				const context = _canvas.getContext('2d');
-				if (image instanceof ImageData) {
-					context.putImageData(image, 0, 0);
-				} else {
-					context.drawImage(image, 0, 0, image.width, image.height);
-				}
-				canvas = _canvas;
-			}
-			if (canvas.width > 2048 || canvas.height > 2048) {
-				console.warn('THREE.ImageUtils.getDataURL: Image converted to jpg for performance reasons', image);
-				return canvas.toDataURL('image/jpeg', 0.6);
-			} else {
-				return canvas.toDataURL('image/png');
-			}
+	class Matrix3 {
+		constructor() {
+			Matrix3.prototype.isMatrix3 = true;
+			this.elements = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+		}
+		set(n11, n12, n13, n21, n22, n23, n31, n32, n33) {
+			const te = this.elements;
+			te[0] = n11;
+			te[1] = n21;
+			te[2] = n31;
+			te[3] = n12;
+			te[4] = n22;
+			te[5] = n32;
+			te[6] = n13;
+			te[7] = n23;
+			te[8] = n33;
+			return this;
 		}
 
-		// static sRGBToLinear( image ) {
+		// identity() {
 		//
-		// 	if ( ( typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement ) ||
-		// 		( typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement ) ||
-		// 		( typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap ) ) {
+		// 	this.set(
 		//
-		// 		const canvas = createElementNS( 'canvas' );
+		// 		1, 0, 0,
+		// 		0, 1, 0,
+		// 		0, 0, 1
 		//
-		// 		canvas.width = image.width;
-		// 		canvas.height = image.height;
+		// 	);
 		//
-		// 		const context = canvas.getContext( '2d' );
-		// 		context.drawImage( image, 0, 0, image.width, image.height );
+		// 	return this;
 		//
-		// 		const imageData = context.getImageData( 0, 0, image.width, image.height );
-		// 		const data = imageData.data;
+		// }
+
+		// copy( m ) {
 		//
-		// 		for ( let i = 0; i < data.length; i ++ ) {
+		// 	const te = this.elements;
+		// 	const me = m.elements;
 		//
-		// 			data[ i ] = SRGBToLinear( data[ i ] / 255 ) * 255;
+		// 	te[ 0 ] = me[ 0 ]; te[ 1 ] = me[ 1 ]; te[ 2 ] = me[ 2 ];
+		// 	te[ 3 ] = me[ 3 ]; te[ 4 ] = me[ 4 ]; te[ 5 ] = me[ 5 ];
+		// 	te[ 6 ] = me[ 6 ]; te[ 7 ] = me[ 7 ]; te[ 8 ] = me[ 8 ];
 		//
-		// 		}
+		// 	return this;
 		//
-		// 		context.putImageData( imageData, 0, 0 );
+		// }
+
+		// extractBasis( xAxis, yAxis, zAxis ) {
 		//
-		// 		return canvas;
+		// 	xAxis.setFromMatrix3Column( this, 0 );
+		// 	yAxis.setFromMatrix3Column( this, 1 );
+		// 	zAxis.setFromMatrix3Column( this, 2 );
 		//
-		// 	} else if ( image.data ) {
+		// 	return this;
 		//
-		// 		const data = image.data.slice( 0 );
+		// }
+
+		setFromMatrix4(m) {
+			const me = m.elements;
+			this.set(me[0], me[4], me[8], me[1], me[5], me[9], me[2], me[6], me[10]);
+			return this;
+		}
 		//
-		// 		for ( let i = 0; i < data.length; i ++ ) {
+		// multiply( m ) {
 		//
-		// 			if ( data instanceof Uint8Array || data instanceof Uint8ClampedArray ) {
+		// 	return this.multiplyMatrices( this, m );
 		//
-		// 				data[ i ] = Math.floor( SRGBToLinear( data[ i ] / 255 ) * 255 );
+		// }
 		//
-		// 			} else {
+		// premultiply( m ) {
 		//
-		// 				// assuming float
+		// 	return this.multiplyMatrices( m, this );
 		//
-		// 				data[ i ] = SRGBToLinear( data[ i ] );
+		// }
 		//
-		// 			}
+		// multiplyMatrices( a, b ) {
 		//
-		// 		}
+		// 	const ae = a.elements;
+		// 	const be = b.elements;
+		// 	const te = this.elements;
 		//
-		// 		return {
-		// 			data: data,
-		// 			width: image.width,
-		// 			height: image.height
-		// 		};
+		// 	const a11 = ae[ 0 ], a12 = ae[ 3 ], a13 = ae[ 6 ];
+		// 	const a21 = ae[ 1 ], a22 = ae[ 4 ], a23 = ae[ 7 ];
+		// 	const a31 = ae[ 2 ], a32 = ae[ 5 ], a33 = ae[ 8 ];
 		//
-		// 	} else {
+		// 	const b11 = be[ 0 ], b12 = be[ 3 ], b13 = be[ 6 ];
+		// 	const b21 = be[ 1 ], b22 = be[ 4 ], b23 = be[ 7 ];
+		// 	const b31 = be[ 2 ], b32 = be[ 5 ], b33 = be[ 8 ];
 		//
-		// 		console.warn( 'THREE.ImageUtils.sRGBToLinear(): Unsupported image type. No color space conversion applied.' );
-		// 		return image;
+		// 	te[ 0 ] = a11 * b11 + a12 * b21 + a13 * b31;
+		// 	te[ 3 ] = a11 * b12 + a12 * b22 + a13 * b32;
+		// 	te[ 6 ] = a11 * b13 + a12 * b23 + a13 * b33;
+		//
+		// 	te[ 1 ] = a21 * b11 + a22 * b21 + a23 * b31;
+		// 	te[ 4 ] = a21 * b12 + a22 * b22 + a23 * b32;
+		// 	te[ 7 ] = a21 * b13 + a22 * b23 + a23 * b33;
+		//
+		// 	te[ 2 ] = a31 * b11 + a32 * b21 + a33 * b31;
+		// 	te[ 5 ] = a31 * b12 + a32 * b22 + a33 * b32;
+		// 	te[ 8 ] = a31 * b13 + a32 * b23 + a33 * b33;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// multiplyScalar( s ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	te[ 0 ] *= s; te[ 3 ] *= s; te[ 6 ] *= s;
+		// 	te[ 1 ] *= s; te[ 4 ] *= s; te[ 7 ] *= s;
+		// 	te[ 2 ] *= s; te[ 5 ] *= s; te[ 8 ] *= s;
+		//
+		// 	return this;
+		//
+		// }
+
+		// determinant() {
+		//
+		// 	const te = this.elements;
+		//
+		// 	const a = te[ 0 ], b = te[ 1 ], c = te[ 2 ],
+		// 		d = te[ 3 ], e = te[ 4 ], f = te[ 5 ],
+		// 		g = te[ 6 ], h = te[ 7 ], i = te[ 8 ];
+		//
+		// 	return a * e * i - a * f * h - b * d * i + b * f * g + c * d * h - c * e * g;
+		//
+		// }
+
+		invert() {
+			const te = this.elements,
+				n11 = te[0],
+				n21 = te[1],
+				n31 = te[2],
+				n12 = te[3],
+				n22 = te[4],
+				n32 = te[5],
+				n13 = te[6],
+				n23 = te[7],
+				n33 = te[8],
+				t11 = n33 * n22 - n32 * n23,
+				t12 = n32 * n13 - n33 * n12,
+				t13 = n23 * n12 - n22 * n13,
+				det = n11 * t11 + n21 * t12 + n31 * t13;
+			if (det === 0) return this.set(0, 0, 0, 0, 0, 0, 0, 0, 0);
+			const detInv = 1 / det;
+			te[0] = t11 * detInv;
+			te[1] = (n31 * n23 - n33 * n21) * detInv;
+			te[2] = (n32 * n21 - n31 * n22) * detInv;
+			te[3] = t12 * detInv;
+			te[4] = (n33 * n11 - n31 * n13) * detInv;
+			te[5] = (n31 * n12 - n32 * n11) * detInv;
+			te[6] = t13 * detInv;
+			te[7] = (n21 * n13 - n23 * n11) * detInv;
+			te[8] = (n22 * n11 - n21 * n12) * detInv;
+			return this;
+		}
+		transpose() {
+			let tmp;
+			const m = this.elements;
+			tmp = m[1];
+			m[1] = m[3];
+			m[3] = tmp;
+			tmp = m[2];
+			m[2] = m[6];
+			m[6] = tmp;
+			tmp = m[5];
+			m[5] = m[7];
+			m[7] = tmp;
+			return this;
+		}
+		getNormalMatrix(matrix4) {
+			return this.setFromMatrix4(matrix4).invert().transpose();
+		}
+
+		// transposeIntoArray( r ) {
+		//
+		// 	const m = this.elements;
+		//
+		// 	r[ 0 ] = m[ 0 ];
+		// 	r[ 1 ] = m[ 3 ];
+		// 	r[ 2 ] = m[ 6 ];
+		// 	r[ 3 ] = m[ 1 ];
+		// 	r[ 4 ] = m[ 4 ];
+		// 	r[ 5 ] = m[ 7 ];
+		// 	r[ 6 ] = m[ 2 ];
+		// 	r[ 7 ] = m[ 5 ];
+		// 	r[ 8 ] = m[ 8 ];
+		//
+		// 	return this;
+		//
+		// }
+
+		// setUvTransform( tx, ty, sx, sy, rotation, cx, cy ) {
+		//
+		// 	const c = Math.cos( rotation );
+		// 	const s = Math.sin( rotation );
+		//
+		// 	this.set(
+		// 		sx * c, sx * s, - sx * ( c * cx + s * cy ) + cx + tx,
+		// 		- sy * s, sy * c, - sy * ( - s * cx + c * cy ) + cy + ty,
+		// 		0, 0, 1
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+
+		//
+		//
+		// scale( sx, sy ) {
+		//
+		// 	this.premultiply( _m3.makeScale( sx, sy ) );
+		//
+		// 	return this;
+		//
+		// }
+
+		// rotate( theta ) {
+		//
+		// 	this.premultiply( _m3.makeRotation( - theta ) );
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// translate( tx, ty ) {
+		//
+		// 	this.premultiply( _m3.makeTranslation( tx, ty ) );
+		//
+		// 	return this;
+		//
+		// }
+
+		// for 2D Transforms
+
+		// makeTranslation( x, y ) {
+		//
+		// 	this.set(
+		//
+		// 		1, 0, x,
+		// 		0, 1, y,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// makeRotation( theta ) {
+		//
+		// 	// counterclockwise
+		//
+		// 	const c = Math.cos( theta );
+		// 	const s = Math.sin( theta );
+		//
+		// 	this.set(
+		//
+		// 		c, - s, 0,
+		// 		s, c, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// makeScale( x, y ) {
+		//
+		// 	this.set(
+		//
+		// 		x, 0, 0,
+		// 		0, y, 0,
+		// 		0, 0, 1
+		//
+		// 	);
+		//
+		// 	return this;
+		//
+		// }
+		//
+		//
+		//
+		// equals( matrix ) {
+		//
+		// 	const te = this.elements;
+		// 	const me = matrix.elements;
+		//
+		// 	for ( let i = 0; i < 9; i ++ ) {
+		//
+		// 		if ( te[ i ] !== me[ i ] ) return false;
 		//
 		// 	}
 		//
+		// 	return true;
+		//
 		// }
+
+		fromArray(array, offset = 0) {
+			for (let i = 0; i < 9; i++) {
+				this.elements[i] = array[i + offset];
+			}
+			return this;
+		}
+
+		// toArray( array = [], offset = 0 ) {
+		//
+		// 	const te = this.elements;
+		//
+		// 	array[ offset ] = te[ 0 ];
+		// 	array[ offset + 1 ] = te[ 1 ];
+		// 	array[ offset + 2 ] = te[ 2 ];
+		//
+		// 	array[ offset + 3 ] = te[ 3 ];
+		// 	array[ offset + 4 ] = te[ 4 ];
+		// 	array[ offset + 5 ] = te[ 5 ];
+		//
+		// 	array[ offset + 6 ] = te[ 6 ];
+		// 	array[ offset + 7 ] = te[ 7 ];
+		// 	array[ offset + 8 ] = te[ 8 ];
+		//
+		// 	return array;
+		//
+		// }
+
+		clone() {
+			return new this.constructor().fromArray(this.elements);
+		}
 	}
 
 	class Source {
@@ -5411,62 +5229,69 @@
 		set needsUpdate(value) {
 			if (value === true) this.version++;
 		}
-		toJSON(meta) {
-			const isRootObject = meta === undefined || typeof meta === 'string';
-			if (!isRootObject && meta.images[this.uuid] !== undefined) {
-				return meta.images[this.uuid];
-			}
-			const output = {
-				uuid: this.uuid,
-				url: ''
-			};
-			const data = this.data;
-			if (data !== null) {
-				let url;
-				if (Array.isArray(data)) {
-					// cube texture
 
-					url = [];
-					for (let i = 0, l = data.length; i < l; i++) {
-						if (data[i].isDataTexture) {
-							url.push(serializeImage(data[i].image));
-						} else {
-							url.push(serializeImage(data[i]));
-						}
-					}
-				} else {
-					// texture
-
-					url = serializeImage(data);
-				}
-				output.url = url;
-			}
-			if (!isRootObject) {
-				meta.images[this.uuid] = output;
-			}
-			return output;
-		}
-	}
-	function serializeImage(image) {
-		if (typeof HTMLImageElement !== 'undefined' && image instanceof HTMLImageElement || typeof HTMLCanvasElement !== 'undefined' && image instanceof HTMLCanvasElement || typeof ImageBitmap !== 'undefined' && image instanceof ImageBitmap) {
-			// default images
-
-			return ImageUtils.getDataURL(image);
-		} else {
-			if (image.data) {
-				// images of DataTexture
-
-				return {
-					data: Array.from(image.data),
-					width: image.width,
-					height: image.height,
-					type: image.data.constructor.name
-				};
-			} else {
-				console.warn('THREE.Texture: Unable to serialize Texture.');
-				return {};
-			}
-		}
+		// toJSON( meta ) {
+		//
+		// 	const isRootObject = ( meta === undefined || typeof meta === 'string' );
+		//
+		// 	if ( ! isRootObject && meta.images[ this.uuid ] !== undefined ) {
+		//
+		// 		return meta.images[ this.uuid ];
+		//
+		// 	}
+		//
+		// 	const output = {
+		// 		uuid: this.uuid,
+		// 		url: ''
+		// 	};
+		//
+		// 	const data = this.data;
+		//
+		// 	if ( data !== null ) {
+		//
+		// 		let url;
+		//
+		// 		if ( Array.isArray( data ) ) {
+		//
+		// 			// cube texture
+		//
+		// 			url = [];
+		//
+		// 			for ( let i = 0, l = data.length; i < l; i ++ ) {
+		//
+		// 				if ( data[ i ].isDataTexture ) {
+		//
+		// 					url.push( serializeImage( data[ i ].image ) );
+		//
+		// 				} else {
+		//
+		// 					url.push( serializeImage( data[ i ] ) );
+		//
+		// 				}
+		//
+		// 			}
+		//
+		// 		} else {
+		//
+		// 			// texture
+		//
+		// 			url = serializeImage( data );
+		//
+		// 		}
+		//
+		// 		output.url = url;
+		//
+		// 	}
+		//
+		// 	if ( ! isRootObject ) {
+		//
+		// 		meta.images[ this.uuid ] = output;
+		//
+		// 	}
+		//
+		// 	return output;
+		//
+		// }
 	}
 
 	let textureId = 0;
@@ -5519,9 +5344,12 @@
 		set image(value) {
 			this.source.data = value;
 		}
-		updateMatrix() {
-			this.matrix.setUvTransform(this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y);
-		}
+
+		// updateMatrix() {
+		//
+		// 	this.matrix.setUvTransform( this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y );
+		//
+		// }
 
 		// clone() {
 
@@ -6986,9 +6814,14 @@
 		const numSpotLightCoords = parameters.numSpotLightShadows + parameters.numSpotLightMaps - parameters.numSpotLightShadowsWithMaps;
 		return string.replace(/NUM_DIR_LIGHTS/g, parameters.numDirLights).replace(/NUM_SPOT_LIGHTS/g, parameters.numSpotLights).replace(/NUM_SPOT_LIGHT_MAPS/g, parameters.numSpotLightMaps).replace(/NUM_SPOT_LIGHT_COORDS/g, numSpotLightCoords).replace(/NUM_RECT_AREA_LIGHTS/g, parameters.numRectAreaLights).replace(/NUM_POINT_LIGHTS/g, parameters.numPointLights).replace(/NUM_HEMI_LIGHTS/g, parameters.numHemiLights).replace(/NUM_DIR_LIGHT_SHADOWS/g, parameters.numDirLightShadows).replace(/NUM_SPOT_LIGHT_SHADOWS_WITH_MAPS/g, parameters.numSpotLightShadowsWithMaps).replace(/NUM_SPOT_LIGHT_SHADOWS/g, parameters.numSpotLightShadows).replace(/NUM_POINT_LIGHT_SHADOWS/g, parameters.numPointLightShadows);
 	}
-	function replaceClippingPlaneNums(string, parameters) {
-		return string.replace(/NUM_CLIPPING_PLANES/g, parameters.numClippingPlanes).replace(/UNION_CLIPPING_PLANES/g, parameters.numClippingPlanes - parameters.numClipIntersection);
-	}
+	//
+	// function replaceClippingPlaneNums( string, parameters ) {
+	//
+	// 	return string
+	// 		.replace( /NUM_CLIPPING_PLANES/g, parameters.numClippingPlanes )
+	// 		.replace( /UNION_CLIPPING_PLANES/g, ( parameters.numClippingPlanes - parameters.numClipIntersection ) );
+	//
+	// }
 
 	// Resolve Includes
 
@@ -7250,10 +7083,12 @@
 		}
 		vertexShader = resolveIncludes(vertexShader);
 		vertexShader = replaceLightNums(vertexShader, parameters);
-		vertexShader = replaceClippingPlaneNums(vertexShader, parameters);
+		// vertexShader = replaceClippingPlaneNums( vertexShader, parameters );
+
 		fragmentShader = resolveIncludes(fragmentShader);
 		fragmentShader = replaceLightNums(fragmentShader, parameters);
-		fragmentShader = replaceClippingPlaneNums(fragmentShader, parameters);
+		// fragmentShader = replaceClippingPlaneNums( fragmentShader, parameters );
+
 		vertexShader = unrollLoops(vertexShader);
 		fragmentShader = unrollLoops(fragmentShader);
 		if (parameters.isWebGL2 && parameters.isRawShaderMaterial !== true) {
@@ -7278,10 +7113,13 @@
 
 		if (parameters.index0AttributeName !== undefined) {
 			gl.bindAttribLocation(program, 0, parameters.index0AttributeName);
-		} else if (parameters.morphTargets === true) {
+
+			// } else if ( parameters.morphTargets === true ) {
+			//
 			// programs with morphTargets displace position out of attribute 0
-			gl.bindAttribLocation(program, 0, 'position');
+			// gl.bindAttribLocation( program, 0, 'position' );
 		}
+
 		gl.linkProgram(program);
 
 		// check for link errors
@@ -8421,7 +8259,16 @@
 		// },
 
 		phong: {
-			uniforms: /*@__PURE__*/mergeUniforms([UniformsLib.common, UniformsLib.specularmap, UniformsLib.envmap, UniformsLib.aomap, UniformsLib.lightmap, UniformsLib.emissivemap, UniformsLib.bumpmap, UniformsLib.normalmap, UniformsLib.displacementmap, UniformsLib.fog, UniformsLib.lights, {
+			uniforms: /*@__PURE__*/mergeUniforms([UniformsLib.common, UniformsLib.specularmap,
+			// UniformsLib.envmap,
+			// UniformsLib.aomap,
+			// UniformsLib.lightmap,
+			UniformsLib.emissivemap,
+			// UniformsLib.bumpmap,
+			UniformsLib.normalmap,
+			// UniformsLib.displacementmap,
+			// UniformsLib.fog,
+			UniformsLib.lights, {
 				emissive: {
 					value: /*@__PURE__*/new Color(0x000000)
 				},
@@ -8534,7 +8381,10 @@
 		// },
 
 		depth: {
-			uniforms: /*@__PURE__*/mergeUniforms([UniformsLib.common, UniformsLib.displacementmap]),
+			uniforms: /*@__PURE__*/mergeUniforms([UniformsLib.common
+			// UniformsLib.displacementmap
+			]),
+
 			vertexShader: ShaderChunk.depth_vert,
 			fragmentShader: ShaderChunk.depth_frag
 		},
@@ -9882,9 +9732,11 @@
 			this.stencilZFail = KeepStencilOp;
 			this.stencilZPass = KeepStencilOp;
 			this.stencilWrite = false;
-			this.clippingPlanes = null;
-			this.clipIntersection = false;
-			this.clipShadows = false;
+
+			// this.clippingPlanes = null;
+			// this.clipIntersection = false;
+			// this.clipShadows = false;
+
 			this.shadowSide = null;
 			this.colorWrite = true;
 			this.precision = null; // override the renderer's default precision for this material
@@ -10290,30 +10142,44 @@
 	class MeshDepthMaterial extends Material {
 		constructor(parameters) {
 			super();
-			this.isMeshDepthMaterial = true;
+
+			// this.isMeshDepthMaterial = true;
+
 			this.type = 'MeshDepthMaterial';
 			this.depthPacking = BasicDepthPacking;
 			this.map = null;
-			this.alphaMap = null;
-			this.displacementMap = null;
-			this.displacementScale = 1;
-			this.displacementBias = 0;
+
+			// this.alphaMap = null;
+
+			// this.displacementMap = null;
+			// this.displacementScale = 1;
+			// this.displacementBias = 0;
+
 			this.wireframe = false;
 			this.wireframeLinewidth = 1;
 			this.setValues(parameters);
 		}
-		copy(source) {
-			super.copy(source);
-			this.depthPacking = source.depthPacking;
-			this.map = source.map;
-			this.alphaMap = source.alphaMap;
-			this.displacementMap = source.displacementMap;
-			this.displacementScale = source.displacementScale;
-			this.displacementBias = source.displacementBias;
-			this.wireframe = source.wireframe;
-			this.wireframeLinewidth = source.wireframeLinewidth;
-			return this;
-		}
+
+		// copy( source ) {
+		//
+		// 	super.copy( source );
+		//
+		// 	this.depthPacking = source.depthPacking;
+		//
+		// 	this.map = source.map;
+		//
+		// 	this.alphaMap = source.alphaMap;
+		//
+		// 	this.displacementMap = source.displacementMap;
+		// 	this.displacementScale = source.displacementScale;
+		// 	this.displacementBias = source.displacementBias;
+		//
+		// 	this.wireframe = source.wireframe;
+		// 	this.wireframeLinewidth = source.wireframeLinewidth;
+		//
+		// 	return this;
+		//
+		// }
 	}
 
 	class MeshDistanceMaterial extends Material {
@@ -10325,24 +10191,35 @@
 			this.nearDistance = 1;
 			this.farDistance = 1000;
 			this.map = null;
-			this.alphaMap = null;
-			this.displacementMap = null;
-			this.displacementScale = 1;
-			this.displacementBias = 0;
+
+			// this.alphaMap = null;
+			//
+			// this.displacementMap = null;
+			// this.displacementScale = 1;
+			// this.displacementBias = 0;
+
 			this.setValues(parameters);
 		}
-		copy(source) {
-			super.copy(source);
-			this.referencePosition.copy(source.referencePosition);
-			this.nearDistance = source.nearDistance;
-			this.farDistance = source.farDistance;
-			this.map = source.map;
-			this.alphaMap = source.alphaMap;
-			this.displacementMap = source.displacementMap;
-			this.displacementScale = source.displacementScale;
-			this.displacementBias = source.displacementBias;
-			return this;
-		}
+
+		// copy( source ) {
+		//
+		// 	super.copy( source );
+		//
+		// 	this.referencePosition.copy( source.referencePosition );
+		// 	this.nearDistance = source.nearDistance;
+		// 	this.farDistance = source.farDistance;
+		//
+		// 	this.map = source.map;
+		//
+		// 	this.alphaMap = source.alphaMap;
+		//
+		// 	this.displacementMap = source.displacementMap;
+		// 	this.displacementScale = source.displacementScale;
+		// 	this.displacementBias = source.displacementBias;
+		//
+		// 	return this;
+		//
+		// }
 	}
 
 	class Box3 {
@@ -10772,8 +10649,10 @@
 			this.type = 'BufferGeometry';
 			this.index = null;
 			this.attributes = {};
-			this.morphAttributes = {};
-			this.morphTargetsRelative = false;
+
+			// this.morphAttributes = {};
+			// this.morphTargetsRelative = false;
+
 			this.groups = [];
 			this.boundingBox = null;
 			this.boundingSphere = null;
@@ -12792,7 +12671,7 @@
 		const maxTextureSize = capabilities.maxTextureSize;
 		const maxSamples = capabilities.maxSamples;
 		const multisampledRTTExt = extensions.has('WEBGL_multisampled_render_to_texture') ? extensions.get('WEBGL_multisampled_render_to_texture') : null;
-		const supportsInvalidateFramebuffer = typeof navigator === 'undefined' ? false : /OculusBrowser/g.test(navigator.userAgent);
+		typeof navigator === 'undefined' ? false : /OculusBrowser/g.test(navigator.userAgent);
 		const _videoTextures = new WeakMap();
 		let _canvas;
 		const _sources = new WeakMap(); // maps WebglTexture objects to instances of Source
@@ -13089,14 +12968,21 @@
 			}
 			state.bindTexture(_gl.TEXTURE_2D_ARRAY, textureProperties.__webglTexture, _gl.TEXTURE0 + slot);
 		}
-		function setTexture3D(texture, slot) {
-			const textureProperties = properties.get(texture);
-			if (texture.version > 0 && textureProperties.__version !== texture.version) {
-				uploadTexture(textureProperties, texture, slot);
-				return;
-			}
-			state.bindTexture(_gl.TEXTURE_3D, textureProperties.__webglTexture, _gl.TEXTURE0 + slot);
-		}
+
+		// function setTexture3D( texture, slot ) {
+		//
+		// 	const textureProperties = properties.get( texture );
+		//
+		// 	if ( texture.version > 0 && textureProperties.__version !== texture.version ) {
+		//
+		// 		uploadTexture( textureProperties, texture, slot );
+		// 		return;
+		//
+		// 	}
+		//
+		// 	state.bindTexture( _gl.TEXTURE_3D, textureProperties.__webglTexture, _gl.TEXTURE0 + slot );
+		//
+		// }
 
 		// function setTextureCube( texture, slot ) {
 
@@ -13574,48 +13460,72 @@
 		}
 
 		// Setup resources for a Depth Texture for a FBO (needs an extension)
-		function setupDepthTexture(framebuffer, renderTarget) {
-			const isCube = renderTarget && renderTarget.isWebGLCubeRenderTarget;
-			if (isCube) throw new Error('Depth Texture with cube render targets is not supported');
-			state.bindFramebuffer(_gl.FRAMEBUFFER, framebuffer);
-			if (!(renderTarget.depthTexture && renderTarget.depthTexture.isDepthTexture)) {
-				throw new Error('renderTarget.depthTexture must be an instance of THREE.DepthTexture');
-			}
-
-			// upload an empty depth texture with framebuffer size
-			if (!properties.get(renderTarget.depthTexture).__webglTexture || renderTarget.depthTexture.image.width !== renderTarget.width || renderTarget.depthTexture.image.height !== renderTarget.height) {
-				renderTarget.depthTexture.image.width = renderTarget.width;
-				renderTarget.depthTexture.image.height = renderTarget.height;
-				renderTarget.depthTexture.needsUpdate = true;
-			}
-			setTexture2D(renderTarget.depthTexture, 0);
-			const webglDepthTexture = properties.get(renderTarget.depthTexture).__webglTexture;
-			const samples = getRenderTargetSamples(renderTarget);
-			if (renderTarget.depthTexture.format === DepthFormat) {
-				if (useMultisampledRTT(renderTarget)) {
-					multisampledRTTExt.framebufferTexture2DMultisampleEXT(_gl.FRAMEBUFFER, _gl.DEPTH_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0, samples);
-				} else {
-					_gl.framebufferTexture2D(_gl.FRAMEBUFFER, _gl.DEPTH_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0);
-				}
-			} else if (renderTarget.depthTexture.format === DepthStencilFormat) {
-				if (useMultisampledRTT(renderTarget)) {
-					multisampledRTTExt.framebufferTexture2DMultisampleEXT(_gl.FRAMEBUFFER, _gl.DEPTH_STENCIL_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0, samples);
-				} else {
-					_gl.framebufferTexture2D(_gl.FRAMEBUFFER, _gl.DEPTH_STENCIL_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0);
-				}
-			} else {
-				throw new Error('Unknown depthTexture format');
-			}
-		}
+		// function setupDepthTexture( framebuffer, renderTarget ) {
+		//
+		// 	const isCube = ( renderTarget && renderTarget.isWebGLCubeRenderTarget );
+		// 	if ( isCube ) throw new Error( 'Depth Texture with cube render targets is not supported' );
+		//
+		// 	state.bindFramebuffer( _gl.FRAMEBUFFER, framebuffer );
+		//
+		// 	if ( ! ( renderTarget.depthTexture && renderTarget.depthTexture.isDepthTexture ) ) {
+		//
+		// 		throw new Error( 'renderTarget.depthTexture must be an instance of THREE.DepthTexture' );
+		//
+		// 	}
+		//
+		// 	// upload an empty depth texture with framebuffer size
+		// 	if ( ! properties.get( renderTarget.depthTexture ).__webglTexture ||
+		// 			renderTarget.depthTexture.image.width !== renderTarget.width ||
+		// 			renderTarget.depthTexture.image.height !== renderTarget.height ) {
+		//
+		// 		renderTarget.depthTexture.image.width = renderTarget.width;
+		// 		renderTarget.depthTexture.image.height = renderTarget.height;
+		// 		renderTarget.depthTexture.needsUpdate = true;
+		//
+		// 	}
+		//
+		// 	setTexture2D( renderTarget.depthTexture, 0 );
+		//
+		// 	const webglDepthTexture = properties.get( renderTarget.depthTexture ).__webglTexture;
+		// 	const samples = getRenderTargetSamples( renderTarget );
+		//
+		// 	if ( renderTarget.depthTexture.format === DepthFormat ) {
+		//
+		// 		if ( useMultisampledRTT( renderTarget ) ) {
+		//
+		// 			multisampledRTTExt.framebufferTexture2DMultisampleEXT( _gl.FRAMEBUFFER, _gl.DEPTH_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0, samples );
+		//
+		// 		} else {
+		//
+		// 			_gl.framebufferTexture2D( _gl.FRAMEBUFFER, _gl.DEPTH_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0 );
+		//
+		// 		}
+		//
+		// 	} else if ( renderTarget.depthTexture.format === DepthStencilFormat ) {
+		//
+		// 		if ( useMultisampledRTT( renderTarget ) ) {
+		//
+		// 			multisampledRTTExt.framebufferTexture2DMultisampleEXT( _gl.FRAMEBUFFER, _gl.DEPTH_STENCIL_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0, samples );
+		//
+		// 		} else {
+		//
+		// 			_gl.framebufferTexture2D( _gl.FRAMEBUFFER, _gl.DEPTH_STENCIL_ATTACHMENT, _gl.TEXTURE_2D, webglDepthTexture, 0 );
+		//
+		// 		}
+		//
+		// 	} else {
+		//
+		// 		throw new Error( 'Unknown depthTexture format' );
+		//
+		// 	}
+		//
+		// }
 
 		// Setup GL resources for a non-texture depth buffer
 		function setupDepthRenderbuffer(renderTarget) {
 			const renderTargetProperties = properties.get(renderTarget);
 			const isCube = renderTarget.isWebGLCubeRenderTarget === true;
-			if (renderTarget.depthTexture && !renderTargetProperties.__autoAllocateDepthBuffer) {
-				if (isCube) throw new Error('target.depthTexture not supported in Cube render targets');
-				setupDepthTexture(renderTargetProperties.__webglFramebuffer, renderTarget);
-			} else {
+			if (renderTarget.depthTexture && !renderTargetProperties.__autoAllocateDepthBuffer) ; else {
 				if (isCube) {
 					renderTargetProperties.__webglDepthbuffer = [];
 					for (let i = 0; i < 6; i++) {
@@ -13662,12 +13572,7 @@
 
 			// Setup framebuffer
 
-			if (isCube) {
-				renderTargetProperties.__webglFramebuffer = [];
-				for (let i = 0; i < 6; i++) {
-					renderTargetProperties.__webglFramebuffer[i] = _gl.createFramebuffer();
-				}
-			} else {
+			if (isCube) ; else {
 				renderTargetProperties.__webglFramebuffer = _gl.createFramebuffer();
 				if (isMultipleRenderTargets) {
 					if (capabilities.drawBuffers) {
@@ -13710,17 +13615,7 @@
 
 			// Setup color buffer
 
-			if (isCube) {
-				state.bindTexture(_gl.TEXTURE_CUBE_MAP, textureProperties.__webglTexture);
-				setTextureParameters(_gl.TEXTURE_CUBE_MAP, texture, supportsMips);
-				for (let i = 0; i < 6; i++) {
-					setupFrameBufferTexture(renderTargetProperties.__webglFramebuffer[i], renderTarget, texture, _gl.COLOR_ATTACHMENT0, _gl.TEXTURE_CUBE_MAP_POSITIVE_X + i);
-				}
-				if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
-					generateMipmap(_gl.TEXTURE_CUBE_MAP);
-				}
-				state.unbindTexture();
-			} else if (isMultipleRenderTargets) {
+			if (isCube) ; else if (isMultipleRenderTargets) {
 				const textures = renderTarget.texture;
 				for (let i = 0, il = textures.length; i < il; i++) {
 					const attachment = textures[i];
@@ -13757,84 +13652,139 @@
 				setupDepthRenderbuffer(renderTarget);
 			}
 		}
-		function updateRenderTargetMipmap(renderTarget) {
-			const supportsMips = isPowerOfTwo$1(renderTarget) || isWebGL2;
-			const textures = renderTarget.isWebGLMultipleRenderTargets === true ? renderTarget.texture : [renderTarget.texture];
-			for (let i = 0, il = textures.length; i < il; i++) {
-				const texture = textures[i];
-				if (textureNeedsGenerateMipmaps(texture, supportsMips)) {
-					const target = renderTarget.isWebGLCubeRenderTarget ? _gl.TEXTURE_CUBE_MAP : _gl.TEXTURE_2D;
-					const webglTexture = properties.get(texture).__webglTexture;
-					state.bindTexture(target, webglTexture);
-					generateMipmap(target);
-					state.unbindTexture();
-				}
-			}
-		}
-		function updateMultisampleRenderTarget(renderTarget) {
-			if (isWebGL2 && renderTarget.samples > 0 && useMultisampledRTT(renderTarget) === false) {
-				const textures = renderTarget.isWebGLMultipleRenderTargets ? renderTarget.texture : [renderTarget.texture];
-				const width = renderTarget.width;
-				const height = renderTarget.height;
-				let mask = _gl.COLOR_BUFFER_BIT;
-				const invalidationArray = [];
-				const depthStyle = renderTarget.stencilBuffer ? _gl.DEPTH_STENCIL_ATTACHMENT : _gl.DEPTH_ATTACHMENT;
-				const renderTargetProperties = properties.get(renderTarget);
-				const isMultipleRenderTargets = renderTarget.isWebGLMultipleRenderTargets === true;
 
-				// If MRT we need to remove FBO attachments
-				if (isMultipleRenderTargets) {
-					for (let i = 0; i < textures.length; i++) {
-						state.bindFramebuffer(_gl.FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer);
-						_gl.framebufferRenderbuffer(_gl.FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.RENDERBUFFER, null);
-						state.bindFramebuffer(_gl.FRAMEBUFFER, renderTargetProperties.__webglFramebuffer);
-						_gl.framebufferTexture2D(_gl.DRAW_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.TEXTURE_2D, null, 0);
-					}
-				}
-				state.bindFramebuffer(_gl.READ_FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer);
-				state.bindFramebuffer(_gl.DRAW_FRAMEBUFFER, renderTargetProperties.__webglFramebuffer);
-				for (let i = 0; i < textures.length; i++) {
-					invalidationArray.push(_gl.COLOR_ATTACHMENT0 + i);
-					if (renderTarget.depthBuffer) {
-						invalidationArray.push(depthStyle);
-					}
-					const ignoreDepthValues = renderTargetProperties.__ignoreDepthValues !== undefined ? renderTargetProperties.__ignoreDepthValues : false;
-					if (ignoreDepthValues === false) {
-						if (renderTarget.depthBuffer) mask |= _gl.DEPTH_BUFFER_BIT;
-						if (renderTarget.stencilBuffer) mask |= _gl.STENCIL_BUFFER_BIT;
-					}
-					if (isMultipleRenderTargets) {
-						_gl.framebufferRenderbuffer(_gl.READ_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0, _gl.RENDERBUFFER, renderTargetProperties.__webglColorRenderbuffer[i]);
-					}
-					if (ignoreDepthValues === true) {
-						_gl.invalidateFramebuffer(_gl.READ_FRAMEBUFFER, [depthStyle]);
-						_gl.invalidateFramebuffer(_gl.DRAW_FRAMEBUFFER, [depthStyle]);
-					}
-					if (isMultipleRenderTargets) {
-						const webglTexture = properties.get(textures[i]).__webglTexture;
-						_gl.framebufferTexture2D(_gl.DRAW_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0, _gl.TEXTURE_2D, webglTexture, 0);
-					}
-					_gl.blitFramebuffer(0, 0, width, height, 0, 0, width, height, mask, _gl.NEAREST);
-					if (supportsInvalidateFramebuffer) {
-						_gl.invalidateFramebuffer(_gl.READ_FRAMEBUFFER, invalidationArray);
-					}
-				}
-				state.bindFramebuffer(_gl.READ_FRAMEBUFFER, null);
-				state.bindFramebuffer(_gl.DRAW_FRAMEBUFFER, null);
+		// function updateRenderTargetMipmap( renderTarget ) {
+		//
+		// 	const supportsMips = isPowerOfTwo( renderTarget ) || isWebGL2;
+		//
+		// 	const textures = renderTarget.isWebGLMultipleRenderTargets === true ? renderTarget.texture : [ renderTarget.texture ];
+		//
+		// 	for ( let i = 0, il = textures.length; i < il; i ++ ) {
+		//
+		// 		const texture = textures[ i ];
+		//
+		// 		if ( textureNeedsGenerateMipmaps( texture, supportsMips ) ) {
+		//
+		// 			const target = renderTarget.isWebGLCubeRenderTarget ? _gl.TEXTURE_CUBE_MAP : _gl.TEXTURE_2D;
+		// 			const webglTexture = properties.get( texture ).__webglTexture;
+		//
+		// 			state.bindTexture( target, webglTexture );
+		// 			generateMipmap( target );
+		// 			state.unbindTexture();
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// }
+		//
+		// function updateMultisampleRenderTarget( renderTarget ) {
+		//
+		// 	if ( ( isWebGL2 && renderTarget.samples > 0 ) && useMultisampledRTT( renderTarget ) === false ) {
+		//
+		// 		const textures = renderTarget.isWebGLMultipleRenderTargets ? renderTarget.texture : [ renderTarget.texture ];
+		// 		const width = renderTarget.width;
+		// 		const height = renderTarget.height;
+		// 		let mask = _gl.COLOR_BUFFER_BIT;
+		// 		const invalidationArray = [];
+		// 		const depthStyle = renderTarget.stencilBuffer ? _gl.DEPTH_STENCIL_ATTACHMENT : _gl.DEPTH_ATTACHMENT;
+		// 		const renderTargetProperties = properties.get( renderTarget );
+		// 		const isMultipleRenderTargets = ( renderTarget.isWebGLMultipleRenderTargets === true );
+		//
+		// 		// If MRT we need to remove FBO attachments
+		// 		if ( isMultipleRenderTargets ) {
+		//
+		// 			for ( let i = 0; i < textures.length; i ++ ) {
+		//
+		// 				state.bindFramebuffer( _gl.FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer );
+		// 				_gl.framebufferRenderbuffer( _gl.FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.RENDERBUFFER, null );
+		//
+		// 				state.bindFramebuffer( _gl.FRAMEBUFFER, renderTargetProperties.__webglFramebuffer );
+		// 				_gl.framebufferTexture2D( _gl.DRAW_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.TEXTURE_2D, null, 0 );
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 		state.bindFramebuffer( _gl.READ_FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer );
+		// 		state.bindFramebuffer( _gl.DRAW_FRAMEBUFFER, renderTargetProperties.__webglFramebuffer );
+		//
+		// 		for ( let i = 0; i < textures.length; i ++ ) {
+		//
+		// 			invalidationArray.push( _gl.COLOR_ATTACHMENT0 + i );
+		//
+		// 			if ( renderTarget.depthBuffer ) {
+		//
+		// 				invalidationArray.push( depthStyle );
+		//
+		// 			}
+		//
+		// 			const ignoreDepthValues = ( renderTargetProperties.__ignoreDepthValues !== undefined ) ? renderTargetProperties.__ignoreDepthValues : false;
+		//
+		// 			if ( ignoreDepthValues === false ) {
+		//
+		// 				if ( renderTarget.depthBuffer ) mask |= _gl.DEPTH_BUFFER_BIT;
+		// 				if ( renderTarget.stencilBuffer ) mask |= _gl.STENCIL_BUFFER_BIT;
+		//
+		// 			}
+		//
+		// 			if ( isMultipleRenderTargets ) {
+		//
+		// 				_gl.framebufferRenderbuffer( _gl.READ_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0, _gl.RENDERBUFFER, renderTargetProperties.__webglColorRenderbuffer[ i ] );
+		//
+		// 			}
+		//
+		// 			if ( ignoreDepthValues === true ) {
+		//
+		// 				_gl.invalidateFramebuffer( _gl.READ_FRAMEBUFFER, [ depthStyle ] );
+		// 				_gl.invalidateFramebuffer( _gl.DRAW_FRAMEBUFFER, [ depthStyle ] );
+		//
+		// 			}
+		//
+		// 			if ( isMultipleRenderTargets ) {
+		//
+		// 				const webglTexture = properties.get( textures[ i ] ).__webglTexture;
+		// 				_gl.framebufferTexture2D( _gl.DRAW_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0, _gl.TEXTURE_2D, webglTexture, 0 );
+		//
+		// 			}
+		//
+		// 			_gl.blitFramebuffer( 0, 0, width, height, 0, 0, width, height, mask, _gl.NEAREST );
+		//
+		// 			if ( supportsInvalidateFramebuffer ) {
+		//
+		// 				_gl.invalidateFramebuffer( _gl.READ_FRAMEBUFFER, invalidationArray );
+		//
+		// 			}
+		//
+		//
+		// 		}
+		//
+		// 		state.bindFramebuffer( _gl.READ_FRAMEBUFFER, null );
+		// 		state.bindFramebuffer( _gl.DRAW_FRAMEBUFFER, null );
+		//
+		// 		// If MRT since pre-blit we removed the FBO we need to reconstruct the attachments
+		// 		if ( isMultipleRenderTargets ) {
+		//
+		// 			for ( let i = 0; i < textures.length; i ++ ) {
+		//
+		// 				state.bindFramebuffer( _gl.FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer );
+		// 				_gl.framebufferRenderbuffer( _gl.FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.RENDERBUFFER, renderTargetProperties.__webglColorRenderbuffer[ i ] );
+		//
+		// 				const webglTexture = properties.get( textures[ i ] ).__webglTexture;
+		//
+		// 				state.bindFramebuffer( _gl.FRAMEBUFFER, renderTargetProperties.__webglFramebuffer );
+		// 				_gl.framebufferTexture2D( _gl.DRAW_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.TEXTURE_2D, webglTexture, 0 );
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 		state.bindFramebuffer( _gl.DRAW_FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer );
+		//
+		// 	}
+		//
+		// }
 
-				// If MRT since pre-blit we removed the FBO we need to reconstruct the attachments
-				if (isMultipleRenderTargets) {
-					for (let i = 0; i < textures.length; i++) {
-						state.bindFramebuffer(_gl.FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer);
-						_gl.framebufferRenderbuffer(_gl.FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.RENDERBUFFER, renderTargetProperties.__webglColorRenderbuffer[i]);
-						const webglTexture = properties.get(textures[i]).__webglTexture;
-						state.bindFramebuffer(_gl.FRAMEBUFFER, renderTargetProperties.__webglFramebuffer);
-						_gl.framebufferTexture2D(_gl.DRAW_FRAMEBUFFER, _gl.COLOR_ATTACHMENT0 + i, _gl.TEXTURE_2D, webglTexture, 0);
-					}
-				}
-				state.bindFramebuffer(_gl.DRAW_FRAMEBUFFER, renderTargetProperties.__webglMultisampledFramebuffer);
-			}
-		}
 		function getRenderTargetSamples(renderTarget) {
 			return Math.min(maxSamples, renderTarget.samples);
 		}
@@ -13921,12 +13871,12 @@
 		this.resetTextureUnits = resetTextureUnits;
 		this.setTexture2D = setTexture2D;
 		this.setTexture2DArray = setTexture2DArray;
-		this.setTexture3D = setTexture3D;
+		// this.setTexture3D = setTexture3D;
 		// this.setTextureCube = setTextureCube;
 		this.rebindTextures = rebindTextures;
 		this.setupRenderTarget = setupRenderTarget;
-		this.updateRenderTargetMipmap = updateRenderTargetMipmap;
-		this.updateMultisampleRenderTarget = updateMultisampleRenderTarget;
+		// this.updateRenderTargetMipmap = updateRenderTargetMipmap;
+		// this.updateMultisampleRenderTarget = updateMultisampleRenderTarget;
 		// this.setupDepthRenderbuffer = setupDepthRenderbuffer;
 		// this.setupFrameBufferTexture = setupFrameBufferTexture;
 		this.useMultisampledRTT = useMultisampledRTT;
@@ -14826,8 +14776,8 @@
 
 		// user-defined clipping
 
-		this.clippingPlanes = [];
-		this.localClippingEnabled = false;
+		// this.clippingPlanes = [];
+		// this.localClippingEnabled = false;
 
 		// physically based shading
 
@@ -14875,8 +14825,8 @@
 
 		// clipping
 
-		let _clippingEnabled = false;
-		let _localClippingEnabled = false;
+		// let _clippingEnabled = false;
+		// let _localClippingEnabled = false;
 
 		// transmission
 
@@ -14960,7 +14910,7 @@
 		}
 		let extensions, capabilities, state, info;
 		let properties, textures, cubemaps, cubeuvmaps, attributes, geometries, objects;
-		let programCache, materials, renderLists, renderStates, clipping, shadowMap;
+		let programCache, materials, renderLists, renderStates, shadowMap;
 		let background,
 			// morphtargets,
 			bufferRenderer, indexedBufferRenderer;
@@ -14982,7 +14932,7 @@
 			geometries = new WebGLGeometries(_gl, attributes, info, bindingStates);
 			objects = new WebGLObjects(_gl, geometries, attributes, info);
 			// morphtargets = new WebGLMorphtargets( _gl, capabilities, textures );
-			clipping = new WebGLClipping(properties);
+			// clipping = new WebGLClipping( properties );
 			programCache = new WebGLPrograms(_this, cubemaps, cubeuvmaps, extensions, capabilities, bindingStates);
 			materials = new WebGLMaterials();
 			renderLists = new WebGLRenderLists();
@@ -15499,8 +15449,10 @@
 			renderStateStack.push(currentRenderState);
 			_projScreenMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
 			_frustum.setFromProjectionMatrix(_projScreenMatrix);
-			_localClippingEnabled = this.localClippingEnabled;
-			_clippingEnabled = clipping.init(this.clippingPlanes, _localClippingEnabled, camera);
+
+			// _localClippingEnabled = this.localClippingEnabled;
+			// _clippingEnabled = clipping.init( this.clippingPlanes, _localClippingEnabled, camera );
+
 			currentRenderList = renderLists.get(scene, renderListStack.length);
 			currentRenderList.init();
 			renderListStack.push(currentRenderList);
@@ -15512,10 +15464,12 @@
 
 			//
 
-			if (_clippingEnabled === true) clipping.beginShadows();
+			// if ( _clippingEnabled === true ) clipping.beginShadows();
+
 			const shadowsArray = currentRenderState.state.shadowsArray;
 			shadowMap.render(shadowsArray, scene, camera);
-			if (_clippingEnabled === true) clipping.endShadows();
+
+			// if ( _clippingEnabled === true ) clipping.endShadows();
 
 			//
 
@@ -15759,9 +15713,13 @@
 				materialProperties.uniforms = parameters.uniforms;
 			}
 			const uniforms = materialProperties.uniforms;
-			if (!material.isShaderMaterial && !material.isRawShaderMaterial || material.clipping === true) {
-				uniforms.clippingPlanes = clipping.uniform;
-			}
+
+			// if ( ( ! material.isShaderMaterial && ! material.isRawShaderMaterial ) || material.clipping === true ) {
+			//
+			// 	uniforms.clippingPlanes = clipping.uniform;
+			//
+			// }
+
 			updateCommonMaterialProperties(material, parameters);
 
 			// store the light setup it was created for
@@ -15838,16 +15796,23 @@
 
 			const materialProperties = properties.get(material);
 			const lights = currentRenderState.state.lights;
-			if (_clippingEnabled === true) {
-				if (_localClippingEnabled === true || camera !== _currentCamera) {
-					const useCache = camera === _currentCamera && material.id === _currentMaterialId;
 
-					// we might want to call this function with some ClippingGroup
-					// object instead of the material, once it becomes feasible
-					// (#8465, #8379)
-					clipping.setState(material, camera, useCache);
-				}
-			}
+			// if ( _clippingEnabled === true ) {
+			//
+			// 	if ( _localClippingEnabled === true || camera !== _currentCamera ) {
+			//
+			// 		const useCache =
+			// 			camera === _currentCamera &&
+			// 			material.id === _currentMaterialId;
+			//
+			// 		// we might want to call this function with some ClippingGroup
+			// 		// object instead of the material, once it becomes feasible
+			// 		// (#8465, #8379)
+			// 		clipping.setState( material, camera, useCache );
+			//
+			// 	}
+			//
+			// }
 
 			//
 
@@ -18150,7 +18115,9 @@
 			this.receiveShadow = source.receiveShadow;
 			this.frustumCulled = source.frustumCulled;
 			this.renderOrder = source.renderOrder;
-			this.userData = JSON.parse(JSON.stringify(source.userData));
+
+			// this.userData = JSON.parse( JSON.stringify( source.userData ) );
+
 			if (recursive === true) {
 				for (let i = 0; i < source.children.length; i++) {
 					const child = source.children[i];
@@ -18929,8 +18896,10 @@
 			this.emissive = new Color(0x000000);
 			this.emissiveIntensity = 1.0;
 			this.emissiveMap = null;
-			this.bumpMap = null;
-			this.bumpScale = 1;
+
+			// this.bumpMap = null;
+			// this.bumpScale = 1;
+
 			this.normalMap = null;
 			this.normalMapType = TangentSpaceNormalMap;
 			this.normalScale = new Vector2(1, 1);
@@ -20435,37 +20404,6 @@
 		}
 	}
 
-	class LineBasicMaterial extends Material {
-		constructor(parameters) {
-			super();
-			this.isLineBasicMaterial = true;
-			this.type = 'LineBasicMaterial';
-			this.color = new Color(0xffffff);
-			this.linewidth = 1;
-			// this.linecap = 'round';
-			// this.linejoin = 'round';
-
-			this.fog = true;
-			this.setValues(parameters);
-		}
-
-		// copy( source ) {
-
-		// 	super.copy( source );
-
-		// 	this.color.copy( source.color );
-
-		// 	this.linewidth = source.linewidth;
-		// 	this.linecap = source.linecap;
-		// 	this.linejoin = source.linejoin;
-
-		// 	this.fog = source.fog;
-
-		// 	return this;
-
-		// }
-	}
-
 	// import { Sphere } from '../math/Sphere.js';
 	// import { Float32BufferAttribute } from '../core/BufferAttribute.js';
 
@@ -20476,13 +20414,14 @@
 
 
 	class Line extends Object3D {
-		constructor(geometry = new BufferGeometry(), material = new LineBasicMaterial()) {
+		constructor(geometry = new BufferGeometry(), material = new MeshPhongMaterial()) {
 			super();
 			this.isLine = true;
 			this.type = 'Line';
 			this.geometry = geometry;
 			this.material = material;
-			this.updateMorphTargets();
+
+			// this.updateMorphTargets();
 		}
 
 		// copy( source, recursive ) {
@@ -20641,23 +20580,36 @@
 
 		// }
 
-		updateMorphTargets() {
-			const geometry = this.geometry;
-			const morphAttributes = geometry.morphAttributes;
-			const keys = Object.keys(morphAttributes);
-			if (keys.length > 0) {
-				const morphAttribute = morphAttributes[keys[0]];
-				if (morphAttribute !== undefined) {
-					this.morphTargetInfluences = [];
-					this.morphTargetDictionary = {};
-					for (let m = 0, ml = morphAttribute.length; m < ml; m++) {
-						const name = morphAttribute[m].name || String(m);
-						this.morphTargetInfluences.push(0);
-						this.morphTargetDictionary[name] = m;
-					}
-				}
-			}
-		}
+		// updateMorphTargets() {
+		//
+		// 	const geometry = this.geometry;
+		//
+		// 	const morphAttributes = geometry.morphAttributes;
+		// 	const keys = Object.keys( morphAttributes );
+		//
+		// 	if ( keys.length > 0 ) {
+		//
+		// 		const morphAttribute = morphAttributes[ keys[ 0 ] ];
+		//
+		// 		if ( morphAttribute !== undefined ) {
+		//
+		// 			this.morphTargetInfluences = [];
+		// 			this.morphTargetDictionary = {};
+		//
+		// 			for ( let m = 0, ml = morphAttribute.length; m < ml; m ++ ) {
+		//
+		// 				const name = morphAttribute[ m ].name || String( m );
+		//
+		// 				this.morphTargetInfluences.push( 0 );
+		// 				this.morphTargetDictionary[ name ] = m;
+		//
+		// 			}
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// }
 	}
 
 	// import { Vector3 } from '../math/Vector3.js';
@@ -20720,7 +20672,7 @@
 	class CameraHelper extends LineSegments {
 		constructor(camera) {
 			const geometry = new BufferGeometry();
-			const material = new LineBasicMaterial({
+			const material = new MeshPhongMaterial({
 				color: 0xffffff,
 				vertexColors: true,
 				toneMapped: false
@@ -20956,7 +20908,7 @@
 			const geometry = new BufferGeometry();
 			geometry.setIndex(new BufferAttribute(indices, 1));
 			geometry.setAttribute('position', new BufferAttribute(positions, 3));
-			super(geometry, new LineBasicMaterial({
+			super(geometry, new MeshPhongMaterial({
 				color: color,
 				toneMapped: false
 			}));
@@ -21610,14 +21562,11 @@
 	exports.CameraHelper = CameraHelper;
 	exports.ClampToEdgeWrapping = ClampToEdgeWrapping;
 	exports.Color = Color;
-	exports.CubeUVReflectionMapping = CubeUVReflectionMapping;
 	exports.CubicBezierCurve3 = CubicBezierCurve3;
 	exports.CullFaceBack = CullFaceBack;
 	exports.CullFaceFront = CullFaceFront;
 	exports.CullFaceNone = CullFaceNone;
 	exports.CustomBlending = CustomBlending;
-	exports.DepthFormat = DepthFormat;
-	exports.DepthStencilFormat = DepthStencilFormat;
 	exports.DirectionalLight = DirectionalLight;
 	exports.DoubleSide = DoubleSide;
 	exports.DstAlphaFactor = DstAlphaFactor;
@@ -21690,7 +21639,6 @@
 	exports.TwoPassDoubleSide = TwoPassDoubleSide;
 	exports.UVMapping = UVMapping;
 	exports.UnsignedByteType = UnsignedByteType;
-	exports.UnsignedInt248Type = UnsignedInt248Type;
 	exports.UnsignedIntType = UnsignedIntType;
 	exports.UnsignedShort4444Type = UnsignedShort4444Type;
 	exports.UnsignedShort5551Type = UnsignedShort5551Type;
