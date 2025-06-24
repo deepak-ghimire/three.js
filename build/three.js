@@ -8753,7 +8753,7 @@
 				// aoMap: !! material.aoMap,
 				// emissiveMap: !! material.emissiveMap,
 				// bumpMap: !! material.bumpMap,
-				// normalMap: !! material.normalMap,
+				normalMap: !!material.normalMap,
 				objectSpaceNormalMap: material.normalMapType === ObjectSpaceNormalMap,
 				tangentSpaceNormalMap: material.normalMapType === TangentSpaceNormalMap,
 				decodeVideoTexture: !!material.map && material.map.isVideoTexture === true && material.map.encoding === sRGBEncoding,
