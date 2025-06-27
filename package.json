@@ -158,7 +158,9 @@
     "rollup-plugin-filesize": "^9.1.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-visualizer": "^5.8.3",
-    "servez": "^1.14.1"
+    "servez": "^1.14.1",
+    "execSync": "^1.0.2",
+    "graphviz": "^0.0.9"
   },
   "jspm": {
     "files": [
@@ -170,9 +172,5 @@
       "build/three.module.js"
     ],
     "directories": {}
-  },
-  "dependencies": {
-    "execSync": "^1.0.2",
-    "graphviz": "^0.0.9"
   }
 }
