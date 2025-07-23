@@ -40,18 +40,18 @@ class Matrix3 {
 	//
 	// }
 
-	// copy( m ) {
-	//
-	// 	const te = this.elements;
-	// 	const me = m.elements;
-	//
-	// 	te[ 0 ] = me[ 0 ]; te[ 1 ] = me[ 1 ]; te[ 2 ] = me[ 2 ];
-	// 	te[ 3 ] = me[ 3 ]; te[ 4 ] = me[ 4 ]; te[ 5 ] = me[ 5 ];
-	// 	te[ 6 ] = me[ 6 ]; te[ 7 ] = me[ 7 ]; te[ 8 ] = me[ 8 ];
-	//
-	// 	return this;
-	//
-	// }
+	copy( m ) {
+
+		const te = this.elements;
+		const me = m.elements;
+
+		te[ 0 ] = me[ 0 ]; te[ 1 ] = me[ 1 ]; te[ 2 ] = me[ 2 ];
+		te[ 3 ] = me[ 3 ]; te[ 4 ] = me[ 4 ]; te[ 5 ] = me[ 5 ];
+		te[ 6 ] = me[ 6 ]; te[ 7 ] = me[ 7 ]; te[ 8 ] = me[ 8 ];
+
+		return this;
+
+	}
 
 	// extractBasis( xAxis, yAxis, zAxis ) {
 	//
@@ -216,20 +216,20 @@ class Matrix3 {
 	//
 	// }
 
-	// setUvTransform( tx, ty, sx, sy, rotation, cx, cy ) {
-	//
-	// 	const c = Math.cos( rotation );
-	// 	const s = Math.sin( rotation );
-	//
-	// 	this.set(
-	// 		sx * c, sx * s, - sx * ( c * cx + s * cy ) + cx + tx,
-	// 		- sy * s, sy * c, - sy * ( - s * cx + c * cy ) + cy + ty,
-	// 		0, 0, 1
-	// 	);
-	//
-	// 	return this;
-	//
-	// }
+	setUvTransform( tx, ty, sx, sy, rotation, cx, cy ) {
+
+		const c = Math.cos( rotation );
+		const s = Math.sin( rotation );
+
+		this.set(
+			sx * c, sx * s, - sx * ( c * cx + s * cy ) + cx + tx,
+			- sy * s, sy * c, - sy * ( - s * cx + c * cy ) + cy + ty,
+			0, 0, 1
+		);
+
+		return this;
+
+	}
 
 	//
 	//

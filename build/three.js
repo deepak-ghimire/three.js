@@ -9,7 +9,7 @@
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.THREE = {}));
 })(this, (function (exports) { 'use strict';
 
-	const REVISION = '148';
+	const REVISION = '148.1';
 	// export const MOUSE = { LEFT: 0, MIDDLE: 1, RIGHT: 2, ROTATE: 0, DOLLY: 1, PAN: 2 };
 	// export const TOUCH = { ROTATE: 0, PAN: 1, DOLLY_PAN: 2, DOLLY_ROTATE: 3 };
 	const CullFaceNone = 0;
@@ -4920,18 +4920,20 @@
 		//
 		// }
 
-		// copy( m ) {
-		//
-		// 	const te = this.elements;
-		// 	const me = m.elements;
-		//
-		// 	te[ 0 ] = me[ 0 ]; te[ 1 ] = me[ 1 ]; te[ 2 ] = me[ 2 ];
-		// 	te[ 3 ] = me[ 3 ]; te[ 4 ] = me[ 4 ]; te[ 5 ] = me[ 5 ];
-		// 	te[ 6 ] = me[ 6 ]; te[ 7 ] = me[ 7 ]; te[ 8 ] = me[ 8 ];
-		//
-		// 	return this;
-		//
-		// }
+		copy(m) {
+			const te = this.elements;
+			const me = m.elements;
+			te[0] = me[0];
+			te[1] = me[1];
+			te[2] = me[2];
+			te[3] = me[3];
+			te[4] = me[4];
+			te[5] = me[5];
+			te[6] = me[6];
+			te[7] = me[7];
+			te[8] = me[8];
+			return this;
+		}
 
 		// extractBasis( xAxis, yAxis, zAxis ) {
 		//
@@ -5079,20 +5081,12 @@
 		//
 		// }
 
-		// setUvTransform( tx, ty, sx, sy, rotation, cx, cy ) {
-		//
-		// 	const c = Math.cos( rotation );
-		// 	const s = Math.sin( rotation );
-		//
-		// 	this.set(
-		// 		sx * c, sx * s, - sx * ( c * cx + s * cy ) + cx + tx,
-		// 		- sy * s, sy * c, - sy * ( - s * cx + c * cy ) + cy + ty,
-		// 		0, 0, 1
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
+		setUvTransform(tx, ty, sx, sy, rotation, cx, cy) {
+			const c = Math.cos(rotation);
+			const s = Math.sin(rotation);
+			this.set(sx * c, sx * s, -sx * (c * cx + s * cy) + cx + tx, -sy * s, sy * c, -sy * (-s * cx + c * cy) + cy + ty, 0, 0, 1);
+			return this;
+		}
 
 		//
 		//
@@ -5344,12 +5338,9 @@
 		set image(value) {
 			this.source.data = value;
 		}
-
-		// updateMatrix() {
-		//
-		// 	this.matrix.setUvTransform( this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y );
-		//
-		// }
+		updateMatrix() {
+			this.matrix.setUvTransform(this.offset.x, this.offset.y, this.repeat.x, this.repeat.y, this.rotation, this.center.x, this.center.y);
+		}
 
 		// clone() {
 
@@ -8057,7 +8048,7 @@
 		// 	fogDensity: { value: 0.00025 },
 		// 	fogNear: { value: 1 },
 		// 	fogFar: { value: 2000 },
-		
+
 		//
 		// },
 
@@ -8236,7 +8227,7 @@
 		//
 		// lambert: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.specularmap,
 		// 		UniformsLib.envmap,
@@ -8249,7 +8240,7 @@
 		// 		UniformsLib.fog,
 		// 		UniformsLib.lights,
 		// 		{
-		
+
 		// 		}
 		// 	] ),
 		//
@@ -8284,7 +8275,7 @@
 		},
 		// standard: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.envmap,
 		// 		UniformsLib.aomap,
@@ -8298,7 +8289,7 @@
 		// 		UniformsLib.fog,
 		// 		UniformsLib.lights,
 		// 		{
-		
+
 		// 			roughness: { value: 1.0 },
 		// 			metalness: { value: 0.0 },
 		// 			envMapIntensity: { value: 1 } // temporary
@@ -8312,7 +8303,7 @@
 		//
 		// toon: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.aomap,
 		// 		UniformsLib.lightmap,
@@ -8324,7 +8315,7 @@
 		// 		UniformsLib.fog,
 		// 		UniformsLib.lights,
 		// 		{
-		
+
 		// 		}
 		// 	] ),
 		//
@@ -8335,7 +8326,7 @@
 		//
 		// matcap: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.bumpmap,
 		// 		UniformsLib.normalmap,
@@ -8353,7 +8344,7 @@
 		//
 		// points: {
 		//
-		
+
 		// 		UniformsLib.points,
 		// 		UniformsLib.fog
 		// 	] ),
@@ -8365,7 +8356,7 @@
 		//
 		// dashed: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.fog,
 		// 		{
@@ -8391,7 +8382,7 @@
 		//
 		// normal: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.bumpmap,
 		// 		UniformsLib.normalmap,
@@ -8408,7 +8399,7 @@
 		//
 		// sprite: {
 		//
-		
+
 		// 		UniformsLib.sprite,
 		// 		UniformsLib.fog
 		// 	] ),
@@ -8421,7 +8412,7 @@
 		// background: {
 		//
 		// 	uniforms: {
-		
+
 		// 		t2D: { value: null },
 		// 		backgroundIntensity: { value: 1 }
 		// 	},
@@ -8471,11 +8462,11 @@
 		//
 		// distanceRGBA: {
 		//
-		
+
 		// 		UniformsLib.common,
 		// 		UniformsLib.displacementmap,
 		// 		{
-		
+
 		// 			nearDistance: { value: 1 },
 		// 			farDistance: { value: 1000 }
 		// 		}
@@ -14276,16 +14267,76 @@
 			if (material.specularMap) {
 				uniforms.specularMap.value = material.specularMap;
 			}
+
+			// if ( material.alphaTest > 0 ) {
+			//
+			// 	uniforms.alphaTest.value = material.alphaTest;
+			//
+			// }
+			//
+			// const envMap = properties.get( material ).envMap;
+			//
+			// if ( envMap ) {
+			//
+			// 	uniforms.envMap.value = envMap;
+			//
+			// 	uniforms.flipEnvMap.value = ( envMap.isCubeTexture && envMap.isRenderTargetTexture === false ) ? - 1 : 1;
+			//
+			// 	uniforms.reflectivity.value = material.reflectivity;
+			// 	uniforms.ior.value = material.ior;
+			// 	uniforms.refractionRatio.value = material.refractionRatio;
+			//
+			// }
+			//
+			// if ( material.lightMap ) {
+			//
+			// 	uniforms.lightMap.value = material.lightMap;
+			//
+			// 	// artist-friendly light intensity scaling factor
+			// 	const scaleFactor = ( renderer.physicallyCorrectLights !== true ) ? Math.PI : 1;
+			//
+			// 	uniforms.lightMapIntensity.value = material.lightMapIntensity * scaleFactor;
+			//
+			// }
+			//
+			// if ( material.aoMap ) {
+			//
+			// 	uniforms.aoMap.value = material.aoMap;
+			// 	uniforms.aoMapIntensity.value = material.aoMapIntensity;
+			//
+			// }
+			//
+			// uv repeat and offset setting priorities
+			// 1. color map
+			// 2. specular map
+			// 3. displacementMap map
+			// 4. normal map
+			// 5. bump map
+			// 6. roughnessMap map
+			// 7. metalnessMap map
+			// 8. alphaMap map
+			// 9. emissiveMap map
+			// 10. clearcoat map
+			// 11. clearcoat normal map
+			// 12. clearcoat roughnessMap map
+			// 13. iridescence map
+			// 14. iridescence thickness map
+			// 15. specular intensity map
+			// 16. specular tint map
+			// 17. transmission map
+			// 18. thickness map
+
+			let uvScaleMap;
 			if (material.map) {
-				material.map;
+				uvScaleMap = material.map;
 			} else if (material.specularMap) {
-				material.specularMap;
+				uvScaleMap = material.specularMap;
 
 				// } else if ( material.displacementMap ) {
 				//
 				// 	uvScaleMap = material.displacementMap;
 			} else if (material.normalMap) {
-				material.normalMap;
+				uvScaleMap = material.normalMap;
 
 				// } else if ( material.bumpMap ) {
 				//
@@ -14303,7 +14354,7 @@
 				//
 				// 	uvScaleMap = material.alphaMap;
 			} else if (material.emissiveMap) {
-				material.emissiveMap;
+				uvScaleMap = material.emissiveMap;
 
 				// } else if ( material.clearcoatMap ) {
 				//
@@ -14325,9 +14376,9 @@
 				//
 				// 	uvScaleMap = material.iridescenceThicknessMap;
 			} else if (material.specularIntensityMap) {
-				material.specularIntensityMap;
+				uvScaleMap = material.specularIntensityMap;
 			} else if (material.specularColorMap) {
-				material.specularColorMap;
+				uvScaleMap = material.specularColorMap;
 
 				// } else if ( material.transmissionMap ) {
 				//
@@ -14346,24 +14397,16 @@
 				// 	uvScaleMap = material.sheenRoughnessMap;
 			}
 
-			// if ( uvScaleMap !== undefined ) {
-			//
-			// 	// backwards compatibility
-			// 	if ( uvScaleMap.isWebGLRenderTarget ) {
-			//
-			// 		uvScaleMap = uvScaleMap.texture;
-			//
-			// 	}
-			//
-			// 	if ( uvScaleMap.matrixAutoUpdate === true ) {
-			//
-			// 		uvScaleMap.updateMatrix();
-			//
-			// 	}
-			//
-			// 	uniforms.uvTransform.value.copy( uvScaleMap.matrix );
-			//
-			// }
+			if (uvScaleMap !== undefined) {
+				// backwards compatibility
+				if (uvScaleMap.isWebGLRenderTarget) {
+					uvScaleMap = uvScaleMap.texture;
+				}
+				if (uvScaleMap.matrixAutoUpdate === true) {
+					uvScaleMap.updateMatrix();
+				}
+				uniforms.uvTransform.value.copy(uvScaleMap.matrix);
+			}
 
 			// uv repeat and offset setting priorities for uv2
 			// 1. ao map

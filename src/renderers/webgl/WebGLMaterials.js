@@ -306,24 +306,24 @@ function WebGLMaterials( renderer, properties ) {
 
 		}
 
-		// if ( uvScaleMap !== undefined ) {
-		//
-		// 	// backwards compatibility
-		// 	if ( uvScaleMap.isWebGLRenderTarget ) {
-		//
-		// 		uvScaleMap = uvScaleMap.texture;
-		//
-		// 	}
-		//
-		// 	if ( uvScaleMap.matrixAutoUpdate === true ) {
-		//
-		// 		uvScaleMap.updateMatrix();
-		//
-		// 	}
-		//
-		// 	uniforms.uvTransform.value.copy( uvScaleMap.matrix );
-		//
-		// }
+		if ( uvScaleMap !== undefined ) {
+
+			// backwards compatibility
+			if ( uvScaleMap.isWebGLRenderTarget ) {
+
+				uvScaleMap = uvScaleMap.texture;
+
+			}
+
+			if ( uvScaleMap.matrixAutoUpdate === true ) {
+
+				uvScaleMap.updateMatrix();
+
+			}
+
+			uniforms.uvTransform.value.copy( uvScaleMap.matrix );
+
+		}
 
 		// uv repeat and offset setting priorities for uv2
 		// 1. ao map
