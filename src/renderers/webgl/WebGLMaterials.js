@@ -56,9 +56,9 @@ function WebGLMaterials( renderer, properties ) {
 		// 	refreshUniformsCommon( uniforms, material );
 		// 	refreshUniformsMatcap( uniforms, material );
 		//
-		// } else if ( material.isMeshDepthMaterial ) {
-		//
-		// 	refreshUniformsCommon( uniforms, material );
+		} else if ( material.isMeshDepthMaterial ) {
+
+			refreshUniformsCommon( uniforms, material );
 		//
 		// } else if ( material.isMeshDistanceMaterial ) {
 		//

@@ -253,46 +253,46 @@ class Ray {
 
 	}
 
-	// distanceToPlane( plane ) {
+	distanceToPlane( plane ) {
 
-	// 	const denominator = plane.normal.dot( this.direction );
+		const denominator = plane.normal.dot( this.direction );
 
-	// 	if ( denominator === 0 ) {
+		if ( denominator === 0 ) {
 
-	// 		// line is coplanar, return origin
-	// 		if ( plane.distanceToPoint( this.origin ) === 0 ) {
+			// line is coplanar, return origin
+			if ( plane.distanceToPoint( this.origin ) === 0 ) {
 
-	// 			return 0;
+				return 0;
 
-	// 		}
+			}
 
-	// 		// Null is preferable to undefined since undefined means.... it is undefined
+			// Null is preferable to undefined since undefined means.... it is undefined
 
-	// 		return null;
+			return null;
 
-	// 	}
+		}
 
-	// 	const t = - ( this.origin.dot( plane.normal ) + plane.constant ) / denominator;
+		const t = - ( this.origin.dot( plane.normal ) + plane.constant ) / denominator;
 
-	// 	// Return if the ray never intersects the plane
+		// Return if the ray never intersects the plane
 
-	// 	return t >= 0 ? t : null;
+		return t >= 0 ? t : null;
 
-	// }
+	}
 
-	// intersectPlane( plane, target ) {
+	intersectPlane( plane, target ) {
 
-	// 	const t = this.distanceToPlane( plane );
+		const t = this.distanceToPlane( plane );
 
-	// 	if ( t === null ) {
+		if ( t === null ) {
 
-	// 		return null;
+			return null;
 
-	// 	}
+		}
 
-	// 	return this.at( t, target );
+		return this.at( t, target );
 
-	// }
+	}
 
 	// intersectsPlane( plane ) {
 	//

@@ -7,7 +7,7 @@ class MeshDepthMaterial extends Material {
 
 		super();
 
-		// this.isMeshDepthMaterial = true;
+		this.isMeshDepthMaterial = true;
 
 		this.type = 'MeshDepthMaterial';
 

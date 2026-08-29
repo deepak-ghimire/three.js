@@ -9,7 +9,7 @@ import { MeshPhongMaterial } from './MeshPhongMaterial.js';
 // import { MeshToonMaterial } from './MeshToonMaterial.js';
 // import { MeshNormalMaterial } from './MeshNormalMaterial.js';
 // import { MeshLambertMaterial } from './MeshLambertMaterial.js';
-// import { MeshDepthMaterial } from './MeshDepthMaterial.js';
+import { MeshDepthMaterial } from './MeshDepthMaterial.js';
 // import { MeshDistanceMaterial } from './MeshDistanceMaterial.js';
 // import { MeshBasicMaterial } from './MeshBasicMaterial.js';
 // import { MeshMatcapMaterial } from './MeshMatcapMaterial.js';
@@ -29,7 +29,7 @@ export {
 	// MeshToonMaterial,
 	// MeshNormalMaterial,
 	// MeshLambertMaterial,
-	// MeshDepthMaterial,
+	MeshDepthMaterial,
 	// MeshDistanceMaterial,
 	// MeshBasicMaterial,
 	// MeshMatcapMaterial,

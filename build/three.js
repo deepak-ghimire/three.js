@@ -547,25 +547,19 @@
 		//
 		// }
 		//
-		// applyMatrix3( m ) {
-		//
-		// 	const x = this.x, y = this.y, z = this.z;
-		// 	const e = m.elements;
-		//
-		// 	this.x = e[ 0 ] * x + e[ 3 ] * y + e[ 6 ] * z;
-		// 	this.y = e[ 1 ] * x + e[ 4 ] * y + e[ 7 ] * z;
-		// 	this.z = e[ 2 ] * x + e[ 5 ] * y + e[ 8 ] * z;
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// applyNormalMatrix( m ) {
-		//
-		// 	return this.applyMatrix3( m ).normalize();
-		//
-		// }
-
+		applyMatrix3(m) {
+			const x = this.x,
+				y = this.y,
+				z = this.z;
+			const e = m.elements;
+			this.x = e[0] * x + e[3] * y + e[6] * z;
+			this.y = e[1] * x + e[4] * y + e[7] * z;
+			this.z = e[2] * x + e[5] * y + e[8] * z;
+			return this;
+		}
+		applyNormalMatrix(m) {
+			return this.applyMatrix3(m).normalize();
+		}
 		applyMatrix4(m) {
 			const x = this.x,
 				y = this.y,
@@ -2086,21 +2080,10 @@
 			const scaleZSq = te[8] * te[8] + te[9] * te[9] + te[10] * te[10];
 			return Math.sqrt(Math.max(scaleXSq, scaleYSq, scaleZSq));
 		}
-
-		// makeTranslation( x, y, z ) {
-		//
-		// 	this.set(
-		//
-		// 		1, 0, 0, x,
-		// 		0, 1, 0, y,
-		// 		0, 0, 1, z,
-		// 		0, 0, 0, 1
-		//
-		// 	);
-		//
-		// 	return this;
-		//
-		// }
+		makeTranslation(x, y, z) {
+			this.set(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1);
+			return this;
+		}
 
 		// makeRotationX( theta ) {
 		//
@@ -4059,9 +4042,7 @@
 		};
 	}
 
-	// import { Vector3 } from '../math/Vector3.js';
-
-
+	const _vector$4 = /*@__PURE__*/new Vector3();
 
 
 	class BufferAttribute {
@@ -4164,37 +4145,22 @@
 		//
 		// }
 		//
-		// applyMatrix4( m ) {
-		//
-		// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
-		//
-		// 		_vector.fromBufferAttribute( this, i );
-		//
-		// 		_vector.applyMatrix4( m );
-		//
-		// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-		//
-		// 	}
-		//
-		// 	return this;
-		//
-		// }
-		//
-		// applyNormalMatrix( m ) {
-		//
-		// 	for ( let i = 0, l = this.count; i < l; i ++ ) {
-		//
-		// 		_vector.fromBufferAttribute( this, i );
-		//
-		// 		_vector.applyNormalMatrix( m );
-		//
-		// 		this.setXYZ( i, _vector.x, _vector.y, _vector.z );
-		//
-		// 	}
-		//
-		// 	return this;
-		//
-		// }
+		applyMatrix4(m) {
+			for (let i = 0, l = this.count; i < l; i++) {
+				_vector$4.fromBufferAttribute(this, i);
+				_vector$4.applyMatrix4(m);
+				this.setXYZ(i, _vector$4.x, _vector$4.y, _vector$4.z);
+			}
+			return this;
+		}
+		applyNormalMatrix(m) {
+			for (let i = 0, l = this.count; i < l; i++) {
+				_vector$4.fromBufferAttribute(this, i);
+				_vector$4.applyNormalMatrix(m);
+				this.setXYZ(i, _vector$4.x, _vector$4.y, _vector$4.z);
+			}
+			return this;
+		}
 		//
 		// transformDirection( m ) {
 		//
@@ -4238,17 +4204,11 @@
 			if (this.normalized) y = denormalize(y, this.array);
 			return y;
 		}
-
-		// setY( index, y ) {
-		//
-		// 	if ( this.normalized ) y = normalize( y, this.array );
-		//
-		// 	this.array[ index * this.itemSize + 1 ] = y;
-		//
-		// 	return this;
-		//
-		// }
-
+		setY(index, y) {
+			if (this.normalized) y = normalize(y, this.array);
+			this.array[index * this.itemSize + 1] = y;
+			return this;
+		}
 		getZ(index) {
 			let z = this.array[index * this.itemSize + 2];
 			if (this.normalized) z = denormalize(z, this.array);
@@ -4282,24 +4242,16 @@
 		//
 		// }
 		//
-		// setXY( index, x, y ) {
-		//
-		// 	index *= this.itemSize;
-		//
-		// 	if ( this.normalized ) {
-		//
-		// 		x = normalize( x, this.array );
-		// 		y = normalize( y, this.array );
-		//
-		// 	}
-		//
-		// 	this.array[ index + 0 ] = x;
-		// 	this.array[ index + 1 ] = y;
-		//
-		// 	return this;
-		//
-		// }
-		//
+		setXY(index, x, y) {
+			index *= this.itemSize;
+			if (this.normalized) {
+				x = normalize(x, this.array);
+				y = normalize(y, this.array);
+			}
+			this.array[index + 0] = x;
+			this.array[index + 1] = y;
+			return this;
+		}
 		setXYZ(index, x, y, z) {
 			index *= this.itemSize;
 			if (this.normalized) {
@@ -8048,7 +8000,7 @@
 		// 	fogDensity: { value: 0.00025 },
 		// 	fogNear: { value: 1 },
 		// 	fogFar: { value: 2000 },
-
+		
 		//
 		// },
 
@@ -8227,7 +8179,7 @@
 		//
 		// lambert: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.specularmap,
 		// 		UniformsLib.envmap,
@@ -8240,7 +8192,7 @@
 		// 		UniformsLib.fog,
 		// 		UniformsLib.lights,
 		// 		{
-
+		
 		// 		}
 		// 	] ),
 		//
@@ -8275,7 +8227,7 @@
 		},
 		// standard: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.envmap,
 		// 		UniformsLib.aomap,
@@ -8289,7 +8241,7 @@
 		// 		UniformsLib.fog,
 		// 		UniformsLib.lights,
 		// 		{
-
+		
 		// 			roughness: { value: 1.0 },
 		// 			metalness: { value: 0.0 },
 		// 			envMapIntensity: { value: 1 } // temporary
@@ -8303,7 +8255,7 @@
 		//
 		// toon: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.aomap,
 		// 		UniformsLib.lightmap,
@@ -8315,7 +8267,7 @@
 		// 		UniformsLib.fog,
 		// 		UniformsLib.lights,
 		// 		{
-
+		
 		// 		}
 		// 	] ),
 		//
@@ -8326,7 +8278,7 @@
 		//
 		// matcap: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.bumpmap,
 		// 		UniformsLib.normalmap,
@@ -8344,7 +8296,7 @@
 		//
 		// points: {
 		//
-
+		
 		// 		UniformsLib.points,
 		// 		UniformsLib.fog
 		// 	] ),
@@ -8356,7 +8308,7 @@
 		//
 		// dashed: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.fog,
 		// 		{
@@ -8382,7 +8334,7 @@
 		//
 		// normal: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.bumpmap,
 		// 		UniformsLib.normalmap,
@@ -8399,7 +8351,7 @@
 		//
 		// sprite: {
 		//
-
+		
 		// 		UniformsLib.sprite,
 		// 		UniformsLib.fog
 		// 	] ),
@@ -8412,7 +8364,7 @@
 		// background: {
 		//
 		// 	uniforms: {
-
+		
 		// 		t2D: { value: null },
 		// 		backgroundIntensity: { value: 1 }
 		// 	},
@@ -8462,11 +8414,11 @@
 		//
 		// distanceRGBA: {
 		//
-
+		
 		// 		UniformsLib.common,
 		// 		UniformsLib.displacementmap,
 		// 		{
-
+		
 		// 			nearDistance: { value: 1 },
 		// 			farDistance: { value: 1000 }
 		// 		}
@@ -10133,9 +10085,7 @@
 	class MeshDepthMaterial extends Material {
 		constructor(parameters) {
 			super();
-
-			// this.isMeshDepthMaterial = true;
-
+			this.isMeshDepthMaterial = true;
 			this.type = 'MeshDepthMaterial';
 			this.depthPacking = BasicDepthPacking;
 			this.map = null;
@@ -10619,8 +10569,7 @@
 	const _box$2 = /*@__PURE__*/new Box3();
 
 	let _id = 0;
-
-
+	const _m1$1 = /*@__PURE__*/new Matrix4();
 
 
 	const _box$1 = /*@__PURE__*/new Box3();
@@ -10711,55 +10660,31 @@
 		//
 		// }
 
-		// applyMatrix4( matrix ) {
-
-		// 	const position = this.attributes.position;
-
-		// 	if ( position !== undefined ) {
-
-		// 		position.applyMatrix4( matrix );
-
-		// 		position.needsUpdate = true;
-
-		// 	}
-
-		// 	const normal = this.attributes.normal;
-
-		// 	if ( normal !== undefined ) {
-
-		// 		const normalMatrix = new Matrix3().getNormalMatrix( matrix );
-
-		// 		normal.applyNormalMatrix( normalMatrix );
-
-		// 		normal.needsUpdate = true;
-
-		// 	}
-
-		// 	const tangent = this.attributes.tangent;
-
-		// 	if ( tangent !== undefined ) {
-
-		// 		tangent.transformDirection( matrix );
-
-		// 		tangent.needsUpdate = true;
-
-		// 	}
-
-		// 	if ( this.boundingBox !== null ) {
-
-		// 		this.computeBoundingBox();
-
-		// 	}
-
-		// 	if ( this.boundingSphere !== null ) {
-
-		// 		this.computeBoundingSphere();
-
-		// 	}
-
-		// 	return this;
-
-		// }
+		applyMatrix4(matrix) {
+			const position = this.attributes.position;
+			if (position !== undefined) {
+				position.applyMatrix4(matrix);
+				position.needsUpdate = true;
+			}
+			const normal = this.attributes.normal;
+			if (normal !== undefined) {
+				const normalMatrix = new Matrix3().getNormalMatrix(matrix);
+				normal.applyNormalMatrix(normalMatrix);
+				normal.needsUpdate = true;
+			}
+			const tangent = this.attributes.tangent;
+			if (tangent !== undefined) {
+				tangent.transformDirection(matrix);
+				tangent.needsUpdate = true;
+			}
+			if (this.boundingBox !== null) {
+				this.computeBoundingBox();
+			}
+			if (this.boundingSphere !== null) {
+				this.computeBoundingSphere();
+			}
+			return this;
+		}
 
 		// applyQuaternion( q ) {
 		//
@@ -10807,17 +10732,13 @@
 		//
 		// }
 		//
-		// translate( x, y, z ) {
-		//
-		// 	// translate geometry
-		//
-		// 	_m1.makeTranslation( x, y, z );
-		//
-		// 	this.applyMatrix4( _m1 );
-		//
-		// 	return this;
-		//
-		// }
+		translate(x, y, z) {
+			// translate geometry
+
+			_m1$1.makeTranslation(x, y, z);
+			this.applyMatrix4(_m1$1);
+			return this;
+		}
 		//
 		// scale( x, y, z ) {
 		//
@@ -14182,9 +14103,8 @@
 				// 	refreshUniformsCommon( uniforms, material );
 				// 	refreshUniformsMatcap( uniforms, material );
 				//
-				// } else if ( material.isMeshDepthMaterial ) {
-				//
-				// 	refreshUniformsCommon( uniforms, material );
+			} else if (material.isMeshDepthMaterial) {
+				refreshUniformsCommon(uniforms, material);
 				//
 				// } else if ( material.isMeshDistanceMaterial ) {
 				//
@@ -17570,14 +17490,10 @@
 		//
 		// }
 		//
-		// worldToLocal( vector ) {
-		//
-		// 	this.updateWorldMatrix( true, false );
-		//
-		// 	return vector.applyMatrix4( _m1.copy( this.matrixWorld ).invert() );
-		//
-		// }
-
+		worldToLocal(vector) {
+			this.updateWorldMatrix(true, false);
+			return vector.applyMatrix4(_m1.copy(this.matrixWorld).invert());
+		}
 		lookAt(x, y, z) {
 			// This method does not support objects having non-uniformly-scaled parent(s)
 
@@ -18468,47 +18384,31 @@
 		intersectsSphere(sphere) {
 			return this.distanceSqToPoint(sphere.center) <= sphere.radius * sphere.radius;
 		}
+		distanceToPlane(plane) {
+			const denominator = plane.normal.dot(this.direction);
+			if (denominator === 0) {
+				// line is coplanar, return origin
+				if (plane.distanceToPoint(this.origin) === 0) {
+					return 0;
+				}
 
-		// distanceToPlane( plane ) {
+				// Null is preferable to undefined since undefined means.... it is undefined
 
-		// 	const denominator = plane.normal.dot( this.direction );
+				return null;
+			}
+			const t = -(this.origin.dot(plane.normal) + plane.constant) / denominator;
 
-		// 	if ( denominator === 0 ) {
+			// Return if the ray never intersects the plane
 
-		// 		// line is coplanar, return origin
-		// 		if ( plane.distanceToPoint( this.origin ) === 0 ) {
-
-		// 			return 0;
-
-		// 		}
-
-		// 		// Null is preferable to undefined since undefined means.... it is undefined
-
-		// 		return null;
-
-		// 	}
-
-		// 	const t = - ( this.origin.dot( plane.normal ) + plane.constant ) / denominator;
-
-		// 	// Return if the ray never intersects the plane
-
-		// 	return t >= 0 ? t : null;
-
-		// }
-
-		// intersectPlane( plane, target ) {
-
-		// 	const t = this.distanceToPlane( plane );
-
-		// 	if ( t === null ) {
-
-		// 		return null;
-
-		// 	}
-
-		// 	return this.at( t, target );
-
-		// }
+			return t >= 0 ? t : null;
+		}
+		intersectPlane(plane, target) {
+			const t = this.distanceToPlane(plane);
+			if (t === null) {
+				return null;
+			}
+			return this.at(t, target);
+		}
 
 		// intersectsPlane( plane ) {
 		//
@@ -19330,6 +19230,14 @@
 			super();
 			this.isGroup = true;
 			this.type = 'Group';
+		}
+	}
+
+	class CanvasTexture extends Texture {
+		constructor(canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy) {
+			super(canvas, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy);
+			this.isCanvasTexture = true;
+			this.needsUpdate = true;
 		}
 	}
 
@@ -21601,8 +21509,11 @@
 	exports.Box3 = Box3;
 	exports.BoxGeometry = BoxGeometry;
 	exports.BoxHelper = BoxHelper;
+	exports.BufferAttribute = BufferAttribute;
+	exports.BufferGeometry = BufferGeometry;
 	exports.ByteType = ByteType;
 	exports.CameraHelper = CameraHelper;
+	exports.CanvasTexture = CanvasTexture;
 	exports.ClampToEdgeWrapping = ClampToEdgeWrapping;
 	exports.Color = Color;
 	exports.CubicBezierCurve3 = CubicBezierCurve3;
@@ -21615,6 +21526,7 @@
 	exports.DstAlphaFactor = DstAlphaFactor;
 	exports.DstColorFactor = DstColorFactor;
 	exports.EqualDepth = EqualDepth;
+	exports.Float32BufferAttribute = Float32BufferAttribute;
 	exports.FloatType = FloatType;
 	exports.FrontSide = FrontSide;
 	exports.GLSL3 = GLSL3;
@@ -21636,6 +21548,7 @@
 	exports.Matrix4 = Matrix4;
 	exports.MaxEquation = MaxEquation;
 	exports.Mesh = Mesh;
+	exports.MeshDepthMaterial = MeshDepthMaterial;
 	exports.MeshPhongMaterial = MeshPhongMaterial;
 	exports.MinEquation = MinEquation;
 	exports.MirroredRepeatWrapping = MirroredRepeatWrapping;
@@ -21659,6 +21572,7 @@
 	exports.PCFShadowMap = PCFShadowMap;
 	exports.PCFSoftShadowMap = PCFSoftShadowMap;
 	exports.PerspectiveCamera = PerspectiveCamera;
+	exports.Plane = Plane;
 	exports.REVISION = REVISION;
 	exports.RGBADepthPacking = RGBADepthPacking;
 	exports.RGBAFormat = RGBAFormat;
@@ -21681,6 +21595,8 @@
 	exports.TorusGeometry = TorusGeometry;
 	exports.TwoPassDoubleSide = TwoPassDoubleSide;
 	exports.UVMapping = UVMapping;
+	exports.Uint16BufferAttribute = Uint16BufferAttribute;
+	exports.Uint32BufferAttribute = Uint32BufferAttribute;
 	exports.UnsignedByteType = UnsignedByteType;
 	exports.UnsignedIntType = UnsignedIntType;
 	exports.UnsignedShort4444Type = UnsignedShort4444Type;

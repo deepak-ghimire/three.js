@@ -552,20 +552,20 @@ class Matrix4 {
 
 	}
 
-	// makeTranslation( x, y, z ) {
-	//
-	// 	this.set(
-	//
-	// 		1, 0, 0, x,
-	// 		0, 1, 0, y,
-	// 		0, 0, 1, z,
-	// 		0, 0, 0, 1
-	//
-	// 	);
-	//
-	// 	return this;
-	//
-	// }
+	makeTranslation( x, y, z ) {
+
+		this.set(
+
+			1, 0, 0, x,
+			0, 1, 0, y,
+			0, 0, 1, z,
+			0, 0, 0, 1
+
+		);
+
+		return this;
+
+	}
 
 	// makeRotationX( theta ) {
 	//

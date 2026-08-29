@@ -253,13 +253,13 @@ class Object3D extends EventDispatcher {
 	//
 	// }
 	//
-	// worldToLocal( vector ) {
-	//
-	// 	this.updateWorldMatrix( true, false );
-	//
-	// 	return vector.applyMatrix4( _m1.copy( this.matrixWorld ).invert() );
-	//
-	// }
+	worldToLocal( vector ) {
+
+		this.updateWorldMatrix( true, false );
+
+		return vector.applyMatrix4( _m1.copy( this.matrixWorld ).invert() );
+
+	}
 
 	lookAt( x, y, z ) {
 

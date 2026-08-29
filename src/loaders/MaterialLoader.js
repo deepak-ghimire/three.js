@@ -337,7 +337,7 @@
 // 			// MeshToonMaterial,
 // 			// MeshNormalMaterial,
 // 			// MeshLambertMaterial,
-// 			// MeshDepthMaterial,
+			// MeshDepthMaterial,
 // 			// MeshDistanceMaterial,
 // 			MeshBasicMaterial,
 // 			// MeshMatcapMaterial,
