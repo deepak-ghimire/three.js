@@ -312,6 +312,62 @@ const builds = [
 	// 		}
 	// 	]
 	// },
+	// {
+	// 	input: 'src/Three.js',
+	// 	plugins: [
+	// 		addons(),
+	// 		glsl(),
+	// 		babel({
+	// 			babelHelpers: 'bundled',
+	// 			compact: false,
+	// 			babelrc: false,
+	// 			...babelrc
+	// 		}),
+	// 		babelCleanup(),
+	// 		header(),
+	// 		// npmRunner()
+	// 	],
+	// 	output: [
+	// 		{
+	// 			format: 'umd',
+	// 			name: 'THREE',
+	// 			file: 'build/three.js',
+	// 			indent: '\t'
+	// 		},
+	// 		// {
+	// 		// 	format: 'cjs',
+	// 		// 	name: 'THREE',
+	// 		// 	file: 'build/three.cjs',
+	// 		// 	indent: '\t'
+	// 		// }
+	// 	]
+	// },
+	// {
+	// 	input: 'src/Three.js',
+	// 	plugins: [
+	// 		addons(),
+	// 		glconstants(),
+	// 		glsl(),
+	// 		babel({
+	// 			babelHelpers: 'bundled',
+	// 			babelrc: false,
+	// 			...babelrc
+	// 		}),
+	// 		babelCleanup(),
+	// 		terser(),
+	// 		header(),
+	// 		// npmRunner()
+	// 	],
+	// 	output: [
+	// 		{
+	// 			format: 'umd',
+	// 			name: 'THREE',
+	// 			file: 'build/three.min.js'
+	// 		}
+	// 	]
+	// },
+	// DearFlip v3: three as a plain ES module (one export list), no AMD / CommonJS branches.
+	// Not minified: DearFlip bundles it into its 3D file with webpack, or loads it unbuilt via an import map.
 	{
 		input: 'src/Three.js',
 		plugins: [
@@ -329,40 +385,8 @@ const builds = [
 		],
 		output: [
 			{
-				format: 'umd',
-				name: 'THREE',
-				file: 'build/three.js',
-				indent: '\t'
-			},
-			// {
-			// 	format: 'cjs',
-			// 	name: 'THREE',
-			// 	file: 'build/three.cjs',
-			// 	indent: '\t'
-			// }
-		]
-	},
-	{
-		input: 'src/Three.js',
-		plugins: [
-			addons(),
-			glconstants(),
-			glsl(),
-			babel({
-				babelHelpers: 'bundled',
-				babelrc: false,
-				...babelrc
-			}),
-			babelCleanup(),
-			terser(),
-			header(),
-			// npmRunner()
-		],
-		output: [
-			{
-				format: 'umd',
-				name: 'THREE',
-				file: 'build/three.min.js'
+				format: 'es',
+				file: 'build/three.js'
 			}
 		]
 	}
