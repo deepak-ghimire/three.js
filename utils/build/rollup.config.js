@@ -377,6 +377,8 @@ const builds = [
 				babelHelpers: 'bundled',
 				compact: false,
 				babelrc: false,
+				// DearFlip: no comments in build/three.js (the source keeps them); /*@__PURE__*/ kept for minifiers
+				shouldPrintComment: comment => /[@#]__PURE__/.test(comment),
 				...babelrc
 			}),
 			babelCleanup(),
