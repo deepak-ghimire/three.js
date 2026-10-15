@@ -130,7 +130,7 @@ function WebGLPrograms( renderer, cubemaps, cubeuvmaps, extensions, capabilities
 
 			precision: precision,
 
-			// instancing: object.isInstancedMesh === true,
+			instancing: object.isInstancedMesh === true,
 			// instancingColor: object.isInstancedMesh === true && object.instanceColor !== null,
 
 			supportsVertexTextures: vertexTextures,

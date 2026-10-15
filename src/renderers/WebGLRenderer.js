@@ -807,8 +807,8 @@ function WebGLRenderer( parameters = {} ) {
 
 		if ( object.isInstancedMesh ) {
 
-		// 	renderer.renderInstances( drawStart, drawCount, object.count );
-		//
+			renderer.renderInstances( drawStart, drawCount, object.count );
+
 		// } else if ( geometry.isInstancedBufferGeometry ) {
 		//
 		// 	const maxInstanceCount = geometry._maxInstanceCount !== undefined ? geometry._maxInstanceCount : Infinity;
@@ -1651,7 +1651,7 @@ function WebGLRenderer( parameters = {} ) {
 			// (shader material also gets them for the sake of genericity)
 
 			if ( material.isMeshPhongMaterial ||
-				// material.isShaderMaterial ||
+				material.isShaderMaterial ||
 				// material.isMeshToonMaterial ||
 				// material.isMeshStandardMaterial ||
 				material.envMap ) {
@@ -1672,7 +1672,7 @@ function WebGLRenderer( parameters = {} ) {
 				// material.isMeshLambertMaterial ||
 				material.isMeshBasicMaterial ||
 				// material.isMeshStandardMaterial ||
-				// material.isShaderMaterial ||
+				material.isShaderMaterial ||
 				material.isMeshBasicMaterial) {
 
 				p_uniforms.setValue( _gl, 'isOrthographic', camera.isOrthographicCamera === true );
@@ -1684,7 +1684,7 @@ function WebGLRenderer( parameters = {} ) {
 				// material.isMeshLambertMaterial ||
 				material.isMeshBasicMaterial ||
 				// material.isMeshStandardMaterial ||
-				// material.isShaderMaterial ||
+				material.isShaderMaterial ||
 				// object.isSkinnedMesh ||
 				material.isShadowMaterial) {
 
@@ -1782,12 +1782,12 @@ function WebGLRenderer( parameters = {} ) {
 
 		}
 
-		// if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
-		//
-		// 	WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
-		// 	material.uniformsNeedUpdate = false;
-		//
-		// }
+		if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
+
+			WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
+			material.uniformsNeedUpdate = false;
+
+		}
 
 		// if ( material.isSpriteMaterial ) {
 		//

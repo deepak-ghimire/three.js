@@ -40,14 +40,14 @@ class BufferAttribute {
 
 	}
 
-	// setUsage( value ) {
-	//
-	// 	this.usage = value;
-	//
-	// 	return this;
-	//
-	// }
-	//
+	setUsage( value ) { //used
+
+		this.usage = value;
+
+		return this;
+
+	}
+
 	// copy( source ) {
 	//
 	// 	this.name = source.name;

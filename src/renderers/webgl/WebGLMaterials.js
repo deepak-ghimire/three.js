@@ -92,9 +92,9 @@ function WebGLMaterials( renderer, properties ) {
 			uniforms.color.value.copy( material.color );
 			uniforms.opacity.value = material.opacity;
 
-		// } else if ( material.isShaderMaterial ) {
-		//
-		// 	material.uniformsNeedUpdate = false; // #15581
+		} else if ( material.isShaderMaterial ) {
+
+			material.uniformsNeedUpdate = false; // #15581
 
 		}
 

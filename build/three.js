@@ -1936,20 +1936,28 @@
 			te[15] = a41 * b14 + a42 * b24 + a43 * b34 + a44 * b44;
 			return this;
 		}
+		multiplyScalar(s) {
+			//used
 
-		// multiplyScalar( s ) {
-		//
-		// 	const te = this.elements;
-		//
-		// 	te[ 0 ] *= s; te[ 4 ] *= s; te[ 8 ] *= s; te[ 12 ] *= s;
-		// 	te[ 1 ] *= s; te[ 5 ] *= s; te[ 9 ] *= s; te[ 13 ] *= s;
-		// 	te[ 2 ] *= s; te[ 6 ] *= s; te[ 10 ] *= s; te[ 14 ] *= s;
-		// 	te[ 3 ] *= s; te[ 7 ] *= s; te[ 11 ] *= s; te[ 15 ] *= s;
-		//
-		// 	return this;
-		//
-		// }
-
+			const te = this.elements;
+			te[0] *= s;
+			te[4] *= s;
+			te[8] *= s;
+			te[12] *= s;
+			te[1] *= s;
+			te[5] *= s;
+			te[9] *= s;
+			te[13] *= s;
+			te[2] *= s;
+			te[6] *= s;
+			te[10] *= s;
+			te[14] *= s;
+			te[3] *= s;
+			te[7] *= s;
+			te[11] *= s;
+			te[15] *= s;
+			return this;
+		}
 		determinant() {
 			const te = this.elements;
 			const n11 = te[0],
@@ -4069,15 +4077,13 @@
 		set needsUpdate(value) {
 			if (value === true) this.version++;
 		}
+		setUsage(value) {
+			//used
 
-		// setUsage( value ) {
-		//
-		// 	this.usage = value;
-		//
-		// 	return this;
-		//
-		// }
-		//
+			this.usage = value;
+			return this;
+		}
+
 		// copy( source ) {
 		//
 		// 	this.name = source.name;
@@ -8532,7 +8538,7 @@
 				isRawShaderMaterial: material.isRawShaderMaterial === true,
 				glslVersion: material.glslVersion,
 				precision: precision,
-				// instancing: object.isInstancedMesh === true,
+				instancing: object.isInstancedMesh === true,
 				// instancingColor: object.isInstancedMesh === true && object.instanceColor !== null,
 
 				supportsVertexTextures: vertexTextures,
@@ -10646,13 +10652,12 @@
 				materialIndex: materialIndex
 			});
 		}
+		clearGroups() {
+			//used
 
-		// clearGroups() {
-		//
-		// 	this.groups = [];
-		//
-		// }
-		//
+			this.groups = [];
+		}
+
 		// setDrawRange( start, count ) {
 		//
 		// 	this.drawRange.start = start;
@@ -14135,10 +14140,8 @@
 			} else if (material.isShadowMaterial) {
 				uniforms.color.value.copy(material.color);
 				uniforms.opacity.value = material.opacity;
-
-				// } else if ( material.isShaderMaterial ) {
-				//
-				// 	material.uniformsNeedUpdate = false; // #15581
+			} else if (material.isShaderMaterial) {
+				material.uniformsNeedUpdate = false; // #15581
 			}
 		}
 
@@ -15256,7 +15259,16 @@
 				// 	renderer.setMode( _gl.TRIANGLES );
 			}
 
-			if (object.isInstancedMesh) ; else {
+			if (object.isInstancedMesh) {
+				renderer.renderInstances(drawStart, drawCount, object.count);
+
+				// } else if ( geometry.isInstancedBufferGeometry ) {
+				//
+				// 	const maxInstanceCount = geometry._maxInstanceCount !== undefined ? geometry._maxInstanceCount : Infinity;
+				// 	const instanceCount = Math.min( geometry.instanceCount, maxInstanceCount );
+				//
+				// 	renderer.renderInstances( drawStart, drawCount, instanceCount );
+			} else {
 				renderer.render(drawStart, drawCount);
 			}
 		};
@@ -15882,8 +15894,7 @@
 				// load material specific uniforms
 				// (shader material also gets them for the sake of genericity)
 
-				if (material.isMeshPhongMaterial ||
-				// material.isShaderMaterial ||
+				if (material.isMeshPhongMaterial || material.isShaderMaterial ||
 				// material.isMeshToonMaterial ||
 				// material.isMeshStandardMaterial ||
 				material.envMap) {
@@ -15897,8 +15908,7 @@
 				// material.isMeshLambertMaterial ||
 				material.isMeshBasicMaterial ||
 				// material.isMeshStandardMaterial ||
-				// material.isShaderMaterial ||
-				material.isMeshBasicMaterial) {
+				material.isShaderMaterial || material.isMeshBasicMaterial) {
 					p_uniforms.setValue(_gl, 'isOrthographic', camera.isOrthographicCamera === true);
 				}
 				if (material.isMeshPhongMaterial ||
@@ -15906,7 +15916,7 @@
 				// material.isMeshLambertMaterial ||
 				material.isMeshBasicMaterial ||
 				// material.isMeshStandardMaterial ||
-				// material.isShaderMaterial ||
+				material.isShaderMaterial ||
 				// object.isSkinnedMesh ||
 				material.isShadowMaterial) {
 					p_uniforms.setValue(_gl, 'viewMatrix', camera.matrixWorldInverse);
@@ -15992,13 +16002,10 @@
 				materials.refreshMaterialUniforms(m_uniforms, material, _pixelRatio, _height, _transmissionRenderTarget);
 				WebGLUniforms.upload(_gl, materialProperties.uniformsList, m_uniforms, textures);
 			}
-
-			// if ( material.isShaderMaterial && material.uniformsNeedUpdate === true ) {
-			//
-			// 	WebGLUniforms.upload( _gl, materialProperties.uniformsList, m_uniforms, textures );
-			// 	material.uniformsNeedUpdate = false;
-			//
-			// }
+			if (material.isShaderMaterial && material.uniformsNeedUpdate === true) {
+				WebGLUniforms.upload(_gl, materialProperties.uniformsList, m_uniforms, textures);
+				material.uniformsNeedUpdate = false;
+			}
 
 			// if ( material.isSpriteMaterial ) {
 			//
@@ -17711,21 +17718,16 @@
 		// }
 
 		raycast( /* raycaster, intersects */) {}
+		traverse(callback) {
+			//used
 
-		// traverse( callback ) {
-		//
-		// 	callback( this );
-		//
-		// 	const children = this.children;
-		//
-		// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
-		//
-		// 		children[ i ].traverse( callback );
-		//
-		// 	}
-		//
-		// }
-		//
+			callback(this);
+			const children = this.children;
+			for (let i = 0, l = children.length; i < l; i++) {
+				children[i].traverse(callback);
+			}
+		}
+
 		// traverseVisible( callback ) {
 		//
 		// 	if ( this.visible === false ) return;
@@ -19225,6 +19227,113 @@
 		return intersection;
 	}
 
+	class InstancedBufferAttribute extends BufferAttribute {
+		constructor(array, itemSize, normalized, meshPerAttribute = 1) {
+			super(array, itemSize, normalized);
+			this.isInstancedBufferAttribute = true;
+			this.meshPerAttribute = meshPerAttribute;
+		}
+		copy(source) {
+			super.copy(source);
+			this.meshPerAttribute = source.meshPerAttribute;
+			return this;
+		}
+		toJSON() {
+			const data = super.toJSON();
+			data.meshPerAttribute = this.meshPerAttribute;
+			data.isInstancedBufferAttribute = true;
+			return data;
+		}
+	}
+
+	const _instanceLocalMatrix = /*@__PURE__*/new Matrix4();
+	const _instanceWorldMatrix = /*@__PURE__*/new Matrix4();
+	const _instanceIntersects = [];
+	const _identity = /*@__PURE__*/new Matrix4();
+	const _mesh = /*@__PURE__*/new Mesh();
+	class InstancedMesh extends Mesh {
+		constructor(geometry, material, count) {
+			super(geometry, material);
+			this.isInstancedMesh = true;
+			this.instanceMatrix = new InstancedBufferAttribute(new Float32Array(count * 16), 16);
+			this.instanceColor = null;
+			this.count = count;
+			this.frustumCulled = false;
+			for (let i = 0; i < count; i++) {
+				this.setMatrixAt(i, _identity);
+			}
+		}
+		copy(source, recursive) {
+			super.copy(source, recursive);
+			this.instanceMatrix.copy(source.instanceMatrix);
+			if (source.instanceColor !== null) this.instanceColor = source.instanceColor.clone();
+			this.count = source.count;
+			return this;
+		}
+
+		// getColorAt( index, color ) {
+		//
+		// 	color.fromArray( this.instanceColor.array, index * 3 );
+		//
+		// }
+
+		getMatrixAt(index, matrix) {
+			matrix.fromArray(this.instanceMatrix.array, index * 16);
+		}
+		raycast(raycaster, intersects) {
+			const matrixWorld = this.matrixWorld;
+			const raycastTimes = this.count;
+			_mesh.geometry = this.geometry;
+			_mesh.material = this.material;
+			if (_mesh.material === undefined) return;
+			for (let instanceId = 0; instanceId < raycastTimes; instanceId++) {
+				// calculate the world matrix for each instance
+
+				this.getMatrixAt(instanceId, _instanceLocalMatrix);
+				_instanceWorldMatrix.multiplyMatrices(matrixWorld, _instanceLocalMatrix);
+
+				// the mesh represents this single instance
+
+				_mesh.matrixWorld = _instanceWorldMatrix;
+				_mesh.raycast(raycaster, _instanceIntersects);
+
+				// process the result of raycast
+
+				for (let i = 0, l = _instanceIntersects.length; i < l; i++) {
+					const intersect = _instanceIntersects[i];
+					intersect.instanceId = instanceId;
+					intersect.object = this;
+					intersects.push(intersect);
+				}
+				_instanceIntersects.length = 0;
+			}
+		}
+
+		// setColorAt( index, color ) {
+		//
+		// 	if ( this.instanceColor === null ) {
+		//
+		// 		this.instanceColor = new InstancedBufferAttribute( new Float32Array( this.instanceMatrix.count * 3 ), 3 );
+		//
+		// 	}
+		//
+		// 	color.toArray( this.instanceColor.array, index * 3 );
+		//
+		// }
+
+		setMatrixAt(index, matrix) {
+			//used
+
+			matrix.toArray(this.instanceMatrix.array, index * 16);
+		}
+		updateMorphTargets() {}
+		dispose() {
+			this.dispatchEvent({
+				type: 'dispose'
+			});
+		}
+	}
+
 	class Group extends Object3D {
 		constructor() {
 			super();
@@ -19383,6 +19492,64 @@
 		// }
 	}
 
+	class PlaneGeometry extends BufferGeometry {
+		constructor(width = 1, height = 1, widthSegments = 1, heightSegments = 1) {
+			super();
+			this.type = 'PlaneGeometry';
+			this.parameters = {
+				width: width,
+				height: height,
+				widthSegments: widthSegments,
+				heightSegments: heightSegments
+			};
+			const width_half = width / 2;
+			const height_half = height / 2;
+			const gridX = Math.floor(widthSegments);
+			const gridY = Math.floor(heightSegments);
+			const gridX1 = gridX + 1;
+			const gridY1 = gridY + 1;
+			const segment_width = width / gridX;
+			const segment_height = height / gridY;
+
+			//
+
+			const indices = [];
+			const vertices = [];
+			const normals = [];
+			const uvs = [];
+			for (let iy = 0; iy < gridY1; iy++) {
+				const y = iy * segment_height - height_half;
+				for (let ix = 0; ix < gridX1; ix++) {
+					const x = ix * segment_width - width_half;
+					vertices.push(x, -y, 0);
+					normals.push(0, 0, 1);
+					uvs.push(ix / gridX);
+					uvs.push(1 - iy / gridY);
+				}
+			}
+			for (let iy = 0; iy < gridY; iy++) {
+				for (let ix = 0; ix < gridX; ix++) {
+					const a = ix + gridX1 * iy;
+					const b = ix + gridX1 * (iy + 1);
+					const c = ix + 1 + gridX1 * (iy + 1);
+					const d = ix + 1 + gridX1 * iy;
+					indices.push(a, b, d);
+					indices.push(b, c, d);
+				}
+			}
+			this.setIndex(indices);
+			this.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+			this.setAttribute('normal', new Float32BufferAttribute(normals, 3));
+			this.setAttribute('uv', new Float32BufferAttribute(uvs, 2));
+		}
+
+		// static fromJSON( data ) {
+
+		// 	return new PlaneGeometry( data.width, data.height, data.widthSegments, data.heightSegments );
+
+		// }
+	}
+
 	class TorusGeometry extends BufferGeometry {
 		//used
 
@@ -19494,6 +19661,172 @@
 
 		// 	return this;
 
+		// }
+	}
+
+	var default_vertex = "void main() {\n\tgl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n}";
+
+	var default_fragment = "void main() {\n\tgl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );\n}";
+
+	class ShaderMaterial extends Material {
+		constructor(parameters) {
+			super();
+			this.isShaderMaterial = true;
+			this.type = 'ShaderMaterial';
+			this.defines = {};
+			this.uniforms = {};
+			this.uniformsGroups = [];
+			this.vertexShader = default_vertex;
+			this.fragmentShader = default_fragment;
+			this.linewidth = 1;
+			this.wireframe = false;
+			this.wireframeLinewidth = 1;
+			this.fog = false; // set to use scene fog
+			this.lights = false; // set to use scene lights
+			this.clipping = false; // set to use user-defined clipping planes
+
+			this.extensions = {
+				derivatives: false,
+				// set to use derivatives
+				fragDepth: false,
+				// set to use fragment depth values
+				drawBuffers: false,
+				// set to use draw buffers
+				shaderTextureLOD: false // set to use shader texture LOD
+			};
+
+			// When rendered geometry doesn't include these attributes but the material does,
+			// use these default values in WebGL. This avoids errors when buffer data is missing.
+			this.defaultAttributeValues = {
+				'color': [1, 1, 1],
+				'uv': [0, 0],
+				'uv2': [0, 0]
+			};
+			this.index0AttributeName = undefined;
+			this.uniformsNeedUpdate = false;
+			this.glslVersion = null;
+			if (parameters !== undefined) {
+				this.setValues(parameters);
+			}
+		}
+
+		// copy( source ) {
+		//
+		// 	super.copy( source );
+		//
+		// 	this.fragmentShader = source.fragmentShader;
+		// 	this.vertexShader = source.vertexShader;
+		//
+		// 	this.uniforms = cloneUniforms( source.uniforms );
+		// 	this.uniformsGroups = cloneUniformsGroups( source.uniformsGroups );
+		//
+		// 	this.defines = Object.assign( {}, source.defines );
+		//
+		// 	this.wireframe = source.wireframe;
+		// 	this.wireframeLinewidth = source.wireframeLinewidth;
+		//
+		// 	this.fog = source.fog;
+		// 	this.lights = source.lights;
+		// 	this.clipping = source.clipping;
+		//
+		// 	this.extensions = Object.assign( {}, source.extensions );
+		//
+		// 	this.glslVersion = source.glslVersion;
+		//
+		// 	return this;
+		//
+		// }
+		//
+		// toJSON( meta ) {
+		//
+		// 	const data = super.toJSON( meta );
+		//
+		// 	data.glslVersion = this.glslVersion;
+		// 	data.uniforms = {};
+		//
+		// 	for ( const name in this.uniforms ) {
+		//
+		// 		const uniform = this.uniforms[ name ];
+		// 		const value = uniform.value;
+		//
+		// 		if ( value && value.isTexture ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 't',
+		// 				value: value.toJSON( meta ).uuid
+		// 			};
+		//
+		// 		} else if ( value && value.isColor ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 'c',
+		// 				value: value.getHex()
+		// 			};
+		//
+		// 		} else if ( value && value.isVector2 ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 'v2',
+		// 				value: value.toArray()
+		// 			};
+		//
+		// 		} else if ( value && value.isVector3 ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 'v3',
+		// 				value: value.toArray()
+		// 			};
+		//
+		// 		} else if ( value && value.isVector4 ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 'v4',
+		// 				value: value.toArray()
+		// 			};
+		//
+		// 		} else if ( value && value.isMatrix3 ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 'm3',
+		// 				value: value.toArray()
+		// 			};
+		//
+		// 		} else if ( value && value.isMatrix4 ) {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				type: 'm4',
+		// 				value: value.toArray()
+		// 			};
+		//
+		// 		} else {
+		//
+		// 			data.uniforms[ name ] = {
+		// 				value: value
+		// 			};
+		//
+		// 			// note: the array variants v2v, v3v, v4v, m4v and tv are not supported so far
+		//
+		// 		}
+		//
+		// 	}
+		//
+		// 	if ( Object.keys( this.defines ).length > 0 ) data.defines = this.defines;
+		//
+		// 	data.vertexShader = this.vertexShader;
+		// 	data.fragmentShader = this.fragmentShader;
+		//
+		// 	const extensions = {};
+		//
+		// 	for ( const key in this.extensions ) {
+		//
+		// 		if ( this.extensions[ key ] === true ) extensions[ key ] = true;
+		//
+		// 	}
+		//
+		// 	if ( Object.keys( extensions ).length > 0 ) data.extensions = extensions;
+		//
+		// 	return data;
+		//
 		// }
 	}
 
@@ -21534,6 +21867,7 @@
 	exports.GreaterEqualDepth = GreaterEqualDepth;
 	exports.Group = Group;
 	exports.HalfFloatType = HalfFloatType;
+	exports.InstancedMesh = InstancedMesh;
 	exports.IntType = IntType;
 	exports.KeepStencilOp = KeepStencilOp;
 	exports.LessDepth = LessDepth;
@@ -21573,6 +21907,7 @@
 	exports.PCFSoftShadowMap = PCFSoftShadowMap;
 	exports.PerspectiveCamera = PerspectiveCamera;
 	exports.Plane = Plane;
+	exports.PlaneGeometry = PlaneGeometry;
 	exports.REVISION = REVISION;
 	exports.RGBADepthPacking = RGBADepthPacking;
 	exports.RGBAFormat = RGBAFormat;
@@ -21581,6 +21916,8 @@
 	exports.ReverseSubtractEquation = ReverseSubtractEquation;
 	exports.SRGBColorSpace = SRGBColorSpace;
 	exports.Scene = Scene;
+	exports.ShaderLib = ShaderLib;
+	exports.ShaderMaterial = ShaderMaterial;
 	exports.ShadowMaterial = ShadowMaterial;
 	exports.ShortType = ShortType;
 	exports.SrcAlphaFactor = SrcAlphaFactor;
@@ -21597,6 +21934,8 @@
 	exports.UVMapping = UVMapping;
 	exports.Uint16BufferAttribute = Uint16BufferAttribute;
 	exports.Uint32BufferAttribute = Uint32BufferAttribute;
+	exports.UniformsLib = UniformsLib;
+	exports.UniformsUtils = UniformsUtils;
 	exports.UnsignedByteType = UnsignedByteType;
 	exports.UnsignedIntType = UnsignedIntType;
 	exports.UnsignedShort4444Type = UnsignedShort4444Type;

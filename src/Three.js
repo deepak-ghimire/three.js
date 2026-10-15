@@ -7,9 +7,9 @@ import { REVISION } from './constants.js';
 // export { WebGLRenderTarget } from './renderers/WebGLRenderTarget.js';
 export { WebGLRenderer } from './renderers/WebGLRenderer.js';
 // export { WebGL1Renderer } from './renderers/WebGL1Renderer.js';
-// export { ShaderLib } from './renderers/shaders/ShaderLib.js';
-// export { UniformsLib } from './renderers/shaders/UniformsLib.js';
-// export { UniformsUtils } from './renderers/shaders/UniformsUtils.js';
+export { ShaderLib } from './renderers/shaders/ShaderLib.js'; // used in flipbook
+export { UniformsLib } from './renderers/shaders/UniformsLib.js'; // used in flipbook
+export { UniformsUtils } from './renderers/shaders/UniformsUtils.js'; // used in flipbook
 // export { ShaderChunk } from './renderers/shaders/ShaderChunk.js';
 // export { FogExp2 } from './scenes/FogExp2.js';
 // export { Fog } from './scenes/Fog.js';
@@ -20,7 +20,7 @@ export { Scene } from './scenes/Scene.js';
 // export { Skeleton } from './objects/Skeleton.js';
 // export { Bone } from './objects/Bone.js';
 export { Mesh } from './objects/Mesh.js';
-// export { InstancedMesh } from './objects/InstancedMesh.js';
+export { InstancedMesh } from './objects/InstancedMesh.js'; // used in flipbook
 // export { LineSegments } from './objects/LineSegments.js';
 // export { LineLoop } from './objects/LineLoop.js';
 // export { Line } from './objects/Line.js';

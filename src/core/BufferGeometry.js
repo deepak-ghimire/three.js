@@ -115,12 +115,12 @@ class BufferGeometry extends EventDispatcher {
 
 	}
 
-	// clearGroups() {
-	//
-	// 	this.groups = [];
-	//
-	// }
-	//
+	clearGroups() { //used
+
+		this.groups = [];
+
+	}
+
 	// setDrawRange( start, count ) {
 	//
 	// 	this.drawRange.start = start;

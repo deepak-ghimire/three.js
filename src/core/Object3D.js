@@ -532,20 +532,20 @@ class Object3D extends EventDispatcher {
 
 	raycast( /* raycaster, intersects */ ) {}
 
-	// traverse( callback ) {
-	//
-	// 	callback( this );
-	//
-	// 	const children = this.children;
-	//
-	// 	for ( let i = 0, l = children.length; i < l; i ++ ) {
-	//
-	// 		children[ i ].traverse( callback );
-	//
-	// 	}
-	//
-	// }
-	//
+	traverse( callback ) { //used
+
+		callback( this );
+
+		const children = this.children;
+
+		for ( let i = 0, l = children.length; i < l; i ++ ) {
+
+			children[ i ].traverse( callback );
+
+		}
+
+	}
+
 	// traverseVisible( callback ) {
 	//
 	// 	if ( this.visible === false ) return;
