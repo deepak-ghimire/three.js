@@ -2,13 +2,13 @@ import { InstancedBufferAttribute } from '../core/InstancedBufferAttribute.js';
 import { Mesh } from './Mesh.js';
 import { Matrix4 } from '../math/Matrix4.js';
 
-const _instanceLocalMatrix = /*@__PURE__*/ new Matrix4();
-const _instanceWorldMatrix = /*@__PURE__*/ new Matrix4();
+// const _instanceLocalMatrix = /*@__PURE__*/ new Matrix4();
+// const _instanceWorldMatrix = /*@__PURE__*/ new Matrix4();
 
-const _instanceIntersects = [];
+// const _instanceIntersects = [];
 
 const _identity = /*@__PURE__*/ new Matrix4();
-const _mesh = /*@__PURE__*/ new Mesh();
+// const _mesh = /*@__PURE__*/ new Mesh();
 
 class InstancedMesh extends Mesh {
 
@@ -59,46 +59,46 @@ class InstancedMesh extends Mesh {
 
 	}
 
-	raycast( raycaster, intersects ) {
+	// raycast( raycaster, intersects ) {
 
-		const matrixWorld = this.matrixWorld;
-		const raycastTimes = this.count;
+	// 	const matrixWorld = this.matrixWorld;
+	// 	const raycastTimes = this.count;
 
-		_mesh.geometry = this.geometry;
-		_mesh.material = this.material;
+	// 	_mesh.geometry = this.geometry;
+	// 	_mesh.material = this.material;
 
-		if ( _mesh.material === undefined ) return;
+	// 	if ( _mesh.material === undefined ) return;
 
-		for ( let instanceId = 0; instanceId < raycastTimes; instanceId ++ ) {
+	// 	for ( let instanceId = 0; instanceId < raycastTimes; instanceId ++ ) {
 
 			// calculate the world matrix for each instance
 
-			this.getMatrixAt( instanceId, _instanceLocalMatrix );
+	// 		this.getMatrixAt( instanceId, _instanceLocalMatrix );
 
-			_instanceWorldMatrix.multiplyMatrices( matrixWorld, _instanceLocalMatrix );
+	// 		_instanceWorldMatrix.multiplyMatrices( matrixWorld, _instanceLocalMatrix );
 
 			// the mesh represents this single instance
 
-			_mesh.matrixWorld = _instanceWorldMatrix;
+	// 		_mesh.matrixWorld = _instanceWorldMatrix;
 
-			_mesh.raycast( raycaster, _instanceIntersects );
+	// 		_mesh.raycast( raycaster, _instanceIntersects );
 
 			// process the result of raycast
 
-			for ( let i = 0, l = _instanceIntersects.length; i < l; i ++ ) {
+	// 		for ( let i = 0, l = _instanceIntersects.length; i < l; i ++ ) {
 
-				const intersect = _instanceIntersects[ i ];
-				intersect.instanceId = instanceId;
-				intersect.object = this;
-				intersects.push( intersect );
+	// 			const intersect = _instanceIntersects[ i ];
+	// 			intersect.instanceId = instanceId;
+	// 			intersect.object = this;
+	// 			intersects.push( intersect );
 
-			}
+	// 		}
 
-			_instanceIntersects.length = 0;
+	// 		_instanceIntersects.length = 0;
 
-		}
+	// 	}
 
-	}
+	// }
 
 	// setColorAt( index, color ) {
 	//

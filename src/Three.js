@@ -101,7 +101,7 @@ export { BufferGeometry } from './core/BufferGeometry.js';
 // export { GLBufferAttribute } from './core/GLBufferAttribute.js';
 export * from './core/BufferAttribute.js';
 export { Object3D } from './core/Object3D.js';
-export { Raycaster } from './core/Raycaster.js';
+// export { Raycaster } from './core/Raycaster.js'; // DearFlip picks the book plane itself
 // export { Layers } from './core/Layers.js';
 // export { EventDispatcher } from './core/EventDispatcher.js';
 // export { Clock } from './core/Clock.js';

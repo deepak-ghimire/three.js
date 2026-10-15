@@ -319,7 +319,7 @@ class Plane {
 	}
 }
 
-const _sphere$1 = /*@__PURE__*/new Sphere();
+const _sphere = /*@__PURE__*/new Sphere();
 
 
 class Frustum {
@@ -356,8 +356,8 @@ class Frustum {
 	intersectsObject(object) {
 		const geometry = object.geometry;
 		if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
-		_sphere$1.copy(geometry.boundingSphere).applyMatrix4(object.matrixWorld);
-		return this.intersectsSphere(_sphere$1);
+		_sphere.copy(geometry.boundingSphere).applyMatrix4(object.matrixWorld);
+		return this.intersectsSphere(_sphere);
 	}
 	intersectsSphere(sphere) {
 		const planes = this.planes;
@@ -1411,7 +1411,7 @@ function WebGLExtensions(gl) {
 	};
 }
 
-const _vector$4 = /*@__PURE__*/new Vector3();
+const _vector$3 = /*@__PURE__*/new Vector3();
 
 
 class BufferAttribute {
@@ -1441,17 +1441,17 @@ class BufferAttribute {
 	}
 	applyMatrix4(m) {
 		for (let i = 0, l = this.count; i < l; i++) {
-			_vector$4.fromBufferAttribute(this, i);
-			_vector$4.applyMatrix4(m);
-			this.setXYZ(i, _vector$4.x, _vector$4.y, _vector$4.z);
+			_vector$3.fromBufferAttribute(this, i);
+			_vector$3.applyMatrix4(m);
+			this.setXYZ(i, _vector$3.x, _vector$3.y, _vector$3.z);
 		}
 		return this;
 	}
 	applyNormalMatrix(m) {
 		for (let i = 0, l = this.count; i < l; i++) {
-			_vector$4.fromBufferAttribute(this, i);
-			_vector$4.applyNormalMatrix(m);
-			this.setXYZ(i, _vector$4.x, _vector$4.y, _vector$4.z);
+			_vector$3.fromBufferAttribute(this, i);
+			_vector$3.applyNormalMatrix(m);
+			this.setXYZ(i, _vector$3.x, _vector$3.y, _vector$3.z);
 		}
 		return this;
 	}
@@ -4487,8 +4487,8 @@ class Box3 {
 			if (precise && geometry.attributes != undefined && geometry.attributes.position !== undefined) {
 				const position = geometry.attributes.position;
 				for (let i = 0, l = position.count; i < l; i++) {
-					_vector$3.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
-					this.expandByPoint(_vector$3);
+					_vector$2.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
+					this.expandByPoint(_vector$2);
 				}
 			} else {
 				if (geometry.boundingBox === null) {
@@ -4525,7 +4525,7 @@ class Box3 {
 	}
 }
 const _points = [/*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3()];
-const _vector$3 = /*@__PURE__*/new Vector3();
+const _vector$2 = /*@__PURE__*/new Vector3();
 const _box$2 = /*@__PURE__*/new Box3();
 
 let _id = 0;
@@ -4534,7 +4534,7 @@ const _m1$1 = /*@__PURE__*/new Matrix4();
 
 const _box$1 = /*@__PURE__*/new Box3();
 
-const _vector$2 = /*@__PURE__*/new Vector3();
+const _vector$1 = /*@__PURE__*/new Vector3();
 class BufferGeometry extends EventDispatcher {
 	constructor() {
 		super();
@@ -4645,8 +4645,8 @@ class BufferGeometry extends EventDispatcher {
 			_box$1.getCenter(center);
 			let maxRadiusSq = 0;
 			for (let i = 0, il = position.count; i < il; i++) {
-				_vector$2.fromBufferAttribute(position, i);
-				maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$2));
+				_vector$1.fromBufferAttribute(position, i);
+				maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$1));
 			}
 			this.boundingSphere.radius = Math.sqrt(maxRadiusSq);
 			if (isNaN(this.boundingSphere.radius)) {
@@ -4716,9 +4716,9 @@ class BufferGeometry extends EventDispatcher {
 	normalizeNormals() {
 		const normals = this.attributes.normal;
 		for (let i = 0, il = normals.count; i < il; i++) {
-			_vector$2.fromBufferAttribute(normals, i);
-			_vector$2.normalize();
-			normals.setXYZ(i, _vector$2.x, _vector$2.y, _vector$2.z);
+			_vector$1.fromBufferAttribute(normals, i);
+			_vector$1.normalize();
+			normals.setXYZ(i, _vector$1.x, _vector$1.y, _vector$1.z);
 		}
 	}
 	dispose() {
@@ -7534,205 +7534,6 @@ class Scene extends Object3D {
 	}
 }
 
-const _vector$1 = /*@__PURE__*/new Vector3();
-
-
-const _diff = /*@__PURE__*/new Vector3();
-const _edge1 = /*@__PURE__*/new Vector3();
-const _edge2 = /*@__PURE__*/new Vector3();
-const _normal = /*@__PURE__*/new Vector3();
-class Ray {
-	constructor(origin = new Vector3(), direction = new Vector3(0, 0, -1)) {
-		this.origin = origin;
-		this.direction = direction;
-	}
-	set(origin, direction) {
-		this.origin.copy(origin);
-		this.direction.copy(direction);
-		return this;
-	}
-	copy(ray) {
-		this.origin.copy(ray.origin);
-		this.direction.copy(ray.direction);
-		return this;
-	}
-	at(t, target) {
-		return target.copy(this.direction).multiplyScalar(t).add(this.origin);
-	}
-	lookAt(v) {
-		this.direction.copy(v).sub(this.origin).normalize();
-		return this;
-	}
-	distanceSqToPoint(point) {
-		const directionDistance = _vector$1.subVectors(point, this.origin).dot(this.direction);
-		if (directionDistance < 0) {
-			return this.origin.distanceToSquared(point);
-		}
-		_vector$1.copy(this.direction).multiplyScalar(directionDistance).add(this.origin);
-		return _vector$1.distanceToSquared(point);
-	}
-	intersectsSphere(sphere) {
-		return this.distanceSqToPoint(sphere.center) <= sphere.radius * sphere.radius;
-	}
-	distanceToPlane(plane) {
-		const denominator = plane.normal.dot(this.direction);
-		if (denominator === 0) {
-			if (plane.distanceToPoint(this.origin) === 0) {
-				return 0;
-			}
-			return null;
-		}
-		const t = -(this.origin.dot(plane.normal) + plane.constant) / denominator;
-		return t >= 0 ? t : null;
-	}
-	intersectPlane(plane, target) {
-		const t = this.distanceToPlane(plane);
-		if (t === null) {
-			return null;
-		}
-		return this.at(t, target);
-	}
-	intersectBox(box, target) {
-		let tmin, tmax, tymin, tymax, tzmin, tzmax;
-		const invdirx = 1 / this.direction.x,
-			invdiry = 1 / this.direction.y,
-			invdirz = 1 / this.direction.z;
-		const origin = this.origin;
-		if (invdirx >= 0) {
-			tmin = (box.min.x - origin.x) * invdirx;
-			tmax = (box.max.x - origin.x) * invdirx;
-		} else {
-			tmin = (box.max.x - origin.x) * invdirx;
-			tmax = (box.min.x - origin.x) * invdirx;
-		}
-		if (invdiry >= 0) {
-			tymin = (box.min.y - origin.y) * invdiry;
-			tymax = (box.max.y - origin.y) * invdiry;
-		} else {
-			tymin = (box.max.y - origin.y) * invdiry;
-			tymax = (box.min.y - origin.y) * invdiry;
-		}
-		if (tmin > tymax || tymin > tmax) return null;
-		if (tymin > tmin || isNaN(tmin)) tmin = tymin;
-		if (tymax < tmax || isNaN(tmax)) tmax = tymax;
-		if (invdirz >= 0) {
-			tzmin = (box.min.z - origin.z) * invdirz;
-			tzmax = (box.max.z - origin.z) * invdirz;
-		} else {
-			tzmin = (box.max.z - origin.z) * invdirz;
-			tzmax = (box.min.z - origin.z) * invdirz;
-		}
-		if (tmin > tzmax || tzmin > tmax) return null;
-		if (tzmin > tmin || tmin !== tmin) tmin = tzmin;
-		if (tzmax < tmax || tmax !== tmax) tmax = tzmax;
-		if (tmax < 0) return null;
-		return this.at(tmin >= 0 ? tmin : tmax, target);
-	}
-	intersectsBox(box) {
-		return this.intersectBox(box, _vector$1) !== null;
-	}
-	intersectTriangle(a, b, c, backfaceCulling, target) {
-		_edge1.subVectors(b, a);
-		_edge2.subVectors(c, a);
-		_normal.crossVectors(_edge1, _edge2);
-		let DdN = this.direction.dot(_normal);
-		let sign;
-		if (DdN > 0) {
-			if (backfaceCulling) return null;
-			sign = 1;
-		} else if (DdN < 0) {
-			sign = -1;
-			DdN = -DdN;
-		} else {
-			return null;
-		}
-		_diff.subVectors(this.origin, a);
-		const DdQxE2 = sign * this.direction.dot(_edge2.crossVectors(_diff, _edge2));
-		if (DdQxE2 < 0) {
-			return null;
-		}
-		const DdE1xQ = sign * this.direction.dot(_edge1.cross(_diff));
-		if (DdE1xQ < 0) {
-			return null;
-		}
-		if (DdQxE2 + DdE1xQ > DdN) {
-			return null;
-		}
-		const QdN = -sign * _diff.dot(_normal);
-		if (QdN < 0) {
-			return null;
-		}
-		return this.at(QdN / DdN, target);
-	}
-	applyMatrix4(matrix4) {
-		this.origin.applyMatrix4(matrix4);
-		this.direction.transformDirection(matrix4);
-		return this;
-	}
-	equals(ray) {
-		return ray.origin.equals(this.origin) && ray.direction.equals(this.direction);
-	}
-	clone() {
-		return new this.constructor().copy(this);
-	}
-}
-
-const _v0 = /*@__PURE__*/new Vector3();
-const _v1 = /*@__PURE__*/new Vector3();
-const _v2 = /*@__PURE__*/new Vector3();
-const _v3 = /*@__PURE__*/new Vector3();
-
-
-
-
-
-
-
-
-class Triangle {
-	constructor(a = new Vector3(), b = new Vector3(), c = new Vector3()) {
-		this.a = a;
-		this.b = b;
-		this.c = c;
-	}
-	static getNormal(a, b, c, target) {
-		target.subVectors(c, b);
-		_v0.subVectors(a, b);
-		target.cross(_v0);
-		const targetLengthSq = target.lengthSq();
-		if (targetLengthSq > 0) {
-			return target.multiplyScalar(1 / Math.sqrt(targetLengthSq));
-		}
-		return target.set(0, 0, 0);
-	}
-	static getBarycoord(point, a, b, c, target) {
-		_v0.subVectors(c, a);
-		_v1.subVectors(b, a);
-		_v2.subVectors(point, a);
-		const dot00 = _v0.dot(_v0);
-		const dot01 = _v0.dot(_v1);
-		const dot02 = _v0.dot(_v2);
-		const dot11 = _v1.dot(_v1);
-		const dot12 = _v1.dot(_v2);
-		const denom = dot00 * dot11 - dot01 * dot01;
-		if (denom === 0) {
-			return target.set(-2, -1, -1);
-		}
-		const invDenom = 1 / denom;
-		const u = (dot11 * dot02 - dot01 * dot12) * invDenom;
-		const v = (dot00 * dot12 - dot01 * dot02) * invDenom;
-		return target.set(1 - u - v, v, u);
-	}
-	static getUV(point, p1, p2, p3, uv1, uv2, uv3, target) {
-		this.getBarycoord(point, p1, p2, p3, _v3);
-		target.set(0, 0);
-		target.addScaledVector(uv1, _v3.x);
-		target.addScaledVector(uv2, _v3.y);
-		target.addScaledVector(uv3, _v3.z);
-		return target;
-	}
-}
-
 class MeshPhongMaterial extends Material {
 	constructor(parameters) {
 		super();
@@ -7761,21 +7562,6 @@ class MeshPhongMaterial extends Material {
 	}
 }
 
-const _inverseMatrix = /*@__PURE__*/new Matrix4();
-const _ray = /*@__PURE__*/new Ray();
-const _sphere = /*@__PURE__*/new Sphere();
-const _vA = /*@__PURE__*/new Vector3();
-const _vB = /*@__PURE__*/new Vector3();
-const _vC = /*@__PURE__*/new Vector3();
-
-
-
-
-const _uvA = /*@__PURE__*/new Vector2();
-const _uvB = /*@__PURE__*/new Vector2();
-const _uvC = /*@__PURE__*/new Vector2();
-const _intersectionPoint = /*@__PURE__*/new Vector3();
-const _intersectionPointWorld = /*@__PURE__*/new Vector3();
 class Mesh extends Object3D {
 	constructor(geometry = new BufferGeometry(), material = new MeshPhongMaterial()) {
 		super();
@@ -7790,116 +7576,6 @@ class Mesh extends Object3D {
 		this.geometry = source.geometry;
 		return this;
 	}
-	getVertexPosition(vert, target) {
-		const geometry = this.geometry;
-		const position = geometry.attributes.position;
-		target.fromBufferAttribute(position, vert);
-		return target;
-	}
-	raycast(raycaster, intersects) {
-		const geometry = this.geometry;
-		const material = this.material;
-		const matrixWorld = this.matrixWorld;
-		if (material === undefined) return;
-		if (geometry.boundingSphere === null) geometry.computeBoundingSphere();
-		_sphere.copy(geometry.boundingSphere);
-		_sphere.applyMatrix4(matrixWorld);
-		if (raycaster.ray.intersectsSphere(_sphere) === false) return;
-		_inverseMatrix.copy(matrixWorld).invert();
-		_ray.copy(raycaster.ray).applyMatrix4(_inverseMatrix);
-		if (geometry.boundingBox !== null) {
-			if (_ray.intersectsBox(geometry.boundingBox) === false) return;
-		}
-		let intersection;
-		const index = geometry.index;
-		geometry.attributes.position;
-		const uv = geometry.attributes.uv;
-		const uv2 = geometry.attributes.uv2;
-		const groups = geometry.groups;
-		const drawRange = geometry.drawRange;
-		if (index !== null) {
-			if (Array.isArray(material)) {
-				for (let i = 0, il = groups.length; i < il; i++) {
-					const group = groups[i];
-					const groupMaterial = material[group.materialIndex];
-					const start = Math.max(group.start, drawRange.start);
-					const end = Math.min(index.count, Math.min(group.start + group.count, drawRange.start + drawRange.count));
-					for (let j = start, jl = end; j < jl; j += 3) {
-						const a = index.getX(j);
-						const b = index.getX(j + 1);
-						const c = index.getX(j + 2);
-						intersection = checkBufferGeometryIntersection(this, groupMaterial, raycaster, _ray, uv, uv2, a, b, c);
-						if (intersection) {
-							intersection.faceIndex = Math.floor(j / 3);
-							intersection.face.materialIndex = group.materialIndex;
-							intersects.push(intersection);
-						}
-					}
-				}
-			} else {
-				const start = Math.max(0, drawRange.start);
-				const end = Math.min(index.count, drawRange.start + drawRange.count);
-				for (let i = start, il = end; i < il; i += 3) {
-					const a = index.getX(i);
-					const b = index.getX(i + 1);
-					const c = index.getX(i + 2);
-					intersection = checkBufferGeometryIntersection(this, material, raycaster, _ray, uv, uv2, a, b, c);
-					if (intersection) {
-						intersection.faceIndex = Math.floor(i / 3);
-						intersects.push(intersection);
-					}
-				}
-			}
-		}
-	}
-}
-function checkIntersection(object, material, raycaster, ray, pA, pB, pC, point) {
-	let intersect;
-	if (material.side === BackSide) {
-		intersect = ray.intersectTriangle(pC, pB, pA, true, point);
-	} else {
-		intersect = ray.intersectTriangle(pA, pB, pC, material.side === FrontSide, point);
-	}
-	if (intersect === null) return null;
-	_intersectionPointWorld.copy(point);
-	_intersectionPointWorld.applyMatrix4(object.matrixWorld);
-	const distance = raycaster.ray.origin.distanceTo(_intersectionPointWorld);
-	if (distance < raycaster.near || distance > raycaster.far) return null;
-	return {
-		distance: distance,
-		point: _intersectionPointWorld.clone(),
-		object: object
-	};
-}
-function checkBufferGeometryIntersection(object, material, raycaster, ray, uv, uv2, a, b, c) {
-	object.getVertexPosition(a, _vA);
-	object.getVertexPosition(b, _vB);
-	object.getVertexPosition(c, _vC);
-	const intersection = checkIntersection(object, material, raycaster, ray, _vA, _vB, _vC, _intersectionPoint);
-	if (intersection) {
-		if (uv) {
-			_uvA.fromBufferAttribute(uv, a);
-			_uvB.fromBufferAttribute(uv, b);
-			_uvC.fromBufferAttribute(uv, c);
-			intersection.uv = Triangle.getUV(_intersectionPoint, _vA, _vB, _vC, _uvA, _uvB, _uvC, new Vector2());
-		}
-		if (uv2) {
-			_uvA.fromBufferAttribute(uv2, a);
-			_uvB.fromBufferAttribute(uv2, b);
-			_uvC.fromBufferAttribute(uv2, c);
-			intersection.uv2 = Triangle.getUV(_intersectionPoint, _vA, _vB, _vC, _uvA, _uvB, _uvC, new Vector2());
-		}
-		const face = {
-			a: a,
-			b: b,
-			c: c,
-			normal: new Vector3(),
-			materialIndex: 0
-		};
-		Triangle.getNormal(_vA, _vB, _vC, face.normal);
-		intersection.face = face;
-	}
-	return intersection;
 }
 
 class InstancedBufferAttribute extends BufferAttribute {
@@ -7921,11 +7597,9 @@ class InstancedBufferAttribute extends BufferAttribute {
 	}
 }
 
-const _instanceLocalMatrix = /*@__PURE__*/new Matrix4();
-const _instanceWorldMatrix = /*@__PURE__*/new Matrix4();
-const _instanceIntersects = [];
 const _identity = /*@__PURE__*/new Matrix4();
-const _mesh = /*@__PURE__*/new Mesh();
+
+
 class InstancedMesh extends Mesh {
 	constructor(geometry, material, count) {
 		super(geometry, material);
@@ -7947,26 +7621,6 @@ class InstancedMesh extends Mesh {
 	}
 	getMatrixAt(index, matrix) {
 		matrix.fromArray(this.instanceMatrix.array, index * 16);
-	}
-	raycast(raycaster, intersects) {
-		const matrixWorld = this.matrixWorld;
-		const raycastTimes = this.count;
-		_mesh.geometry = this.geometry;
-		_mesh.material = this.material;
-		if (_mesh.material === undefined) return;
-		for (let instanceId = 0; instanceId < raycastTimes; instanceId++) {
-			this.getMatrixAt(instanceId, _instanceLocalMatrix);
-			_instanceWorldMatrix.multiplyMatrices(matrixWorld, _instanceLocalMatrix);
-			_mesh.matrixWorld = _instanceWorldMatrix;
-			_mesh.raycast(raycaster, _instanceIntersects);
-			for (let i = 0, l = _instanceIntersects.length; i < l; i++) {
-				const intersect = _instanceIntersects[i];
-				intersect.instanceId = instanceId;
-				intersect.object = this;
-				intersects.push(intersect);
-			}
-			_instanceIntersects.length = 0;
-		}
 	}
 	setMatrixAt(index, matrix) {
 		matrix.toArray(this.instanceMatrix.array, index * 16);
@@ -8589,53 +8243,6 @@ class PerspectiveCamera extends Camera {
 	}
 }
 
-class Raycaster {
-	constructor(origin, direction, near = 0, far = Infinity) {
-		this.ray = new Ray(origin, direction);
-		this.near = near;
-		this.far = far;
-		this.camera = null;
-		this.layers = new Layers();
-	}
-	set(origin, direction) {
-		this.ray.set(origin, direction);
-	}
-	setFromCamera(coords, camera) {
-		if (camera.isPerspectiveCamera) {
-			this.ray.origin.setFromMatrixPosition(camera.matrixWorld);
-			this.ray.direction.set(coords.x, coords.y, 0.5).unproject(camera).sub(this.ray.origin).normalize();
-			this.camera = camera;
-		} else if (camera.isOrthographicCamera) {
-			this.ray.origin.set(coords.x, coords.y, (camera.near + camera.far) / (camera.near - camera.far)).unproject(camera);
-			this.ray.direction.set(0, 0, -1).transformDirection(camera.matrixWorld);
-			this.camera = camera;
-		} else {
-			console.error('THREE.Raycaster: Unsupported camera type: ' + camera.type);
-		}
-	}
-	intersectObjects(objects, recursive = true, intersects = []) {
-		for (let i = 0, l = objects.length; i < l; i++) {
-			intersectObject(objects[i], this, intersects, recursive);
-		}
-		intersects.sort(ascSort);
-		return intersects;
-	}
-}
-function ascSort(a, b) {
-	return a.distance - b.distance;
-}
-function intersectObject(object, raycaster, intersects, recursive) {
-	if (object.layers.test(raycaster.layers)) {
-		object.raycast(raycaster, intersects);
-	}
-	if (recursive === true) {
-		const children = object.children;
-		for (let i = 0, l = children.length; i < l; i++) {
-			intersectObject(children[i], raycaster, intersects, true);
-		}
-	}
-}
-
 class Line extends Object3D {
 	constructor(geometry = new BufferGeometry(), material = new MeshPhongMaterial()) {
 		super();
@@ -8938,4 +8545,4 @@ if (typeof window !== 'undefined') {
 	}
 }
 
-export { AddEquation, AdditiveBlending, AlwaysDepth, AlwaysStencilFunc, AmbientLight, BackSide, BasicDepthPacking, Box3, BoxGeometry, BoxHelper, BufferAttribute, BufferGeometry, ByteType, CameraHelper, CanvasTexture, ClampToEdgeWrapping, Color, CubicBezierCurve3, CullFaceBack, CullFaceFront, CullFaceNone, CustomBlending, DirectionalLight, DoubleSide, DstAlphaFactor, DstColorFactor, EqualDepth, Float32BufferAttribute, FloatType, FrontSide, GLSL3, GreaterDepth, GreaterEqualDepth, Group, HalfFloatType, InstancedMesh, IntType, KeepStencilOp, LessDepth, LessEqualDepth, LinearEncoding, LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearSRGBColorSpace, Material, MathUtils, Matrix4, MaxEquation, Mesh, MeshDepthMaterial, MeshPhongMaterial, MinEquation, MirroredRepeatWrapping, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NoBlending, NoToneMapping, NormalBlending, NotEqualDepth, Object3D, ObjectSpaceNormalMap, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PCFShadowMap, PCFSoftShadowMap, PerspectiveCamera, Plane, PlaneGeometry, REVISION, RGBADepthPacking, RGBAFormat, Raycaster, RepeatWrapping, ReverseSubtractEquation, SRGBColorSpace, Scene, ShaderLib, ShaderMaterial, ShadowMaterial, ShortType, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticDrawUsage, SubtractEquation, SubtractiveBlending, TangentSpaceNormalMap, Texture, TextureLoader, TorusGeometry, TwoPassDoubleSide, UVMapping, Uint16BufferAttribute, Uint32BufferAttribute, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShortType, VSMShadowMap, Vector2, Vector3, Vector4, WebGLRenderer, ZeroFactor, _SRGBAFormat, sRGBEncoding };
+export { AddEquation, AdditiveBlending, AlwaysDepth, AlwaysStencilFunc, AmbientLight, BackSide, BasicDepthPacking, Box3, BoxGeometry, BoxHelper, BufferAttribute, BufferGeometry, ByteType, CameraHelper, CanvasTexture, ClampToEdgeWrapping, Color, CubicBezierCurve3, CullFaceBack, CullFaceFront, CullFaceNone, CustomBlending, DirectionalLight, DoubleSide, DstAlphaFactor, DstColorFactor, EqualDepth, Float32BufferAttribute, FloatType, FrontSide, GLSL3, GreaterDepth, GreaterEqualDepth, Group, HalfFloatType, InstancedMesh, IntType, KeepStencilOp, LessDepth, LessEqualDepth, LinearEncoding, LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearSRGBColorSpace, Material, MathUtils, Matrix4, MaxEquation, Mesh, MeshDepthMaterial, MeshPhongMaterial, MinEquation, MirroredRepeatWrapping, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NoBlending, NoToneMapping, NormalBlending, NotEqualDepth, Object3D, ObjectSpaceNormalMap, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PCFShadowMap, PCFSoftShadowMap, PerspectiveCamera, Plane, PlaneGeometry, REVISION, RGBADepthPacking, RGBAFormat, RepeatWrapping, ReverseSubtractEquation, SRGBColorSpace, Scene, ShaderLib, ShaderMaterial, ShadowMaterial, ShortType, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticDrawUsage, SubtractEquation, SubtractiveBlending, TangentSpaceNormalMap, Texture, TextureLoader, TorusGeometry, TwoPassDoubleSide, UVMapping, Uint16BufferAttribute, Uint32BufferAttribute, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShortType, VSMShadowMap, Vector2, Vector3, Vector4, WebGLRenderer, ZeroFactor, _SRGBAFormat, sRGBEncoding };
