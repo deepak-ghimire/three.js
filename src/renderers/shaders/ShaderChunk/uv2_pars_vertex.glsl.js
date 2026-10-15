@@ -1,4 +1,5 @@
 export default /* glsl */`
+/*
 #if defined( USE_LIGHTMAP ) || defined( USE_AOMAP )
 
 	attribute vec2 uv2;
@@ -7,4 +8,5 @@ export default /* glsl */`
 	uniform mat3 uv2Transform;
 
 #endif
+*/
 `;

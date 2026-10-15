@@ -20,35 +20,35 @@ float getShadowMask() {
 
 	#endif
 
-	#if NUM_SPOT_LIGHT_SHADOWS > 0
+	// #if NUM_SPOT_LIGHT_SHADOWS > 0
 
-	SpotLightShadow spotLight;
+	// SpotLightShadow spotLight;
 
-	#pragma unroll_loop_start
-	for ( int i = 0; i < NUM_SPOT_LIGHT_SHADOWS; i ++ ) {
+	// #pragma unroll_loop_start
+	// for ( int i = 0; i < NUM_SPOT_LIGHT_SHADOWS; i ++ ) {
 
-		spotLight = spotLightShadows[ i ];
-		shadow *= receiveShadow ? getShadow( spotShadowMap[ i ], spotLight.shadowMapSize, spotLight.shadowBias, spotLight.shadowRadius, vSpotLightCoord[ i ] ) : 1.0;
+	// 	spotLight = spotLightShadows[ i ];
+	// 	shadow *= receiveShadow ? getShadow( spotShadowMap[ i ], spotLight.shadowMapSize, spotLight.shadowBias, spotLight.shadowRadius, vSpotLightCoord[ i ] ) : 1.0;
 
-	}
-	#pragma unroll_loop_end
+	// }
+	// #pragma unroll_loop_end
 
-	#endif
+	// #endif
 
-	#if NUM_POINT_LIGHT_SHADOWS > 0
+	// #if NUM_POINT_LIGHT_SHADOWS > 0
 
-	PointLightShadow pointLight;
+	// PointLightShadow pointLight;
 
-	#pragma unroll_loop_start
-	for ( int i = 0; i < NUM_POINT_LIGHT_SHADOWS; i ++ ) {
+	// #pragma unroll_loop_start
+	// for ( int i = 0; i < NUM_POINT_LIGHT_SHADOWS; i ++ ) {
 
-		pointLight = pointLightShadows[ i ];
-		shadow *= receiveShadow ? getPointShadow( pointShadowMap[ i ], pointLight.shadowMapSize, pointLight.shadowBias, pointLight.shadowRadius, vPointShadowCoord[ i ], pointLight.shadowCameraNear, pointLight.shadowCameraFar ) : 1.0;
+	// 	pointLight = pointLightShadows[ i ];
+	// 	shadow *= receiveShadow ? getPointShadow( pointShadowMap[ i ], pointLight.shadowMapSize, pointLight.shadowBias, pointLight.shadowRadius, vPointShadowCoord[ i ], pointLight.shadowCameraNear, pointLight.shadowCameraFar ) : 1.0;
 
-	}
-	#pragma unroll_loop_end
+	// }
+	// #pragma unroll_loop_end
 
-	#endif
+	// #endif
 
 	/*
 	#if NUM_RECT_AREA_LIGHTS > 0

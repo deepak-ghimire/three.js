@@ -1,4 +1,5 @@
 export default /* glsl */`
+/*
 #if defined( USE_COLOR_ALPHA )
 
 	vColor = vec4( 1.0 );
@@ -20,4 +21,5 @@ export default /* glsl */`
 	vColor.xyz *= instanceColor.xyz;
 
 #endif
+*/
 `;

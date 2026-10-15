@@ -6,11 +6,11 @@ export default /* glsl */`
 
 #endif
 
-#ifdef OBJECTSPACE_NORMALMAP
+// #ifdef OBJECTSPACE_NORMALMAP
 
-	uniform mat3 normalMatrix;
+// 	uniform mat3 normalMatrix;
 
-#endif
+// #endif
 
 #if ! defined ( USE_TANGENT ) && ( defined ( TANGENTSPACE_NORMALMAP ) || defined ( USE_CLEARCOAT_NORMALMAP ) )
 

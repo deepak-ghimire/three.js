@@ -1,4 +1,5 @@
 export default /* glsl */`
+/*
 #ifdef USE_LOGDEPTHBUF
 
 	#ifdef USE_LOGDEPTHBUF_EXT
@@ -13,4 +14,5 @@ export default /* glsl */`
 	#endif
 
 #endif
+*/
 `;
