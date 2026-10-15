@@ -1411,7 +1411,7 @@ function WebGLExtensions(gl) {
 	};
 }
 
-const _vector$3 = /*@__PURE__*/new Vector3();
+const _vector$2 = /*@__PURE__*/new Vector3();
 
 
 class BufferAttribute {
@@ -1441,17 +1441,17 @@ class BufferAttribute {
 	}
 	applyMatrix4(m) {
 		for (let i = 0, l = this.count; i < l; i++) {
-			_vector$3.fromBufferAttribute(this, i);
-			_vector$3.applyMatrix4(m);
-			this.setXYZ(i, _vector$3.x, _vector$3.y, _vector$3.z);
+			_vector$2.fromBufferAttribute(this, i);
+			_vector$2.applyMatrix4(m);
+			this.setXYZ(i, _vector$2.x, _vector$2.y, _vector$2.z);
 		}
 		return this;
 	}
 	applyNormalMatrix(m) {
 		for (let i = 0, l = this.count; i < l; i++) {
-			_vector$3.fromBufferAttribute(this, i);
-			_vector$3.applyNormalMatrix(m);
-			this.setXYZ(i, _vector$3.x, _vector$3.y, _vector$3.z);
+			_vector$2.fromBufferAttribute(this, i);
+			_vector$2.applyNormalMatrix(m);
+			this.setXYZ(i, _vector$2.x, _vector$2.y, _vector$2.z);
 		}
 		return this;
 	}
@@ -4487,16 +4487,16 @@ class Box3 {
 			if (precise && geometry.attributes != undefined && geometry.attributes.position !== undefined) {
 				const position = geometry.attributes.position;
 				for (let i = 0, l = position.count; i < l; i++) {
-					_vector$2.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
-					this.expandByPoint(_vector$2);
+					_vector$1.fromBufferAttribute(position, i).applyMatrix4(object.matrixWorld);
+					this.expandByPoint(_vector$1);
 				}
 			} else {
 				if (geometry.boundingBox === null) {
 					geometry.computeBoundingBox();
 				}
-				_box$2.copy(geometry.boundingBox);
-				_box$2.applyMatrix4(object.matrixWorld);
-				this.union(_box$2);
+				_box$1.copy(geometry.boundingBox);
+				_box$1.applyMatrix4(object.matrixWorld);
+				this.union(_box$1);
 			}
 		}
 		const children = object.children;
@@ -4525,16 +4525,16 @@ class Box3 {
 	}
 }
 const _points = [/*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3(), /*@__PURE__*/new Vector3()];
-const _vector$2 = /*@__PURE__*/new Vector3();
-const _box$2 = /*@__PURE__*/new Box3();
+const _vector$1 = /*@__PURE__*/new Vector3();
+const _box$1 = /*@__PURE__*/new Box3();
 
 let _id = 0;
 const _m1$1 = /*@__PURE__*/new Matrix4();
 
 
-const _box$1 = /*@__PURE__*/new Box3();
+const _box = /*@__PURE__*/new Box3();
 
-const _vector$1 = /*@__PURE__*/new Vector3();
+const _vector = /*@__PURE__*/new Vector3();
 class BufferGeometry extends EventDispatcher {
 	constructor() {
 		super();
@@ -4641,12 +4641,12 @@ class BufferGeometry extends EventDispatcher {
 		}
 		if (position) {
 			const center = this.boundingSphere.center;
-			_box$1.setFromBufferAttribute(position);
-			_box$1.getCenter(center);
+			_box.setFromBufferAttribute(position);
+			_box.getCenter(center);
 			let maxRadiusSq = 0;
 			for (let i = 0, il = position.count; i < il; i++) {
-				_vector$1.fromBufferAttribute(position, i);
-				maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector$1));
+				_vector.fromBufferAttribute(position, i);
+				maxRadiusSq = Math.max(maxRadiusSq, center.distanceToSquared(_vector));
 			}
 			this.boundingSphere.radius = Math.sqrt(maxRadiusSq);
 			if (isNaN(this.boundingSphere.radius)) {
@@ -4716,9 +4716,9 @@ class BufferGeometry extends EventDispatcher {
 	normalizeNormals() {
 		const normals = this.attributes.normal;
 		for (let i = 0, il = normals.count; i < il; i++) {
-			_vector$1.fromBufferAttribute(normals, i);
-			_vector$1.normalize();
-			normals.setXYZ(i, _vector$1.x, _vector$1.y, _vector$1.z);
+			_vector.fromBufferAttribute(normals, i);
+			_vector.normalize();
+			normals.setXYZ(i, _vector.x, _vector.y, _vector.z);
 		}
 	}
 	dispose() {
@@ -8243,300 +8243,6 @@ class PerspectiveCamera extends Camera {
 	}
 }
 
-class Line extends Object3D {
-	constructor(geometry = new BufferGeometry(), material = new MeshPhongMaterial()) {
-		super();
-		this.isLine = true;
-		this.type = 'Line';
-		this.geometry = geometry;
-		this.material = material;
-	}
-}
-
-class LineSegments extends Line {
-	constructor(geometry, material) {
-		super(geometry, material);
-		this.isLineSegments = true;
-		this.type = 'LineSegments';
-	}
-}
-
-const _vector = /*@__PURE__*/new Vector3();
-const _camera = /*@__PURE__*/new Camera();
-class CameraHelper extends LineSegments {
-	constructor(camera) {
-		const geometry = new BufferGeometry();
-		const material = new MeshPhongMaterial({
-			color: 0xffffff,
-			vertexColors: true,
-			toneMapped: false
-		});
-		const vertices = [];
-		const colors = [];
-		const pointMap = {};
-		addLine('n1', 'n2');
-		addLine('n2', 'n4');
-		addLine('n4', 'n3');
-		addLine('n3', 'n1');
-		addLine('f1', 'f2');
-		addLine('f2', 'f4');
-		addLine('f4', 'f3');
-		addLine('f3', 'f1');
-		addLine('n1', 'f1');
-		addLine('n2', 'f2');
-		addLine('n3', 'f3');
-		addLine('n4', 'f4');
-		addLine('p', 'n1');
-		addLine('p', 'n2');
-		addLine('p', 'n3');
-		addLine('p', 'n4');
-		addLine('u1', 'u2');
-		addLine('u2', 'u3');
-		addLine('u3', 'u1');
-		addLine('c', 't');
-		addLine('p', 'c');
-		addLine('cn1', 'cn2');
-		addLine('cn3', 'cn4');
-		addLine('cf1', 'cf2');
-		addLine('cf3', 'cf4');
-		function addLine(a, b) {
-			addPoint(a);
-			addPoint(b);
-		}
-		function addPoint(id) {
-			vertices.push(0, 0, 0);
-			colors.push(0, 0, 0);
-			if (pointMap[id] === undefined) {
-				pointMap[id] = [];
-			}
-			pointMap[id].push(vertices.length / 3 - 1);
-		}
-		geometry.setAttribute('position', new Float32BufferAttribute(vertices, 3));
-		geometry.setAttribute('color', new Float32BufferAttribute(colors, 3));
-		super(geometry, material);
-		this.type = 'CameraHelper';
-		this.camera = camera;
-		if (this.camera.updateProjectionMatrix) this.camera.updateProjectionMatrix();
-		this.matrix = camera.matrixWorld;
-		this.matrixAutoUpdate = false;
-		this.pointMap = pointMap;
-		this.update();
-		const colorFrustum = new Color(0xffaa00);
-		const colorCone = new Color(0xff0000);
-		const colorUp = new Color(0x00aaff);
-		const colorTarget = new Color(0xffffff);
-		const colorCross = new Color(0x333333);
-		this.setColors(colorFrustum, colorCone, colorUp, colorTarget, colorCross);
-	}
-	setColors(frustum, cone, up, target, cross) {
-		const geometry = this.geometry;
-		const colorAttribute = geometry.getAttribute('color');
-		colorAttribute.setXYZ(0, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(1, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(2, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(3, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(4, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(5, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(6, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(7, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(8, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(9, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(10, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(11, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(12, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(13, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(14, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(15, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(16, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(17, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(18, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(19, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(20, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(21, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(22, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(23, frustum.r, frustum.g, frustum.b);
-		colorAttribute.setXYZ(24, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(25, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(26, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(27, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(28, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(29, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(30, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(31, cone.r, cone.g, cone.b);
-		colorAttribute.setXYZ(32, up.r, up.g, up.b);
-		colorAttribute.setXYZ(33, up.r, up.g, up.b);
-		colorAttribute.setXYZ(34, up.r, up.g, up.b);
-		colorAttribute.setXYZ(35, up.r, up.g, up.b);
-		colorAttribute.setXYZ(36, up.r, up.g, up.b);
-		colorAttribute.setXYZ(37, up.r, up.g, up.b);
-		colorAttribute.setXYZ(38, target.r, target.g, target.b);
-		colorAttribute.setXYZ(39, target.r, target.g, target.b);
-		colorAttribute.setXYZ(40, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(41, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(42, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(43, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(44, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(45, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(46, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(47, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(48, cross.r, cross.g, cross.b);
-		colorAttribute.setXYZ(49, cross.r, cross.g, cross.b);
-		colorAttribute.needsUpdate = true;
-	}
-	update() {
-		const geometry = this.geometry;
-		const pointMap = this.pointMap;
-		const w = 1,
-			h = 1;
-		_camera.projectionMatrixInverse.copy(this.camera.projectionMatrixInverse);
-		setPoint('c', pointMap, geometry, _camera, 0, 0, -1);
-		setPoint('t', pointMap, geometry, _camera, 0, 0, 1);
-		setPoint('n1', pointMap, geometry, _camera, -w, -h, -1);
-		setPoint('n2', pointMap, geometry, _camera, w, -h, -1);
-		setPoint('n3', pointMap, geometry, _camera, -w, h, -1);
-		setPoint('n4', pointMap, geometry, _camera, w, h, -1);
-		setPoint('f1', pointMap, geometry, _camera, -w, -h, 1);
-		setPoint('f2', pointMap, geometry, _camera, w, -h, 1);
-		setPoint('f3', pointMap, geometry, _camera, -w, h, 1);
-		setPoint('f4', pointMap, geometry, _camera, w, h, 1);
-		setPoint('u1', pointMap, geometry, _camera, w * 0.7, h * 1.1, -1);
-		setPoint('u2', pointMap, geometry, _camera, -w * 0.7, h * 1.1, -1);
-		setPoint('u3', pointMap, geometry, _camera, 0, h * 2, -1);
-		setPoint('cf1', pointMap, geometry, _camera, -w, 0, 1);
-		setPoint('cf2', pointMap, geometry, _camera, w, 0, 1);
-		setPoint('cf3', pointMap, geometry, _camera, 0, -h, 1);
-		setPoint('cf4', pointMap, geometry, _camera, 0, h, 1);
-		setPoint('cn1', pointMap, geometry, _camera, -w, 0, -1);
-		setPoint('cn2', pointMap, geometry, _camera, w, 0, -1);
-		setPoint('cn3', pointMap, geometry, _camera, 0, -h, -1);
-		setPoint('cn4', pointMap, geometry, _camera, 0, h, -1);
-		geometry.getAttribute('position').needsUpdate = true;
-	}
-	dispose() {
-		this.geometry.dispose();
-		this.material.dispose();
-	}
-}
-function setPoint(point, pointMap, geometry, camera, x, y, z) {
-	_vector.set(x, y, z).unproject(camera);
-	const points = pointMap[point];
-	if (points !== undefined) {
-		const position = geometry.getAttribute('position');
-		for (let i = 0, l = points.length; i < l; i++) {
-			position.setXYZ(points[i], _vector.x, _vector.y, _vector.z);
-		}
-	}
-}
-
-const _box = /*@__PURE__*/new Box3();
-class BoxHelper extends LineSegments {
-	constructor(object, color = 0xffff00) {
-		const indices = new Uint16Array([0, 1, 1, 2, 2, 3, 3, 0, 4, 5, 5, 6, 6, 7, 7, 4, 0, 4, 1, 5, 2, 6, 3, 7]);
-		const positions = new Float32Array(8 * 3);
-		const geometry = new BufferGeometry();
-		geometry.setIndex(new BufferAttribute(indices, 1));
-		geometry.setAttribute('position', new BufferAttribute(positions, 3));
-		super(geometry, new MeshPhongMaterial({
-			color: color,
-			toneMapped: false
-		}));
-		this.object = object;
-		this.type = 'BoxHelper';
-		this.matrixAutoUpdate = false;
-		this.update();
-	}
-	update() {
-		if (this.object !== undefined) {
-			_box.setFromObject(this.object);
-		}
-		if (_box.isEmpty()) return;
-		const min = _box.min;
-		const max = _box.max;
-		const position = this.geometry.attributes.position;
-		const array = position.array;
-		array[0] = max.x;
-		array[1] = max.y;
-		array[2] = max.z;
-		array[3] = min.x;
-		array[4] = max.y;
-		array[5] = max.z;
-		array[6] = min.x;
-		array[7] = min.y;
-		array[8] = max.z;
-		array[9] = max.x;
-		array[10] = min.y;
-		array[11] = max.z;
-		array[12] = max.x;
-		array[13] = max.y;
-		array[14] = min.z;
-		array[15] = min.x;
-		array[16] = max.y;
-		array[17] = min.z;
-		array[18] = min.x;
-		array[19] = min.y;
-		array[20] = min.z;
-		array[21] = max.x;
-		array[22] = min.y;
-		array[23] = min.z;
-		position.needsUpdate = true;
-		this.geometry.computeBoundingSphere();
-	}
-	dispose() {
-		this.geometry.dispose();
-		this.material.dispose();
-	}
-}
-
-class Curve {
-	constructor() {}
-	getPoint() {}
-	getPoints(divisions = 5) {
-		const points = [];
-		for (let d = 0; d <= divisions; d++) {
-			points.push(this.getPoint(d / divisions));
-		}
-		return points;
-	}
-}
-
-function CubicBezierP0(t, p) {
-	const k = 1 - t;
-	return k * k * k * p;
-}
-function CubicBezierP1(t, p) {
-	const k = 1 - t;
-	return 3 * k * k * t * p;
-}
-function CubicBezierP2(t, p) {
-	return 3 * (1 - t) * t * t * p;
-}
-function CubicBezierP3(t, p) {
-	return t * t * t * p;
-}
-function CubicBezier(t, p0, p1, p2, p3) {
-	return CubicBezierP0(t, p0) + CubicBezierP1(t, p1) + CubicBezierP2(t, p2) + CubicBezierP3(t, p3);
-}
-
-class CubicBezierCurve3 extends Curve {
-	constructor(v0 = new Vector3(), v1 = new Vector3(), v2 = new Vector3(), v3 = new Vector3()) {
-		super();
-		this.type = 'CubicBezierCurve3';
-		this.v0 = v0;
-		this.v1 = v1;
-		this.v2 = v2;
-		this.v3 = v3;
-	}
-	getPoint(t, optionalTarget = new Vector3()) {
-		const point = optionalTarget;
-		const v0 = this.v0,
-			v1 = this.v1,
-			v2 = this.v2,
-			v3 = this.v3;
-		point.set(CubicBezier(t, v0.x, v1.x, v2.x, v3.x), CubicBezier(t, v0.y, v1.y, v2.y, v3.y), CubicBezier(t, v0.z, v1.z, v2.z, v3.z));
-		return point;
-	}
-}
-
 if (typeof window !== 'undefined') {
 	if (window.__THREE__) {
 		console.warn('WARNING: Multiple instances of Three.js being imported.');
@@ -8545,4 +8251,4 @@ if (typeof window !== 'undefined') {
 	}
 }
 
-export { AddEquation, AdditiveBlending, AlwaysDepth, AlwaysStencilFunc, AmbientLight, BackSide, BasicDepthPacking, Box3, BoxGeometry, BoxHelper, BufferAttribute, BufferGeometry, ByteType, CameraHelper, CanvasTexture, ClampToEdgeWrapping, Color, CubicBezierCurve3, CullFaceBack, CullFaceFront, CullFaceNone, CustomBlending, DirectionalLight, DoubleSide, DstAlphaFactor, DstColorFactor, EqualDepth, Float32BufferAttribute, FloatType, FrontSide, GLSL3, GreaterDepth, GreaterEqualDepth, Group, HalfFloatType, InstancedMesh, IntType, KeepStencilOp, LessDepth, LessEqualDepth, LinearEncoding, LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearSRGBColorSpace, Material, MathUtils, Matrix4, MaxEquation, Mesh, MeshDepthMaterial, MeshPhongMaterial, MinEquation, MirroredRepeatWrapping, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NoBlending, NoToneMapping, NormalBlending, NotEqualDepth, Object3D, ObjectSpaceNormalMap, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PCFShadowMap, PCFSoftShadowMap, PerspectiveCamera, Plane, PlaneGeometry, REVISION, RGBADepthPacking, RGBAFormat, RepeatWrapping, ReverseSubtractEquation, SRGBColorSpace, Scene, ShaderLib, ShaderMaterial, ShadowMaterial, ShortType, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticDrawUsage, SubtractEquation, SubtractiveBlending, TangentSpaceNormalMap, Texture, TextureLoader, TorusGeometry, TwoPassDoubleSide, UVMapping, Uint16BufferAttribute, Uint32BufferAttribute, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShortType, VSMShadowMap, Vector2, Vector3, Vector4, WebGLRenderer, ZeroFactor, _SRGBAFormat, sRGBEncoding };
+export { AddEquation, AdditiveBlending, AlwaysDepth, AlwaysStencilFunc, AmbientLight, BackSide, BasicDepthPacking, Box3, BoxGeometry, BufferAttribute, BufferGeometry, ByteType, CanvasTexture, ClampToEdgeWrapping, Color, CullFaceBack, CullFaceFront, CullFaceNone, CustomBlending, DirectionalLight, DoubleSide, DstAlphaFactor, DstColorFactor, EqualDepth, Float32BufferAttribute, FloatType, FrontSide, GLSL3, GreaterDepth, GreaterEqualDepth, Group, HalfFloatType, InstancedMesh, IntType, KeepStencilOp, LessDepth, LessEqualDepth, LinearEncoding, LinearFilter, LinearMipmapLinearFilter, LinearMipmapNearestFilter, LinearSRGBColorSpace, Material, MathUtils, Matrix4, MaxEquation, Mesh, MeshDepthMaterial, MeshPhongMaterial, MinEquation, MirroredRepeatWrapping, MultiplyBlending, MultiplyOperation, NearestFilter, NearestMipmapLinearFilter, NearestMipmapNearestFilter, NeverDepth, NoBlending, NoToneMapping, NormalBlending, NotEqualDepth, Object3D, ObjectSpaceNormalMap, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor, OneMinusSrcColorFactor, PCFShadowMap, PCFSoftShadowMap, PerspectiveCamera, Plane, PlaneGeometry, REVISION, RGBADepthPacking, RGBAFormat, RepeatWrapping, ReverseSubtractEquation, SRGBColorSpace, Scene, ShaderLib, ShaderMaterial, ShadowMaterial, ShortType, SrcAlphaFactor, SrcAlphaSaturateFactor, SrcColorFactor, StaticDrawUsage, SubtractEquation, SubtractiveBlending, TangentSpaceNormalMap, Texture, TextureLoader, TorusGeometry, TwoPassDoubleSide, UVMapping, Uint16BufferAttribute, Uint32BufferAttribute, UniformsLib, UniformsUtils, UnsignedByteType, UnsignedIntType, UnsignedShort4444Type, UnsignedShort5551Type, UnsignedShortType, VSMShadowMap, Vector2, Vector3, Vector4, WebGLRenderer, ZeroFactor, _SRGBAFormat, sRGBEncoding };
