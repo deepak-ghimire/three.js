@@ -2,6 +2,8 @@ import babel from '@rollup/plugin-babel';
 import {terser} from 'rollup-plugin-terser';
 import babelrc from './.babelrc.json';
 import {execSync} from 'child_process';
+import {copyFileSync, mkdirSync} from 'fs';
+import {dirname} from 'path';
 
 export function glconstants() {
 
@@ -296,6 +298,16 @@ function npmRunner(code) {
 	}
 }
 
+// DearFlip v3: copy the written build into dearflip-main (a copy, not a second build)
+function publish(target) {
+	return {
+		writeBundle(options) {
+			mkdirSync(dirname(target), {recursive: true});
+			copyFileSync(options.file, target);
+		}
+	}
+}
+
 const builds = [
 	// {
 	// 	input: 'src/Three.js',
@@ -383,6 +395,7 @@ const builds = [
 			}),
 			babelCleanup(),
 			header(),
+			publish('../../src/three.js/three.js'),
 			// npmRunner()
 		],
 		output: [
